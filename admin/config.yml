@@ -7,11 +7,75 @@ media_folder: "images"
 public_folder: "images"
 
 collections:
-  - name: "site_content"
-    label: "Уредување на Сајтот"
+  - name: "pages"
+    label: "📄 Страници (Pages)"
+    files:
+      - name: "home"
+        label: "🏠 Почетна (Home)"
+        file: "content/home.json"
+        fields:
+          - { label: "Главен наслов", name: "hero_title", widget: "string" }
+          - { label: "Поднаслов / Воведен текст", name: "hero_desc", widget: "text" }
+          - { label: "FCI Стандард - Наслов", name: "box_title", widget: "string" }
+          - { label: "FCI Стандард - Опис", name: "box_desc", widget: "text" }
+          - { label: "Вредност 1 - Наслов", name: "val1_title", widget: "string" }
+          - { label: "Вредност 1 - Текст", name: "val1_desc", widget: "text" }
+          - { label: "Вредност 2 - Наслов", name: "val2_title", widget: "string" }
+          - { label: "Вредност 2 - Текст", name: "val2_desc", widget: "text" }
+          - { label: "Вредност 3 - Наслов", name: "val3_title", widget: "string" }
+          - { label: "Вредност 3 - Текст", name: "val3_desc", widget: "text" }
+
+      - name: "about"
+        label: "📖 За нас (About Us)"
+        file: "content/about.json"
+        fields:
+          - { label: "Пасус 1 (Катерина)", name: "p1", widget: "text" }
+          - { label: "Пасус 2 (Hannah 2016)", name: "p2", widget: "text" }
+          - { label: "Пасус 3 (Hannah 10 години)", name: "p3", widget: "text" }
+          - { label: "Пасус 4 (Galla & Darla)", name: "p4", widget: "text" }
+          - { label: "Пасус 5 (Oslo)", name: "p5", widget: "text" }
+          - { label: "Цитат (Quote)", name: "quote", widget: "text" }
+
+  - name: "dogs_section"
+    label: "🐾 Нашите кучиња (Our Dogs)"
+    files:
+      - name: "dogs_list"
+        label: "Листа на кучиња"
+        file: "content/dogs.json"
+        fields:
+          - label: "Кучиња"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.gender}})"
+            fields:
+              - { label: "Име", name: "name", widget: "string" }
+              - { label: "Педигре / Родословие", name: "lineage", widget: "string" }
+              - { label: "Пол", name: "gender", widget: "select", options: ["Мажјак", "Женка"] }
+              - { label: "Возраст / Титули / Улога", name: "role", widget: "string" }
+              - { label: "Биографија / Опис", name: "narrative", widget: "text" }
+              - { label: "Слика", name: "image", widget: "image", required: false }
+
+  - name: "litters_section"
+    label: "🍼 Легла и Резервации (Litters)"
+    files:
+      - name: "litters_list"
+        label: "Листа на легла"
+        file: "content/litters.json"
+        fields:
+          - label: "Легла"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.pair}}"
+            fields:
+              - { label: "Парови / Наслов", name: "pair", widget: "string" }
+              - { label: "Статус", name: "status", widget: "select", options: ["Отворени Резервации", "Планирано легло", "Сите се резервирани"] }
+              - { label: "Опис и детали", name: "text", widget: "text" }
+
+  - name: "gallery_section"
+    label: "📸 Кенел Галерија (Kennel Gallery)"
     files:
       - name: "gallery"
-        label: "📸 Кенел Галерија (Kennel Gallery)"
+        label: "Фотографии"
         file: "content/gallery.json"
         fields:
           - label: "Фотографии"
@@ -24,31 +88,20 @@ collections:
               - { label: "Опис на сликата", name: "caption", widget: "string", required: false }
               - { label: "Категорија", name: "category", widget: "select", options: ["Изложби", "Домашен живот", "Кученца", "Груминг"], default: "Изложби" }
 
-      - name: "dogs"
-        label: "🐾 Нашите кучиња (Our Dogs)"
-        file: "content/dogs.json"
+  - name: "blog_section"
+    label: "📰 Новости и Блог (Blog)"
+    files:
+      - name: "blog_posts"
+        label: "Објави и Новости"
+        file: "content/blog.json"
         fields:
-          - label: "Кучиња"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}} ({{fields.gender}})"
-            fields:
-              - { label: "Име", name: "name", widget: "string" }
-              - { label: "Педигре / Родословие", name: "lineage", widget: "string" }
-              - { label: "Пол", name: "gender", widget: "select", options: ["Мажјак", "Женка"] }
-              - { label: "Возраст / Титули", name: "role", widget: "string" }
-              - { label: "Опис", name: "description", widget: "text" }
-              - { label: "Слика", name: "image", widget: "image", required: false }
-
-      - name: "litters"
-        label: "🍼 Легла и Резервации (Litters)"
-        file: "content/litters.json"
-        fields:
-          - label: "Легла"
+          - label: "Објави"
             name: "items"
             widget: "list"
             summary: "{{fields.title}}"
             fields:
-              - { label: "Парови / Наслов", name: "title", widget: "string" }
-              - { label: "Статус", name: "status", widget: "select", options: ["Отворени Резервации", "Планирано легло", "Сите се резервирани"] }
-              - { label: "Опис и детали", name: "description", widget: "text" }
+              - { label: "Наслов на објавата", name: "title", widget: "string" }
+              - { label: "Датум", name: "date", widget: "string" }
+              - { label: "Целосен текст на објавата", name: "text", widget: "text" }
+              - { label: "Слика", name: "image", widget: "image", required: false }
+              - { label: "Линк до Facebook (опционално)", name: "fb_link", widget: "string", required: false }
