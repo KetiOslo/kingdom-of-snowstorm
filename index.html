@@ -171,7 +171,6 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
 
-    /* LANGUAGE BUTTONS */
     .lang-selector {
       display: flex;
       gap: 4px;
@@ -553,6 +552,12 @@
       border-bottom: 1px solid var(--pistachio-border);
     }
 
+    .dog-portrait-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .dog-badge-sex {
       position: absolute;
       top: 14px;
@@ -744,12 +749,13 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      background: rgba(30, 51, 28, 0.85);
+      background: rgba(30, 51, 28, 0.88);
       color: var(--white);
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
+      letter-spacing: 0.5px;
       backdrop-filter: blur(4px);
     }
 
@@ -1140,7 +1146,6 @@
       </div>
     </div>
 
-    <!-- ТУКА Е ПРОМЕНЕТО: ТРГНАТ Е ЗБОРОТ "SMALL" -->
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="val-pre">Our Commitment</span>
@@ -1187,7 +1192,7 @@
           Today, at 10 years old, Hannah still holds a very special place in my heart. She is the first page of the story I continue to write, the one who brought me into the world of Bichon Frisé and inspired everything that came after her.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" data-i18n="about-p4">
-          With time, Hannah’s story continued through her daughter <strong>Galla</strong>, and later through Galla’s daughter <strong>Darla</strong>. Through them, the story that began with one little Bichon became a part of something much bigger, carrying the same love from one generation to the next.
+          With time, Hannah’s story continued through her daughter <strong>Galla</strong>, and later through Galla’s daughter <strong>Darla</strong>. Through them, the story that began with one little Bichon became a part of something much bigger, carrying the same love from one generation to the next.",
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 24px; color: var(--text-muted);" data-i18n="about-p5">
           As Kingdom of Snowstorm continued to grow, I felt that a new chapter was ready to begin. This year, that chapter brought <strong>Oslo</strong> into our family — <em>Petit Ami’s Take on Me</em>, from the respected Petit Ami kennel in Oslo, Norway. His arrival became part of the ongoing story of my kennel and the future I continue to build with my dogs.
@@ -1335,7 +1340,7 @@
     </div>
   </section>
 
-  <!-- TAB 6: GALLERY -->
+  <!-- TAB 6: GALLERY (КЕНЕЛ ГАЛЕРИЈА) -->
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1346,10 +1351,10 @@
 
       <div class="gallery-filter-bar">
         <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="gal-all">All Photos</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Изложби', this)" data-i18n="gal-shows">Shows</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Домашен живот', this)" data-i18n="gal-home">Home Life</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Кученца', this)" data-i18n="gal-pups">Puppies</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Груминг', this)" data-i18n="gal-groom">Grooming</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('shows', this)" data-i18n="gal-shows">Shows</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('home', this)" data-i18n="gal-home">Home Life</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('puppies', this)" data-i18n="gal-pups">Puppies</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('grooming', this)" data-i18n="gal-groom">Grooming</button>
       </div>
 
       <div id="dynamicGalleryContainer" class="gallery-masonry-grid"></div>
@@ -1574,10 +1579,44 @@
     </div>
   </footer>
 
-  <!-- SCRIPT -->
+  <!-- SCRIPT СО АВТОМАТСКИ ПРЕВОД НА СИТЕ ЗНАЧКИ ВО ГАЛЕРИЈАТА -->
   <script>
     let currentLang = localStorage.getItem('snowstorm_lang') || 'en';
     let allGalleryItems = [];
+
+    // Паметна функција за превод на категории без оглед на мали/големи букви
+    function getTranslatedCategory(cat, lang) {
+      if (!cat) return lang === 'mk' ? 'Изложби' : 'Shows';
+      const c = cat.toString().trim().toLowerCase();
+
+      const map = {
+        en: {
+          'изложби': 'Shows',
+          'илложби': 'Shows',
+          'shows': 'Shows',
+          'домашен живот': 'Home Life',
+          'home life': 'Home Life',
+          'кученца': 'Puppies',
+          'puppies': 'Puppies',
+          'груминг': 'Grooming',
+          'grooming': 'Grooming'
+        },
+        mk: {
+          'изложби': 'Изложби',
+          'илложби': 'Изложби',
+          'shows': 'Изложби',
+          'домашен живот': 'Домашен живот',
+          'home life': 'Домашен живот',
+          'кученца': 'Кученца',
+          'puppies': 'Кученца',
+          'груминг': 'Груминг',
+          'grooming': 'Груминг'
+        }
+      };
+
+      const currentDict = map[lang] || map['en'];
+      return currentDict[c] || (lang === 'mk' ? cat : (map['en'][c] || cat));
+    }
 
     const langData = {
       en: {
@@ -1847,6 +1886,9 @@
           node.innerHTML = langData[lang][key];
         }
       });
+
+      // Веднаш ги преведува сите значки на сликите во галеријата
+      renderGalleryCards(allGalleryItems);
     }
 
     // ДИНАМИЧНА ГАЛЕРИЈА
@@ -1864,27 +1906,42 @@
     function renderGalleryCards(items) {
       const container = document.getElementById('dynamicGalleryContainer');
       if (!items || items.length === 0) return;
-      container.innerHTML = items.map((item, index) => `
-        <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
-          <div class="gallery-img-wrap">
-            <img src="${item.image || '2.png'}" alt="${item.title}" onerror="this.src='2.png'">
-            <span class="gallery-category-badge">${item.category || 'Изложби'}</span>
+      container.innerHTML = items.map((item, index) => {
+        // Автоматски го одредува јазикот на категоријата
+        const displayCategory = getTranslatedCategory(item.category, currentLang);
+
+        return `
+          <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
+            <div class="gallery-img-wrap">
+              <img src="${item.image || '2.png'}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
+              <span class="gallery-category-badge">${displayCategory}</span>
+            </div>
+            <div class="gallery-item-info">
+              <h4 class="gallery-item-title">${item.title || ''}</h4>
+              <p class="gallery-item-caption">${item.caption || ''}</p>
+            </div>
           </div>
-          <div class="gallery-item-info">
-            <h4 class="gallery-item-title">${item.title}</h4>
-            <p class="gallery-item-caption">${item.caption || ''}</p>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function filterGalleryPhotos(category, btnElement) {
       document.querySelectorAll('.gallery-filter-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
+
       if (category === 'all') {
         renderGalleryCards(allGalleryItems);
       } else {
-        renderGalleryCards(allGalleryItems.filter(item => item.category === category));
+        const target = category.toLowerCase();
+        const filtered = allGalleryItems.filter(item => {
+          const cat = (item.category || '').toString().toLowerCase().trim();
+          if (target === 'shows') return cat.includes('излож') || cat.includes('иллож') || cat.includes('show');
+          if (target === 'home') return cat.includes('домаш') || cat.includes('home');
+          if (target === 'puppies') return cat.includes('кучен') || cat.includes('pup');
+          if (target === 'grooming') return cat.includes('грум') || cat.includes('groom');
+          return cat === target;
+        });
+        renderGalleryCards(filtered);
       }
     }
 
