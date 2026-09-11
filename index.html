@@ -1165,7 +1165,7 @@
         <div>
           <div class="royal-tag">
             <i class="fa-solid fa-crown" style="color: var(--gold-primary);"></i>
-            <span>FCI Certified Heritage • Skopje</span>
+            <span data-i18n="hero-tag">FCI Certified Heritage • Skopje</span>
           </div>
           <h1 class="hero-title" id="dyn-hero-title">
             Where Champions Are Raised <em>with Love</em>
@@ -1198,7 +1198,7 @@
           </p>
           <div class="fci-pill-row">
             <i class="fa-solid fa-gem" style="color: var(--gold-primary); margin-right: 6px;"></i>
-            <span>Champions & C.I.B. International Bloodlines</span>
+            <span data-i18n="box-pill">Champions & C.I.B. International Bloodlines</span>
           </div>
         </div>
       </div>
@@ -1206,8 +1206,8 @@
 
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Our Commitment</span>
-        <h2 class="section-maintitle">A Kennel Filled with Love</h2>
+        <span class="section-pretitle" data-i18n="commit-pre">Our Commitment</span>
+        <h2 class="section-maintitle" data-i18n="commit-title">A Kennel Filled with Love</h2>
       </div>
 
       <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
@@ -1234,8 +1234,8 @@
   <section id="tab-about" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Our Heritage</span>
-        <h2 class="section-maintitle">The Story Behind Kingdom of Snowstorm</h2>
+        <span class="section-pretitle" data-i18n="about-pre">Our Heritage</span>
+        <h2 class="section-maintitle" data-i18n="about-title">The Story Behind Kingdom of Snowstorm</h2>
       </div>
 
       <div style="max-width: 880px; margin: 0 auto;" class="card-luxury">
@@ -1267,9 +1267,9 @@
   <section id="tab-dogs" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">The Royal Family</span>
-        <h2 class="section-maintitle">Our Beloved Bichons</h2>
-        <p style="color: var(--text-muted);">Nurtured with highest dedication: imported male from Norway and multiple generations of females.</p>
+        <span class="section-pretitle" data-i18n="dogs-pre">The Royal Family</span>
+        <h2 class="section-maintitle" data-i18n="dogs-title">Our Beloved Bichons</h2>
+        <p style="color: var(--text-muted);" data-i18n="dogs-sub">Nurtured with highest dedication: imported male from Norway and multiple generations of females.</p>
       </div>
 
       <div id="dynamicDogsContainer" class="dogs-luxury-grid"></div>
@@ -1280,8 +1280,8 @@
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Ethical Breeding</span>
-        <h2 class="section-maintitle">Planned Litters & Reservations</h2>
+        <span class="section-pretitle" data-i18n="litters-pre">Ethical Breeding</span>
+        <h2 class="section-maintitle" data-i18n="litters-title">Planned Litters & Reservations</h2>
       </div>
 
       <div id="dynamicLittersContainer" style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;"></div>
@@ -1292,8 +1292,8 @@
   <section id="tab-available" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Family Companions</span>
-        <h2 class="section-maintitle">Puppy Adoption & Inclusions</h2>
+        <span class="section-pretitle" data-i18n="avail-pre">Family Companions</span>
+        <h2 class="section-maintitle" data-i18n="avail-title">Puppy Adoption & Inclusions</h2>
       </div>
 
       <div class="card-luxury" style="max-width: 860px; margin: 0 auto;">
@@ -1307,7 +1307,7 @@
           <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>Early Neurological Stimulation and Household Socialization</span></li>
           <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>Lifetime breeder mentorship, dietary and coat care advice</span></li>
         </ul>
-        <button class="btn-lux btn-lux-primary" onclick="selectTab('contact')">Contact for Availability</button>
+        <button class="btn-lux btn-lux-primary" onclick="selectTab('contact')" data-i18n="avail-btn">Contact for Availability</button>
       </div>
     </div>
   </section>
@@ -1316,17 +1316,17 @@
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Moments & Memories</span>
-        <h2 class="section-maintitle">Kennel Gallery</h2>
-        <p style="color: var(--text-muted);">Moments from European show rings, daily family joy, and nursery milestones.</p>
+        <span class="section-pretitle" data-i18n="gal-pre">Moments & Memories</span>
+        <h2 class="section-maintitle" data-i18n="gal-title">Kennel Gallery</h2>
+        <p style="color: var(--text-muted);" data-i18n="gal-sub">Moments from European show rings, daily family joy, and nursery milestones.</p>
       </div>
 
       <div class="gallery-filter-bar">
-        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)">All Photos</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Shows', this)">Shows</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Home Life', this)">Home Life</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Puppies', this)">Puppies</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Grooming', this)">Grooming</button>
+        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="gal-all">All Photos</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Shows', this)" data-i18n="gal-shows">Shows</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Home Life', this)" data-i18n="gal-home">Home Life</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Puppies', this)" data-i18n="gal-puppies">Puppies</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Grooming', this)" data-i18n="gal-groom">Grooming</button>
       </div>
 
       <div id="dynamicGalleryContainer" class="gallery-masonry-grid"></div>
@@ -1349,9 +1349,9 @@
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Live Updates & Insights</span>
-        <h2 class="section-maintitle">Kennel News & Facebook Feed</h2>
-        <p style="color: var(--text-muted);">
+        <span class="section-pretitle" data-i18n="blog-pre">Live Updates & Insights</span>
+        <h2 class="section-maintitle" data-i18n="blog-title">Kennel News & Facebook Feed</h2>
+        <p style="color: var(--text-muted);" data-i18n="blog-sub">
           Follow our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.
         </p>
       </div>
@@ -1362,15 +1362,15 @@
             <div style="display: flex; align-items: center; gap: 12px;">
               <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 2.2rem;"></i>
               <div>
-                <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); line-height: 1.1;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); line-height: 1.1;" data-i18n="fb-head">
                   Facebook Timeline
                 </h3>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                <span style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="fb-sub">
                   Live updates directly from @kingdom.of.snow.storm.kennel
                 </span>
               </div>
             </div>
-            <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.8rem;">
+            <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.8rem;" data-i18n="fb-btn">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Facebook
             </a>
           </div>
@@ -1401,36 +1401,36 @@
   <section id="tab-contact" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle">Get In Touch</span>
-        <h2 class="section-maintitle">Contact Kingdom of Snowstorm</h2>
-        <p style="color: var(--text-muted);">We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.</p>
+        <span class="section-pretitle" data-i18n="cont-pre">Get In Touch</span>
+        <h2 class="section-maintitle" data-i18n="cont-title">Contact Kingdom of Snowstorm</h2>
+        <p style="color: var(--text-muted);" data-i18n="cont-sub">We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.</p>
       </div>
 
       <div class="contact-columns">
         <div class="card-luxury">
-          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);">
+          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="cont-box-title">
             Kennel Contacts
           </h3>
 
           <div style="margin-bottom: 20px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);">Founder & Owner</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="cont-owner-label">Founder & Owner</p>
             <p style="font-size: 1.05rem; font-weight: 600; color: var(--pistachio-dark);">Katerina Gerasimovska</p>
           </div>
 
           <div style="margin-bottom: 20px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);">Location</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="cont-loc-label">Location</p>
             <p style="font-size: 1.02rem; color: var(--text-muted);" id="dyn-contact-location">Skopje, North Macedonia</p>
           </div>
 
           <div style="margin-bottom: 26px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);">Direct Email</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="cont-email-label">Direct Email</p>
             <a id="dyn-contact-email" href="mailto:kingdomofsnowstorm@gmail.com" style="font-size: 1.02rem; font-weight: 600; color: var(--pistachio-dark) !important; word-break: break-word;">
               kingdomofsnowstorm@gmail.com
             </a>
           </div>
 
           <div style="padding-top: 20px; border-top: 1px solid var(--pistachio-border);">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; color: var(--pistachio-dark);">Instant Chat Communication:</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; color: var(--pistachio-dark);" data-i18n="cont-chat-label">Instant Chat Communication:</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
               <a id="dyn-btn-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="btn-lux" style="background: var(--whatsapp-color); color: var(--white) !important; flex: 1;">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp
@@ -1443,7 +1443,7 @@
         </div>
 
         <div class="card-luxury">
-          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);">
+          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="form-title">
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
@@ -1452,24 +1452,24 @@
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
 
             <div class="input-field-group">
-              <label for="fname">Your Full Name *</label>
+              <label for="fname" data-i18n="form-name">Your Full Name *</label>
               <input type="text" id="fname" name="name" class="form-control-lux" required placeholder="e.g. Maria Smith">
             </div>
             <div class="input-field-group">
-              <label for="femail">Email Address *</label>
+              <label for="femail" data-i18n="form-email">Email Address *</label>
               <input type="email" id="femail" name="email" class="form-control-lux" required placeholder="e.g. maria@example.com">
             </div>
             <div class="input-field-group">
-              <label for="fsubject">I am interested in:</label>
+              <label for="fsubject" data-i18n="form-interest">I am interested in:</label>
               <select id="fsubject" name="interest" class="form-control-lux">
-                <option>Puppy Reservation (Future Litter)</option>
-                <option>Show / Breeding Potential</option>
-                <option>Stud Service Inquiry (Oslo)</option>
-                <option>General Breed Consultation</option>
+                <option data-i18n="opt-1">Puppy Reservation (Future Litter)</option>
+                <option data-i18n="opt-2">Show / Breeding Potential</option>
+                <option data-i18n="opt-3">Stud Service Inquiry (Oslo)</option>
+                <option data-i18n="opt-4">General Breed Consultation</option>
               </select>
             </div>
             <div class="input-field-group">
-              <label for="fmsg">Your Message *</label>
+              <label for="fmsg" data-i18n="form-msg">Your Message *</label>
               <textarea id="fmsg" name="message" class="form-control-lux" rows="4" required placeholder="Tell us about yourself, your home and experience with dogs..."></textarea>
             </div>
             <button type="submit" id="submitBtn" class="btn-lux btn-lux-gold" style="width: 100%;">
@@ -1513,20 +1513,20 @@
       </div>
 
       <div>
-        <h4 class="footer-header-label">Navigation</h4>
+        <h4 class="footer-header-label" data-i18n="foot-nav">Navigation</h4>
         <ul class="footer-clean-nav">
-          <li><a onclick="selectTab('home')">Home</a></li>
-          <li><a onclick="selectTab('about')">About Us</a></li>
-          <li><a onclick="selectTab('dogs')">Our Dogs</a></li>
-          <li><a onclick="selectTab('litters')">Litters</a></li>
-          <li><a onclick="selectTab('available')">Available Dogs</a></li>
-          <li><a onclick="selectTab('gallery')">Gallery</a></li>
-          <li><a onclick="selectTab('contact')">Contact</a></li>
+          <li><a onclick="selectTab('home')" data-i18n="nav-home">Home</a></li>
+          <li><a onclick="selectTab('about')" data-i18n="nav-about">About Us</a></li>
+          <li><a onclick="selectTab('dogs')" data-i18n="nav-dogs">Our Dogs</a></li>
+          <li><a onclick="selectTab('litters')" data-i18n="nav-litters">Litters</a></li>
+          <li><a onclick="selectTab('available')" data-i18n="nav-available">Available Dogs</a></li>
+          <li><a onclick="selectTab('gallery')" data-i18n="nav-gallery">Gallery</a></li>
+          <li><a onclick="selectTab('contact')" data-i18n="nav-contact">Contact</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-header-label">Social & Connect</h4>
+        <h4 class="footer-header-label" data-i18n="foot-social">Social & Connect</h4>
         <div style="display: flex; gap: 10px; margin-top: 14px;">
           <a id="dyn-footer-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb">
             <i class="fa-brands fa-facebook-f"></i>
@@ -1616,7 +1616,56 @@
         "nav-available": "Available Dogs",
         "nav-gallery": "Gallery",
         "nav-blog": "Blog",
-        "nav-contact": "Contact"
+        "nav-contact": "Contact",
+        "hero-tag": "FCI Certified Heritage • Skopje",
+        "box-pill": "Champions & C.I.B. International Bloodlines",
+        "commit-pre": "Our Commitment",
+        "commit-title": "A Kennel Filled with Love",
+        "about-pre": "Our Heritage",
+        "about-title": "The Story Behind Kingdom of Snowstorm",
+        "dogs-pre": "The Royal Family",
+        "dogs-title": "Our Beloved Bichons",
+        "dogs-sub": "Nurtured with highest dedication: imported male from Norway and multiple generations of females.",
+        "litters-pre": "Ethical Breeding",
+        "litters-title": "Planned Litters & Reservations",
+        "avail-pre": "Family Companions",
+        "avail-title": "Puppy Adoption & Inclusions",
+        "avail-btn": "Contact for Availability",
+        "gal-pre": "Moments & Memories",
+        "gal-title": "Kennel Gallery",
+        "gal-sub": "Moments from European show rings, daily family joy, and nursery milestones.",
+        "gal-all": "All Photos",
+        "gal-shows": "Shows",
+        "gal-home": "Home Life",
+        "gal-puppies": "Puppies",
+        "gal-groom": "Grooming",
+        "blog-pre": "Live Updates & Insights",
+        "blog-title": "Kennel News & Facebook Feed",
+        "blog-sub": "Follow our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.",
+        "fb-head": "Facebook Timeline",
+        "fb-sub": "Live updates directly from @kingdom.of.snow.storm.kennel",
+        "fb-btn": "Open Facebook",
+        "cont-pre": "Get In Touch",
+        "cont-title": "Contact Kingdom of Snowstorm",
+        "cont-sub": "We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.",
+        "cont-box-title": "Kennel Contacts",
+        "cont-owner-label": "Founder & Owner",
+        "cont-loc-label": "Location",
+        "cont-email-label": "Direct Email",
+        "cont-chat-label": "Instant Chat Communication:",
+        "form-title": "Send an Inquiry",
+        "form-name": "Your Full Name *",
+        "form-email": "Email Address *",
+        "form-interest": "I am interested in:",
+        "opt-1": "Puppy Reservation (Future Litter)",
+        "opt-2": "Show / Breeding Potential",
+        "opt-3": "Stud Service Inquiry (Oslo)",
+        "opt-4": "General Breed Consultation",
+        "form-msg": "Your Message *",
+        "foot-nav": "Navigation",
+        "foot-social": "Social & Connect",
+        "btn-dogs": "Meet Our Dogs",
+        "btn-contact": "Contact Us"
       },
       mk: {
         "kennel-loc": "Скопје, Македонија",
@@ -1627,7 +1676,56 @@
         "nav-available": "Достапни кучиња",
         "nav-gallery": "Галерија",
         "nav-blog": "Блог",
-        "nav-contact": "Контакт"
+        "nav-contact": "Контакт",
+        "hero-tag": "ФЦИ Сертифицирано Наследство • Скопје",
+        "box-pill": "Шампиони и C.I.B. Меѓународни линии",
+        "commit-pre": "Нашата посветеност",
+        "commit-title": "Одгледувачница исполнета со љубов",
+        "about-pre": "Нашето наследство",
+        "about-title": "Приказната зад Kingdom of Snowstorm",
+        "dogs-pre": "Кралицата и семејството",
+        "dogs-title": "Нашите сакани бишони",
+        "dogs-sub": "Одгледани со најголема посветеност: увезен мажјак од Норвешка и повеќе генерации женки.",
+        "litters-pre": "Етичко одгледување",
+        "litters-title": "Планирани легла и резервации",
+        "avail-pre": "Семејни придружници",
+        "avail-title": "Адопција на кученца и што е вклучено",
+        "avail-btn": "Контактирајте за достапност",
+        "gal-pre": "Моменти и сеќавања",
+        "gal-title": "Галерија на одгледувачницата",
+        "gal-sub": "Моменти од европски изложбени рингови, секојдневна семејна радост и ранчиња.",
+        "gal-all": "Сите фотографии",
+        "gal-shows": "Изложби",
+        "gal-home": "Домашен живот",
+        "gal-puppies": "Кученца",
+        "gal-groom": "Груминг",
+        "blog-pre": "Ажурирања и согледувања во живо",
+        "blog-title": "Новости и Фејсбук објави",
+        "blog-sub": "Следете ги нашите најнови успеси на изложби, објави за кученца и секојдневни стории директно од нашата официјална Фејсбук страница.",
+        "fb-head": "Фејсбук временска линија",
+        "fb-sub": "Ажурирања во живо директно од @kingdom.of.snow.storm.kennel",
+        "fb-btn": "Отворете Фејсбук",
+        "cont-pre": "Стапете во контакт",
+        "cont-title": "Контактирајте го Kingdom of Snowstorm",
+        "cont-sub": "Со задоволство одговараме на прашања во врска со нашите кучиња, легла или расата Бишон Фризе.",
+        "cont-box-title": "Контакти на одгледувачницата",
+        "cont-owner-label": "Основач и сопственик",
+        "cont-loc-label": "Локација",
+        "cont-email-label": "Директна е-пошта",
+        "cont-chat-label": "Комуникација во живо:",
+        "form-title": "Испратете прашање",
+        "form-name": "Ваше име и презиме *",
+        "form-email": "Е-пошта адреса *",
+        "form-interest": "Заинтересиран/а сум за:",
+        "opt-1": "Резервација на кученце (Идно легло)",
+        "opt-2": "Изложбен / Одгледувачки потенцијал",
+        "opt-3": "Услуга за парење (Oslo)",
+        "opt-4": "Општи консултации за расата",
+        "form-msg": "Ваша порака *",
+        "foot-nav": "Навигација",
+        "foot-social": "Социјални мрежи",
+        "btn-dogs": "Запознајте ги кучињата",
+        "btn-contact": "Контактирајте нè"
       }
     };
 
@@ -1773,7 +1871,6 @@
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
-          // Поддршка и за старото поле 'items' и новото 'litters'
           cachedLittersList = l.litters || l.items || [];
           renderLitters(cachedLittersList);
         }
@@ -1816,7 +1913,6 @@
       if (!container || !litters || litters.length === 0) return;
       
       container.innerHTML = litters.map(l => {
-        // Динамичко читање на статусот за леглата според избраниот јазик (МК или EN)
         const litterStatus = (currentLang === 'mk') 
           ? (litter.status_mk || litter.status || 'Отворени за резервација') 
           : (litter.status_en || litter.status || 'Open for Reservations');
