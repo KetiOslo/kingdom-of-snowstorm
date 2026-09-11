@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -989,6 +989,10 @@
         max-width: 250px;
       }
 
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
       nav ul {
         display: none;
         flex-direction: column;
@@ -1594,9 +1598,19 @@
       const container = document.getElementById('dynamicDogsContainer');
       if (!container || !dogs || dogs.length === 0) return;
       container.innerHTML = dogs.map(dog => {
-        // Уреден приказ на полот директно како што е внесен (Мажјак / Женка)
-        const genderText = dog.gender || 'Male';
-        const isMale = genderText.toLowerCase().includes('male') || genderText.toLowerCase().includes('маж');
+        let rawGender = (dog.gender || 'Male').toString().trim().toLowerCase();
+        let genderText = 'Male';
+        let isMale = true;
+
+        if (rawGender.includes('жен') || rawGender.includes('female') || rawGender === 'ж') {
+          genderText = 'Female';
+          isMale = false;
+        } else if (rawGender.includes('маж') || rawGender.includes('male') || rawGender === 'м') {
+          genderText = 'Male';
+          isMale = true;
+        } else {
+          genderText = dog.gender;
+        }
 
         return `
           <div class="dog-feature-card">
