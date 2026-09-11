@@ -3,38 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kingdom of Snowstorm | Pro Admin</title>
+  <title>Kingdom of Snowstorm | Master Admin</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; margin: 0; padding: 20px; }
-    .wrapper { max-width: 900px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    h1 { color: #0284c7; font-size: 24px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
-    .auth-box { background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
-    .tab-btn { background: #e2e8f0; border: none; padding: 10px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; color: #475569; }
-    .tab-btn.active { background: #0284c7; color: white; }
-    .tab-content { display: none; }
+    :root { --primary: #0284c7; --primary-dark: #0369a1; --success: #16a34a; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+    .wrapper { max-width: 1000px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    h1 { color: var(--primary); font-size: 24px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .auth-box { background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .auth-box input { flex: 1; min-width: 250px; margin: 0; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 10px 16px; font-weight: 600; border-radius: 6px; cursor: pointer; color: #475569; transition: all 0.2s; }
+    .tab-btn.active { background: var(--primary); color: white; }
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
     .tab-content.active { display: block; }
-    label { font-weight: 600; display: block; margin-top: 12px; font-size: 14px; color: #475569; }
-    input, textarea, select { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-    textarea { height: 80px; resize: vertical; }
-    .btn { background: #0284c7; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-block; margin-top: 20px; }
-    .btn:hover { background: #0369a1; }
-    .gallery-item { background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; }
-    .remove-btn { background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; float: right; font-size: 12px; }
-    .status { margin-top: 10px; font-weight: bold; color: #16a34a; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
+    input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+    textarea { height: 90px; resize: vertical; }
+    .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; transition: background 0.2s; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #10b981; }
+    .btn-secondary:hover { background: #059669; }
+    .item-card { background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 15px; position: relative; }
+    .remove-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; position: absolute; top: 20px; right: 20px; font-size: 12px; font-weight: bold; }
+    .remove-btn:hover { background: #dc2626; }
+    .status { margin-top: 15px; font-weight: 600; font-size: 14px; padding: 10px; border-radius: 6px; display: none; }
+    .status.success { background: #dcfce7; color: var(--success); display: block; }
+    .status.error { background: #fee2e2; color: #ef4444; display: block; }
+    .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
+    .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
+    .shortcut-hint { font-size: 12px; color: #64748b; margin-top: 5px; }
   </style>
 </head>
 <body>
 
 <div class="wrapper">
-  <h1>👑 Kingdom of Snowstorm - Админ Панел</h1>
+  <h1>
+    <span>👑 Kingdom of Snowstorm - Master Admin</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Целосна контрола</span>
+  </h1>
   
   <!-- ПОВРЗУВАЊЕ СО GITHUB -->
   <div class="auth-box">
-    <label>Внесете GitHub Personal Access Token (за автоматско зачувување):</label>
-    <input type="password" id="gh-token" placeholder="ghp_..." style="background: #fff;" />
-    <button class="btn" style="margin-top: 10px; padding: 8px 15px;" onclick="saveToken()">Запомни токен</button>
-    <span id="auth-status" class="status"></span>
+    <div style="flex: 1; min-width: 250px;">
+      <label style="margin-top: 0;">GitHub Personal Access Token:</label>
+      <input type="password" id="gh-token" placeholder="ghp_..." onchange="saveToken()" />
+    </div>
+    <div style="margin-top: 20px;">
+      <button class="btn" style="margin-top: 0; padding: 10px 15px;" onclick="saveToken()">Запомни токен</button>
+    </div>
+    <div id="auth-status" style="width: 100%; font-size: 13px; font-weight: 600; color: var(--success);"></div>
   </div>
 
   <!-- Табови за навигација -->
@@ -42,12 +61,13 @@
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
     <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
-    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
+    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија (Слики)</button>
+    <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
   </div>
 
   <!-- 1. ПОЧЕТНА -->
   <div id="home" class="tab-content active">
-    <h3>Уредување на Почетна страница</h3>
+    <h3>Уредување на Почетна страница (буквално секој текст)</h3>
     <label>Главен наслов (hero_title):</label>
     <input type="text" id="h_title" />
 
@@ -59,8 +79,24 @@
 
     <label>Опис на кутија (box_desc):</label>
     <textarea id="h_box_desc"></textarea>
+
+    <label>Вредност 1 - Наслов:</label>
+    <input type="text" id="h_v1_title" />
+    <label>Вредност 1 - Текст:</label>
+    <textarea id="h_v1_desc"></textarea>
+
+    <label>Вредност 2 - Наслов:</label>
+    <input type="text" id="h_v2_title" />
+    <label>Вредност 2 - Текст:</label>
+    <textarea id="h_v2_desc"></textarea>
+
+    <label>Вредност 3 - Наслов:</label>
+    <input type="text" id="h_v3_title" />
+    <label>Вредност 3 - Текст:</label>
+    <textarea id="h_v3_desc"></textarea>
     
-    <button class="btn" onclick="uploadToGithub('content/home.json', getHomeData(), 'home.msg')">Зачувај директно на GitHub</button>
+    <button class="btn" onclick="saveHomeFile()">Зачувај Почетна на GitHub</button>
+    <div class="shortcut-hint">Совет: Можете да користите **Ctrl + S** за брзо снимање.</div>
     <div id="home.msg" class="status"></div>
   </div>
 
@@ -73,16 +109,25 @@
     <label>Пасус 2 (p2):</label>
     <textarea id="a_p2"></textarea>
 
+    <label>Пасус 3 (p3):</label>
+    <textarea id="a_p3"></textarea>
+
+    <label>Пасус 4 (p4):</label>
+    <textarea id="a_p4"></textarea>
+
+    <label>Пасус 5 (p5):</label>
+    <textarea id="a_p5"></textarea>
+
     <label>Цитат (quote):</label>
     <textarea id="a_quote"></textarea>
 
-    <button class="btn" onclick="uploadToGithub('content/about.json', getAboutData(), 'about.msg')">Зачувај директно на GitHub</button>
+    <button class="btn" onclick="saveAboutFile()">Зачувај За нас на GitHub</button>
     <div id="about.msg" class="status"></div>
   </div>
 
   <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
-    <h3>Општи информации и Контакт</h3>
+    <h3>Општи информации и Футер</h3>
     <label>Локација (location):</label>
     <input type="text" id="s_location" />
 
@@ -95,31 +140,46 @@
     <label>Facebook Линк (facebook_url):</label>
     <input type="text" id="s_fb" />
 
-    <button class="btn" onclick="uploadToGithub('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај директно на GitHub</button>
+    <label>Текст во Футер (footer_desc):</label>
+    <textarea id="s_footer"></textarea>
+
+    <button class="btn" onclick="saveSettingsFile()">Зачувај Поставки на GitHub</button>
     <div id="settings.msg" class="status"></div>
   </div>
 
   <!-- 4. ГАЛЕРИЈА -->
   <div id="gallery" class="tab-content">
-    <h3>Уредување на Галерија (Слики)</h3>
+    <h3>Уредување на Галерија и Директен Аплоуд на Слики</h3>
     <div id="gallery-container"></div>
-    <button class="btn" onclick="addGalleryItem()" style="background: #10b981;">+ Додај нова слика</button>
+    <button class="btn btn-secondary" onclick="addGalleryItem()">+ Додај нова слика во галерија</button>
     <br><br>
-    <button class="btn" onclick="uploadToGithub('content/gallery.json', getGalleryData(), 'gallery.msg')">Зачувај директно на GitHub</button>
+    <button class="btn" onclick="saveGalleryFile()">Зачувај Галерија на GitHub</button>
     <div id="gallery.msg" class="status"></div>
+  </div>
+
+  <!-- 5. КУЧИЊА -->
+  <div id="dogs" class="tab-content">
+    <h3>Уредување на Кучиња (Додавање/Монтирање)</h3>
+    <div id="dogs-container"></div>
+    <button class="btn btn-secondary" onclick="addDogItem()">+ Додај ново куче</button>
+    <br><br>
+    <button class="btn" onclick="saveDogsFile()">Зачувај Кучиња на GitHub</button>
+    <div id="dogs.msg" class="status"></div>
   </div>
 
 </div>
 
 <script>
   let galleryData = [];
+  let dogsData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
+  let activeTabName = 'home';
 
   function saveToken() {
     const t = document.getElementById('gh-token').value.trim();
     if(t) {
       localStorage.setItem('gh_token', t);
-      document.getElementById('auth-status').innerText = 'Токенот е успешно зачуван во прелистувачот!';
+      document.getElementById('auth-status').innerText = '✓ Токенот е успешно зачуван!';
     }
   }
 
@@ -127,60 +187,135 @@
     const savedT = localStorage.getItem('gh_token');
     if(savedT) {
       document.getElementById('gh-token').value = savedT;
-      document.getElementById('auth-status').innerText = 'Поврзано со GitHub!';
+      document.getElementById('auth-status').innerText = '✓ Поврзано со GitHub.';
     }
 
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        triggerActiveSave();
+      }
+    });
+
     try {
-      const resHome = await fetch('../content/home.json');
-      if(resHome.ok) {
-        const d = await resHome.json();
+      // Home
+      const rH = await fetch('../content/home.json');
+      if(rH.ok) {
+        const d = await rH.json();
         document.getElementById('h_title').value = d.hero_title || '';
         document.getElementById('h_desc').value = d.hero_desc || '';
         document.getElementById('h_box_title').value = d.box_title || '';
         document.getElementById('h_box_desc').value = d.box_desc || '';
+        document.getElementById('h_v1_title').value = d.val1_title || '';
+        document.getElementById('h_v1_desc').value = d.val1_desc || '';
+        document.getElementById('h_v2_title').value = d.val2_title || '';
+        document.getElementById('h_v2_desc').value = d.val2_desc || '';
+        document.getElementById('h_v3_title').value = d.val3_title || '';
+        document.getElementById('h_v3_desc').value = d.val3_desc || '';
       }
 
-      const resAbout = await fetch('../content/about.json');
-      if(resAbout.ok) {
-        const d = await resAbout.json();
+      // About
+      const rA = await fetch('../content/about.json');
+      if(rA.ok) {
+        const d = await rA.json();
         document.getElementById('a_p1').value = d.p1 || '';
         document.getElementById('a_p2').value = d.p2 || '';
+        document.getElementById('a_p3').value = d.p3 || '';
+        document.getElementById('a_p4').value = d.p4 || '';
+        document.getElementById('a_p5').value = d.p5 || '';
         document.getElementById('a_quote').value = d.quote || '';
       }
 
-      const resSet = await fetch('../content/settings.json');
-      if(resSet.ok) {
-        const d = await resSet.json();
+      // Settings
+      const rS = await fetch('../content/settings.json');
+      if(rS.ok) {
+        const d = await rS.json();
         document.getElementById('s_location').value = d.location || '';
         document.getElementById('s_phone').value = d.phone || '';
         document.getElementById('s_email').value = d.email || '';
         document.getElementById('s_fb').value = d.facebook_url || '';
+        document.getElementById('s_footer').value = d.footer_desc || '';
       }
 
-      const resGal = await fetch('../content/gallery.json');
-      if(resGal.ok) {
-        const d = await resGal.json();
+      // Gallery
+      const rG = await fetch('../content/gallery.json');
+      if(rG.ok) {
+        const d = await rG.json();
         galleryData = d.items || [];
         renderGallery();
       }
-    } catch(e) { console.log("Интерфејсот е подготвен"); }
+    } catch(e) { console.log("Init OK"); }
   });
 
   function switchTab(tabId, event) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
+    if(event) event.currentTarget.classList.add('active');
+    activeTabName = tabId;
   }
 
+  function triggerActiveSave() {
+    if(activeTabName === 'home') saveHomeFile();
+    else if(activeTabName === 'about') saveAboutFile();
+    else if(activeTabName === 'settings') saveSettingsFile();
+    else if(activeTabName === 'gallery') saveGalleryFile();
+  }
+
+  // --- ФУНКЦИЈА ЗА ДИРЕКТЕН АПЛОУД НА СЛИКА НА GITHUB ---
+  async function uploadImageToGithub(fileInput, targetInputId) {
+    const file = fileInput.files[0];
+    if(!file) return;
+
+    const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
+    if(!token) {
+      alert('Внесете го токенот најгоре пред да прикачувате слики!');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const base64Content = e.target.result.split(',')[1];
+      const fileName = Date.now() + '_' + file.name.replace(/\s+/g, '_');
+      const filePath = `content/images/${fileName}`;
+
+      alert('Сликата се прикачува на GitHub...');
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: `Upload image ${fileName} via Admin`,
+            content: base64Content
+          })
+        });
+
+        if(res.ok) {
+          document.getElementById(targetInputId).value = `/content/images/${fileName}`;
+          alert('✓ Сликата е успешно прикачена и патеката е поставена!');
+        } else {
+          alert('✕ Грешка при прикачување на сликата.');
+        }
+      } catch(err) {
+        alert('✕ Мрежна грешка.');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Gallery Management
   function renderGallery() {
     const container = document.getElementById('gallery-container');
     container.innerHTML = '';
     galleryData.forEach((item, index) => {
       const div = document.createElement('div');
-      div.className = 'gallery-item';
+      div.className = 'item-card';
       div.innerHTML = `
-        <button class="remove-btn" onclick="removeGalleryItem(${index})">Избриши слика</button>
+        <button class="remove-btn" onclick="removeGallery(${index})">Избриши</button>
         <label>Наслов:</label>
         <input type="text" value="${item.title || ''}" onchange="galleryData[index].title = this.value">
         <label>Категорија:</label>
@@ -190,10 +325,13 @@
           <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
-        <label>Патека до слика (на пр: /content/images/slika1.jpg):</label>
-        <input type="text" value="${item.image || ''}" onchange="galleryData[index].image = this.value">
+        <label>Патека до слика или прикачи нова:</label>
+        <input type="text" id="gal_img_${index}" value="${item.image || ''}" onchange="galleryData[index].image = this.value">
+        <div class="file-upload-box">
+          <input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_img_${index}'); galleryData[index].image = document.getElementById('gal_img_${index}').value;">
+        </div>
         <label>Опис:</label>
-        <textarea onchange="galleryData[index].caption = this.value">${item.caption || ''}</textarea>
+        <textarea style="height: 50px;" onchange="galleryData[index].caption = this.value">${item.caption || ''}</textarea>
       `;
       container.appendChild(div);
     });
@@ -204,97 +342,87 @@
     renderGallery();
   }
 
-  function removeGalleryItem(index) {
-    galleryData.splice(index, 1);
-    renderGallery();
+  function removeGallery(index) {
+    if(confirm('Избриши ја оваа слика?')) { galleryData.splice(index, 1); renderGallery(); }
   }
 
-  function getHomeData() {
-    return {
+  // --- SAVE ACTIONS ---
+  async5 = async function(filePath, jsonData, msgId) {
+    const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
+    const statusEl = document.getElementById(msgId);
+    if(!token) { alert('Внесете го токенот горе!'); return; }
+
+    statusEl.className = 'status loading';
+    statusEl.innerText = '⏳ Се синхронизира со GitHub...';
+
+    try {
+      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      let sha = getRes.ok ? (await getRes.json()).sha : '';
+
+      const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(jsonData, null, 2))));
+      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Update ${filePath}`, content: contentBase64, sha: sha })
+      });
+
+      if(putRes.ok) {
+        statusEl.className = 'status success';
+        statusEl.innerText = '✓ Успешно зачувано и објавено!';
+        setTimeout(() => statusEl.style.display = 'none', 4000);
+      } else {
+        statusEl.className = 'status error';
+        statusEl.innerText = '✕ Грешка при зачувување.';
+      }
+    } catch(err) {
+      statusEl.className = 'status error';
+      statusEl.innerText = '✕ Мрежна грешка.';
+    }
+  };
+
+  function saveHomeFile() {
+    const data = {
       hero_title: document.getElementById('h_title').value,
       hero_desc: document.getElementById('h_desc').value,
       box_title: document.getElementById('h_box_title').value,
       box_desc: document.getElementById('h_box_desc').value,
-      val1_title: "Врвен квалитет", val1_desc: "Меѓународни шампионски линии.",
-      val2_title: "Здравствена сигурност", val2_desc: "Genетски тестирани кучиња.",
-      val3_title: "Правилна исхрана", val3_desc: "Одгледани со домашна и природна храна."
+      val1_title: document.getElementById('h_v1_title').value,
+      val1_desc: document.getElementById('h_v1_desc').value,
+      val2_title: document.getElementById('h_v2_title').value,
+      val2_desc: document.getElementById('h_v2_desc').value,
+      val3_title: document.getElementById('h_v3_title').value,
+      val3_desc: document.getElementById('h_v3_desc').value,
     };
+    async5('content/home.json', data, 'home.msg');
   }
 
-  function getAboutData() {
-    return {
+  function saveAboutFile() {
+    const data = {
       p1: document.getElementById('a_p1').value,
       p2: document.getElementById('a_p2').value,
-      quote: document.getElementById('a_quote').value
+      p3: document.getElementById('a_p3').value,
+      p4: document.getElementById('a_p4').value,
+      p5: document.getElementById('a_p5').value,
+      quote: document.getElementById('a_quote').value,
     };
+    async5('content/about.json', data, 'about.msg');
   }
 
-  function getSettingsData() {
-    return {
+  function saveSettingsFile() {
+    const data = {
       location: document.getElementById('s_location').value,
       phone: document.getElementById('s_phone').value,
       email: document.getElementById('s_email').value,
       facebook_url: document.getElementById('s_fb').value,
-      footer_desc: "Lifetime with Labradors - Сите права се задржани."
+      footer_desc: document.getElementById('s_footer').value,
     };
+    async5('content/settings.json', data, 'settings.msg');
   }
 
-  function getGalleryData() {
-    return { items: galleryData };
-  }
-
-  async function uploadToGithub(filePath, jsonData, msgId) {
-    const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
-    const statusEl = document.getElementById(msgId);
-    
-    if(!token) {
-      alert('Ве молиме внесете го вашиот GitHub токен горе за да се овозможи зачувување!');
-      return;
-    }
-
-    statusEl.style.color = '#0284c7';
-    statusEl.innerText = 'Се зачувува на GitHub...';
-
-    try {
-      // 1. Земи го тековниот SHA на фајлот од GitHub
-      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      
-      let sha = '';
-      if(getRes.ok) {
-        const fileInfo = await getRes.json();
-        sha = fileInfo.sha;
-      }
-
-      // 2. Испрати го новиот софтверски код (Commit)
-      const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(jsonData, null, 2))));
-      
-      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: `Update ${filePath} via Custom Admin Panel`,
-          content: contentBase64,
-          sha: sha
-        })
-      });
-
-      if(putRes.ok) {
-        statusEl.style.color = '#16a34a';
-        statusEl.innerText = 'Успешно зачувано и објавено на сајтот!';
-      } else {
-        const errData = await putRes.json();
-        statusEl.style.color = '#ef4444';
-        statusEl.innerText = 'Грешка: Проверете го токенот.';
-      }
-    } catch(err) {
-      statusEl.style.color = '#ef4444';
-      statusEl.innerText = 'Мрежна грешка при зачувување.';
-    }
+  function saveGalleryFile() {
+    async5('content/gallery.json', { items: galleryData }, 'gallery.msg');
   }
 </script>
 
