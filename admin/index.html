@@ -18,14 +18,14 @@
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
-    input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    input[type="text"], input[type="password"], input[type="date"], textarea, select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
     input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
-    textarea { height: 90px; resize: vertical; }
+    textarea { height: 110px; resize: vertical; }
     .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; transition: background 0.2s; }
     .btn:hover { background: var(--primary-dark); }
     .btn-secondary { background: #10b981; }
     .btn-secondary:hover { background: #059669; }
-    .item-card { background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 15px; position: relative; }
+    .item-card { background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 20px; position: relative; }
     .remove-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; position: absolute; top: 20px; right: 20px; font-size: 12px; font-weight: bold; }
     .remove-btn:hover { background: #dc2626; }
     .status { margin-top: 15px; font-weight: 600; font-size: 14px; padding: 10px; border-radius: 6px; display: none; }
@@ -33,7 +33,6 @@
     .status.error { background: #fee2e2; color: #ef4444; display: block; }
     .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
     .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
-    .shortcut-hint { font-size: 12px; color: #64748b; margin-top: 5px; }
   </style>
 </head>
 <body>
@@ -41,7 +40,7 @@
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Master Admin</span>
-    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Целосна контрола</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Блог & Содржина</span>
   </h1>
   
   <!-- ПОВРЗУВАЊЕ СО GITHUB -->
@@ -61,13 +60,13 @@
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
     <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
-    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија (Слики)</button>
-    <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
+    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
+    <button class="tab-btn" onclick="switchTab('blog', event)" style="background: #0284c7; color: white;">📝 Блог</button>
   </div>
 
   <!-- 1. ПОЧЕТНА -->
   <div id="home" class="tab-content active">
-    <h3>Уредување на Почетна страница (буквално секој текст)</h3>
+    <h3>Уредување на Почетна страница</h3>
     <label>Главен наслов (hero_title):</label>
     <input type="text" id="h_title" />
 
@@ -79,24 +78,8 @@
 
     <label>Опис на кутија (box_desc):</label>
     <textarea id="h_box_desc"></textarea>
-
-    <label>Вредност 1 - Наслов:</label>
-    <input type="text" id="h_v1_title" />
-    <label>Вредност 1 - Текст:</label>
-    <textarea id="h_v1_desc"></textarea>
-
-    <label>Вредност 2 - Наслов:</label>
-    <input type="text" id="h_v2_title" />
-    <label>Вредност 2 - Текст:</label>
-    <textarea id="h_v2_desc"></textarea>
-
-    <label>Вредност 3 - Наслов:</label>
-    <input type="text" id="h_v3_title" />
-    <label>Вредност 3 - Текст:</label>
-    <textarea id="h_v3_desc"></textarea>
     
-    <button class="btn" onclick="saveHomeFile()">Зачувај Почетна на GitHub</button>
-    <div class="shortcut-hint">Совет: Можете да користите **Ctrl + S** за брзо снимање.</div>
+    <button class="btn" onclick="saveFile('content/home.json', getHomeData(), 'home.msg')">Зачувај на GitHub</button>
     <div id="home.msg" class="status"></div>
   </div>
 
@@ -109,25 +92,16 @@
     <label>Пасус 2 (p2):</label>
     <textarea id="a_p2"></textarea>
 
-    <label>Пасус 3 (p3):</label>
-    <textarea id="a_p3"></textarea>
-
-    <label>Пасус 4 (p4):</label>
-    <textarea id="a_p4"></textarea>
-
-    <label>Пасус 5 (p5):</label>
-    <textarea id="a_p5"></textarea>
-
     <label>Цитат (quote):</label>
     <textarea id="a_quote"></textarea>
 
-    <button class="btn" onclick="saveAboutFile()">Зачувај За нас на GitHub</button>
+    <button class="btn" onclick="saveFile('content/about.json', getAboutData(), 'about.msg')">Зачувај на GitHub</button>
     <div id="about.msg" class="status"></div>
   </div>
 
   <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
-    <h3>Општи информации и Футер</h3>
+    <h3>Општи информации</h3>
     <label>Локација (location):</label>
     <input type="text" id="s_location" />
 
@@ -140,46 +114,42 @@
     <label>Facebook Линк (facebook_url):</label>
     <input type="text" id="s_fb" />
 
-    <label>Текст во Футер (footer_desc):</label>
-    <textarea id="s_footer"></textarea>
-
-    <button class="btn" onclick="saveSettingsFile()">Зачувај Поставки на GitHub</button>
+    <button class="btn" onclick="saveFile('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај на GitHub</button>
     <div id="settings.msg" class="status"></div>
   </div>
 
   <!-- 4. ГАЛЕРИЈА -->
   <div id="gallery" class="tab-content">
-    <h3>Уредување на Галерија и Директен Аплоуд на Слики</h3>
+    <h3>Уредување на Галерија</h3>
     <div id="gallery-container"></div>
-    <button class="btn btn-secondary" onclick="addGalleryItem()">+ Додај нова слика во галерија</button>
+    <button class="btn btn-secondary" onclick="addGalleryItem()">+ Додај слика</button>
     <br><br>
-    <button class="btn" onclick="saveGalleryFile()">Зачувај Галерија на GitHub</button>
+    <button class="btn" onclick="saveFile('content/gallery.json', { items: galleryData }, 'gallery.msg')">Зачувај на GitHub</button>
     <div id="gallery.msg" class="status"></div>
   </div>
 
-  <!-- 5. КУЧИЊА -->
-  <div id="dogs" class="tab-content">
-    <h3>Уредување на Кучиња (Додавање/Монтирање)</h3>
-    <div id="dogs-container"></div>
-    <button class="btn btn-secondary" onclick="addDogItem()">+ Додај ново куче</button>
+  <!-- 5. БЛОГ -->
+  <div id="blog" class="tab-content">
+    <h3>📝 Уредување и Водење на Блог Објави</h3>
+    <div id="blog-container"></div>
+    <button class="btn btn-secondary" onclick="addBlogPost()">+ Креирај нов блог пост</button>
     <br><br>
-    <button class="btn" onclick="saveDogsFile()">Зачувај Кучиња на GitHub</button>
-    <div id="dogs.msg" class="status"></div>
+    <button class="btn" onclick="saveFile('content/blog.json', { posts: blogData }, 'blog.msg')">Зачувај ги блог објавите на GitHub</button>
+    <div id="blog.msg" class="status"></div>
   </div>
 
 </div>
 
 <script>
   let galleryData = [];
-  let dogsData = [];
+  let blogData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
-  let activeTabName = 'home';
 
   function saveToken() {
     const t = document.getElementById('gh-token').value.trim();
     if(t) {
       localStorage.setItem('gh_token', t);
-      document.getElementById('auth-status').innerText = '✓ Токенот е успешно зачуван!';
+      document.getElementById('auth-status').innerText = '✓ Токенот е зачуван!';
     }
   }
 
@@ -190,13 +160,6 @@
       document.getElementById('auth-status').innerText = '✓ Поврзано со GitHub.';
     }
 
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-        e.preventDefault();
-        triggerActiveSave();
-      }
-    });
-
     try {
       // Home
       const rH = await fetch('../content/home.json');
@@ -206,12 +169,6 @@
         document.getElementById('h_desc').value = d.hero_desc || '';
         document.getElementById('h_box_title').value = d.box_title || '';
         document.getElementById('h_box_desc').value = d.box_desc || '';
-        document.getElementById('h_v1_title').value = d.val1_title || '';
-        document.getElementById('h_v1_desc').value = d.val1_desc || '';
-        document.getElementById('h_v2_title').value = d.val2_title || '';
-        document.getElementById('h_v2_desc').value = d.val2_desc || '';
-        document.getElementById('h_v3_title').value = d.val3_title || '';
-        document.getElementById('h_v3_desc').value = d.val3_desc || '';
       }
 
       // About
@@ -220,9 +177,6 @@
         const d = await rA.json();
         document.getElementById('a_p1').value = d.p1 || '';
         document.getElementById('a_p2').value = d.p2 || '';
-        document.getElementById('a_p3').value = d.p3 || '';
-        document.getElementById('a_p4').value = d.p4 || '';
-        document.getElementById('a_p5').value = d.p5 || '';
         document.getElementById('a_quote').value = d.quote || '';
       }
 
@@ -234,7 +188,6 @@
         document.getElementById('s_phone').value = d.phone || '';
         document.getElementById('s_email').value = d.email || '';
         document.getElementById('s_fb').value = d.facebook_url || '';
-        document.getElementById('s_footer').value = d.footer_desc || '';
       }
 
       // Gallery
@@ -244,7 +197,15 @@
         galleryData = d.items || [];
         renderGallery();
       }
-    } catch(e) { console.log("Init OK"); }
+
+      // Blog
+      const rB = await fetch('../content/blog.json');
+      if(rB.ok) {
+        const d = await rB.json();
+        blogData = d.posts || [];
+        renderBlog();
+      }
+    } catch(e) { console.log("Ready"); }
   });
 
   function switchTab(tabId, event) {
@@ -252,62 +213,38 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     if(event) event.currentTarget.classList.add('active');
-    activeTabName = tabId;
   }
 
-  function triggerActiveSave() {
-    if(activeTabName === 'home') saveHomeFile();
-    else if(activeTabName === 'about') saveAboutFile();
-    else if(activeTabName === 'settings') saveSettingsFile();
-    else if(activeTabName === 'gallery') saveGalleryFile();
-  }
-
-  // --- ФУНКЦИЈА ЗА ДИРЕКТЕН АПЛОУД НА СЛИКА НА GITHUB ---
+  // Аплоуд на слика директно на GitHub
   async function uploadImageToGithub(fileInput, targetInputId) {
     const file = fileInput.files[0];
     if(!file) return;
-
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
-    if(!token) {
-      alert('Внесете го токенот најгоре пред да прикачувате слики!');
-      return;
-    }
+    if(!token) { alert('Внесете токен најгоре!'); return; }
 
     const reader = new FileReader();
     reader.onload = async function(e) {
       const base64Content = e.target.result.split(',')[1];
       const fileName = Date.now() + '_' + file.name.replace(/\s+/g, '_');
       const filePath = `content/images/${fileName}`;
-
-      alert('Сликата се прикачува на GitHub...');
+      alert('Сликата се прикачува...');
 
       try {
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
           method: 'PUT',
-          headers: {
-            'Authorization': `token ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: `Upload image ${fileName} via Admin`,
-            content: base64Content
-          })
+          headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `Upload ${fileName}`, content: base64Content })
         });
-
         if(res.ok) {
           document.getElementById(targetInputId).value = `/content/images/${fileName}`;
-          alert('✓ Сликата е успешно прикачена и патеката е поставена!');
-        } else {
-          alert('✕ Грешка при прикачување на сликата.');
-        }
-      } catch(err) {
-        alert('✕ Мрежна грешка.');
-      }
+          alert('✓ Сликата е успешно поставена!');
+        } else { alert('✕ Грешка при прикачување.'); }
+      } catch(err) { alert('✕ Мрежна грешка.'); }
     };
     reader.readAsDataURL(file);
   }
 
-  // Gallery Management
+  // Gallery
   function renderGallery() {
     const container = document.getElementById('gallery-container');
     container.innerHTML = '';
@@ -315,42 +252,81 @@
       const div = document.createElement('div');
       div.className = 'item-card';
       div.innerHTML = `
-        <button class="remove-btn" onclick="removeGallery(${index})">Избриши</button>
+        <button class="remove-btn" onclick="galleryData.splice(${index},1); renderGallery();">Избриши</button>
         <label>Наслов:</label>
-        <input type="text" value="${item.title || ''}" onchange="galleryData[index].title = this.value">
+        <input type="text" value="${item.title || ''}" onchange="galleryData[${index}].title = this.value">
         <label>Категорија:</label>
-        <select onchange="galleryData[index].category = this.value">
+        <select onchange="galleryData[${index}].category = this.value">
           <option value="Shows" ${item.category === 'Shows' ? 'selected' : ''}>Shows</option>
           <option value="Home Life" ${item.category === 'Home Life' ? 'selected' : ''}>Home Life</option>
           <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
-        <label>Патека до слика или прикачи нова:</label>
-        <input type="text" id="gal_img_${index}" value="${item.image || ''}" onchange="galleryData[index].image = this.value">
-        <div class="file-upload-box">
-          <input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_img_${index}'); galleryData[index].image = document.getElementById('gal_img_${index}').value;">
-        </div>
+        <label>Слика:</label>
+        <input type="text" id="gal_${index}" value="${item.image || ''}" onchange="galleryData[${index}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${index}'); galleryData[${index}].image = document.getElementById('gal_${index}').value;"></div>
         <label>Опис:</label>
-        <textarea style="height: 50px;" onchange="galleryData[index].caption = this.value">${item.caption || ''}</textarea>
+        <textarea style="height:50px;" onchange="galleryData[${index}].caption = this.value">${item.caption || ''}</textarea>
       `;
       container.appendChild(div);
     });
   }
+  function addGalleryItem() { galleryData.push({ title: "Нова слика", category: "Shows", image: "", caption: "" }); renderGallery(); }
 
-  function addGalleryItem() {
-    galleryData.push({ title: "Нова слика", category: "Shows", image: "/content/images/", caption: "" });
-    renderGallery();
+  // Blog Management
+  function renderBlog() {
+    const container = document.getElementById('blog-container');
+    container.innerHTML = '';
+    blogData.forEach((post, index) => {
+      const div = document.createElement('div');
+      div.className = 'item-card';
+      div.innerHTML = `
+        <button class="remove-btn" onclick="blogData.splice(${index},1); renderBlog();">Избриши пост</button>
+        <label>Наслов на блогот:</label>
+        <input type="text" value="${post.title || ''}" onchange="blogData[${index}].title = this.value">
+        <label>Датум:</label>
+        <input type="date" value="${post.date || ''}" onchange="blogData[${index}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
+        <label>Главна слика на блогот:</label>
+        <input type="text" id="blog_img_${index}" value="${post.image || ''}" onchange="blogData[${index}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_img_${index}'); blogData[${index}].image = document.getElementById('blog_img_${index}').value;"></div>
+        <label>Краток опис (Excerpt):</label>
+        <textarea style="height:60px;" onchange="blogData[${index}].excerpt = this.value">${post.excerpt || ''}</textarea>
+        <label>Целосна содржина на блогот (Текст):</label>
+        <textarea style="height:150px;" onchange="blogData[${index}].content = this.value">${post.content || ''}</textarea>
+      `;
+      container.appendChild(div);
+    });
+  }
+  function addBlogPost() {
+    const today = new Date().toISOString().split('T')[0];
+    blogData.unshift({ title: "Нов наслов на блог", date: today, image: "", excerpt: "", content: "" });
+    renderBlog();
   }
 
-  function removeGallery(index) {
-    if(confirm('Избриши ја оваа слика?')) { galleryData.splice(index, 1); renderGallery(); }
+  // Data Getters
+  function getHomeData() {
+    return {
+      hero_title: document.getElementById('h_title').value,
+      hero_desc: document.getElementById('h_desc').value,
+      box_title: document.getElementById('h_box_title').value,
+      box_desc: document.getElementById('h_box_desc').value,
+      val1_title: "Врвен квалитет", val1_desc: "Меѓународни шампионски линии.",
+      val2_title: "Здравствена сигурност", val2_desc: "Генетски тестирани кучиња.",
+      val3_title: "Правилна исхрана", val3_desc: "Одгледани со домашна и природна храна."
+    };
+  }
+  function getAboutData() {
+    return { p1: document.getElementById('a_p1').value, p2: document.getElementById('a_p2').value, quote: document.getElementById('a_quote').value };
+  }
+  function getSettingsData() {
+    return { location: document.getElementById('s_location').value, phone: document.getElementById('s_phone').value, email: document.getElementById('s_email').value, facebook_url: document.getElementById('s_fb').value, footer_desc: "Lifetime with Labradors." };
   }
 
-  // --- SAVE ACTIONS ---
-  async5 = async function(filePath, jsonData, msgId) {
+  // Generic Save Function
+  async function saveFile(filePath, jsonData, msgId) {
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
     const statusEl = document.getElementById(msgId);
-    if(!token) { alert('Внесете го токенот горе!'); return; }
+    if(!token) { alert('Внесете токен најгоре!'); return; }
 
     statusEl.className = 'status loading';
     statusEl.innerText = '⏳ Се синхронизира со GitHub...';
@@ -380,49 +356,6 @@
       statusEl.className = 'status error';
       statusEl.innerText = '✕ Мрежна грешка.';
     }
-  };
-
-  function saveHomeFile() {
-    const data = {
-      hero_title: document.getElementById('h_title').value,
-      hero_desc: document.getElementById('h_desc').value,
-      box_title: document.getElementById('h_box_title').value,
-      box_desc: document.getElementById('h_box_desc').value,
-      val1_title: document.getElementById('h_v1_title').value,
-      val1_desc: document.getElementById('h_v1_desc').value,
-      val2_title: document.getElementById('h_v2_title').value,
-      val2_desc: document.getElementById('h_v2_desc').value,
-      val3_title: document.getElementById('h_v3_title').value,
-      val3_desc: document.getElementById('h_v3_desc').value,
-    };
-    async5('content/home.json', data, 'home.msg');
-  }
-
-  function saveAboutFile() {
-    const data = {
-      p1: document.getElementById('a_p1').value,
-      p2: document.getElementById('a_p2').value,
-      p3: document.getElementById('a_p3').value,
-      p4: document.getElementById('a_p4').value,
-      p5: document.getElementById('a_p5').value,
-      quote: document.getElementById('a_quote').value,
-    };
-    async5('content/about.json', data, 'about.msg');
-  }
-
-  function saveSettingsFile() {
-    const data = {
-      location: document.getElementById('s_location').value,
-      phone: document.getElementById('s_phone').value,
-      email: document.getElementById('s_email').value,
-      facebook_url: document.getElementById('s_fb').value,
-      footer_desc: document.getElementById('s_footer').value,
-    };
-    async5('content/settings.json', data, 'settings.msg');
-  }
-
-  function saveGalleryFile() {
-    async5('content/gallery.json', { items: galleryData }, 'gallery.msg');
   }
 </script>
 
