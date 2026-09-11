@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -984,20 +984,9 @@
         justify-content: center;
         width: 100%;
       }
-      .top-bar-actions {
-        width: 100%;
-        justify-content: space-between;
-        padding-top: 4px;
-        border-top: 1px dashed var(--pistachio-border);
-      }
-
       .kennel-master-logo {
         height: 105px;
         max-width: 250px;
-      }
-
-      .mobile-menu-toggle {
-        display: flex;
       }
 
       nav ul {
@@ -1502,9 +1491,6 @@
         }
       });
 
-      const navList = document.getElementById('kennel-main-nav');
-      if (navList.classList.contains('show')) navList.classList.remove('show');
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1608,6 +1594,7 @@
       const container = document.getElementById('dynamicDogsContainer');
       if (!container || !dogs || dogs.length === 0) return;
       container.innerHTML = dogs.map(dog => {
+        // Уреден приказ на полот директно како што е внесен (Мажјак / Женка)
         const genderText = dog.gender || 'Male';
         const isMale = genderText.toLowerCase().includes('male') || genderText.toLowerCase().includes('маж');
 
