@@ -13,9 +13,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* ==========================================================================
-       ПОТЕМНА И ПОБОГАТА НЕЖНА ФСТАК ПАЛЕТА & КРАЛСКО ЗЛАТО
-       ========================================================================== */
     :root {
       --pistachio-cream: #EAF2E8;
       --pistachio-soft: #DCE9DA;
@@ -651,8 +648,189 @@
     }
 
     /* ==========================================================================
-       ТАБ 7: БЛОГ СО АВТОМАТСКИ FACEBOOK СТАТУСИ (FEED)
+       ТАБ 6: ДИНАМИЧНА ИНТЕРАКТИВНА ГАЛЕРИЈА (CMS SYNCED + LIGHTBOX)
        ========================================================================== */
+    .gallery-filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+    }
+
+    .gallery-filter-btn {
+      background: var(--white);
+      border: 1px solid var(--pistachio-border);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--pistachio-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .gallery-filter-btn:hover, .gallery-filter-btn.active {
+      background: var(--pistachio-dark);
+      color: var(--white);
+      border-color: var(--pistachio-dark);
+      transform: translateY(-2px);
+    }
+
+    .gallery-masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .gallery-item-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--pistachio-border);
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--gold-primary);
+    }
+
+    .gallery-img-wrap {
+      width: 100%;
+      height: 240px;
+      background: var(--pistachio-soft);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item-card:hover .gallery-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .gallery-category-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(30, 51, 28, 0.85);
+      color: var(--white);
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+    }
+
+    .gallery-item-info {
+      padding: 18px 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-item-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--pistachio-dark);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .gallery-item-caption {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* LIGHTBOX MODAL ЗА ЗГОЛЕМУВАЊЕ НА СЛИКА */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(19, 36, 18, 0.92);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-modal.show {
+      display: flex;
+      animation: fadeInSmooth 0.3s ease;
+    }
+
+    .lightbox-content-box {
+      max-width: 900px;
+      width: 100%;
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .lightbox-img-area {
+      max-height: 70vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-img-area img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-caption-area {
+      padding: 20px 24px;
+      background: var(--white);
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: var(--white);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--pistachio-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      z-index: 10;
+      transition: var(--transition);
+    }
+
+    .lightbox-close-btn:hover {
+      background: var(--gold-primary);
+      color: var(--white);
+    }
+
+    /* FACEBOOK LIVE FEED */
     .blog-feed-container {
       display: grid;
       grid-template-columns: 1.25fr 0.75fr;
@@ -984,13 +1162,10 @@
 </head>
 <body>
 
-  <!-- Официјален Meta (Facebook) JavaScript SDK -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
 
-  <!-- ==========================================================================
-       TOP BAR
-       ========================================================================== -->
+  <!-- TOP BAR -->
   <div class="top-bar">
     <div class="container top-bar-inner">
       <div class="accreditation-group">
@@ -1028,9 +1203,7 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       HEADER
-       ========================================================================== -->
+  <!-- HEADER -->
   <header>
     <div class="container header-inner">
       <a href="javascript:void(0)" onclick="selectTab('home')" class="brand-logo-wrapper">
@@ -1056,9 +1229,7 @@
     </div>
   </header>
 
-  <!-- ==========================================================================
-       ТАБ 1: ПОЧЕТНА (HOME)
-       ========================================================================== -->
+  <!-- TAB 1: HOME -->
   <section id="tab-home" class="site-tab-content active">
     <div class="hero-banner">
       <div class="container hero-grid">
@@ -1131,9 +1302,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 2: ЗА НАС (ABOUT US)
-       ========================================================================== -->
+  <!-- TAB 2: ABOUT US -->
   <section id="tab-about" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1166,9 +1335,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 3: НАШИТЕ КУЧИЊА (4 ПОЗИЦИИ: 1 МАЖЈАК, 3 ЖЕНКИ)
-       ========================================================================== -->
+  <!-- TAB 3: OUR DOGS -->
   <section id="tab-dogs" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1178,7 +1345,6 @@
       </div>
 
       <div class="dogs-luxury-grid">
-        <!-- 1. MALE: OSLO -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-dog dog-avatar-icon"></i>
@@ -1198,7 +1364,6 @@
           </div>
         </div>
 
-        <!-- 2. FEMALE: HANNAH -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-shield-heart dog-avatar-icon"></i>
@@ -1218,7 +1383,6 @@
           </div>
         </div>
 
-        <!-- 3. FEMALE: GALLA -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-award dog-avatar-icon"></i>
@@ -1238,7 +1402,6 @@
           </div>
         </div>
 
-        <!-- 4. FEMALE: DARLA -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-gem dog-avatar-icon"></i>
@@ -1261,9 +1424,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 4: ЛЕГЛА (LITTERS)
-       ========================================================================== -->
+  <!-- TAB 4: LITTERS -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1288,9 +1449,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 5: ДОСТАПНИ КУЧИЊА (AVAILABLE DOGS)
-       ========================================================================== -->
+  <!-- TAB 5: AVAILABLE DOGS -->
   <section id="tab-available" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1315,40 +1474,49 @@
   </section>
 
   <!-- ==========================================================================
-       ТАБ 6: ГАЛЕРИЈА (GALLERY)
+       ТАБ 6: ИНТЕРАКТИВНА ДИНАМИЧНА ГАЛЕРИЈА (СО LIGHTBOX & КАТЕГОРИИ)
        ========================================================================== -->
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="gal-pre">Moments & Memories</span>
         <h2 class="section-maintitle" data-i18n="gal-head">Kennel Gallery</h2>
-        <p style="color: var(--text-muted);" data-i18n="gal-sub">Moments from European show rings, daily family joy, and nursery milestones.</p>
+        <p style="color: var(--text-muted);" data-i18n="gal-sub">
+          Moments from European show rings, daily family joy, and nursery milestones.
+        </p>
       </div>
 
-      <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-        <div class="card-luxury" style="text-align: center; padding: 35px 20px;">
-          <i class="fa-solid fa-trophy" style="font-size: 2.3rem; color: var(--gold-primary); margin-bottom: 14px;"></i>
-          <p style="font-weight: 600;" data-i18n="g-1">World & European Show Rings</p>
-        </div>
-        <div class="card-luxury" style="text-align: center; padding: 35px 20px;">
-          <i class="fa-solid fa-house-chimney-heart" style="font-size: 2.3rem; color: var(--pistachio-accent); margin-bottom: 14px;"></i>
-          <p style="font-weight: 600;" data-i18n="g-2">Home Life & Daily Cuddles</p>
-        </div>
-        <div class="card-luxury" style="text-align: center; padding: 35px 20px;">
-          <i class="fa-solid fa-baby" style="font-size: 2.3rem; color: var(--gold-primary); margin-bottom: 14px;"></i>
-          <p style="font-weight: 600;" data-i18n="g-3">Puppy Nursery & First Steps</p>
-        </div>
-        <div class="card-luxury" style="text-align: center; padding: 35px 20px;">
-          <i class="fa-solid fa-scissors" style="font-size: 2.3rem; color: var(--pistachio-accent); margin-bottom: 14px;"></i>
-          <p style="font-weight: 600;" data-i18n="g-4">Bichon Grooming Perfection</p>
-        </div>
+      <!-- Филтри за категории -->
+      <div class="gallery-filter-bar">
+        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="gal-all">Сите (All)</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Изложби', this)" data-i18n="gal-shows">Изложби (Shows)</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Домашен живот', this)" data-i18n="gal-home">Домашен живот (Home)</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Кученца', this)" data-i18n="gal-pups">Кученца (Puppies)</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Груминг', this)" data-i18n="gal-groom">Груминг (Grooming)</button>
+      </div>
+
+      <!-- Контејнер каде што автоматски се полнат сликите од CMS -->
+      <div id="dynamicGalleryContainer" class="gallery-masonry-grid">
+        <p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">Вчитување на галеријата...</p>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 7: БЛОГ СО АВТОМАТСКИ FACEBOOK ОБЈАВИ (LIVE FEED)
-       ========================================================================== -->
+  <!-- LIGHTBOX ПРОЗОРЕЦ (FULLSCREEN НА КЛИК) -->
+  <div id="galleryLightbox" class="lightbox-modal" onclick="closeGalleryLightbox()">
+    <div class="lightbox-content-box" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeGalleryLightbox()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="lightbox-img-area">
+        <img id="lightboxImg" src="" alt="Kennel Photo">
+      </div>
+      <div class="lightbox-caption-area">
+        <h3 id="lightboxTitle" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 6px;"></h3>
+        <p id="lightboxCaption" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 7: BLOG -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1360,7 +1528,6 @@
       </div>
 
       <div class="blog-feed-container">
-        <!-- ЛЕВО: АВТОМАТСКИ FACEBOOK LIVE FEED -->
         <div class="card-luxury fb-live-card">
           <div class="fb-card-header">
             <div class="fb-header-left">
@@ -1379,7 +1546,6 @@
             </a>
           </div>
 
-          <!-- Контејнер за официјален Facebook Page Plugin -->
           <div class="fb-embed-responsive-box">
             <div class="fb-page" 
                  data-href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" 
@@ -1397,7 +1563,6 @@
           </div>
         </div>
 
-        <!-- ДЕСНО: ЕДУКАТИВНИ СТАТИИ И СОВЕТИ -->
         <div class="educational-guides-col">
           <div class="card-luxury">
             <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;" data-i18n="b1-tag">GROOMING & CARE</span>
@@ -1414,9 +1579,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ТАБ 8: КОНТАКТ (CONTACT) СО WEB3FORMS
-       ========================================================================== -->
+  <!-- TAB 8: CONTACT -->
   <section id="tab-contact" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1501,9 +1664,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       ЛЕБДЕЧКИ ИНСТАНТ КОПЧИЊА
-       ========================================================================== -->
+  <!-- FLOATING ACTION BUTTONS -->
   <div class="floating-instant-actions">
     <a href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="float-chat-bubble btn-wa" title="WhatsApp Chat">
       <i class="fa-brands fa-whatsapp"></i>
@@ -1513,9 +1674,7 @@
     </a>
   </div>
 
-  <!-- ==========================================================================
-       ФУТЕР
-       ========================================================================== -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-grid-container">
       <div>
@@ -1543,6 +1702,7 @@
           <li><a onclick="selectTab('dogs')" data-i18n="nav-dogs">Our Dogs</a></li>
           <li><a onclick="selectTab('litters')" data-i18n="nav-litters">Litters</a></li>
           <li><a onclick="selectTab('available')" data-i18n="nav-available">Available Dogs</a></li>
+          <li><a onclick="selectTab('gallery')" data-i18n="nav-gallery">Gallery</a></li>
           <li><a onclick="selectTab('contact')" data-i18n="nav-contact">Contact</a></li>
         </ul>
       </div>
@@ -1568,11 +1728,10 @@
     </div>
   </footer>
 
-  <!-- ==========================================================================
-       JAVASCRIPT: ТАБОВИ, ДВОЈАЗИЧНОСТ, FACEBOOK SDK РЕНДЕР И ФОРМА
-       ========================================================================== -->
+  <!-- SCRIPT -->
   <script>
     let currentLang = 'en';
+    let allGalleryItems = [];
 
     function selectTab(tabId) {
       const allTabs = document.querySelectorAll('.site-tab-content');
@@ -1597,12 +1756,13 @@
         navList.classList.remove('show');
       }
 
-      // Ако се кликне на Блог, автоматски рендерирај го Facebook виџетот
+      if (tabId === 'gallery') {
+        loadDynamicGallery();
+      }
+
       if (tabId === 'blog' && window.FB) {
         setTimeout(() => {
-          try {
-            window.FB.XFBML.parse();
-          } catch(err) {}
+          try { window.FB.XFBML.parse(); } catch(err) {}
         }, 120);
       }
 
@@ -1613,6 +1773,75 @@
       document.getElementById('kennel-main-nav').classList.toggle('show');
     }
 
+    // ==========================================
+    // ДИНАМИЧНО ВКЛУЧУВАЊЕ НА ГАЛЕРИЈАТА ОД CMS
+    // ==========================================
+    async function loadDynamicGallery() {
+      const container = document.getElementById('dynamicGalleryContainer');
+      try {
+        const response = await fetch('content/gallery.json?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('No json');
+        const data = await response.json();
+        allGalleryItems = data.items || [];
+        renderGalleryCards(allGalleryItems);
+      } catch (e) {
+        // Fallback доколку фајлот сè уште не е повлечен
+        renderGalleryCards([
+          { title: "World & European Show Rings", image: "2.png", caption: "Moments from international competitions.", category: "Изложби" },
+          { title: "Home Life & Daily Cuddles", image: "2.png", caption: "Our Bichons living in our family home.", category: "Домашен живот" },
+          { title: "Puppy Nursery & First Steps", image: "2.png", caption: "Early socialization and sweet puppy moments.", category: "Кученца" }
+        ]);
+      }
+    }
+
+    function renderGalleryCards(items) {
+      const container = document.getElementById('dynamicGalleryContainer');
+      if (!items || items.length === 0) {
+        container.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">Нема фотографии во оваа категорија.</p>';
+        return;
+      }
+
+      container.innerHTML = items.map((item, index) => `
+        <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
+          <div class="gallery-img-wrap">
+            <img src="${item.image || '2.png'}" alt="${item.title}" onerror="this.src='2.png'">
+            <span class="gallery-category-badge">${item.category || 'Изложби'}</span>
+          </div>
+          <div class="gallery-item-info">
+            <h4 class="gallery-item-title">${item.title}</h4>
+            <p class="gallery-item-caption">${item.caption || ''}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterGalleryPhotos(category, btnElement) {
+      document.querySelectorAll('.gallery-filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      if (category === 'all') {
+        renderGalleryCards(allGalleryItems);
+      } else {
+        const filtered = allGalleryItems.filter(item => item.category === category);
+        renderGalleryCards(filtered);
+      }
+    }
+
+    function openGalleryLightbox(index) {
+      const item = allGalleryItems[index];
+      if (!item) return;
+
+      document.getElementById('lightboxImg').src = item.image || '2.png';
+      document.getElementById('lightboxTitle').innerText = item.title;
+      document.getElementById('lightboxCaption').innerText = item.caption || '';
+      document.getElementById('galleryLightbox').classList.add('show');
+    }
+
+    function closeGalleryLightbox() {
+      document.getElementById('galleryLightbox').classList.remove('show');
+    }
+
+    // Автоматско испраќање форма
     async function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('contactForm');
@@ -1737,10 +1966,11 @@
         "gal-pre": "Moments & Memories",
         "gal-head": "Kennel Gallery",
         "gal-sub": "Moments from European show rings, daily family joy, and nursery milestones.",
-        "g-1": "World & European Show Rings",
-        "g-2": "Home Life & Daily Cuddles",
-        "g-3": "Puppy Nursery & First Steps",
-        "g-4": "Bichon Grooming Perfection",
+        "gal-all": "All Photos",
+        "gal-shows": "Shows",
+        "gal-home": "Home Life",
+        "gal-pups": "Puppies",
+        "gal-groom": "Grooming",
         "blog-pre": "Live Updates & Insights",
         "blog-head": "Kennel News & Facebook Feed",
         "blog-sub": "Follow all our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.",
@@ -1853,10 +2083,11 @@
         "gal-pre": "Моменти и Спомени",
         "gal-head": "Галерија на Одгледувачницата",
         "gal-sub": "Моменти од европските рингови, семејна среќа и првите чекори на малите кученца.",
-        "g-1": "Светски и Европски Изложби",
-        "g-2": "Семеен Живот и Гушкање",
-        "g-3": "Први Чекори на Кученцата",
-        "g-4": "Врвна Нега и Груминг",
+        "gal-all": "Сите",
+        "gal-shows": "Изложби",
+        "gal-home": "Домашен живот",
+        "gal-pups": "Кученца",
+        "gal-groom": "Груминг",
         "blog-pre": "Новости во живо",
         "blog-head": "Новости и Фејсбук објави",
         "blog-sub": "Следете ги најновите изложбени успеси, информации за легла и секојдневни моменти синхронизирани директно од нашата официјална Фејсбук страница.",
@@ -1906,6 +2137,11 @@
         }
       });
     }
+
+    // Почетно вчитување на галеријата
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDynamicGallery();
+    });
   </script>
 </body>
 </html>
