@@ -1,4 +1,7 @@
-branch: main
+backend:
+  name: github
+  repo: KetiOslo/kingdom-of-snowstorm
+  branch: main
 
 media_folder: "content"
 public_folder: "content"
