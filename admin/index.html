@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kingdom of Snowstorm | Master Admin</title>
+  <title>Kingdom of Snowstorm | Master Admin Final</title>
   <style>
     :root { --primary: #0284c7; --primary-dark: #0369a1; --success: #16a34a; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
@@ -59,7 +59,7 @@
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
-    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
+    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки & Преводи</button>
     <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
     <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
     <button class="tab-btn" onclick="switchTab('litters', event)">🍼 Легла (Litters)</button>
@@ -70,14 +70,10 @@
   <!-- 1. ПОЧЕТНА -->
   <div id="home" class="tab-content active">
     <h3>Уредување на Почетна страница</h3>
-    <label>Главен наслов (hero_title):</label>
-    <input type="text" id="h_title" />
-    <label>Воведен текст (hero_desc):</label>
-    <textarea id="h_desc"></textarea>
-    <label>Наслов на кутија (box_title):</label>
-    <input type="text" id="h_box_title" />
-    <label>Опис на кутија (box_desc):</label>
-    <textarea id="h_box_desc"></textarea>
+    <label>Главен наслов:</label><input type="text" id="h_title" />
+    <label>Воведен текст:</label><textarea id="h_desc"></textarea>
+    <label>Наслов на кутија:</label><input type="text" id="h_box_title" />
+    <label>Опис на кутија:</label><textarea id="h_box_desc"></textarea>
     <button class="btn" onclick="saveFile('content/home.json', getHomeData(), 'home.msg')">Зачувај на GitHub</button>
     <div id="home.msg" class="status"></div>
   </div>
@@ -85,27 +81,25 @@
   <!-- 2. ЗА НАС -->
   <div id="about" class="tab-content">
     <h3>Уредување на За нас страница</h3>
-    <label>Пасус 1 (p1):</label>
-    <textarea id="a_p1"></textarea>
-    <label>Пасус 2 (p2):</label>
-    <textarea id="a_p2"></textarea>
-    <label>Цитат (quote):</label>
-    <textarea id="a_quote"></textarea>
+    <label>Пасус 1:</label><textarea id="a_p1"></textarea>
+    <label>Пасус 2:</label><textarea id="a_p2"></textarea>
+    <label>Цитат:</label><textarea id="a_quote"></textarea>
     <button class="btn" onclick="saveFile('content/about.json', getAboutData(), 'about.msg')">Зачувај на GitHub</button>
     <div id="about.msg" class="status"></div>
   </div>
 
-  <!-- 3. ПОСТАВКИ -->
+  <!-- 3. ПОСТАВКИ И ПРЕВОДИ -->
   <div id="settings" class="tab-content">
-    <h3>Општи информации и контакт</h3>
-    <label>Локација (location):</label>
-    <input type="text" id="s_location" />
-    <label>Телефон (phone):</label>
-    <input type="text" id="s_phone" />
-    <label>Е-пошта (email):</label>
-    <input type="text" id="s_email" />
-    <label>Facebook Линк (facebook_url):</label>
-    <input type="text" id="s_fb" />
+    <h3>⚙️ Општи поставки и глобални текстови/преводи</h3>
+    <label>Локација:</label><input type="text" id="s_location" />
+    <label>Телефон:</label><input type="text" id="s_phone" />
+    <label>Е-пошта:</label><input type="text" id="s_email" />
+    <label>Facebook Линк:</label><input type="text" id="s_fb" />
+    
+    <h4 style="margin-top:25px; color:var(--primary); border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Глобални текстови (Двојазични прилагодувања)</h4>
+    <label>Статус на легло / Резервации (MK):</label><input type="text" id="s_res_mk" value="Отворени за резервација" />
+    <label>Статус на легло / Резервации (EN):</label><input type="text" id="s_res_en" value="Open for Reservations" />
+
     <button class="btn" onclick="saveFile('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај на GitHub</button>
     <div id="settings.msg" class="status"></div>
   </div>
@@ -140,9 +134,9 @@
     <div id="litters.msg" class="status"></div>
   </div>
 
-  <!-- 7. ДОСТАПНИ КУЧЕНЦА (AVAILABLE PUPPIES) -->
+  <!-- 7. ДОСТАПНИ КУЧЕНЦА -->
   <div id="puppies" class="tab-content">
-    <h3>🐾 Достапни кученца (Available Puppies)</h3>
+    <h3>🐾 Достапни кученца</h3>
     <div id="puppies-container"></div>
     <button class="btn btn-secondary" onclick="addPuppyItem()">+ Додај кученце</button>
     <br><br>
@@ -168,30 +162,19 @@
 
   function saveToken() {
     const t = document.getElementById('gh-token').value.trim();
-    if(t) {
-      localStorage.setItem('gh_token', t);
-      document.getElementById('auth-status').innerText = '✓ Токенот е зачуван!';
-    }
+    if(t) { localStorage.setItem('gh_token', t); document.getElementById('auth-status').innerText = '✓ Токенот е зачуван!'; }
   }
 
   window.addEventListener('DOMContentLoaded', async () => {
     const savedT = localStorage.getItem('gh_token');
-    if(savedT) {
-      document.getElementById('gh-token').value = savedT;
-      document.getElementById('auth-status').innerText = '✓ Поврзано со GitHub.';
-    }
+    if(savedT) { document.getElementById('gh-token').value = savedT; document.getElementById('auth-status').innerText = '✓ Поврзано со GitHub.'; }
 
     try {
       const loadJSON = async (path, setter, renderFn) => {
         const res = await fetch(`../${path}`);
-        if(res.ok) {
-          const d = await res.json();
-          setter(d);
-          if(renderFn) renderFn();
-        }
+        if(res.ok) { const d = await res.json(); setter(d); if(renderFn) renderFn(); }
       };
 
-      // Home
       const rH = await fetch('../content/home.json');
       if(rH.ok) {
         const d = await rH.json();
@@ -201,7 +184,6 @@
         document.getElementById('h_box_desc').value = d.box_desc || '';
       }
 
-      // About
       const rA = await fetch('../content/about.json');
       if(rA.ok) {
         const d = await rA.json();
@@ -210,7 +192,6 @@
         document.getElementById('a_quote').value = d.quote || '';
       }
 
-      // Settings
       const rS = await fetch('../content/settings.json');
       if(rS.ok) {
         const d = await rS.json();
@@ -218,6 +199,8 @@
         document.getElementById('s_phone').value = d.phone || '';
         document.getElementById('s_email').value = d.email || '';
         document.getElementById('s_fb').value = d.facebook_url || '';
+        document.getElementById('s_res_mk').value = d.reservation_status_mk || 'Отворени за резервација';
+        document.getElementById('s_res_en').value = d.reservation_status_en || 'Open for Reservations';
       }
 
       loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
@@ -235,7 +218,6 @@
     if(event) event.currentTarget.classList.add('active');
   }
 
-  // Директен аплоуд на слика на GitHub
   async function uploadImageToGithub(fileInput, targetInputId) {
     const file = fileInput.files[0];
     if(!file) return;
@@ -264,7 +246,6 @@
     reader.readAsDataURL(file);
   }
 
-  // Renders for lists
   function renderGallery() {
     const c = document.getElementById('gallery-container'); c.innerHTML = '';
     galleryData.forEach((item, i) => {
@@ -291,8 +272,8 @@
     dogsData.forEach((dog, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="dogsData.splice(${i},1); renderDogs();">Избриши</button>
-        <label>Име на кучето:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
-        <label>Линија / Потекло:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
+        <label>Име:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
+        <label>Линија:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
         <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
         <label>Фотографија:</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'dog_${i}'); dogsData[${i}].image = document.getElementById('dog_${i}').value;"></div>
@@ -307,30 +288,31 @@
     littersData.forEach((litter, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
-        <label>Наслов / Име на леглото:</label><input type="text" value="${litter.title || ''}" onchange="littersData[${i}].title = this.value">
-        <label>Датум / Инфо:</label><input type="text" value="${litter.date || ''}" onchange="littersData[${i}].date = this.value">
+        <label>Име на леглото:</label><input type="text" value="${litter.title || ''}" onchange="littersData[${i}].title = this.value">
+        <label>Статус (МК):</label><input type="text" value="${litter.status_mk || 'Отворени за резервација'}" onchange="littersData[${i}].status_mk = this.value">
+        <label>Статус (EN):</label><input type="text" value="${litter.status_en || 'Open for Reservations'}" onchange="littersData[${i}].status_en = this.value">
         <label>Фотографија:</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'lit_${i}'); littersData[${i}].image = document.getElementById('lit_${i}').value;"></div>
         <label>Опис:</label><textarea style="height:60px;" onchange="littersData[${i}].description = this.value">${litter.description || ''}</textarea>
       </div>`;
     });
   }
-  function addLitterItem() { littersData.push({ title: "", date: "", image: "", description: "" }); renderLitters(); }
+  function addLitterItem() { littersData.push({ title: "", status_mk: "Отворени за резервација", status_en: "Open for Reservations", image: "", description: "" }); renderLitters(); }
 
   function renderPuppies() {
     const c = document.getElementById('puppies-container'); c.innerHTML = '';
     puppiesData.forEach((pup, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
-        <label>Име / Ознака на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
-        <label>Статус (на пр. Достапно / Резервирано):</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
+        <label>Име на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
+        <label>Статус (МК / EN):</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
         <label>Фотографија:</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'pup_${i}'); puppiesData[${i}].image = document.getElementById('pup_${i}').value;"></div>
         <label>Детали:</label><textarea style="height:60px;" onchange="puppiesData[${i}].details = this.value">${pup.details || ''}</textarea>
       </div>`;
     });
   }
-  function addPuppyItem() { puppiesData.push({ name: "", status: "Достапно", image: "", details: "" }); renderPuppies(); }
+  function addPuppyItem() { puppiesData.push({ name: "", status: "Достапно / Available", image: "", details: "" }); renderPuppies(); }
 
   function renderBlog() {
     const c = document.getElementById('blog-container'); c.innerHTML = '';
@@ -352,26 +334,24 @@
     renderBlog();
   }
 
-  // Data Getters
   function getHomeData() {
-    return {
-      hero_title: document.getElementById('h_title').value,
-      hero_desc: document.getElementById('h_desc').value,
-      box_title: document.getElementById('h_box_title').value,
-      box_desc: document.getElementById('h_box_desc').value,
-      val1_title: "Врвен квалитет", val1_desc: "Меѓународни шампионски линии.",
-      val2_title: "Здравствена сигурност", val2_desc: "Генетски тестирани кучиња.",
-      val3_title: "Правилна исхрана", val3_desc: "Одгледани со домашна и природна храна."
-    };
+    return { hero_title: document.getElementById('h_title').value, hero_desc: document.getElementById('h_desc').value, box_title: document.getElementById('h_box_title').value, box_desc: document.getElementById('h_box_desc').value };
   }
   function getAboutData() {
     return { p1: document.getElementById('a_p1').value, p2: document.getElementById('a_p2').value, quote: document.getElementById('a_quote').value };
   }
   function getSettingsData() {
-    return { location: document.getElementById('s_location').value, phone: document.getElementById('s_phone').value, email: document.getElementById('s_email').value, facebook_url: document.getElementById('s_fb').value, footer_desc: "Lifetime with Labradors." };
+    return {
+      location: document.getElementById('s_location').value,
+      phone: document.getElementById('s_phone').value,
+      email: document.getElementById('s_email').value,
+      facebook_url: document.getElementById('s_fb').value,
+      reservation_status_mk: document.getElementById('s_res_mk').value,
+      reservation_status_en: document.getElementById('s_res_en').value,
+      footer_desc: "Lifetime with Labradors."
+    };
   }
 
-  // Generic Save Function
   async function saveFile(filePath, jsonData, msgId) {
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
     const statusEl = document.getElementById(msgId);
