@@ -1,0 +1,37 @@
+backend:
+  name: github
+  repo: KetiOslo/kingdom-of-snowstorm
+  branch: main
+
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "dogs"
+    label: "Нашите кучиња (Our Dogs)"
+    folder: "content/dogs"
+    create: true
+    fields:
+      - { label: "Име", name: "title", widget: "string" }
+      - { label: "Потекло / Педигре", name: "lineage", widget: "string" }
+      - { label: "Пол", name: "gender", widget: "select", options: ["Мажјак", "Женка"] }
+      - { label: "Слика", name: "image", widget: "image", required: false }
+      - { label: "Биографија и опис", name: "body", widget: "markdown" }
+
+  - name: "litters"
+    label: "Легла (Litters)"
+    folder: "content/litters"
+    create: true
+    fields:
+      - { label: "Парови / Наслов", name: "title", widget: "string" }
+      - { label: "Статус", name: "status", widget: "select", options: ["Отворени Резервации", "Планирано легло", "Сите се резервирани"] }
+      - { label: "Опис и детали", name: "body", widget: "markdown" }
+
+  - name: "gallery"
+    label: "Кенел Галерија (Kennel Gallery)"
+    folder: "content/gallery"
+    create: true
+    fields:
+      - { label: "Наслов на фотографијата", name: "title", widget: "string" }
+      - { label: "Слика", name: "image", widget: "image" }
+      - { label: "Опис на сликата", name: "caption", widget: "string", required: false }
