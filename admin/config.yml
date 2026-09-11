@@ -7,6 +7,19 @@ media_folder: "images"
 public_folder: "images"
 
 collections:
+  - name: "site_settings"
+    label: "⚙️ Општи информации и контакти"
+    files:
+      - name: "general"
+        label: "Контакти, Телефони и Футер"
+        file: "content/settings.json"
+        fields:
+          - { label: "Телефон (WhatsApp & Viber)", name: "phone", widget: "string" }
+          - { label: "Официјален Е-пошта", name: "email", widget: "string" }
+          - { label: "Град и држава", name: "location", widget: "string" }
+          - { label: "Фејсбук линк", name: "facebook_url", widget: "string" }
+          - { label: "Опис во футерот", name: "footer_desc", widget: "text" }
+
   - name: "pages"
     label: "📄 Страници (Pages)"
     files:
@@ -17,7 +30,7 @@ collections:
           - { label: "Главен наслов", name: "hero_title", widget: "string" }
           - { label: "Поднаслов / Воведен текст", name: "hero_desc", widget: "text" }
           - { label: "FCI Стандард - Наслов", name: "box_title", widget: "string" }
-          - { label: "FCI Стандард - Опис", name: "box_desc", widget: "text" }
+          - { label: "FCI Стандард - Текст", name: "box_desc", widget: "text" }
           - { label: "Вредност 1 - Наслов", name: "val1_title", widget: "string" }
           - { label: "Вредност 1 - Текст", name: "val1_desc", widget: "text" }
           - { label: "Вредност 2 - Наслов", name: "val2_title", widget: "string" }
@@ -35,6 +48,16 @@ collections:
           - { label: "Пасус 4 (Galla & Darla)", name: "p4", widget: "text" }
           - { label: "Пасус 5 (Oslo)", name: "p5", widget: "text" }
           - { label: "Цитат (Quote)", name: "quote", widget: "text" }
+
+      - name: "available"
+        label: "🐶 Достапни кучиња и Пакет (Available Dogs)"
+        file: "content/available.json"
+        fields:
+          - { label: "Главен наслов на пакетот", name: "title", widget: "string" }
+          - label: "Што е вклучено со секое кученце (Листа)"
+            name: "inclusions"
+            widget: "list"
+            field: { label: "Ставка", name: "item", widget: "string" }
 
   - name: "dogs_section"
     label: "🐾 Нашите кучиња (Our Dogs)"
@@ -89,19 +112,17 @@ collections:
               - { label: "Категорија", name: "category", widget: "select", options: ["Изложби", "Домашен живот", "Кученца", "Груминг"], default: "Изложби" }
 
   - name: "blog_section"
-    label: "📰 Новости и Блог (Blog)"
+    label: "📰 Блог и Совети (Blog)"
     files:
       - name: "blog_posts"
-        label: "Објави и Новости"
+        label: "Објави и Совети"
         file: "content/blog.json"
         fields:
-          - label: "Објави"
+          - label: "Статии"
             name: "items"
             widget: "list"
             summary: "{{fields.title}}"
             fields:
-              - { label: "Наслов на објавата", name: "title", widget: "string" }
-              - { label: "Датум", name: "date", widget: "string" }
-              - { label: "Целосен текст на објавата", name: "text", widget: "text" }
-              - { label: "Слика", name: "image", widget: "image", required: false }
-              - { label: "Линк до Facebook (опционално)", name: "fb_link", widget: "string", required: false }
+              - { label: "Наслов на статијата", name: "title", widget: "string" }
+              - { label: "Ознака (на пр. НЕГА И ГРУМИНГ)", name: "tag", widget: "string" }
+              - { label: "Целосен текст", name: "text", widget: "text" }
