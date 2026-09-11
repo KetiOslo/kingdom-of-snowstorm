@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kingdom of Snowstorm | Admin Panel</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; margin: 0; padding: 20px; }
+    .wrapper { max-width: 800px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h1 { color: #0284c7; font-size: 22px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+    .section-box { margin-bottom: 25px; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    label { font-weight: 600; display: block; margin-top: 12px; font-size: 14px; color: #475569; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    textarea { height: 90px; resize: vertical; }
+    .btn { background: #0284c7; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-block; margin-top: 15px; }
+    .btn:hover { background: #0369a1; }
+    .info { background: #e0f2fe; color: #0369a1; padding: 12px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <h1>👑 Kingdom of Snowstorm - Управување со содржина</h1>
+  <div class="info">
+    Овој панел овозможува лесно уредување на сајтот. Промените се зачувуваат директно во вашите фајлови со еден клик.
+  </div>
+
+  <div class="section-box">
+    <h3>🏠 Почетна страница (Home)</h3>
+    <label>Главен наслов:</label>
+    <input type="text" id="home_title" placeholder="Внесете наслов..." />
+
+    <label>Воведен текст:</label>
+    <textarea id="home_desc" placeholder="Внесете опис..."></textarea>
+
+    <label>Наслов на кутија:</label>
+    <input type="text" id="home_box_title" />
+
+    <label>Опис на кутија:</label>
+    <textarea id="home_box_desc"></textarea>
+
+    <button class="btn" onclick="saveHomeData()">Зачувај промени за Почетна</button>
+  </div>
+</div>
+
+<script>
+  // Автоматско вчитување на тековните податоци при отварање
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const res = await fetch('../content/home.json');
+      if (res.ok) {
+        const data = await res.json();
+        document.getElementById('home_title').value = data.hero_title || '';
+        document.getElementById('home_desc').value = data.hero_desc || '';
+        document.getElementById('home_box_title').value = data.box_title || '';
+        document.getElementById('home_box_desc').value = data.box_desc || '';
+      }
+    } catch (e) {
+      console.log('Податоците се вчитуваат стандардно');
+    }
+  });
+
+  function saveHomeData() {
+    const data = {
+      hero_title: document.getElementById('home_title').value,
+      hero_desc: document.getElementById('home_desc').value,
+      box_title: document.getElementById('home_box_title').value,
+      box_desc: document.getElementById('home_box_desc').value,
+      val1_title: "Врвен квалитет",
+      val1_desc: "Меѓународни шампионски линии.",
+      val2_title: "Здравствена сигурност",
+      val2_desc: "Генетски тестирани кучиња.",
+      val3_title: "Правилна исхрана",
+      val3_desc: "Одгледани со домашна и природна храна."
+    };
+
+    // Генерирање на JSON фајл за преземање и зачувување
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'home.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    alert('Фајлот "home.json" е успешно генериран и преземен на вашиот компјутер! Сега само заменете го на GitHub во папката content.');
+  }
+</script>
+
+</body>
+</html>
