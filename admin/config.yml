@@ -1,0 +1,63 @@
+backend:
+  name: github
+  repo: KetiOslo/kingdom-of-snowstorm
+  branch: main
+  base_url: https://api.github.com
+  auth_type: implicit
+  app_id: ''
+
+media_folder: "content/images"
+public_folder: "content/images"
+
+collections:
+  - name: pages
+    label: 📄 Страници (Pages)
+    files:
+      - name: home
+        label: 🏠 Почетна
+        file: "content/home.json"
+        fields:
+          - { label: "Главен наслов", name: "hero_title", widget: "string" }
+          - { label: "Воведен текст", name: "hero_desc", widget: "text" }
+          - { label: "Наслов на кутија", name: "box_title", widget: "string" }
+          - { label: "Опис на кутија", name: "box_desc", widget: "text" }
+          - { label: "Вредност 1 - Наслов", name: "val1_title", widget: "string" }
+          - { label: "Вредност 1 - Текст", name: "val1_desc", widget: "text" }
+          - { label: "Вредност 2 - Наслов", name: "val2_title", widget: "string" }
+          - { label: "Вредност 2 - Текст", name: "val2_desc", widget: "text" }
+          - { label: "Вредност 3 - Наслов", name: "val3_title", widget: "string" }
+          - { label: "Вредност 3 - Текст", name: "val3_desc", widget: "text" }
+
+      - name: about
+        label: "📖 За нас (About Us)"
+        file: "content/about.json"
+        fields:
+          - { label: "Пасус 1", name: "p1", widget: "text" }
+          - { label: "Пасус 2", name: "p2", widget: "text" }
+          - { label: "Пасус 3", name: "p3", widget: "text" }
+          - { label: "Пасус 4", name: "p4", widget: "text" }
+          - { label: "Пасус 5", name: "p5", widget: "text" }
+          - { label: "Цитат", name: "quote", widget: "text" }
+
+      - name: settings
+        label: "⚙️ Општи информации"
+        file: "content/settings.json"
+        fields:
+          - { label: "Локација", name: "location", widget: "string" }
+          - { label: "Телефон", name: "phone", widget: "string" }
+          - { label: "Е-пошта", name: "email", widget: "string" }
+          - { label: "Facebook Линк", name: "facebook_url", widget: "string" }
+          - { label: "Текст во Футер", name: "footer_desc", widget: "text" }
+
+      - name: gallery
+        label: "📸 Галерија (Gallery)"
+        file: "content/gallery.json"
+        fields:
+          - name: items
+            label: Фотографии
+            widget: list
+            fields:
+              - { label: "Наслов", name: "title", widget: "string" }
+              - { label: "Категорија", name: "category", widget: "select", options: ["Shows", "Home Life", "Puppies", "Grooming"] }
+              - { label: "Фотографија", name: "image", widget: "image" }
+              - { label: "Опис", name: "caption", widget: "text" }
