@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kingdom of Snowstorm | Management Panel</title>
-  <!-- Вчитување на стабилна верзија на Decap CMS -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <title>Kingdom of Snowstorm | Admin Panel</title>
 </head>
 <body>
-  <!-- Decap CMS Root Script -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Static CMS script from official CDN -->
+  <script src="https://unpkg.com/@staticcms/app@^1.4.0/dist/static-cms-app.js"></script>
+  <script>
+    CMS.init();
+  </script>
 </body>
 </html>
