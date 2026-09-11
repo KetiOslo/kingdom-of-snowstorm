@@ -4,7 +4,7 @@ backend:
   branch: main
 
 media_folder: "content/images"
-public_folder: "content/images"
+public_folder: "/content/images"
 
 collections:
   - name: pages
@@ -12,7 +12,7 @@ collections:
     files:
       - name: home
         label: 🏠 Почетна
-        file: content/home.json
+        file: "content/home.json"
         fields:
           - { label: "Главен наслов", name: "hero_title", widget: "string" }
           - { label: "Воведен текст", name: "hero_desc", widget: "text" }
@@ -27,7 +27,7 @@ collections:
 
       - name: about
         label: "📖 За нас (About Us)"
-        file: content/about.json
+        file: "content/about.json"
         fields:
           - { label: "Пасус 1", name: "p1", widget: "text" }
           - { label: "Пасус 2", name: "p2", widget: "text" }
@@ -38,14 +38,14 @@ collections:
 
       - name: available
         label: "🐾 Пакет за кученца"
-        file: content/available.json
+        file: "content/available.json"
         fields:
           - { label: "Наслов", name: "title", widget: "string" }
           - { label: "Што содржи (ставки)", name: "inclusions", widget: "list" }
 
       - name: settings
         label: "⚙️ Општи информации"
-        file: content/settings.json
+        file: "content/settings.json"
         fields:
           - { label: "Локација", name: "location", widget: "string" }
           - { label: "Телефон", name: "phone", widget: "string" }
@@ -55,7 +55,7 @@ collections:
 
       - name: litters
         label: "🍼 Легла (Litters)"
-        file: content/litters.json
+        file: "content/litters.json"
         fields:
           - name: items
             label: Легла
@@ -67,7 +67,7 @@ collections:
 
       - name: gallery
         label: "📸 Кенел Галерија (Kennel Gallery)"
-        file: content/gallery.json
+        file: "content/gallery.json"
         fields:
           - name: items
             label: Фотографии
@@ -80,7 +80,7 @@ collections:
 
   - name: dogs
     label: "🐶 Нашите кучиња (Our Dogs)"
-    folder: content/dogs
+    folder: "content/dogs"
     create: true
     slug: "{{slug}}"
     fields:
