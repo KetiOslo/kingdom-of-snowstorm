@@ -2,6 +2,8 @@ backend:
   name: github
   repo: KetiOslo/kingdom-of-snowstorm
   branch: main
+  base_url: https://kingdom-of-snowstorm.pages.dev
+  auth_endpoint: auth
 
 media_folder: "content"
 public_folder: "content"
