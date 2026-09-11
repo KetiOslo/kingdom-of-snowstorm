@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "name": "Oslo",
+      "lineage": "Petit Ami’s Take on Me",
+      "gender": "Мажјак",
+      "role": "Main Stud & Show Male (Norway)",
+      "narrative": "Our striking boy imported from the renowned Petit Ami kennel in Norway. Bringing exceptional type, sweet expression, perfect pigment, and world-class genetics to our breeding program.",
+      "image": "2.png"
+    },
+    {
+      "name": "Hannah",
+      "lineage": "The Soul & First Page",
+      "gender": "Женка",
+      "role": "Kennel Queen (10 Years Old)",
+      "narrative": "The foundation of everything. Hannah is the white cloud who transformed our lives in 2016. Today, at 10 years old, she is celebrated, healthy, and always at the very center of our family heart.",
+      "image": "2.png"
+    },
+    {
+      "name": "Galla",
+      "lineage": "Daughter of Hannah",
+      "gender": "Женка",
+      "role": "Champion & C.I.B.",
+      "narrative": "Daughter of Hannah, carrying her mother's elegance, affectionate temperament, and radiant ring presence. An international show champion and a tender mother continuing our legacy.",
+      "image": "2.png"
+    },
+    {
+      "name": "Darla",
+      "lineage": "Daughter of Galla",
+      "gender": "Женка",
+      "role": "Rising Star (3rd Generation)",
+      "narrative": "Granddaughter of Hannah and daughter of Galla. Darla is the vibrant third generation of Kingdom of Snowstorm. Playful, loving, and carrying the beauty of our family line into the bright future.",
+      "image": "2.png"
+    }
+  ]
+}
