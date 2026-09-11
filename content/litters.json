@@ -1,9 +1,11 @@
 {
-  "items": [
+  "litters": [
     {
-      "pair": "Oslo (Petit Ami’s Take on Me) × Galla",
-      "status": "Отворени Резервации",
-      "text": "Every litter is thoughtfully planned with the goal of preserving the true beauty, silky coat, balanced structure, and affectionate temperament of the Bichon Frisé. Both parents have complete FCI pedigrees, health screening, and show titles."
+      "title": "Klen",
+      "status_mk": "",
+      "status_en": "Open for Reservations",
+      "image": "",
+      "description": "Tosho MoleroT"
     }
   ]
 }
