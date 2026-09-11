@@ -173,7 +173,6 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
 
-    /* LANGUAGE SELECTOR */
     .lang-selector {
       display: flex;
       gap: 4px;
@@ -1170,7 +1169,7 @@
     </div>
   </header>
 
-  <!-- TAB 1: HOME (ДИНАМИЧНО ОД HOME.JSON) -->
+  <!-- TAB 1: HOME -->
   <section id="tab-home" class="site-tab-content active">
     <div class="hero-banner">
       <div class="container hero-grid">
@@ -1216,10 +1215,11 @@
       </div>
     </div>
 
+    <!-- ТУКА Е ТРГНАТ ЗБОРОТ FAMILY -->
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle">Our Commitment</span>
-        <h2 class="section-maintitle">A Family Kennel Filled with Love</h2>
+        <h2 class="section-maintitle">A Kennel Filled with Love</h2>
       </div>
 
       <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
@@ -1275,7 +1275,7 @@
     </div>
   </section>
 
-  <!-- TAB 3: OUR DOGS (ДИНАМИЧНО ОД DOGS.JSON) -->
+  <!-- TAB 3: OUR DOGS -->
   <section id="tab-dogs" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1288,7 +1288,7 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS (ДИНАМИЧНО ОД LITTERS.JSON) -->
+  <!-- TAB 4: LITTERS -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1605,6 +1605,19 @@
       return cat;
     }
 
+    // АВТОМАТСКИ ПРЕВОД НА ПОЛ КОЈА КАЈ КУЧИЊАТА СЕ ВНЕСУВА ПРЕКУ CMS
+    function getTranslatedGender(gender, lang) {
+      if (!gender) return '';
+      const g = gender.toString().trim().toLowerCase();
+      if (g.includes('маж') || g.includes('male') || g === 'м') {
+        return lang === 'mk' ? 'Мажјак' : 'Male';
+      }
+      if (g.includes('жен') || g.includes('female') || g === 'ж') {
+        return lang === 'mk' ? 'Женка' : 'Female';
+      }
+      return gender;
+    }
+
     const langData = {
       en: {
         "kennel-loc": "Skopje, North Macedonia",
@@ -1675,10 +1688,12 @@
         }
       });
 
+      renderDogs(cachedDogsList);
       renderGalleryCards(allGalleryItems);
     }
 
-    // АВТОМАТСКО ПОВЛЕКУВАЊЕ НА СИТЕ ПОДАТОЦИ ОД CMS (SETTINGS, HOME, ABOUT, DOGS, LITTERS, AVAILABLE, BLOG, GALLERY)
+    let cachedDogsList = [];
+
     async function loadAllCmsContent() {
       const ts = new Date().getTime();
 
@@ -1687,9 +1702,7 @@
         const res = await fetch('content/settings.json?t=' + ts);
         if (res.ok) {
           const s = await res.json();
-          if (s.location) {
-            document.getElementById('dyn-contact-location').innerText = s.location;
-          }
+          if (s.location) document.getElementById('dyn-contact-location').innerText = s.location;
           if (s.email) {
             const emEl = document.getElementById('dyn-contact-email');
             emEl.innerText = s.email;
@@ -1699,22 +1712,14 @@
             const cleanPhone = s.phone.replace(/[^0-9]/g, '');
             const waUrl = 'https://wa.me/' + cleanPhone;
             const viUrl = 'viber://chat?number=%2B' + cleanPhone;
-            ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => {
-              const el = document.getElementById(id);
-              if (el) el.href = waUrl;
-            });
-            ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => {
-              const el = document.getElementById(id);
-              if (el) el.href = viUrl;
-            });
+            ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waUrl; });
+            ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => { const el = document.getElementById(id); if (el) el.href = viUrl; });
           }
           if (s.facebook_url) {
             const fbEl = document.getElementById('dyn-footer-fb');
             if (fbEl) fbEl.href = s.facebook_url;
           }
-          if (s.footer_desc) {
-            document.getElementById('dyn-footer-desc').innerText = s.footer_desc;
-          }
+          if (s.footer_desc) document.getElementById('dyn-footer-desc').innerText = s.footer_desc;
         }
       } catch(e) {}
 
@@ -1750,7 +1755,7 @@
         }
       } catch(e) {}
 
-      // 4. Available Dogs & Puppy Package
+      // 4. Available Dogs
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1769,7 +1774,8 @@
         const res = await fetch('content/dogs.json?t=' + ts);
         if (res.ok) {
           const d = await res.json();
-          renderDogs(d.items || []);
+          cachedDogsList = d.items || [];
+          renderDogs(cachedDogsList);
         }
       } catch(e) {}
 
@@ -1788,30 +1794,35 @@
 
     function renderDogs(dogs) {
       const container = document.getElementById('dynamicDogsContainer');
-      if (!dogs || dogs.length === 0) return;
-      container.innerHTML = dogs.map(dog => `
-        <div class="dog-feature-card">
-          <div class="dog-portrait-container">
-            ${dog.image ? `<img src="${dog.image}" alt="${dog.name}" onerror="this.src='2.png'">` : `<i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>`}
-            <span class="dog-badge-sex ${dog.gender === 'Мажјак' || dog.gender === 'Male' ? 'badge-male-dog' : 'badge-female-dog'}">
-              ${dog.gender || 'FCI'}
-            </span>
+      if (!container || !dogs || dogs.length === 0) return;
+      container.innerHTML = dogs.map(dog => {
+        const displayGender = getTranslatedGender(dog.gender, currentLang);
+        const isMale = displayGender === 'Мажјак' || displayGender.toLowerCase() === 'male';
+
+        return `
+          <div class="dog-feature-card">
+            <div class="dog-portrait-container">
+              ${dog.image ? `<img src="${dog.image}" alt="${dog.name}" onerror="this.src='2.png'">` : `<i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>`}
+              <span class="dog-badge-sex ${isMale ? 'badge-male-dog' : 'badge-female-dog'}">
+                ${displayGender || 'FCI'}
+              </span>
+            </div>
+            <div class="dog-details-body">
+              <h3 class="dog-title-name">${dog.name}</h3>
+              <div class="dog-registered-lineage">${dog.lineage || ''}</div>
+              <ul class="dog-spec-list">
+                <li><span>Details</span>: <span>${dog.role || 'Show Dog'}</span></li>
+              </ul>
+              <p class="dog-narrative">${dog.narrative || ''}</p>
+            </div>
           </div>
-          <div class="dog-details-body">
-            <h3 class="dog-title-name">${dog.name}</h3>
-            <div class="dog-registered-lineage">${dog.lineage || ''}</div>
-            <ul class="dog-spec-list">
-              <li><span>Role / Titles</span>: <span>${dog.role || 'Show Dog'}</span></li>
-            </ul>
-            <p class="dog-narrative">${dog.narrative || ''}</p>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderLitters(litters) {
       const container = document.getElementById('dynamicLittersContainer');
-      if (!litters || litters.length === 0) return;
+      if (!container || !litters || litters.length === 0) return;
       container.innerHTML = litters.map(l => `
         <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
