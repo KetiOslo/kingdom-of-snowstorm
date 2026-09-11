@@ -7,31 +7,48 @@ media_folder: "images"
 public_folder: "images"
 
 collections:
-  - name: "dogs"
-    label: "Нашите кучиња (Our Dogs)"
-    folder: "content/dogs"
-    create: true
-    fields:
-      - { label: "Име", name: "title", widget: "string" }
-      - { label: "Потекло / Педигре", name: "lineage", widget: "string" }
-      - { label: "Пол", name: "gender", widget: "select", options: ["Мажјак", "Женка"] }
-      - { label: "Слика", name: "image", widget: "image", required: false }
-      - { label: "Биографија и опис", name: "body", widget: "markdown" }
+  - name: "site_content"
+    label: "Уредување на Сајтот"
+    files:
+      - name: "gallery"
+        label: "📸 Кенел Галерија (Kennel Gallery)"
+        file: "content/gallery.json"
+        fields:
+          - label: "Фотографии"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Наслов на фотографијата", name: "title", widget: "string" }
+              - { label: "Слика", name: "image", widget: "image" }
+              - { label: "Опис на сликата", name: "caption", widget: "string", required: false }
+              - { label: "Категорија", name: "category", widget: "select", options: ["Изложби", "Домашен живот", "Кученца", "Груминг"], default: "Изложби" }
 
-  - name: "litters"
-    label: "Легла (Litters)"
-    folder: "content/litters"
-    create: true
-    fields:
-      - { label: "Парови / Наслов", name: "title", widget: "string" }
-      - { label: "Статус", name: "status", widget: "select", options: ["Отворени Резервации", "Планирано легло", "Сите се резервирани"] }
-      - { label: "Опис и детали", name: "body", widget: "markdown" }
+      - name: "dogs"
+        label: "🐾 Нашите кучиња (Our Dogs)"
+        file: "content/dogs.json"
+        fields:
+          - label: "Кучиња"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.gender}})"
+            fields:
+              - { label: "Име", name: "name", widget: "string" }
+              - { label: "Педигре / Родословие", name: "lineage", widget: "string" }
+              - { label: "Пол", name: "gender", widget: "select", options: ["Мажјак", "Женка"] }
+              - { label: "Возраст / Титули", name: "role", widget: "string" }
+              - { label: "Опис", name: "description", widget: "text" }
+              - { label: "Слика", name: "image", widget: "image", required: false }
 
-  - name: "gallery"
-    label: "Кенел Галерија (Kennel Gallery)"
-    folder: "content/gallery"
-    create: true
-    fields:
-      - { label: "Наслов на фотографијата", name: "title", widget: "string" }
-      - { label: "Слика", name: "image", widget: "image" }
-      - { label: "Опис на сликата", name: "caption", widget: "string", required: false }
+      - name: "litters"
+        label: "🍼 Легла и Резервации (Litters)"
+        file: "content/litters.json"
+        fields:
+          - label: "Легла"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Парови / Наслов", name: "title", widget: "string" }
+              - { label: "Статус", name: "status", widget: "select", options: ["Отворени Резервации", "Планирано легло", "Сите се резервирани"] }
+              - { label: "Опис и детали", name: "description", widget: "text" }
