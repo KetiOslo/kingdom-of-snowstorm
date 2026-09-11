@@ -3,88 +3,232 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kingdom of Snowstorm | Admin Panel</title>
+  <title>Kingdom of Snowstorm | Pro Admin</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; margin: 0; padding: 20px; }
-    .wrapper { max-width: 800px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    h1 { color: #0284c7; font-size: 22px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
-    .section-box { margin-bottom: 25px; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .wrapper { max-width: 900px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h1 { color: #0284c7; font-size: 24px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 10px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; color: #475569; }
+    .tab-btn.active { background: #0284c7; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
     label { font-weight: 600; display: block; margin-top: 12px; font-size: 14px; color: #475569; }
-    input, textarea { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-    textarea { height: 90px; resize: vertical; }
-    .btn { background: #0284c7; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-block; margin-top: 15px; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    textarea { height: 80px; resize: vertical; }
+    .btn { background: #0284c7; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-block; margin-top: 20px; }
     .btn:hover { background: #0369a1; }
-    .info { background: #e0f2fe; color: #0369a1; padding: 12px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; }
+    .gallery-item { background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; }
+    .remove-btn { background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; float: right; font-size: 12px; }
   </style>
 </head>
 <body>
 
 <div class="wrapper">
-  <h1>👑 Kingdom of Snowstorm - Управување со содржина</h1>
-  <div class="info">
-    Овој панел овозможува лесно уредување на сајтот. Промените се зачувуваат директно во вашите фајлови со еден клик.
+  <h1>👑 Kingdom of Snowstorm - Админ Панел</h1>
+  
+  <!-- Табови за навигација -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
+    <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
+    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
+    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
   </div>
 
-  <div class="section-box">
-    <h3>🏠 Почетна страница (Home)</h3>
-    <label>Главен наслов:</label>
-    <input type="text" id="home_title" placeholder="Внесете наслов..." />
+  <!-- 1. ПОЧЕТНА -->
+  <div id="home" class="tab-content active">
+    <h3>Уредување на Почетна страница</h3>
+    <label>Главен наслов (hero_title):</label>
+    <input type="text" id="h_title" />
 
-    <label>Воведен текст:</label>
-    <textarea id="home_desc" placeholder="Внесете опис..."></textarea>
+    <label>Воведен текст (hero_desc):</label>
+    <textarea id="h_desc"></textarea>
 
-    <label>Наслов на кутија:</label>
-    <input type="text" id="home_box_title" />
+    <label>Наслов на кутија (box_title):</label>
+    <input type="text" id="h_box_title" />
 
-    <label>Опис на кутија:</label>
-    <textarea id="home_box_desc"></textarea>
-
-    <button class="btn" onclick="saveHomeData()">Зачувај промени за Почетна</button>
+    <label>Опис на кутија (box_desc):</label>
+    <textarea id="h_box_desc"></textarea>
+    
+    <button class="btn" onclick="saveHome()">Зачувај home.json</button>
   </div>
+
+  <!-- 2. ЗА НАС -->
+  <div id="about" class="tab-content">
+    <h3>Уредување на За нас страница</h3>
+    <label>Пасус 1 (p1):</label>
+    <textarea id="a_p1"></textarea>
+
+    <label>Пасус 2 (p2):</label>
+    <textarea id="a_p2"></textarea>
+
+    <label>Цитат (quote):</label>
+    <textarea id="a_quote"></textarea>
+
+    <button class="btn" onclick="saveAbout()">Зачувај about.json</button>
+  </div>
+
+  <!-- 3. ПОСТАВКИ -->
+  <div id="settings" class="tab-content">
+    <h3>Општи информации и Контакт</h3>
+    <label>Локација (location):</label>
+    <input type="text" id="s_location" />
+
+    <label>Телефон (phone):</label>
+    <input type="text" id="s_phone" />
+
+    <label>Е-пошта (email):</label>
+    <input type="text" id="s_email" />
+
+    <label>Facebook Линк (facebook_url):</label>
+    <input type="text" id="s_fb" />
+
+    <button class="btn" onclick="saveSettings()">Зачувај settings.json</button>
+  </div>
+
+  <!-- 4. ГАЛЕРИЈА -->
+  <div id="gallery" class="tab-content">
+    <h3>Уредување на Галерија (Слики)</h3>
+    <div id="gallery-container"></div>
+    <button class="btn" onclick="addGalleryItem()" style="background: #10b981;">+ Додај нова слика</button>
+    <br><br>
+    <button class="btn" onclick="saveGallery()">Зачувај gallery.json</button>
+  </div>
+
 </div>
 
 <script>
-  // Автоматско вчитување на тековните податоци при отварање
+  let galleryData = [];
+
+  function switchTab(tabId, event) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // Автоматско вчитување на податоците
   window.addEventListener('DOMContentLoaded', async () => {
     try {
-      const res = await fetch('../content/home.json');
-      if (res.ok) {
-        const data = await res.json();
-        document.getElementById('home_title').value = data.hero_title || '';
-        document.getElementById('home_desc').value = data.hero_desc || '';
-        document.getElementById('home_box_title').value = data.box_title || '';
-        document.getElementById('home_box_desc').value = data.box_desc || '';
+      const resHome = await fetch('../content/home.json');
+      if(resHome.ok) {
+        const d = await resHome.json();
+        document.getElementById('h_title').value = d.hero_title || '';
+        document.getElementById('h_desc').value = d.hero_desc || '';
+        document.getElementById('h_box_title').value = d.box_title || '';
+        document.getElementById('h_box_desc').value = d.box_desc || '';
       }
-    } catch (e) {
-      console.log('Податоците се вчитуваат стандардно');
-    }
+
+      const resAbout = await fetch('../content/about.json');
+      if(resAbout.ok) {
+        const d = await resAbout.json();
+        document.getElementById('a_p1').value = d.p1 || '';
+        document.getElementById('a_p2').value = d.p2 || '';
+        document.getElementById('a_quote').value = d.quote || '';
+      }
+
+      const resSet = await fetch('../content/settings.json');
+      if(resSet.ok) {
+        const d = await resSet.json();
+        document.getElementById('s_location').value = d.location || '';
+        document.getElementById('s_phone').value = d.phone || '';
+        document.getElementById('s_email').value = d.email || '';
+        document.getElementById('s_fb').value = d.facebook_url || '';
+      }
+
+      const resGal = await fetch('../content/gallery.json');
+      if(resGal.ok) {
+        const d = await resGal.json();
+        galleryData = d.items || [];
+        renderGallery();
+      }
+    } catch(e) { console.log("Податоците се подготвени"); }
   });
 
-  function saveHomeData() {
-    const data = {
-      hero_title: document.getElementById('home_title').value,
-      hero_desc: document.getElementById('home_desc').value,
-      box_title: document.getElementById('home_box_title').value,
-      box_desc: document.getElementById('home_box_desc').value,
-      val1_title: "Врвен квалитет",
-      val1_desc: "Меѓународни шампионски линии.",
-      val2_title: "Здравствена сигурност",
-      val2_desc: "Генетски тестирани кучиња.",
-      val3_title: "Правилна исхрана",
-      val3_desc: "Одгледани со домашна и природна храна."
-    };
+  function renderGallery() {
+    const container = document.getElementById('gallery-container');
+    container.innerHTML = '';
+    galleryData.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      div.innerHTML = `
+        <button class="remove-btn" onclick="removeGalleryItem(${index})">Избриши слика</button>
+        <label>Наслов:</label>
+        <input type="text" value="${item.title || ''}" onchange="galleryData[index].title = this.value">
+        <label>Категорија:</label>
+        <select onchange="galleryData[index].category = this.value">
+          <option value="Shows" ${item.category === 'Shows' ? 'selected' : ''}>Shows</option>
+          <option value="Home Life" ${item.category === 'Home Life' ? 'selected' : ''}>Home Life</option>
+          <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
+          <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
+        </select>
+        <label>Име на слика (на пр: /content/images/slika1.jpg):</label>
+        <input type="text" value="${item.image || ''}" onchange="galleryData[index].image = this.value">
+        <label>Опис:</label>
+        <textarea onchange="galleryData[index].caption = this.value">${item.caption || ''}</textarea>
+      `;
+      container.appendChild(div);
+    });
+  }
 
-    // Генерирање на JSON фајл за преземање и зачувување
+  function addGalleryItem() {
+    galleryData.push({ title: "Нова слика", category: "Shows", image: "/content/images/", caption: "" });
+    renderGallery();
+  }
+
+  function removeGalleryItem(index) {
+    galleryData.splice(index, 1);
+    renderGallery();
+  }
+
+  function downloadJSON(data, filename) {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'home.json';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    alert(`Фајлот "${filename}" е успешно генериран! Заменете го на GitHub во папката content.`);
+  }
 
-    alert('Фајлот "home.json" е успешно генериран и преземен на вашиот компјутер! Сега само заменете го на GitHub во папката content.');
+  function saveHome() {
+    const data = {
+      hero_title: document.getElementById('h_title').value,
+      hero_desc: document.getElementById('h_desc').value,
+      box_title: document.getElementById('h_box_title').value,
+      box_desc: document.getElementById('h_box_desc').value,
+      val1_title: "Врвен квалитет", val1_desc: "Меѓународни шампионски линии.",
+      val2_title: "Здравствена сигурност", val2_desc: "Генетски тестирани кучиња.",
+      val3_title: "Правилна исхрана", val3_desc: "Одгледани со домашна и природна храна."
+    };
+    downloadJSON(data, 'home.json');
+  }
+
+  function saveAbout() {
+    const data = {
+      p1: document.getElementById('a_p1').value,
+      p2: document.getElementById('a_p2').value,
+      quote: document.getElementById('a_quote').value
+    };
+    downloadJSON(data, 'about.json');
+  }
+
+  function saveSettings() {
+    const data = {
+      location: document.getElementById('s_location').value,
+      phone: document.getElementById('s_phone').value,
+      email: document.getElementById('s_email').value,
+      facebook_url: document.getElementById('s_fb').value,
+      footer_desc: "Lifetime with Labradors - Сите права се задржани."
+    };
+    downloadJSON(data, 'settings.json');
+  }
+
+  function saveGallery() {
+    const data = { items: galleryData };
+    downloadJSON(data, 'gallery.json');
   }
 </script>
 
