@@ -76,7 +76,7 @@
       padding: 0 24px;
     }
 
-    /* TOP BAR & LANGUAGE SWITCHER */
+    /* TOP BAR СО ЈАЗИЦИ */
     .top-bar {
       background: var(--pistachio-soft);
       border-bottom: 1px solid var(--pistachio-border);
@@ -1146,11 +1146,12 @@
       </div>
     </div>
 
+    <!-- ТУКА СЕ НАОЃА ИЗМЕНЕТИОТ ДЕЛ: РАСТАТ ВО ДОМ (HOME) -->
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="val-pre">Our Commitment</span>
         <h2 class="section-maintitle" data-i18n="val-head">A Family Kennel Filled with Love</h2>
-        <p style="color: var(--text-muted);" data-i18n="val-sub">For us, Kingdom isn’t just a breeding program — it’s our home. Every puppy is born and raised in our living room with endless affection.</p>
+        <p style="color: var(--text-muted);" data-i18n="val-sub">For us, Kingdom isn’t just a breeding program — it’s our home. Every puppy is born and raised in our home with endless affection.</p>
       </div>
 
       <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
@@ -1192,7 +1193,7 @@
           Today, at 10 years old, Hannah still holds a very special place in my heart. She is the first page of the story I continue to write, the one who brought me into the world of Bichon Frisé and inspired everything that came after her.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" data-i18n="about-p4">
-          With time, Hannah’s story continued through her daughter <strong>Galla</strong>, and later through Galla’s daughter <strong>Darla</strong>. Through them, the story that began with one little Bichon became a part of something much bigger, carrying the same love from one generation to the next.",
+          With time, Hannah’s story continued through her daughter <strong>Galla</strong>, and later through Galla’s daughter <strong>Darla</strong>. Through them, the story that began with one little Bichon became a part of something much bigger, carrying the same love from one generation to the next.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 24px; color: var(--text-muted);" data-i18n="about-p5">
           As Kingdom of Snowstorm continued to grow, I felt that a new chapter was ready to begin. This year, that chapter brought <strong>Oslo</strong> into our family — <em>Petit Ami’s Take on Me</em>, from the respected Petit Ami kennel in Oslo, Norway. His arrival became part of the ongoing story of my kennel and the future I continue to build with my dogs.
@@ -1340,7 +1341,7 @@
     </div>
   </section>
 
-  <!-- TAB 6: GALLERY (КЕНЕЛ ГАЛЕРИЈА) -->
+  <!-- TAB 6: GALLERY -->
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1579,12 +1580,11 @@
     </div>
   </footer>
 
-  <!-- SCRIPT СО АВТОМАТСКИ ПРЕВОД НА СИТЕ ЗНАЧКИ ВО ГАЛЕРИЈАТА -->
+  <!-- SCRIPT СО АВТОМАТСКИ ПРЕВОД И ГАЛЕРИЈА -->
   <script>
     let currentLang = localStorage.getItem('snowstorm_lang') || 'en';
     let allGalleryItems = [];
 
-    // Паметна функција за превод на категории без оглед на мали/големи букви
     function getTranslatedCategory(cat, lang) {
       if (!cat) return lang === 'mk' ? 'Изложби' : 'Shows';
       const c = cat.toString().trim().toLowerCase();
@@ -1594,6 +1594,7 @@
           'изложби': 'Shows',
           'илложби': 'Shows',
           'shows': 'Shows',
+          'show': 'Shows',
           'домашен живот': 'Home Life',
           'home life': 'Home Life',
           'кученца': 'Puppies',
@@ -1605,6 +1606,7 @@
           'изложби': 'Изложби',
           'илложби': 'Изложби',
           'shows': 'Изложби',
+          'show': 'Изложби',
           'домашен живот': 'Домашен живот',
           'home life': 'Домашен живот',
           'кученца': 'Кученца',
@@ -1615,7 +1617,14 @@
       };
 
       const currentDict = map[lang] || map['en'];
-      return currentDict[c] || (lang === 'mk' ? cat : (map['en'][c] || cat));
+      if (currentDict[c]) return currentDict[c];
+
+      if (c.includes('излож') || c.includes('иллож') || c.includes('show')) return lang === 'mk' ? 'Изложби' : 'Shows';
+      if (c.includes('домаш') || c.includes('home')) return lang === 'mk' ? 'Домашен живот' : 'Home Life';
+      if (c.includes('кучен') || c.includes('pup')) return lang === 'mk' ? 'Кученца' : 'Puppies';
+      if (c.includes('грум') || c.includes('groom')) return lang === 'mk' ? 'Груминг' : 'Grooming';
+
+      return cat;
     }
 
     const langData = {
@@ -1639,7 +1648,7 @@
         "box-fci-foot": "Champions & C.I.B. International Bloodlines",
         "val-pre": "Our Commitment",
         "val-head": "A Family Kennel Filled with Love",
-        "val-sub": "For us, Kingdom isn’t just a breeding program — it’s our home. Every puppy is born and raised in our living room with endless affection.",
+        "val-sub": "For us, Kingdom isn’t just a breeding program — it’s our home. Every puppy is born and raised in our home with endless affection.",
         "val1-title": "Raised in Our Living Room",
         "val1-desc": "Our dogs are beloved family members first. They thrive surrounded by constant human touch, sound socialization, and endless daily cuddles.",
         "val2-title": "Health & Pedigree Standards",
@@ -1753,8 +1762,8 @@
         "box-fci-foot": "Шампиони и C.I.B. Меѓународни Крвни Линии",
         "val-pre": "Нашата Посветеност",
         "val-head": "Семејна одгледувачница преполна со љубов",
-        "val-sub": "За нас, Kingdom не е само одгледувачка програма — тоа е нашиот дом. Секое кученце се раѓа и расте во нашата дневна соба со бескрајна љубов.",
-        "val1-title": "Растат во нашата дневна соба",
+        "val-sub": "За нас, Kingdom не е само одгледувачка програма — тоа е нашиот дом. Секое кученце се раѓа и расте во нашиот дом со бескрајна љубов.",
+        "val1-title": "Растат во нашиот дом",
         "val1-desc": "Нашите кучиња се пред сè сакани членови на семејството. Растат опкружени со постојан човечки допир, внимателна социјализација и секојдневна игра.",
         "val2-title": "Здравје и FCI Стандард",
         "val2-desc": "Внимателно планирани парења според FCI стандардот, со цел беспрекорно здравје, мил темперамент и густо снежно крзно.",
@@ -1887,11 +1896,9 @@
         }
       });
 
-      // Веднаш ги преведува сите значки на сликите во галеријата
       renderGalleryCards(allGalleryItems);
     }
 
-    // ДИНАМИЧНА ГАЛЕРИЈА
     async function loadDynamicGallery() {
       try {
         const res = await fetch('content/gallery.json?t=' + new Date().getTime());
@@ -1905,9 +1912,8 @@
 
     function renderGalleryCards(items) {
       const container = document.getElementById('dynamicGalleryContainer');
-      if (!items || items.length === 0) return;
+      if (!container || !items || items.length === 0) return;
       container.innerHTML = items.map((item, index) => {
-        // Автоматски го одредува јазикот на категоријата
         const displayCategory = getTranslatedCategory(item.category, currentLang);
 
         return `
