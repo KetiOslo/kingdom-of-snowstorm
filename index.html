@@ -553,12 +553,6 @@
       border-bottom: 1px solid var(--pistachio-border);
     }
 
-    .dog-portrait-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     .dog-badge-sex {
       position: absolute;
       top: 14px;
@@ -1036,7 +1030,7 @@
 </head>
 <body>
 
-  <!-- TOP BAR СО КОПЧИЊА ЗА ЈАЗИК (EN / MK) -->
+  <!-- TOP BAR СО ЈАЗИЦИ -->
   <div class="top-bar">
     <div class="container top-bar-inner">
       <div class="accreditation-group">
@@ -1066,7 +1060,6 @@
           </a>
         </div>
 
-        <!-- КОПЧИЊА ЗА ПРЕФРЛАЊЕ МЕЃУ EN И МК -->
         <div class="lang-selector">
           <button class="lang-pill" id="btn-en" onclick="setAppLanguage('en')">EN</button>
           <button class="lang-pill" id="btn-mk" onclick="setAppLanguage('mk')">МК</button>
@@ -1101,7 +1094,7 @@
     </div>
   </header>
 
-  <!-- TAB 1: HOME (ПОЧЕТНА) -->
+  <!-- TAB 1: HOME -->
   <section id="tab-home" class="site-tab-content active">
     <div class="hero-banner">
       <div class="container hero-grid">
@@ -1147,6 +1140,7 @@
       </div>
     </div>
 
+    <!-- ТУКА Е ПРОМЕНЕТО: ТРГНАТ Е ЗБОРОТ "SMALL" -->
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="val-pre">Our Commitment</span>
@@ -1174,7 +1168,7 @@
     </div>
   </section>
 
-  <!-- TAB 2: ABOUT US (ЗА НАС) -->
+  <!-- TAB 2: ABOUT US -->
   <section id="tab-about" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1207,7 +1201,7 @@
     </div>
   </section>
 
-  <!-- TAB 3: OUR DOGS (НАШИТЕ КУЧИЊА) -->
+  <!-- TAB 3: OUR DOGS -->
   <section id="tab-dogs" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1217,7 +1211,6 @@
       </div>
 
       <div class="dogs-luxury-grid" id="dogsGrid">
-        <!-- КАРТИЧКА 1: OSLO -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>
@@ -1236,7 +1229,6 @@
           </div>
         </div>
 
-        <!-- КАРТИЧКА 2: HANNAH -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-shield-heart" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>
@@ -1255,7 +1247,6 @@
           </div>
         </div>
 
-        <!-- КАРТИЧКА 3: GALLA -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-award" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>
@@ -1274,7 +1265,6 @@
           </div>
         </div>
 
-        <!-- КАРТИЧКА 4: DARLA -->
         <div class="dog-feature-card">
           <div class="dog-portrait-container">
             <i class="fa-solid fa-gem" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>
@@ -1296,7 +1286,7 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS (ЛЕГЛА) -->
+  <!-- TAB 4: LITTERS -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1321,7 +1311,7 @@
     </div>
   </section>
 
-  <!-- TAB 5: AVAILABLE DOGS (ДОСТАПНИ КУЧИЊА) -->
+  <!-- TAB 5: AVAILABLE DOGS -->
   <section id="tab-available" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1345,7 +1335,7 @@
     </div>
   </section>
 
-  <!-- TAB 6: GALLERY (ГАЛЕРИЈА) -->
+  <!-- TAB 6: GALLERY -->
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1378,7 +1368,7 @@
     </div>
   </div>
 
-  <!-- TAB 7: BLOG & FACEBOOK TIMELINE -->
+  <!-- TAB 7: BLOG & FACEBOOK -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1435,7 +1425,7 @@
     </div>
   </section>
 
-  <!-- TAB 8: CONTACT (КОНТАКТ) -->
+  <!-- TAB 8: CONTACT -->
   <section id="tab-contact" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1584,7 +1574,7 @@
     </div>
   </footer>
 
-  <!-- SCRIPT СО ЦЕЛОСЕН BILINGUAL ДИКЦИОНАР И ГАЛЕРИЈА -->
+  <!-- SCRIPT -->
   <script>
     let currentLang = localStorage.getItem('snowstorm_lang') || 'en';
     let allGalleryItems = [];
@@ -1609,7 +1599,7 @@
         "box-fci-desc": "Officially registered under FCI No. 11/23 and MKD No. 268. Devoted to ethical, healthy, and championship preservation of the pure Bichon Frisé.",
         "box-fci-foot": "Champions & C.I.B. International Bloodlines",
         "val-pre": "Our Commitment",
-        "val-head": "A Small Family Kennel Filled with Love",
+        "val-head": "A Family Kennel Filled with Love",
         "val-sub": "For us, Kingdom isn’t just a breeding program — it’s our home. Every puppy is born and raised in our living room with endless affection.",
         "val1-title": "Raised in Our Living Room",
         "val1-desc": "Our dogs are beloved family members first. They thrive surrounded by constant human touch, sound socialization, and endless daily cuddles.",
@@ -1723,7 +1713,7 @@
         "box-fci-desc": "Официјално регистрирана под FCI бр. 11/23 и национален MKD бр. 268. Посветени на етичко, здраво и шампионско зачувување на расата бишон фризе.",
         "box-fci-foot": "Шампиони и C.I.B. Меѓународни Крвни Линии",
         "val-pre": "Нашата Посветеност",
-        "val-head": "Мала семејна одгледувачница преполна со љубов",
+        "val-head": "Семејна одгледувачница преполна со љубов",
         "val-sub": "За нас, Kingdom не е само одгледувачка програма — тоа е нашиот дом. Секое кученце се раѓа и расте во нашата дневна соба со бескрајна љубов.",
         "val1-title": "Растат во нашата дневна соба",
         "val1-desc": "Нашите кучиња се пред сè сакани членови на семејството. Растат опкружени со постојан човечки допир, внимателна социјализација и секојдневна игра.",
@@ -1859,7 +1849,7 @@
       });
     }
 
-    // ДИНАМИЧНА ГАЛЕРИЈА (ВЛЕЧЕ ОД CMS)
+    // ДИНАМИЧНА ГАЛЕРИЈА
     async function loadDynamicGallery() {
       try {
         const res = await fetch('content/gallery.json?t=' + new Date().getTime());
