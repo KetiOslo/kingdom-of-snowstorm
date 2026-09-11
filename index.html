@@ -1521,6 +1521,7 @@
           <li><a onclick="selectTab('litters')" data-i18n="nav-litters">Litters</a></li>
           <li><a onclick="selectTab('available')" data-i18n="nav-available">Available Dogs</a></li>
           <li><a onclick="selectTab('gallery')" data-i18n="nav-gallery">Gallery</a></li>
+          <li><a onclick="selectTab('blog')" data-i18n="nav-blog">Blog</a></li>
           <li><a onclick="selectTab('contact')" data-i18n="nav-contact">Contact</a></li>
         </ul>
       </div>
@@ -1657,7 +1658,7 @@
         "val3-d": "Гордо ја претставуваме нашата одгледувачница на Светски изложби, Европски првенства и ФЦИ меѓународни натпревари со освоени C.I.B. титули.",
         "about-pre": "Нашето наследство",
         "about-title": "Приказната зад Kingdom of Snowstorm",
-        "dogs-pre": "Кралското семејство",
+        "dogs-pre": "Кралицата и семејството",
         "dogs-title": "Нашите сакани бишони",
         "dogs-sub": "Одгледани со најголема посветеност: увезен мажјак од Норвешка и повеќе генерации женки.",
         "litters-pre": "Етичко одгледување",
@@ -1673,7 +1674,7 @@
         "avail-btn": "Контактирајте за достапност",
         "gal-pre": "Моменти и сеќавања",
         "gal-title": "Галерија на одгледувачницата",
-        "gal-sub": "Моменти од европски изложбени рингови, секојдневна семејна радост и први чекори во леглото.",
+        "gal-sub": "Моменти од европски изложбени рингови, секојдневна семејна радост и ранчиња.",
         "gal-all": "Сите фотографии",
         "gal-shows": "Изложби",
         "gal-home": "Домашен живот",
@@ -1821,7 +1822,6 @@
     async function loadAllCmsContent() {
       const ts = new Date().getTime();
 
-      // 1. Settings
       try {
         const res = await fetch('content/settings.json?t=' + ts);
         if (res.ok) {
@@ -1847,7 +1847,6 @@
         }
       } catch(e) {}
 
-      // 2. Home
       try {
         const res = await fetch('content/home.json?t=' + ts);
         if (res.ok) {
@@ -1865,7 +1864,6 @@
         }
       } catch(e) {}
 
-      // 3. About
       try {
         const res = await fetch('content/about.json?t=' + ts);
         if (res.ok) {
@@ -1879,7 +1877,6 @@
         }
       } catch(e) {}
 
-      // 4. Available Dogs
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1893,7 +1890,6 @@
         }
       } catch(e) {}
 
-      // 5. Dogs
       try {
         const res = await fetch('content/dogs.json?t=' + ts);
         if (res.ok) {
@@ -1903,7 +1899,6 @@
         }
       } catch(e) {}
 
-      // 6. Litters
       try {
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
@@ -1913,7 +1908,6 @@
         }
       } catch(e) {}
 
-      // 7. Gallery
       loadDynamicGallery();
     }
 
@@ -1945,6 +1939,7 @@
       }).join('');
     }
 
+    // ВРАТЕН ПРВИЧНИОТ ДИЗАЈН НА ЛЕГЛА СО КОПЧЕ И СТАТУС
     function renderLitters(litters) {
       const container = document.getElementById('dynamicLittersContainer');
       if (!container || !litters || litters.length === 0) return;
