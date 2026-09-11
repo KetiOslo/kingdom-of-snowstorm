@@ -76,7 +76,7 @@
       padding: 0 24px;
     }
 
-    /* TOP BAR - РЕСПОНЗИВНО ЗА МОБИЛЕН */
+    /* TOP BAR */
     .top-bar {
       background: var(--pistachio-soft);
       border-bottom: 1px solid var(--pistachio-border);
@@ -528,7 +528,7 @@
       border-color: var(--gold-border);
     }
 
-    /* GRID СИСТЕМ ЗА КУЧИЊА */
+    /* GRID */
     .dogs-luxury-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -627,7 +627,7 @@
       margin-top: auto;
     }
 
-    /* БЛОГ & FACEBOOK ВО ЖИВО */
+    /* BLOG & FACEBOOK */
     .blog-feed-container {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -675,17 +675,7 @@
       gap: 20px;
     }
 
-    .blog-post-card {
-      background: var(--white);
-      border-radius: 14px;
-      border: 1px solid var(--pistachio-border);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: var(--transition);
-      padding: 24px;
-    }
-
-    /* ГАЛЕРИЈА */
+    /* GALLERY */
     .gallery-filter-bar {
       display: flex;
       justify-content: center;
@@ -1022,7 +1012,6 @@
       transform: scale(1.1);
     }
 
-    /* МОБИЛНА ПРИЛАГОДЛИВОСТ (РЕСПОНЗИВНОСТ) */
     @media (max-width: 900px) {
       .container { padding: 0 16px; }
 
@@ -1097,7 +1086,7 @@
 </head>
 <body>
 
-  <!-- TOP BAR СО ЈАЗИЦИ -->
+  <!-- TOP BAR -->
   <div class="top-bar">
     <div class="container top-bar-inner">
       <div class="accreditation-group">
@@ -1215,7 +1204,6 @@
       </div>
     </div>
 
-    <!-- ТУКА Е ТРГНАТ ЗБОРОТ FAMILY -->
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle">Our Commitment</span>
@@ -1562,6 +1550,7 @@
   <script>
     let currentLang = localStorage.getItem('snowstorm_lang') || 'en';
     let allGalleryItems = [];
+    let cachedLittersList = [];
 
     function getTranslatedCategory(cat, lang) {
       if (!cat) return lang === 'mk' ? 'Изложби' : 'Shows';
@@ -1605,7 +1594,6 @@
       return cat;
     }
 
-    // АВТОМАТСКИ ПРЕВОД НА ПОЛ КОЈА КАЈ КУЧИЊАТА СЕ ВНЕСУВА ПРЕКУ CMS
     function getTranslatedGender(gender, lang) {
       if (!gender) return '';
       const g = gender.toString().trim().toLowerCase();
@@ -1689,6 +1677,7 @@
       });
 
       renderDogs(cachedDogsList);
+      renderLitters(cachedLittersList);
       renderGalleryCards(allGalleryItems);
     }
 
@@ -1784,7 +1773,9 @@
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
-          renderLitters(l.items || []);
+          // Поддршка и за старото поле 'items' и новото 'litters'
+          cachedLittersList = l.litters || l.items || [];
+          renderLitters(cachedLittersList);
         }
       } catch(e) {}
 
@@ -1823,16 +1814,27 @@
     function renderLitters(litters) {
       const container = document.getElementById('dynamicLittersContainer');
       if (!container || !litters || litters.length === 0) return;
-      container.innerHTML = litters.map(l => `
-        <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
-            <h3 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--pistachio-dark);">${l.pair}</h3>
-            <span class="royal-tag" style="margin-bottom: 0;">${l.status || 'Planned'}</span>
+      
+      container.innerHTML = litters.map(l => {
+        // Динамичко читање на статусот за леглата според избраниот јазик (МК или EN)
+        const litterStatus = (currentLang === 'mk') 
+          ? (litter.status_mk || litter.status || 'Отворени за резервација') 
+          : (litter.status_en || litter.status || 'Open for Reservations');
+
+        const titleText = l.pair || l.title || '';
+        const descText = l.text || l.description || '';
+
+        return `
+          <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+              <h3 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--pistachio-dark);">${titleText}</h3>
+              <span class="royal-tag" style="margin-bottom: 0;">${litterStatus}</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; margin-bottom: 20px;">${descText}</p>
+            <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')">${currentLang === 'mk' ? 'Аплицирај за резервација' : 'Apply for Puppy Reservation'}</button>
           </div>
-          <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; margin-bottom: 20px;">${l.text}</p>
-          <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')">Apply for Puppy Reservation</button>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     async function loadDynamicGallery() {
