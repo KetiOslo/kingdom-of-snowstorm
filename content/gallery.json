@@ -2,21 +2,21 @@
   "items": [
     {
       "title": "World & European Show Rings",
-      "image": "/images/791130091_122233759796098198_3744474563337709219_n.jpg",
+      "image": "2.png",
       "caption": "Proud moments representing Kingdom of Snowstorm at prestigious FCI international shows.",
-      "category": "Изложби"
+      "category": "Shows"
     },
     {
       "title": "Home Life & Daily Cuddles",
       "image": "2.png",
       "caption": "Our Bichons are raised in our living room surrounded by endless love and care.",
-      "category": "Домашен живот"
+      "category": "Home Life"
     },
     {
       "title": "Puppy Nursery & First Steps",
       "image": "2.png",
       "caption": "Early neurological stimulation and socialization of our purebred Bichon Frisé puppies.",
-      "category": "Кученца"
+      "category": "Puppies"
     }
   ]
 }
