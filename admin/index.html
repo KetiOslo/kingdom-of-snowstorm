@@ -7,12 +7,12 @@
   <style>
     :root { --primary: #0284c7; --primary-dark: #0369a1; --success: #16a34a; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-    .wrapper { max-width: 1000px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .wrapper { max-width: 1050px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
     h1 { color: var(--primary); font-size: 24px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
     .auth-box { background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .auth-box input { flex: 1; min-width: 250px; margin: 0; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
-    .tab-btn { background: #e2e8f0; border: none; padding: 10px 16px; font-weight: 600; border-radius: 6px; cursor: pointer; color: #475569; transition: all 0.2s; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 9px 14px; font-weight: 600; border-radius: 6px; cursor: pointer; color: #475569; transition: all 0.2s; font-size: 13px; }
     .tab-btn.active { background: var(--primary); color: white; }
     .tab-content { display: none; animation: fadeIn 0.3s ease; }
     .tab-content.active { display: block; }
@@ -20,7 +20,7 @@
     label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
     input[type="text"], input[type="password"], input[type="date"], textarea, select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
     input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
-    textarea { height: 110px; resize: vertical; }
+    textarea { height: 100px; resize: vertical; }
     .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; transition: background 0.2s; }
     .btn:hover { background: var(--primary-dark); }
     .btn-secondary { background: #10b981; }
@@ -40,7 +40,7 @@
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Master Admin</span>
-    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Блог & Содржина</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Сите 8 Табови</span>
   </h1>
   
   <!-- ПОВРЗУВАЊЕ СО GITHUB -->
@@ -55,13 +55,16 @@
     <div id="auth-status" style="width: 100%; font-size: 13px; font-weight: 600; color: var(--success);"></div>
   </div>
 
-  <!-- Табови за навигација -->
+  <!-- 8 ТАБОВИ ЗА НАВИГАЦИЈА -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
     <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
     <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
-    <button class="tab-btn" onclick="switchTab('blog', event)" style="background: #0284c7; color: white;">📝 Блог</button>
+    <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
+    <button class="tab-btn" onclick="switchTab('litters', event)">🍼 Легла (Litters)</button>
+    <button class="tab-btn" onclick="switchTab('puppies', event)">🐾 Достапни кученца</button>
+    <button class="tab-btn" onclick="switchTab('blog', event)">📝 Блог</button>
   </div>
 
   <!-- 1. ПОЧЕТНА -->
@@ -69,16 +72,12 @@
     <h3>Уредување на Почетна страница</h3>
     <label>Главен наслов (hero_title):</label>
     <input type="text" id="h_title" />
-
     <label>Воведен текст (hero_desc):</label>
     <textarea id="h_desc"></textarea>
-
     <label>Наслов на кутија (box_title):</label>
     <input type="text" id="h_box_title" />
-
     <label>Опис на кутија (box_desc):</label>
     <textarea id="h_box_desc"></textarea>
-    
     <button class="btn" onclick="saveFile('content/home.json', getHomeData(), 'home.msg')">Зачувај на GitHub</button>
     <div id="home.msg" class="status"></div>
   </div>
@@ -88,32 +87,25 @@
     <h3>Уредување на За нас страница</h3>
     <label>Пасус 1 (p1):</label>
     <textarea id="a_p1"></textarea>
-
     <label>Пасус 2 (p2):</label>
     <textarea id="a_p2"></textarea>
-
     <label>Цитат (quote):</label>
     <textarea id="a_quote"></textarea>
-
     <button class="btn" onclick="saveFile('content/about.json', getAboutData(), 'about.msg')">Зачувај на GitHub</button>
     <div id="about.msg" class="status"></div>
   </div>
 
   <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
-    <h3>Општи информации</h3>
+    <h3>Општи информации и контакт</h3>
     <label>Локација (location):</label>
     <input type="text" id="s_location" />
-
     <label>Телефон (phone):</label>
     <input type="text" id="s_phone" />
-
     <label>Е-пошта (email):</label>
     <input type="text" id="s_email" />
-
     <label>Facebook Линк (facebook_url):</label>
     <input type="text" id="s_fb" />
-
     <button class="btn" onclick="saveFile('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај на GitHub</button>
     <div id="settings.msg" class="status"></div>
   </div>
@@ -128,21 +120,50 @@
     <div id="gallery.msg" class="status"></div>
   </div>
 
-  <!-- 5. БЛОГ -->
+  <!-- 5. КУЧИЊА -->
+  <div id="dogs" class="tab-content">
+    <h3>🐶 Уредување на Кучиња</h3>
+    <div id="dogs-container"></div>
+    <button class="btn btn-secondary" onclick="addDogItem()">+ Додај ново куче</button>
+    <br><br>
+    <button class="btn" onclick="saveFile('content/dogs.json', { dogs: dogsData }, 'dogs.msg')">Зачувај на GitHub</button>
+    <div id="dogs.msg" class="status"></div>
+  </div>
+
+  <!-- 6. ЛЕГЛА (LITTERS) -->
+  <div id="litters" class="tab-content">
+    <h3>🍼 Уредување на Легла (Litters)</h3>
+    <div id="litters-container"></div>
+    <button class="btn btn-secondary" onclick="addLitterItem()">+ Додај ново легло</button>
+    <br><br>
+    <button class="btn" onclick="saveFile('content/litters.json', { litters: littersData }, 'litters.msg')">Зачувај на GitHub</button>
+    <div id="litters.msg" class="status"></div>
+  </div>
+
+  <!-- 7. ДОСТАПНИ КУЧЕНЦА (AVAILABLE PUPPIES) -->
+  <div id="puppies" class="tab-content">
+    <h3>🐾 Достапни кученца (Available Puppies)</h3>
+    <div id="puppies-container"></div>
+    <button class="btn btn-secondary" onclick="addPuppyItem()">+ Додај кученце</button>
+    <br><br>
+    <button class="btn" onclick="saveFile('content/puppies.json', { puppies: puppiesData }, 'puppies.msg')">Зачувај на GitHub</button>
+    <div id="puppies.msg" class="status"></div>
+  </div>
+
+  <!-- 8. БЛОГ -->
   <div id="blog" class="tab-content">
-    <h3>📝 Уредување и Водење на Блог Објави</h3>
+    <h3>📝 Уредување на Блог Објави</h3>
     <div id="blog-container"></div>
     <button class="btn btn-secondary" onclick="addBlogPost()">+ Креирај нов блог пост</button>
     <br><br>
-    <button class="btn" onclick="saveFile('content/blog.json', { posts: blogData }, 'blog.msg')">Зачувај ги блог објавите на GitHub</button>
+    <button class="btn" onclick="saveFile('content/blog.json', { posts: blogData }, 'blog.msg')">Зачувај на GitHub</button>
     <div id="blog.msg" class="status"></div>
   </div>
 
 </div>
 
 <script>
-  let galleryData = [];
-  let blogData = [];
+  let galleryData = [], dogsData = [], littersData = [], puppiesData = [], blogData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
 
   function saveToken() {
@@ -161,6 +182,15 @@
     }
 
     try {
+      const loadJSON = async (path, setter, renderFn) => {
+        const res = await fetch(`../${path}`);
+        if(res.ok) {
+          const d = await res.json();
+          setter(d);
+          if(renderFn) renderFn();
+        }
+      };
+
       // Home
       const rH = await fetch('../content/home.json');
       if(rH.ok) {
@@ -190,22 +220,12 @@
         document.getElementById('s_fb').value = d.facebook_url || '';
       }
 
-      // Gallery
-      const rG = await fetch('../content/gallery.json');
-      if(rG.ok) {
-        const d = await rG.json();
-        galleryData = d.items || [];
-        renderGallery();
-      }
-
-      // Blog
-      const rB = await fetch('../content/blog.json');
-      if(rB.ok) {
-        const d = await rB.json();
-        blogData = d.posts || [];
-        renderBlog();
-      }
-    } catch(e) { console.log("Ready"); }
+      loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
+      loadJSON('content/dogs.json', d => dogsData = d.dogs || [], renderDogs);
+      loadJSON('content/litters.json', d => littersData = d.litters || [], renderLitters);
+      loadJSON('content/puppies.json', d => puppiesData = d.puppies || [], renderPuppies);
+      loadJSON('content/blog.json', d => blogData = d.posts || [], renderBlog);
+    } catch(e) { console.log("Init OK"); }
   });
 
   function switchTab(tabId, event) {
@@ -215,7 +235,7 @@
     if(event) event.currentTarget.classList.add('active');
   }
 
-  // Аплоуд на слика директно на GitHub
+  // Директен аплоуд на слика на GitHub
   async function uploadImageToGithub(fileInput, targetInputId) {
     const file = fileInput.files[0];
     if(!file) return;
@@ -244,62 +264,91 @@
     reader.readAsDataURL(file);
   }
 
-  // Gallery
+  // Renders for lists
   function renderGallery() {
-    const container = document.getElementById('gallery-container');
-    container.innerHTML = '';
-    galleryData.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.className = 'item-card';
-      div.innerHTML = `
-        <button class="remove-btn" onclick="galleryData.splice(${index},1); renderGallery();">Избриши</button>
-        <label>Наслов:</label>
-        <input type="text" value="${item.title || ''}" onchange="galleryData[${index}].title = this.value">
+    const c = document.getElementById('gallery-container'); c.innerHTML = '';
+    galleryData.forEach((item, i) => {
+      c.innerHTML += `<div class="item-card">
+        <button class="remove-btn" onclick="galleryData.splice(${i},1); renderGallery();">Избриши</button>
+        <label>Наслов:</label><input type="text" value="${item.title || ''}" onchange="galleryData[${i}].title = this.value">
         <label>Категорија:</label>
-        <select onchange="galleryData[${index}].category = this.value">
+        <select onchange="galleryData[${i}].category = this.value">
           <option value="Shows" ${item.category === 'Shows' ? 'selected' : ''}>Shows</option>
           <option value="Home Life" ${item.category === 'Home Life' ? 'selected' : ''}>Home Life</option>
           <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
-        <label>Слика:</label>
-        <input type="text" id="gal_${index}" value="${item.image || ''}" onchange="galleryData[${index}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${index}'); galleryData[${index}].image = document.getElementById('gal_${index}').value;"></div>
-        <label>Опис:</label>
-        <textarea style="height:50px;" onchange="galleryData[${index}].caption = this.value">${item.caption || ''}</textarea>
-      `;
-      container.appendChild(div);
+        <label>Слика:</label><input type="text" id="gal_${i}" value="${item.image || ''}" onchange="galleryData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${i}'); galleryData[${i}].image = document.getElementById('gal_${i}').value;"></div>
+        <label>Опис:</label><textarea style="height:50px;" onchange="galleryData[${i}].caption = this.value">${item.caption || ''}</textarea>
+      </div>`;
     });
   }
-  function addGalleryItem() { galleryData.push({ title: "Нова слика", category: "Shows", image: "", caption: "" }); renderGallery(); }
+  function addGalleryItem() { galleryData.push({ title: "", category: "Shows", image: "", caption: "" }); renderGallery(); }
 
-  // Blog Management
+  function renderDogs() {
+    const c = document.getElementById('dogs-container'); c.innerHTML = '';
+    dogsData.forEach((dog, i) => {
+      c.innerHTML += `<div class="item-card">
+        <button class="remove-btn" onclick="dogsData.splice(${i},1); renderDogs();">Избриши</button>
+        <label>Име на кучето:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
+        <label>Линија / Потекло:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
+        <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
+        <label>Фотографија:</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'dog_${i}'); dogsData[${i}].image = document.getElementById('dog_${i}').value;"></div>
+        <label>Опис:</label><textarea style="height:60px;" onchange="dogsData[${i}].narrative = this.value">${dog.narrative || ''}</textarea>
+      </div>`;
+    });
+  }
+  function addDogItem() { dogsData.push({ name: "", lineage: "", gender: "", image: "", narrative: "" }); renderDogs(); }
+
+  function renderLitters() {
+    const c = document.getElementById('litters-container'); c.innerHTML = '';
+    littersData.forEach((litter, i) => {
+      c.innerHTML += `<div class="item-card">
+        <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
+        <label>Наслов / Име на леглото:</label><input type="text" value="${litter.title || ''}" onchange="littersData[${i}].title = this.value">
+        <label>Датум / Инфо:</label><input type="text" value="${litter.date || ''}" onchange="littersData[${i}].date = this.value">
+        <label>Фотографија:</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'lit_${i}'); littersData[${i}].image = document.getElementById('lit_${i}').value;"></div>
+        <label>Опис:</label><textarea style="height:60px;" onchange="littersData[${i}].description = this.value">${litter.description || ''}</textarea>
+      </div>`;
+    });
+  }
+  function addLitterItem() { littersData.push({ title: "", date: "", image: "", description: "" }); renderLitters(); }
+
+  function renderPuppies() {
+    const c = document.getElementById('puppies-container'); c.innerHTML = '';
+    puppiesData.forEach((pup, i) => {
+      c.innerHTML += `<div class="item-card">
+        <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
+        <label>Име / Ознака на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
+        <label>Статус (на пр. Достапно / Резервирано):</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
+        <label>Фотографија:</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'pup_${i}'); puppiesData[${i}].image = document.getElementById('pup_${i}').value;"></div>
+        <label>Детали:</label><textarea style="height:60px;" onchange="puppiesData[${i}].details = this.value">${pup.details || ''}</textarea>
+      </div>`;
+    });
+  }
+  function addPuppyItem() { puppiesData.push({ name: "", status: "Достапно", image: "", details: "" }); renderPuppies(); }
+
   function renderBlog() {
-    const container = document.getElementById('blog-container');
-    container.innerHTML = '';
-    blogData.forEach((post, index) => {
-      const div = document.createElement('div');
-      div.className = 'item-card';
-      div.innerHTML = `
-        <button class="remove-btn" onclick="blogData.splice(${index},1); renderBlog();">Избриши пост</button>
-        <label>Наслов на блогот:</label>
-        <input type="text" value="${post.title || ''}" onchange="blogData[${index}].title = this.value">
-        <label>Датум:</label>
-        <input type="date" value="${post.date || ''}" onchange="blogData[${index}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
-        <label>Главна слика на блогот:</label>
-        <input type="text" id="blog_img_${index}" value="${post.image || ''}" onchange="blogData[${index}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_img_${index}'); blogData[${index}].image = document.getElementById('blog_img_${index}').value;"></div>
-        <label>Краток опис (Excerpt):</label>
-        <textarea style="height:60px;" onchange="blogData[${index}].excerpt = this.value">${post.excerpt || ''}</textarea>
-        <label>Целосна содржина на блогот (Текст):</label>
-        <textarea style="height:150px;" onchange="blogData[${index}].content = this.value">${post.content || ''}</textarea>
-      `;
-      container.appendChild(div);
+    const c = document.getElementById('blog-container'); c.innerHTML = '';
+    blogData.forEach((post, i) => {
+      c.innerHTML += `<div class="item-card">
+        <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши</button>
+        <label>Наслов:</label><input type="text" value="${post.title || ''}" onchange="blogData[${i}].title = this.value">
+        <label>Датум:</label><input type="date" value="${post.date || ''}" onchange="blogData[${i}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
+        <label>Слика:</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_${i}'); blogData[${i}].image = document.getElementById('blog_${i}').value;"></div>
+        <label>Краток опис:</label><textarea style="height:50px;" onchange="blogData[${i}].excerpt = this.value">${post.excerpt || ''}</textarea>
+        <label>Целосна содржина:</label><textarea style="height:120px;" onchange="blogData[${i}].content = this.value">${post.content || ''}</textarea>
+      </div>`;
     });
   }
   function addBlogPost() {
     const today = new Date().toISOString().split('T')[0];
-    blogData.unshift({ title: "Нов наслов на блог", date: today, image: "", excerpt: "", content: "" });
+    blogData.unshift({ title: "", date: today, image: "", excerpt: "", content: "" });
     renderBlog();
   }
 
