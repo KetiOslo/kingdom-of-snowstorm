@@ -2,9 +2,6 @@ backend:
   name: github
   repo: KetiOslo/kingdom-of-snowstorm
   branch: main
-  base_url: https://api.github.com
-  auth_type: implicit
-  app_id: ''
 
 media_folder: "content/images"
 public_folder: "content/images"
