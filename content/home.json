@@ -1,36 +1,12 @@
 {
-  "items": [
-    {
-      "name": "Oslo",
-      "lineage": "Petit Ami’s Take on Me",
-      "gender": "Мажјак",
-      "role": "Main Stud & Show Male (Norway)",
-      "narrative": "Our striking boy imported from the renowned Petit Ami kennel in Norway. Bringing exceptional type, sweet expression, perfect pigment, and world-class genetics to our breeding program.",
-      "image": "2.png"
-    },
-    {
-      "name": "Hannah",
-      "lineage": "The Soul & First Page",
-      "gender": "Женка",
-      "role": "Kennel Queen (10 Years Old)",
-      "narrative": "The foundation of everything. Hannah is the white cloud who transformed our lives in 2016. Today, at 10 years old, she is celebrated, healthy, and always at the very center of our family heart.",
-      "image": "2.png"
-    },
-    {
-      "name": "Galla",
-      "lineage": "Daughter of Hannah",
-      "gender": "Женка",
-      "role": "Champion & C.I.B.",
-      "narrative": "Daughter of Hannah, carrying her mother's elegance, affectionate temperament, and radiant ring presence. An international show champion and a tender mother continuing our legacy.",
-      "image": "2.png"
-    },
-    {
-      "name": "Darla",
-      "lineage": "Daughter of Galla",
-      "gender": "Женка",
-      "role": "Rising Star (3rd Generation)",
-      "narrative": "Granddaughter of Hannah and daughter of Galla. Darla is the vibrant third generation of Kingdom of Snowstorm. Playful, loving, and carrying the beauty of our family line into the bright future.",
-      "image": "2.png"
-    }
-  ]
+  "hero_title": "Where Champions Are Raised with Love",
+  "hero_desc": "Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia. Dedicated to raising healthy, loving, and extraordinary show-quality companions in the heart of our family.",
+  "box_title": "FCI & KSM Official Standard",
+  "box_desc": "Officially registered under FCI No. 11/23 and MKD No. 268. Devoted to ethical, healthy, and championship preservation of the pure Bichon Frisé.",
+  "val1_title": "Raised in Our Living Room",
+  "val1_desc": "Our dogs are beloved family members first. They thrive surrounded by constant human touch, sound socialization, and endless daily cuddles.",
+  "val2_title": "Health & Pedigree Standards",
+  "val2_desc": "Carefully planned matings following the FCI standard, safeguarding impeccable genetic health, sweet temperament, and dense white coats.",
+  "val3_title": "Excellence in Show Rings",
+  "val3_desc": "Proudly representing our kennel at World Dog Shows, European Championships, and FCI International competitions with C.I.B. titles."
 }
