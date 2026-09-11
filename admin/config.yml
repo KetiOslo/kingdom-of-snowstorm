@@ -3,8 +3,8 @@ backend:
   repo: KetiOslo/kingdom-of-snowstorm
   branch: main
 
-media_folder: "content/images"
-public_folder: "/content/images"
+media_folder: "images"
+public_folder: "images"
 
 collections:
   - name: pages
