@@ -84,9 +84,9 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Име на кучето", name: "name", widget: "string" }
-      - { label: "Линија / Потекло", name: "lineage", widget: "string" }
-      - { label: "Пол", name: "gender", widget: "string" }
-      - { label: "Улога", name: "role", widget: "string" }
-      - { label: "Опис", name: "narrative", widget: "text" }
+      - { label: "Име на кучето", name: "name", widget: "string" },
+      - { label: "Линија / Потекло", name: "lineage", widget: "string" },
+      - { label: "Пол", name: "gender", widget: "string" },
+      - { label: "Улога", name: "role", widget: "string" },
+      - { label: "Опис", name: "narrative", widget: "text" },
       - { label: "Фотографија", name: "image", widget: "image" }
