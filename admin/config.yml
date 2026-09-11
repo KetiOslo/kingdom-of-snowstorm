@@ -36,13 +36,6 @@ collections:
           - { label: "Пасус 5", name: "p5", widget: "text" }
           - { label: "Цитат", name: "quote", widget: "text" }
 
-      - name: available
-        label: "🐾 Пакет за кученца"
-        file: "content/available.json"
-        fields:
-          - { label: "Наслов", name: "title", widget: "string" }
-          - { label: "Што содржи (ставки)", name: "inclusions", widget: "list" }
-
       - name: settings
         label: "⚙️ Општи информации"
         file: "content/settings.json"
@@ -52,28 +45,3 @@ collections:
           - { label: "Е-пошта", name: "email", widget: "string" }
           - { label: "Facebook Линк", name: "facebook_url", widget: "string" }
           - { label: "Текст во Футер", name: "footer_desc", widget: "text" }
-
-      - name: litters
-        label: "🍼 Легла (Litters)"
-        file: "content/litters.json"
-        fields:
-          - name: items
-            label: Легла
-            widget: list
-            fields:
-              - { label: "Парот (Мажјак × Женка)", name: "pair", widget: "string" }
-              - { label: "Статус", name: "status", widget: "string" }
-              - { label: "Опис", name: "text", widget: "text" }
-
-      - name: gallery
-        label: "📸 Кенел Галерија (Kennel Gallery)"
-        file: "content/gallery.json"
-        fields:
-          - name: items
-            label: Фотографии
-            widget: list
-            fields:
-              - { label: "Наслов", name: "title", widget: "string" }
-              - { label: "Категорија", name: "category", widget: "select", options: ["Shows", "Home Life", "Puppies", "Grooming"] }
-              - { label: "Фотографија", name: "image", widget: "image" }
-              - { label: "Опис", name: "caption", widget: "text" }
