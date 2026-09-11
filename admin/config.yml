@@ -1,11 +1,4 @@
-backend:
-  name: github
-  repo: KetiOslo/kingdom-of-snowstorm
-  branch: main
-  base_url: https://kingdom-of-snowstorm.pages.devbackend:
-  name: github
-  repo: KetiOslo/kingdom-of-snowstorm
-  branch: main
+branch: main
 
 media_folder: "content"
 public_folder: "content"
