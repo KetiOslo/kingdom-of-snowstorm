@@ -33,6 +33,7 @@
     .status.error { background: #fee2e2; color: #ef4444; display: block; }
     .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
     .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
+    .preview-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; margin-top: 8px; border: 1px solid #cbd5e1; display: block; }
   </style>
 </head>
 <body>
@@ -218,7 +219,8 @@
     if(event) event.currentTarget.classList.add('active');
   }
 
-  async function uploadImageToGithub(fileInput, targetInputId) {
+  // ПОПРАВЕНА И СИНХРОНИЗИРАНА ФУНКЦИЈА ЗА СЛИКИ
+  async function uploadImageToGithub(fileInput, targetInputId, callback) {
     const file = fileInput.files[0];
     if(!file) return;
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
@@ -229,7 +231,18 @@
       const base64Content = e.target.result.split(',')[1];
       const fileName = Date.now() + '_' + file.name.replace(/\s+/g, '_');
       const filePath = `content/images/${fileName}`;
-      alert('Сликата се прикачува...');
+      
+      const box = fileInput.closest('.file-upload-box');
+      let statusInfo = box.querySelector('.upload-status');
+      if(!statusInfo) {
+        statusInfo = document.createElement('div');
+        statusInfo.className = 'upload-status';
+        statusInfo.style.fontSize = '12px';
+        statusInfo.style.color = '#0284c7';
+        statusInfo.style.marginTop = '5px';
+        box.appendChild(statusInfo);
+      }
+      statusInfo.innerText = '⏳ Се прикачува сликата...';
 
       try {
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
@@ -238,10 +251,18 @@
           body: JSON.stringify({ message: `Upload ${fileName}`, content: base64Content })
         });
         if(res.ok) {
-          document.getElementById(targetInputId).value = `/content/images/${fileName}`;
-          alert('✓ Сликата е успешно поставена!');
-        } else { alert('✕ Грешка при прикачување.'); }
-      } catch(err) { alert('✕ Мрежна грешка.'); }
+          const publicPath = `content/images/${fileName}`;
+          document.getElementById(targetInputId).value = publicPath;
+          statusInfo.innerText = '✓ Сликата е успешно поставена!';
+          if(callback) callback(publicPath);
+        } else { 
+          statusInfo.innerText = '✕ Грешка при прикачување.';
+          alert('✕ Грешка при прикачување на сликата.'); 
+        }
+      } catch(err) { 
+        statusInfo.innerText = '✕ Мрежна грешка.';
+        alert('✕ Мрежна грешка при прикачување.'); 
+      }
     };
     reader.readAsDataURL(file);
   }
@@ -260,7 +281,7 @@
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
         <label>Слика:</label><input type="text" id="gal_${i}" value="${item.image || ''}" onchange="galleryData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${i}'); galleryData[${i}].image = document.getElementById('gal_${i}').value;"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${i}', (path) => { galleryData[${i}].image = path; });"></div>
         <label>Опис:</label><textarea style="height:50px;" onchange="galleryData[${i}].caption = this.value">${item.caption || ''}</textarea>
       </div>`;
     });
@@ -276,7 +297,7 @@
         <label>Линија:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
         <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
         <label>Фотографија:</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'dog_${i}'); dogsData[${i}].image = document.getElementById('dog_${i}').value;"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'dog_${i}', (path) => { dogsData[${i}].image = path; });"></div>
         <label>Опис:</label><textarea style="height:60px;" onchange="dogsData[${i}].narrative = this.value">${dog.narrative || ''}</textarea>
       </div>`;
     });
@@ -292,7 +313,7 @@
         <label>Статус (МК):</label><input type="text" value="${litter.status_mk || 'Отворени за резервација'}" onchange="littersData[${i}].status_mk = this.value">
         <label>Статус (EN):</label><input type="text" value="${litter.status_en || 'Open for Reservations'}" onchange="littersData[${i}].status_en = this.value">
         <label>Фотографија:</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'lit_${i}'); littersData[${i}].image = document.getElementById('lit_${i}').value;"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'lit_${i}', (path) => { littersData[${i}].image = path; });"></div>
         <label>Опис:</label><textarea style="height:60px;" onchange="littersData[${i}].description = this.value">${litter.description || ''}</textarea>
       </div>`;
     });
@@ -307,7 +328,7 @@
         <label>Име на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
         <label>Статус (МК / EN):</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
         <label>Фотографија:</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'pup_${i}'); puppiesData[${i}].image = document.getElementById('pup_${i}').value;"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'pup_${i}', (path) => { puppiesData[${i}].image = path; });"></div>
         <label>Детали:</label><textarea style="height:60px;" onchange="puppiesData[${i}].details = this.value">${pup.details || ''}</textarea>
       </div>`;
     });
@@ -322,7 +343,7 @@
         <label>Наслов:</label><input type="text" value="${post.title || ''}" onchange="blogData[${i}].title = this.value">
         <label>Датум:</label><input type="date" value="${post.date || ''}" onchange="blogData[${i}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
         <label>Слика:</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_${i}'); blogData[${i}].image = document.getElementById('blog_${i}').value;"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_${i}', (path) => { blogData[${i}].image = path; });"></div>
         <label>Краток опис:</label><textarea style="height:50px;" onchange="blogData[${i}].excerpt = this.value">${post.excerpt || ''}</textarea>
         <label>Целосна содржина:</label><textarea style="height:120px;" onchange="blogData[${i}].content = this.value">${post.content || ''}</textarea>
       </div>`;
