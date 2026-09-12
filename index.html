@@ -529,7 +529,6 @@
       object-fit: cover;
     }
 
-    /* Исчистен баџ за пол (исто како галериите - без сина/розова боја) */
     .dog-badge-sex {
       position: absolute;
       top: 12px;
@@ -586,41 +585,53 @@
       margin-top: auto;
     }
 
-    /* LITTERS СЛИКА И МИНИ ГАЛЕРИЈА СТИЛ */
-    .litter-img-wrap {
-      width: 100%;
+    /* LITTERS КАРТИЧКИ И МИНИ ГАЛЕРИЈА (ФОРМАТ КАКО OUR DOGS) */
+    .litter-portrait-container {
       height: 250px;
       background: var(--pistachio-soft);
-      border-radius: 10px;
+      position: relative;
       overflow: hidden;
-      margin-bottom: 18px;
-    }
-    .litter-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .litter-gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .litter-gallery-thumb {
-      height: 100px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--pistachio-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--pistachio-border);
       cursor: pointer;
     }
-    .litter-gallery-thumb img {
+    .litter-portrait-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s ease;
     }
-    .litter-gallery-thumb:hover img {
+    .litter-portrait-container:hover img {
       transform: scale(1.05);
+    }
+    .litter-thumb-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px;
+      background: var(--pistachio-soft);
+      border-top: 1px solid var(--pistachio-border);
+    }
+    .litter-mini-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: 1px solid var(--pistachio-border);
+      transition: var(--transition);
+    }
+    .litter-mini-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .litter-mini-thumb:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
     }
 
     /* BLOG & FACEBOOK */
@@ -1250,7 +1261,7 @@
         <h2 class="section-maintitle">Planned Litters & Reservations</h2>
       </div>
 
-      <div id="dynamicLittersContainer" style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;"></div>
+      <div id="dynamicLittersContainer" class="dogs-luxury-grid"></div>
     </div>
   </section>
 
@@ -1355,7 +1366,7 @@
         </div>
 
         <div class="blog-cards-stack" id="dynamicBlogContainer">
-          <!-- Само динамички блогови -->
+          <!-- Динамички блогови -->
         </div>
       </div>
     </div>
@@ -1485,7 +1496,6 @@
           <li><a onclick="selectTab('litters')">Litters</a></li>
           <li><a onclick="selectTab('available')">Available Dogs</a></li>
           <li><a onclick="selectTab('gallery')">Gallery</a></li>
-          <li><a onclick="selectTab('blog')">Blog</a></li>
           <li><a onclick="selectTab('contact')">Contact</a></li>
         </ul>
       </div>
@@ -1703,7 +1713,7 @@
         const titleText = l.title || l.pair || '';
         const descText = l.description || l.text || '';
         
-        // Поддршка за повеќе слики (било како низа во l.images или со запирка во l.image)
+        // Поддршка за повеќе слики (како низа во l.images или разделени со запирка во l.image)
         let imgList = [];
         if (Array.isArray(l.images)) {
           imgList = l.images;
@@ -1716,25 +1726,30 @@
         }
 
         let mediaHtml = '';
-        if (imgList.length === 1) {
-          const singlePath = resolveImagePath(imgList[0]);
-          mediaHtml = `<div class="litter-img-wrap"><img src="${singlePath}" alt="${titleText}" onerror="this.parentElement.style.display='none'"></div>`;
-        } else if (imgList.length > 1) {
-          const thumbs = imgList.map(img => {
-            const p = resolveImagePath(img);
-            return `<div class="litter-gallery-thumb" onclick="openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo" onerror="this.parentElement.style.display='none'"></div>`;
-          }).join('');
-          mediaHtml = `<div class="litter-gallery-grid">${thumbs}</div>`;
+        if (imgList.length > 0) {
+          const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `
+            <div class="litter-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${titleText}')">
+              <img src="${mainImgPath}" alt="${titleText}" onerror="this.parentElement.style.display='none'">
+            </div>
+          `;
+          if (imgList.length > 1) {
+            const thumbs = imgList.map(img => {
+              const p = resolveImagePath(img);
+              return `<div class="litter-mini-thumb" onclick="openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo"></div>`;
+            }).join('');
+            mediaHtml += `<div class="litter-thumb-strip">${thumbs}</div>`;
+          }
         }
 
         return `
-          <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
+          <div class="dog-feature-card">
             ${mediaHtml}
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
-              <h3 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--pistachio-dark);">${titleText}</h3>
+            <div class="dog-details-body">
+              <h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3>
+              <p class="dog-narrative" style="margin-bottom: 20px;">${descText}</p>
+              <button class="btn-lux btn-lux-gold" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">Apply for Puppy Reservation</button>
             </div>
-            <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; margin-bottom: 20px;">${descText}</p>
-            <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')">Apply for Puppy Reservation</button>
           </div>
         `;
       }).join('');
