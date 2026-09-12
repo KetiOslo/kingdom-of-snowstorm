@@ -6,6 +6,20 @@
       "status_en": "Open for Reservations",
       "image": "content/images/1789201802735_728951246_122228300690098198_597057281034343115_n.jpg",
       "description": "Sve je na prodaju"
+    },
+    {
+      "title": "a",
+      "status_mk": "Отворени за резервација",
+      "status_en": "Open for Reservations",
+      "image": "",
+      "description": "a"
+    },
+    {
+      "title": "c",
+      "status_mk": "Отворени за резервација",
+      "status_en": "Open for Reservations",
+      "image": "",
+      "description": "e"
     }
   ]
 }
