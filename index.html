@@ -1223,8 +1223,10 @@
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle">Family Companions</span>
-        <h2 class="section-maintitle">Puppy Adoption & Inclusions</h2>
+        <h2 class="section-maintitle">Available Dogs & Puppies</h2>
       </div>
+
+      <div id="dynamicAvailableContainer" class="dogs-luxury-grid" style="margin-bottom: 30px;"></div>
 
       <div class="card-luxury" style="max-width: 860px; margin: 0 auto;">
         <h3 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 16px; color: var(--pistachio-dark);" id="dyn-avail-title">
@@ -1451,6 +1453,7 @@
           <li><a onclick="selectTab('litters')">Litters</a></li>
           <li><a onclick="selectTab('available')">Available Dogs</a></li>
           <li><a onclick="selectTab('gallery')">Gallery</a></li>
+          <li><a onclick="selectTab('blog')">Blog</a></li>
           <li><a onclick="selectTab('contact')">Contact</a></li>
         </ul>
       </div>
@@ -1570,6 +1573,10 @@
               <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>${inc}</span></li>
             `).join('');
           }
+          // Потврда за рендерирање на достапни кучиња/кученца со слики доколку ги има во JSON
+          if (av.items && av.items.length > 0) {
+            renderAvailableDogs(av.items);
+          }
         }
       } catch(e) {}
 
@@ -1588,6 +1595,16 @@
           const l = await res.json();
           cachedLittersList = l.litters || l.items || [];
           renderLitters(cachedLittersList);
+        }
+      } catch(e) {}
+
+      try {
+        const res = await fetch('content/blog.json?t=' + ts);
+        if (res.ok) {
+          const b = await res.json();
+          if (b.items && b.items.length > 0) {
+            renderBlogPosts(b.items);
+          }
         }
       } catch(e) {}
 
@@ -1655,6 +1672,49 @@
           </div>
         `;
       }).join('');
+    }
+
+    function renderAvailableDogs(dogs) {
+      const container = document.getElementById('dynamicAvailableContainer');
+      if (!container) return;
+      container.innerHTML = dogs.map(dog => {
+        return `
+          <div class="dog-feature-card">
+            <div class="dog-portrait-container">
+              ${dog.image ? `<img src="${dog.image}" alt="${dog.name}" onerror="this.src='2.png'">` : `<i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>`}
+            </div>
+            <div class="dog-details-body">
+              <h3 class="dog-title-name">${dog.name || ''}</h3>
+              <p class="dog-narrative">${dog.description || dog.narrative || ''}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBlogPosts(posts) {
+      const container = document.getElementById('dynamicBlogContainer');
+      if (!container) return;
+      
+      const postsHtml = posts.map(post => {
+        const postImg = post.image ? `<div style="width:100%; height:220px; overflow:hidden; border-radius:10px; margin-bottom:14px;"><img src="${post.image}" alt="${post.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>` : '';
+        return `
+          <div class="card-luxury">
+            ${postImg}
+            <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${post.category || 'NEWS'}</span>
+            <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${post.title || ''}</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${post.content || post.description || ''}</p>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = postsHtml + `
+        <div class="card-luxury">
+          <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">GROOMING & CARE</span>
+          <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">Maintaining the Radiant Snow-White Coat</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">Essential daily combing tips, professional moisture bath protocols, and avoiding tear-staining to keep your Bichon coat fluffy and bright.</p>
+        </div>
+      `;
     }
 
     async function loadDynamicGallery() {
