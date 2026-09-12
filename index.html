@@ -521,12 +521,18 @@
       align-items: center;
       justify-content: center;
       border-bottom: 1px solid var(--pistachio-border);
+      cursor: pointer;
     }
 
     .dog-portrait-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .dog-portrait-container:hover img {
+      transform: scale(1.05);
     }
 
     .dog-badge-sex {
@@ -541,6 +547,7 @@
       font-weight: 700;
       letter-spacing: 0.5px;
       backdrop-filter: blur(4px);
+      z-index: 2;
     }
 
     .dog-details-body {
@@ -585,38 +592,18 @@
       margin-top: auto;
     }
 
-    /* LITTERS КАРТИЧКИ И МИНИ ГАЛЕРИЈА (ФОРМАТ КАКО OUR DOGS) */
-    .litter-portrait-container {
-      height: 250px;
-      background: var(--pistachio-soft);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid var(--pistachio-border);
-      cursor: pointer;
-    }
-    .litter-portrait-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .litter-portrait-container:hover img {
-      transform: scale(1.05);
-    }
-    .litter-thumb-strip {
+    /* МИНИ ТРИП / ТУМБИ ЗА СИТЕ КАРТИЧКИ СО ПОВЕЌЕ СЛИКИ */
+    .thumb-strip {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 12px;
+      padding: 10px 12px;
       background: var(--pistachio-soft);
       border-top: 1px solid var(--pistachio-border);
     }
-    .litter-mini-thumb {
-      width: 60px;
-      height: 60px;
+    .mini-thumb {
+      width: 55px;
+      height: 55px;
       border-radius: 6px;
       overflow: hidden;
       flex-shrink: 0;
@@ -624,12 +611,12 @@
       border: 1px solid var(--pistachio-border);
       transition: var(--transition);
     }
-    .litter-mini-thumb img {
+    .mini-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .litter-mini-thumb:hover {
+    .mini-thumb:hover {
       border-color: var(--gold-primary);
       transform: translateY(-2px);
     }
@@ -1682,16 +1669,34 @@
           genderText = rawGender;
         }
 
-        const dogImg = resolveImagePath(dog.image);
+        let imgList = [];
+        if (Array.isArray(dog.images)) imgList = dog.images;
+        else if (dog.image) {
+          if (dog.image.includes(',')) imgList = dog.image.split(',').map(s => s.trim());
+          else imgList = [dog.image];
+        }
+
+        let mediaHtml = '';
+        if (imgList.length > 0) {
+          const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `
+            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name}')">
+              <img src="${mainImgPath}" alt="${dog.name}" onerror="this.src='2.png'">
+            </div>
+          `;
+          if (imgList.length > 1) {
+            const thumbs = imgList.map(img => {
+              const p = resolveImagePath(img);
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name}')"><img src="${p}" alt="Thumb"></div>`;
+            }).join('');
+            mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
+          }
+        }
 
         return `
           <div class="dog-feature-card">
-            <div class="dog-portrait-container">
-              <img src="${dogImg}" alt="${dog.name}" onerror="this.src='2.png'">
-              <span class="dog-badge-sex">
-                ${genderText}
-              </span>
-            </div>
+            ${mediaHtml}
+            <span class="dog-badge-sex">${genderText}</span>
             <div class="dog-details-body">
               <h3 class="dog-title-name">${dog.name}</h3>
               <div class="dog-registered-lineage">${dog.lineage || ''}</div>
@@ -1713,7 +1718,6 @@
         const titleText = l.title || l.pair || '';
         const descText = l.description || l.text || '';
         
-        // Поддршка за повеќе слики (како низа во l.images или разделени со запирка во l.image)
         let imgList = [];
         if (Array.isArray(l.images)) {
           imgList = l.images;
@@ -1729,16 +1733,16 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="litter-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${titleText}')">
-              <img src="${mainImgPath}" alt="${titleText}" onerror="this.parentElement.style.display='none'">
+            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${titleText}')">
+              <img src="${mainImgPath}" alt="${titleText}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map(img => {
               const p = resolveImagePath(img);
-              return `<div class="litter-mini-thumb" onclick="openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo"></div>`;
             }).join('');
-            mediaHtml += `<div class="litter-thumb-strip">${thumbs}</div>`;
+            mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
         }
 
@@ -1757,7 +1761,7 @@
 
     function openGalleryLightboxFromSrc(src, title) {
       document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxTitle').innerText = title || 'Litter Photo';
+      document.getElementById('lightboxTitle').innerText = title || 'Kennel Photo';
       document.getElementById('lightboxCaption').innerText = '';
       document.getElementById('galleryLightbox').classList.add('show');
     }
@@ -1766,12 +1770,33 @@
       const container = document.getElementById('dynamicAvailableContainer');
       if (!container) return;
       container.innerHTML = dogs.map(dog => {
-        const dogImg = resolveImagePath(dog.image);
+        let imgList = [];
+        if (Array.isArray(dog.images)) imgList = dog.images;
+        else if (dog.image) {
+          if (dog.image.includes(',')) imgList = dog.image.split(',').map(s => s.trim());
+          else imgList = [dog.image];
+        }
+
+        let mediaHtml = '';
+        if (imgList.length > 0) {
+          const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `
+            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name}')">
+              <img src="${mainImgPath}" alt="${dog.name}" onerror="this.src='2.png'">
+            </div>
+          `;
+          if (imgList.length > 1) {
+            const thumbs = imgList.map(img => {
+              const p = resolveImagePath(img);
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name}')"><img src="${p}" alt="Thumb"></div>`;
+            }).join('');
+            mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
+          }
+        }
+
         return `
           <div class="dog-feature-card">
-            <div class="dog-portrait-container">
-              <img src="${dogImg}" alt="${dog.name}" onerror="this.src='2.png'">
-            </div>
+            ${mediaHtml}
             <div class="dog-details-body">
               <h3 class="dog-title-name">${dog.name || ''}</h3>
               <p class="dog-narrative">${dog.description || dog.narrative || ''}</p>
@@ -1786,14 +1811,38 @@
       if (!container) return;
       
       container.innerHTML = posts.map(post => {
-        const postImgPath = resolveImagePath(post.image);
-        const postImg = post.image ? `<div style="width:100%; height:220px; overflow:hidden; border-radius:10px; margin-bottom:14px;"><img src="${postImgPath}" alt="${post.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>` : '';
+        let imgList = [];
+        if (Array.isArray(post.images)) imgList = post.images;
+        else if (post.image) {
+          if (post.image.includes(',')) imgList = post.image.split(',').map(s => s.trim());
+          else imgList = [post.image];
+        }
+
+        let mediaHtml = '';
+        if (imgList.length > 0) {
+          const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `
+            <div class="dog-portrait-container" style="height: 220px;" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${post.title}')">
+              <img src="${mainImgPath}" alt="${post.title}" onerror="this.src='2.png'">
+            </div>
+          `;
+          if (imgList.length > 1) {
+            const thumbs = imgList.map(img => {
+              const p = resolveImagePath(img);
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${post.title}')"><img src="${p}" alt="Thumb"></div>`;
+            }).join('');
+            mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
+          }
+        }
+
         return `
-          <div class="card-luxury">
-            ${postImg}
-            <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${post.category || 'NEWS'}</span>
-            <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${post.title || ''}</h3>
-            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${post.content || post.description || post.excerpt || ''}</p>
+          <div class="card-luxury" style="padding: 0; overflow: hidden;">
+            ${mediaHtml}
+            <div style="padding: 24px;">
+              <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${post.category || 'NEWS'}</span>
+              <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${post.title || ''}</h3>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${post.content || post.description || post.excerpt || ''}</p>
+            </div>
           </div>
         `;
       }).join('');
@@ -1862,9 +1911,9 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('contactForm');
-      const submitBtn = document.getElementById('submitBtn');
-      const submitBtnText = document.getElementById('submitBtnText');
-      const statusBox = document.getElementById('formStatus');
+      postSubmitBtn = document.getElementById('submitBtn');
+      submitBtnText = document.getElementById('submitBtnText');
+      statusBox = document.getElementById('formStatus');
 
       submitBtn.disabled = true;
       const origText = submitBtnText.innerText;
