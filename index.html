@@ -1302,7 +1302,7 @@
                 </span>
               </div>
             </div>
-            <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.80rem;">
+            <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.8rem;">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Facebook
             </a>
           </div>
@@ -1319,7 +1319,7 @@
         </div>
 
         <div class="blog-cards-stack" id="dynamicBlogContainer">
-          <!-- Динамичките блогови ќе се појават овде -->
+          <!-- Динамичките блогови ќе се појават тука -->
         </div>
       </div>
     </div>
@@ -1481,7 +1481,7 @@
     let cachedLittersList = [];
     let cachedDogsList = [];
 
-    // Универзална функција за поправање на патеките до сликите (поддржува секаков тип на запис од админ панелот)
+    // Прецизно резолвирање на патеката до сликите сместени во фолдерот images/
     function resolveImagePath(path) {
       if (!path) return '2.png';
       let cleanPath = path.toString().trim();
@@ -1492,13 +1492,12 @@
       
       if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
 
-      // Проверка за веќе постоечки патеки
       if (cleanPath.startsWith('content/images/')) return '/' + cleanPath;
-      if (cleanPath.startsWith('images/')) return '/content/' + cleanPath;
       if (cleanPath.startsWith('content/')) return '/' + cleanPath;
+      if (cleanPath.startsWith('images/')) return 'content/' + cleanPath;
 
-      // Ако е зачувана директно само со име на сликата (на пр. 1789196_DSC.JPG)
-      return 'images/' + cleanPath;
+      // Бидејќи сликите се во content/images/
+      return 'content/images/' + cleanPath;
     }
 
     function selectTab(tabId) {
@@ -1579,6 +1578,7 @@
         }
       } catch(e) {}
 
+      // Правилно вчитување на available.json (исправен правопис)
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1589,8 +1589,9 @@
               <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>${inc}</span></li>
             `).join('');
           }
-          if (av.items && av.items.length > 0) {
-            renderAvailableDogs(av.items);
+          const availItems = av.items || av.dogs || [];
+          if (availItems.length > 0) {
+            renderAvailableDogs(availItems);
           }
         }
       } catch(e) {}
@@ -1599,7 +1600,7 @@
         const res = await fetch('content/dogs.json?t=' + ts);
         if (res.ok) {
           const d = await res.json();
-          cachedDogsList = d.items || [];
+          cachedDogsList = d.items || d.dogs || [];
           renderDogs(cachedDogsList);
         }
       } catch(e) {}
@@ -1613,11 +1614,11 @@
         }
       } catch(e) {}
 
+      // Правилно вчитување на blog.json
       try {
         const res = await fetch('content/blog.json?t=' + ts);
         if (res.ok) {
           const b = await res.json();
-          // Поддршка и за 'items' и за 'posts' структури од админ панелот
           const blogItems = b.items || b.posts || [];
           if (blogItems.length > 0) {
             renderBlogPosts(blogItems);
