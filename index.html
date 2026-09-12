@@ -1485,6 +1485,27 @@
     let cachedLittersList = [];
     let cachedDogsList = [];
 
+    // Универзална функција за поправање на патеките до сликите
+    function resolveImagePath(path) {
+      if (!path) return '2.png';
+      let cleanPath = path.toString().trim();
+      if (cleanPath.startsWith('http://') || cleanPath.startsWith('https://') || cleanPath.startsWith('data:')) {
+        return cleanPath;
+      }
+      // Ако патеката почнува со /content/ или content/
+      if (cleanPath.startsWith('/content/')) cleanPath = cleanPath.substring(1);
+      if (cleanPath.startsWith('content/')) {
+        return '/' + cleanPath;
+      }
+      // Ако е зачувана само со име на фајл во /images/ или слично
+      if (cleanPath.startsWith('/images/')) cleanPath = cleanPath.substring(1);
+      if (cleanPath.startsWith('images/')) {
+        return '/content/' + cleanPath;
+      }
+      // Ако е зачувана само како име на сликата (на пр. 1789194.jpg)
+      return '/content/images/' + cleanPath;
+    }
+
     function selectTab(tabId) {
       document.querySelectorAll('.site-tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.nav-tab-btn').forEach(link => link.classList.remove('active'));
@@ -1573,7 +1594,6 @@
               <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>${inc}</span></li>
             `).join('');
           }
-          // Потврда за рендерирање на достапни кучиња/кученца со слики доколку ги има во JSON
           if (av.items && av.items.length > 0) {
             renderAvailableDogs(av.items);
           }
@@ -1629,10 +1649,12 @@
           genderText = rawGender;
         }
 
+        const dogImg = resolveImagePath(dog.image);
+
         return `
           <div class="dog-feature-card">
             <div class="dog-portrait-container">
-              ${dog.image ? `<img src="${dog.image}" alt="${dog.name}" onerror="this.src='2.png'">` : `<i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>`}
+              <img src="${dogImg}" alt="${dog.name}" onerror="this.src='2.png'">
               <span class="dog-badge-sex ${isMale ? 'badge-male-dog' : 'badge-female-dog'}">
                 ${genderText}
               </span>
@@ -1658,7 +1680,8 @@
         const litterStatus = l.status_en || l.status || 'Open for Reservations';
         const titleText = l.pair || l.title || '';
         const descText = l.text || l.description || '';
-        const litterImage = l.image ? `<div style="width:100%; height:280px; overflow:hidden; border-radius:10px; margin-bottom:18px;"><img src="${l.image}" alt="${titleText}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>` : '';
+        const imgPath = resolveImagePath(l.image);
+        const litterImage = l.image ? `<div style="width:100%; height:280px; overflow:hidden; border-radius:10px; margin-bottom:18px;"><img src="${imgPath}" alt="${titleText}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>` : '';
 
         return `
           <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
@@ -1678,10 +1701,11 @@
       const container = document.getElementById('dynamicAvailableContainer');
       if (!container) return;
       container.innerHTML = dogs.map(dog => {
+        const dogImg = resolveImagePath(dog.image);
         return `
           <div class="dog-feature-card">
             <div class="dog-portrait-container">
-              ${dog.image ? `<img src="${dog.image}" alt="${dog.name}" onerror="this.src='2.png'">` : `<i class="fa-solid fa-dog" style="font-size: 4.5rem; color: var(--pistachio-accent);"></i>`}
+              <img src="${dogImg}" alt="${dog.name}" onerror="this.src='2.png'">
             </div>
             <div class="dog-details-body">
               <h3 class="dog-title-name">${dog.name || ''}</h3>
@@ -1697,7 +1721,8 @@
       if (!container) return;
       
       const postsHtml = posts.map(post => {
-        const postImg = post.image ? `<div style="width:100%; height:220px; overflow:hidden; border-radius:10px; margin-bottom:14px;"><img src="${post.image}" alt="${post.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>` : '';
+        const postImgPath = resolveImagePath(post.image);
+        const postImg = post.image ? `<div style="width:100%; height:220px; overflow:hidden; border-radius:10px; margin-bottom:14px;"><img src="${postImgPath}" alt="${post.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>` : '';
         return `
           <div class="card-luxury">
             ${postImg}
@@ -1732,10 +1757,11 @@
       const container = document.getElementById('dynamicGalleryContainer');
       if (!container || !items || items.length === 0) return;
       container.innerHTML = items.map((item, index) => {
+        const itemImg = resolveImagePath(item.image);
         return `
           <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
             <div class="gallery-img-wrap">
-              <img src="${item.image || '2.png'}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
+              <img src="${itemImg}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
               <span class="gallery-category-badge">${item.category || 'Shows'}</span>
             </div>
             <div class="gallery-item-info">
@@ -1766,7 +1792,7 @@
     function openGalleryLightbox(index) {
       const item = allGalleryItems[index];
       if (!item) return;
-      document.getElementById('lightboxImg').src = item.image || '2.png';
+      document.getElementById('lightboxImg').src = resolveImagePath(item.image);
       document.getElementById('lightboxTitle').innerText = item.title;
       document.getElementById('lightboxCaption').innerText = item.caption || '';
       document.getElementById('galleryLightbox').classList.add('show');
