@@ -6,6 +6,14 @@
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
+  <!-- Open Graph / Social Share Meta Tags (Kingdom Logo preview) -->
+  <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
+  <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
+  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta property="og:url" content="https://ketioslo.github.io/kingdom-of-snowstorm/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1188,7 +1196,7 @@
         <div class="card-luxury">
           <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
           <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title">Excellence in Show Rings</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc">Proudly representing our kennel at World Dog Shows, European Championships, and FCI International competitions with C.I.B. titles.</p>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc">Proudly representing our kennel at World Dog Shows, European Dog Shows, and FCI International competitions with C.I.B. titles.</p>
         </div>
       </div>
     </div>
@@ -1554,12 +1562,22 @@
         }
       });
 
+      // Автоматско затворање на мобилното мени при клик на таб
+      document.getElementById('kennel-main-nav').classList.remove('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function toggleNavigationMenu() {
       document.getElementById('kennel-main-nav').classList.toggle('show');
     }
+
+    // Автоматско затворање на мобилното мени при скролање надолу
+    window.addEventListener('scroll', () => {
+      const navMenu = document.getElementById('kennel-main-nav');
+      if (navMenu && navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+      }
+    });
 
     async function loadAllCmsContent() {
       const ts = new Date().getTime();
@@ -1619,7 +1637,6 @@
         }
       } catch(e) {}
 
-      // Вчитување за Available / Puppies
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
