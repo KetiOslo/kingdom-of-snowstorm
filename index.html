@@ -1485,25 +1485,26 @@
     let cachedLittersList = [];
     let cachedDogsList = [];
 
-    // Универзална функција за поправање на патеките до сликите
+    // Универзална функција за резолвирање на патеката до сликата
     function resolveImagePath(path) {
       if (!path) return '2.png';
       let cleanPath = path.toString().trim();
+      
+      // Ако е веќе целосен линк или base64
       if (cleanPath.startsWith('http://') || cleanPath.startsWith('https://') || cleanPath.startsWith('data:')) {
         return cleanPath;
       }
-      // Ако патеката почнува со /content/ или content/
-      if (cleanPath.startsWith('/content/')) cleanPath = cleanPath.substring(1);
-      if (cleanPath.startsWith('content/')) {
-        return '/' + cleanPath;
-      }
-      // Ако е зачувана само со име на фајл во /images/ или слично
-      if (cleanPath.startsWith('/images/')) cleanPath = cleanPath.substring(1);
-      if (cleanPath.startsWith('images/')) {
-        return '/content/' + cleanPath;
-      }
-      // Ако е зачувана само како име на сликата (на пр. 1789194.jpg)
-      return '/content/images/' + cleanPath;
+      
+      // Отстрани водечки коси црти за полесна обработка
+      if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
+
+      // Ако во патеката веќе стои images/ или content/images/
+      if (cleanPath.startsWith('content/images/')) return '/' + cleanPath;
+      if (cleanPath.startsWith('images/')) return '/content/' + cleanPath;
+      if (cleanPath.startsWith('content/')) return '/' + cleanPath;
+
+      // Ако е зачувана само како име на фајл (на пр. 1789194832576_...jpg)
+      return 'images/' + cleanPath;
     }
 
     function selectTab(tabId) {
