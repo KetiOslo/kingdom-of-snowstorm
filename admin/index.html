@@ -33,7 +33,6 @@
     .status.error { background: #fee2e2; color: #ef4444; display: block; }
     .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
     .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
-    .preview-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; margin-top: 8px; border: 1px solid #cbd5e1; display: block; }
   </style>
 </head>
 <body>
@@ -41,7 +40,7 @@
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Master Admin</span>
-    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Сите 8 Табови</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Мулти-медијален панел</span>
   </h1>
   
   <!-- ПОВРЗУВАЊЕ СО GITHUB -->
@@ -56,15 +55,15 @@
     <div id="auth-status" style="width: 100%; font-size: 13px; font-weight: 600; color: var(--success);"></div>
   </div>
 
-  <!-- 8 ТАБОВИ ЗА НАВИГАЦИЈА -->
+  <!-- ТАБОВИ ЗА НАВИГАЦИЈА -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
-    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки & Преводи</button>
+    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
     <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
     <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
     <button class="tab-btn" onclick="switchTab('litters', event)">🍼 Легла (Litters)</button>
-    <button class="tab-btn" onclick="switchTab('puppies', event)">🐾 Достапни кученца</button>
+    <button class="tab-btn" onclick="switchTab('puppies', event)">🐾 Достапни</button>
     <button class="tab-btn" onclick="switchTab('blog', event)">📝 Блог</button>
   </div>
 
@@ -89,18 +88,13 @@
     <div id="about.msg" class="status"></div>
   </div>
 
-  <!-- 3. ПОСТАВКИ И ПРЕВОДИ -->
+  <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
-    <h3>⚙️ Општи поставки и глобални текстови/преводи</h3>
+    <h3>⚙️ Општи поставки</h3>
     <label>Локација:</label><input type="text" id="s_location" />
     <label>Телефон:</label><input type="text" id="s_phone" />
     <label>Е-пошта:</label><input type="text" id="s_email" />
     <label>Facebook Линк:</label><input type="text" id="s_fb" />
-    
-    <h4 style="margin-top:25px; color:var(--primary); border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Глобални текстови (Двојазични прилагодувања)</h4>
-    <label>Статус на легло / Резервации (MK):</label><input type="text" id="s_res_mk" value="Отворени за резервација" />
-    <label>Статус на легло / Резервации (EN):</label><input type="text" id="s_res_en" value="Open for Reservations" />
-
     <button class="btn" onclick="saveFile('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај на GitHub</button>
     <div id="settings.msg" class="status"></div>
   </div>
@@ -117,7 +111,7 @@
 
   <!-- 5. КУЧИЊА -->
   <div id="dogs" class="tab-content">
-    <h3>🐶 Уредување на Кучиња</h3>
+    <h3>🐶 Уредување на Кучиња (Поддржува повеќе слики)</h3>
     <div id="dogs-container"></div>
     <button class="btn btn-secondary" onclick="addDogItem()">+ Додај ново куче</button>
     <br><br>
@@ -127,7 +121,7 @@
 
   <!-- 6. ЛЕГЛА (LITTERS) -->
   <div id="litters" class="tab-content">
-    <h3>🍼 Уредување на Легла (Litters)</h3>
+    <h3>🍼 Уредување на Легла (Поддржува повеќе слики)</h3>
     <div id="litters-container"></div>
     <button class="btn btn-secondary" onclick="addLitterItem()">+ Додај ново легло</button>
     <br><br>
@@ -137,7 +131,7 @@
 
   <!-- 7. ДОСТАПНИ КУЧЕНЦА -->
   <div id="puppies" class="tab-content">
-    <h3>🐾 Достапни кученца</h3>
+    <h3>🐾 Достапни кученца (Поддржува повеќе слики)</h3>
     <div id="puppies-container"></div>
     <button class="btn btn-secondary" onclick="addPuppyItem()">+ Додај кученце</button>
     <br><br>
@@ -147,7 +141,7 @@
 
   <!-- 8. БЛОГ -->
   <div id="blog" class="tab-content">
-    <h3>📝 Уредување на Блог Објави</h3>
+    <h3>📝 Блог објави (Поддржува повеќе слики)</h3>
     <div id="blog-container"></div>
     <button class="btn btn-secondary" onclick="addBlogPost()">+ Креирај нов блог пост</button>
     <br><br>
@@ -172,7 +166,7 @@
 
     try {
       const loadJSON = async (path, setter, renderFn) => {
-        const res = await fetch(`../${path}`);
+        const res = await fetch(`../${path}?t=` + new Date().getTime());
         if(res.ok) { const d = await res.json(); setter(d); if(renderFn) renderFn(); }
       };
 
@@ -200,15 +194,13 @@
         document.getElementById('s_phone').value = d.phone || '';
         document.getElementById('s_email').value = d.email || '';
         document.getElementById('s_fb').value = d.facebook_url || '';
-        document.getElementById('s_res_mk').value = d.reservation_status_mk || 'Отворени за резервација';
-        document.getElementById('s_res_en').value = d.reservation_status_en || 'Open for Reservations';
       }
 
       loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
-      loadJSON('content/dogs.json', d => dogsData = d.dogs || [], renderDogs);
-      loadJSON('content/litters.json', d => littersData = d.litters || [], renderLitters);
-      loadJSON('content/puppies.json', d => puppiesData = d.puppies || [], renderPuppies);
-      loadJSON('content/blog.json', d => blogData = d.posts || [], renderBlog);
+      loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
+      loadJSON('content/litters.json', d => littersData = d.litters || d.items || [], renderLitters);
+      loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
+      loadJSON('content/blog.json', d => blogData = d.posts || d.items || [], renderBlog);
     } catch(e) { console.log("Init OK"); }
   });
 
@@ -219,53 +211,69 @@
     if(event) event.currentTarget.classList.add('active');
   }
 
-  // ПОПРАВЕНА И СИНХРОНИЗИРАНА ФУНКЦИЈА ЗА СЛИКИ
-  async function uploadImageToGithub(fileInput, targetInputId, callback) {
-    const file = fileInput.files[0];
-    if(!file) return;
+  // ФУНКЦИЈА ЗА КАЧУВАЊЕ ПОВЕЌЕ СЛИКИ ИСТОВРЕМЕНО
+  async function uploadMultipleImagesToGithub(fileInput, targetInputId, onComplete) {
+    const files = fileInput.files;
+    if(!files || files.length === 0) return;
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
     if(!token) { alert('Внесете токен најгоре!'); return; }
 
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-      const base64Content = e.target.result.split(',')[1];
-      const fileName = Date.now() + '_' + file.name.replace(/\s+/g, '_');
-      const filePath = `content/images/${fileName}`;
-      
-      const box = fileInput.closest('.file-upload-box');
-      let statusInfo = box.querySelector('.upload-status');
-      if(!statusInfo) {
-        statusInfo = document.createElement('div');
-        statusInfo.className = 'upload-status';
-        statusInfo.style.fontSize = '12px';
-        statusInfo.style.color = '#0284c7';
-        statusInfo.style.marginTop = '5px';
-        box.appendChild(statusInfo);
-      }
-      statusInfo.innerText = '⏳ Се прикачува сликата...';
+    const box = fileInput.closest('.file-upload-box');
+    let statusInfo = box.querySelector('.upload-status');
+    if(!statusInfo) {
+      statusInfo = document.createElement('div');
+      statusInfo.className = 'upload-status';
+      statusInfo.style.fontSize = '12px';
+      statusInfo.style.color = '#0284c7';
+      statusInfo.style.marginTop = '5px';
+      box.appendChild(statusInfo);
+    }
+    statusInfo.innerText = `⏳ Се прикачуваат ${files.length} слика(и)...`;
 
-      try {
+    let uploadedPaths = [];
+    const currentInputValue = document.getElementById(targetInputId).value.trim();
+    if(currentInputValue) {
+      uploadedPaths = currentInputValue.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    try {
+      for(let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const base64Content = await toBase64(file);
+        const fileName = Date.now() + '_' + i + '_' + file.name.replace(/\s+/g, '_');
+        const filePath = `content/images/${fileName}`;
+
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
           method: 'PUT',
           headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: `Upload ${fileName}`, content: base64Content })
         });
+
         if(res.ok) {
-          const publicPath = `content/images/${fileName}`;
-          document.getElementById(targetInputId).value = publicPath;
-          statusInfo.innerText = '✓ Сликата е успешно поставена!';
-          if(callback) callback(publicPath);
-        } else { 
-          statusInfo.innerText = '✕ Грешка при прикачување.';
-          alert('✕ Грешка при прикачување на сликата.'); 
+          uploadedPaths.push(`content/images/${fileName}`);
         }
-      } catch(err) { 
-        statusInfo.innerText = '✕ Мрежна грешка.';
-        alert('✕ Мрежна грешка при прикачување.'); 
       }
-    };
-    reader.readAsDataURL(file);
+
+      const finalString = uploadedPaths.join(', ');
+      document.getElementById(targetInputId).value = finalString;
+      statusInfo.innerText = '✓ Сите слики се успешно поставени!';
+      if(onComplete) onComplete(finalString);
+    } catch(err) {
+      statusInfo.innerText = '✕ Грешка при прикачување.';
+      alert('✕ Грешка при прикачување на сликите.');
+    }
   }
+
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // --- РЕНДЕРИРАЊЕ НА ТАБОВИТЕ СО ПОДДРШКА ЗА ПОВЕЌЕ СЛИКИ ---
 
   function renderGallery() {
     const c = document.getElementById('gallery-container'); c.innerHTML = '';
@@ -280,8 +288,8 @@
           <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
-        <label>Слика:</label><input type="text" id="gal_${i}" value="${item.image || ''}" onchange="galleryData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'gal_${i}', (path) => { galleryData[${i}].image = path; });"></div>
+        <label>Слика (може повеќе разделени со запирка):</label><input type="text" id="gal_${i}" value="${item.image || ''}" onchange="galleryData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'gal_${i}', (val) => { galleryData[${i}].image = val; });"></div>
         <label>Опис:</label><textarea style="height:50px;" onchange="galleryData[${i}].caption = this.value">${item.caption || ''}</textarea>
       </div>`;
     });
@@ -296,8 +304,8 @@
         <label>Име:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
         <label>Линија:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
         <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
-        <label>Фотографија:</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'dog_${i}', (path) => { dogsData[${i}].image = path; });"></div>
+        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', (val) => { dogsData[${i}].image = val; });"></div>
         <label>Опис:</label><textarea style="height:60px;" onchange="dogsData[${i}].narrative = this.value">${dog.narrative || ''}</textarea>
       </div>`;
     });
@@ -310,15 +318,13 @@
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
         <label>Име на леглото:</label><input type="text" value="${litter.title || ''}" onchange="littersData[${i}].title = this.value">
-        <label>Статус (МК):</label><input type="text" value="${litter.status_mk || 'Отворени за резервација'}" onchange="littersData[${i}].status_mk = this.value">
-        <label>Статус (EN):</label><input type="text" value="${litter.status_en || 'Open for Reservations'}" onchange="littersData[${i}].status_en = this.value">
-        <label>Фотографија:</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'lit_${i}', (path) => { littersData[${i}].image = path; });"></div>
+        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', (val) => { littersData[${i}].image = val; });"></div>
         <label>Опис:</label><textarea style="height:60px;" onchange="littersData[${i}].description = this.value">${litter.description || ''}</textarea>
       </div>`;
     });
   }
-  function addLitterItem() { littersData.push({ title: "", status_mk: "Отворени за резервација", status_en: "Open for Reservations", image: "", description: "" }); renderLitters(); }
+  function addLitterItem() { littersData.push({ title: "", image: "", description: "" }); renderLitters(); }
 
   function renderPuppies() {
     const c = document.getElementById('puppies-container'); c.innerHTML = '';
@@ -326,9 +332,9 @@
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
         <label>Име на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
-        <label>Статус (МК / EN):</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
-        <label>Фотографија:</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'pup_${i}', (path) => { puppiesData[${i}].image = path; });"></div>
+        <label>Статус:</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
+        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', (val) => { puppiesData[${i}].image = val; });"></div>
         <label>Детали:</label><textarea style="height:60px;" onchange="puppiesData[${i}].details = this.value">${pup.details || ''}</textarea>
       </div>`;
     });
@@ -342,8 +348,8 @@
         <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши</button>
         <label>Наслов:</label><input type="text" value="${post.title || ''}" onchange="blogData[${i}].title = this.value">
         <label>Датум:</label><input type="date" value="${post.date || ''}" onchange="blogData[${i}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
-        <label>Слика:</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" onchange="uploadImageToGithub(this, 'blog_${i}', (path) => { blogData[${i}].image = path; });"></div>
+        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', (val) => { blogData[${i}].image = val; });"></div>
         <label>Краток опис:</label><textarea style="height:50px;" onchange="blogData[${i}].excerpt = this.value">${post.excerpt || ''}</textarea>
         <label>Целосна содржина:</label><textarea style="height:120px;" onchange="blogData[${i}].content = this.value">${post.content || ''}</textarea>
       </div>`;
@@ -367,8 +373,6 @@
       phone: document.getElementById('s_phone').value,
       email: document.getElementById('s_email').value,
       facebook_url: document.getElementById('s_fb').value,
-      reservation_status_mk: document.getElementById('s_res_mk').value,
-      reservation_status_en: document.getElementById('s_res_en').value,
       footer_desc: "Lifetime with Labradors."
     };
   }
