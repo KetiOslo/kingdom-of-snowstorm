@@ -529,21 +529,20 @@
       object-fit: cover;
     }
 
+    /* Исчистен баџ за пол (исто како галериите - без сина/розова боја) */
     .dog-badge-sex {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 12px;
+      right: 12px;
+      background: rgba(30, 51, 28, 0.88);
+      color: var(--white);
       padding: 4px 12px;
       border-radius: 50px;
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
+      letter-spacing: 0.5px;
       backdrop-filter: blur(4px);
     }
-
-    .badge-male-dog { background: #EDF4FA; color: #2F6DB5; border: 1px solid #BFD8F2; }
-    .badge-female-dog { background: #FAF0F3; color: #B53A5A; border: 1px solid #F5C6D2; }
 
     .dog-details-body {
       padding: 24px;
@@ -587,7 +586,44 @@
       margin-top: auto;
     }
 
-    /* BLOG & FACEBOOK (НАМАЛЕНА ВИСИНА ЗА ПОЛОВА) */
+    /* LITTERS СЛИКА И МИНИ ГАЛЕРИЈА СТИЛ */
+    .litter-img-wrap {
+      width: 100%;
+      height: 250px;
+      background: var(--pistachio-soft);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .litter-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .litter-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .litter-gallery-thumb {
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--pistachio-soft);
+      cursor: pointer;
+    }
+    .litter-gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .litter-gallery-thumb:hover img {
+      transform: scale(1.05);
+    }
+
+    /* BLOG & FACEBOOK */
     .blog-feed-container {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -616,7 +652,7 @@
 
     .fb-iframe-wrapper {
       width: 100%;
-      height: 380px; /* Намалено за пола (од 750px на 380px) */
+      height: 380px;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--pistachio-border);
@@ -1319,7 +1355,7 @@
         </div>
 
         <div class="blog-cards-stack" id="dynamicBlogContainer">
-          <!-- Само динамички блогови од админ панелот (избришан е хардокадираниот Care дел) -->
+          <!-- Само динамички блогови -->
         </div>
       </div>
     </div>
@@ -1627,14 +1663,11 @@
       container.innerHTML = dogs.map(dog => {
         let rawGender = (dog.gender || 'Male').toString().trim();
         let genderText = 'Male';
-        let isMale = true;
 
         if (rawGender.toLowerCase().includes('жен') || rawGender.toLowerCase().includes('female') || rawGender === 'ж' || rawGender === 'Женка') {
           genderText = 'Female';
-          isMale = false;
         } else if (rawGender.toLowerCase().includes('маж') || rawGender.toLowerCase().includes('male') || rawGender === 'м' || rawGender === 'Мажјак') {
           genderText = 'Male';
-          isMale = true;
         } else {
           genderText = rawGender;
         }
@@ -1645,7 +1678,7 @@
           <div class="dog-feature-card">
             <div class="dog-portrait-container">
               <img src="${dogImg}" alt="${dog.name}" onerror="this.src='2.png'">
-              <span class="dog-badge-sex ${isMale ? 'badge-male-dog' : 'badge-female-dog'}">
+              <span class="dog-badge-sex">
                 ${genderText}
               </span>
             </div>
@@ -1667,24 +1700,51 @@
       if (!container || !litters || litters.length === 0) return;
       
       container.innerHTML = litters.map(l => {
-        const litterStatus = l.status_en || l.status_mk || l.status || 'Open for Reservations';
         const titleText = l.title || l.pair || '';
         const descText = l.description || l.text || '';
-        const imgPath = resolveImagePath(l.image);
-        const litterImage = l.image ? `<div style="width:100%; height:280px; overflow:hidden; border-radius:10px; margin-bottom:18px;"><img src="${imgPath}" alt="${titleText}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>` : '';
+        
+        // Поддршка за повеќе слики (било како низа во l.images или со запирка во l.image)
+        let imgList = [];
+        if (Array.isArray(l.images)) {
+          imgList = l.images;
+        } else if (l.image) {
+          if (l.image.includes(',')) {
+            imgList = l.image.split(',').map(s => s.trim());
+          } else {
+            imgList = [l.image];
+          }
+        }
+
+        let mediaHtml = '';
+        if (imgList.length === 1) {
+          const singlePath = resolveImagePath(imgList[0]);
+          mediaHtml = `<div class="litter-img-wrap"><img src="${singlePath}" alt="${titleText}" onerror="this.parentElement.style.display='none'"></div>`;
+        } else if (imgList.length > 1) {
+          const thumbs = imgList.map(img => {
+            const p = resolveImagePath(img);
+            return `<div class="litter-gallery-thumb" onclick="openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo" onerror="this.parentElement.style.display='none'"></div>`;
+          }).join('');
+          mediaHtml = `<div class="litter-gallery-grid">${thumbs}</div>`;
+        }
 
         return `
           <div class="card-luxury" style="border-left: 4px solid var(--gold-primary);">
-            ${litterImage}
+            ${mediaHtml}
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
               <h3 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--pistachio-dark);">${titleText}</h3>
-              <span class="royal-tag" style="margin-bottom: 0;">${litterStatus}</span>
             </div>
             <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; margin-bottom: 20px;">${descText}</p>
             <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')">Apply for Puppy Reservation</button>
           </div>
         `;
       }).join('');
+    }
+
+    function openGalleryLightboxFromSrc(src, title) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxTitle').innerText = title || 'Litter Photo';
+      document.getElementById('lightboxCaption').innerText = '';
+      document.getElementById('galleryLightbox').classList.add('show');
     }
 
     function renderAvailableDogs(dogs) {
