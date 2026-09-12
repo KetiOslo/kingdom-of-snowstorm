@@ -592,7 +592,7 @@
       margin-top: auto;
     }
 
-    /* МИНИ ТРИП / ТУМБИ */
+    /* МИНИ ТРИП / ТУМБИ ЗА ПОВЕЌЕ СЛИКИ */
     .thumb-strip {
       display: flex;
       gap: 8px;
@@ -1469,7 +1469,7 @@
             <img src="fci.png" alt="FCI" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='fci.jpg';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='fci.jpeg';}">
           </a>
           <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer" title="Кинолошки Сојуз на Македонија">
-            <img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t==3;this.src='ksm.JPG';}">
+            <img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}">
           </a>
         </div>
       </div>
@@ -1619,6 +1619,7 @@
         }
       } catch(e) {}
 
+      // Поправено вчитување на available.json / puppies.json
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1629,9 +1630,21 @@
               <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>${inc}</span></li>
             `).join('');
           }
-          const availItems = av.items || av.dogs || [];
+          const availItems = av.items || av.dogs || av.puppies || [];
           if (availItems.length > 0) {
             renderAvailableDogs(availItems);
+          }
+        }
+      } catch(e) {}
+
+      // Проверка и за puppies.json ако е зачуван од админ панелот
+      try {
+        const res2 = await fetch('content/puppies.json?t=' + ts);
+        if (res2.ok) {
+          const pData = await res2.json();
+          const pItems = pData.puppies || pData.items || [];
+          if (pItems.length > 0) {
+            renderAvailableDogs(pItems);
           }
         }
       } catch(e) {}
@@ -1773,25 +1786,28 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name}')">
-              <img src="${mainImgPath}" alt="${dog.name}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name || ''}')">
+              <img src="${mainImgPath}" alt="${dog.name || 'Puppy'}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map(img => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name}')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name || ''}')"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
         }
 
+        const nameText = dog.name || '';
+        const descText = dog.description || dog.narrative || dog.details || dog.status || '';
+
         return `
           <div class="dog-feature-card">
             ${mediaHtml}
             <div class="dog-details-body">
-              <h3 class="dog-title-name">${dog.name || ''}</h3>
-              <p class="dog-narrative">${dog.description || dog.narrative || ''}</p>
+              <h3 class="dog-title-name">${nameText}</h3>
+              <p class="dog-narrative">${descText}</p>
             </div>
           </div>
         `;
@@ -1849,9 +1865,10 @@
       const container = document.getElementById('dynamicGalleryContainer');
       if (!container || !items || items.length === 0) return;
       container.innerHTML = items.map((item, index) => {
-        const itemImg = resolveImagePath(item.image);
+        let imgList = parseImages(item);
+        const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
         return `
-          <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
+          <div class="gallery-item-card" onclick="openGalleryGalleryLightboxCustom(${index})">
             <div class="gallery-img-wrap">
               <img src="${itemImg}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
               <span class="gallery-category-badge">${item.category || 'Shows'}</span>
@@ -1863,6 +1880,17 @@
           </div>
         `;
       }).join('');
+    }
+
+    function openGalleryGalleryLightboxCustom(index) {
+      const item = allGalleryItems[index];
+      if (!item) return;
+      let imgList = parseImages(item);
+      const src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxTitle').innerText = item.title || '';
+      document.getElementById('lightboxCaption').innerText = item.caption || '';
+      document.getElementById('galleryLightbox').classList.add('show');
     }
 
     function filterGalleryPhotos(category, btnElement) {
@@ -1884,8 +1912,9 @@
     function openGalleryLightbox(index) {
       const item = allGalleryItems[index];
       if (!item) return;
-      document.getElementById('lightboxImg').src = resolveImagePath(item.image);
-      document.getElementById('lightboxTitle').innerText = item.title;
+      let imgList = parseImages(item);
+      document.getElementById('lightboxImg').src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+      document.getElementById('lightboxTitle').innerText = item.title || '';
       document.getElementById('lightboxCaption').innerText = item.caption || '';
       document.getElementById('galleryLightbox').classList.add('show');
     }
