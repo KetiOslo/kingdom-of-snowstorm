@@ -4,22 +4,27 @@
       "title": "Litter Just",
       "status_mk": "",
       "status_en": "Open for Reservations",
-      "image": "",
+      "image": "content/images/1789201802735_728951246_122228300690098198_597057281034343115_n.jpg, content/images/1789204108778_0_DSC_0281.JPG",
       "description": ""
     },
     {
-      "title": "a",
+      "title": "Litter B",
       "status_mk": "Отворени за резервација",
       "status_en": "Open for Reservations",
       "image": "content/images/1789202458706_791130091_122233759796098198_3744474563337709219_n.jpg",
-      "description": "a"
+      "description": ""
     },
     {
-      "title": "c",
+      "title": "Litter C",
       "status_mk": "Отворени за резервација",
       "status_en": "Open for Reservations",
       "image": "content/images/1789202443780_740741162_122229340130098198_4912040081725436098_n.jpg",
       "description": "e"
+    },
+    {
+      "title": "Litter D",
+      "image": "",
+      "description": ""
     }
   ]
 }
