@@ -592,7 +592,7 @@
       margin-top: auto;
     }
 
-    /* МИНИ ТРИП / ТУМБИ ЗА СИТЕ КАРТИЧКИ СО ПОВЕЌЕ СЛИКИ */
+    /* МИНИ ТРИП / ТУМБИ */
     .thumb-strip {
       display: flex;
       gap: 8px;
@@ -1469,7 +1469,7 @@
             <img src="fci.png" alt="FCI" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='fci.jpg';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='fci.jpeg';}">
           </a>
           <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer" title="Кинолошки Сојуз на Македонија">
-            <img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}">
+            <img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t==3;this.src='ksm.JPG';}">
           </a>
         </div>
       </div>
@@ -1525,6 +1525,20 @@
       if (cleanPath.startsWith('content/')) return '/' + cleanPath;
       if (cleanPath.startsWith('images/')) return '/content/' + cleanPath;
       return '/content/images/' + cleanPath;
+    }
+
+    function parseImages(item) {
+      let imgList = [];
+      if (Array.isArray(item.images)) {
+        imgList = item.images;
+      } else if (item.image) {
+        if (item.image.includes(',')) {
+          imgList = item.image.split(',').map(s => s.trim());
+        } else {
+          imgList = [item.image];
+        }
+      }
+      return imgList.filter(Boolean);
     }
 
     function selectTab(tabId) {
@@ -1669,13 +1683,7 @@
           genderText = rawGender;
         }
 
-        let imgList = [];
-        if (Array.isArray(dog.images)) imgList = dog.images;
-        else if (dog.image) {
-          if (dog.image.includes(',')) imgList = dog.image.split(',').map(s => s.trim());
-          else imgList = [dog.image];
-        }
-
+        let imgList = parseImages(dog);
         let mediaHtml = '';
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
@@ -1718,17 +1726,7 @@
         const titleText = l.title || l.pair || '';
         const descText = l.description || l.text || '';
         
-        let imgList = [];
-        if (Array.isArray(l.images)) {
-          imgList = l.images;
-        } else if (l.image) {
-          if (l.image.includes(',')) {
-            imgList = l.image.split(',').map(s => s.trim());
-          } else {
-            imgList = [l.image];
-          }
-        }
-
+        let imgList = parseImages(l);
         let mediaHtml = '';
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
@@ -1770,13 +1768,7 @@
       const container = document.getElementById('dynamicAvailableContainer');
       if (!container) return;
       container.innerHTML = dogs.map(dog => {
-        let imgList = [];
-        if (Array.isArray(dog.images)) imgList = dog.images;
-        else if (dog.image) {
-          if (dog.image.includes(',')) imgList = dog.image.split(',').map(s => s.trim());
-          else imgList = [dog.image];
-        }
-
+        let imgList = parseImages(dog);
         let mediaHtml = '';
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
@@ -1811,13 +1803,7 @@
       if (!container) return;
       
       container.innerHTML = posts.map(post => {
-        let imgList = [];
-        if (Array.isArray(post.images)) imgList = post.images;
-        else if (post.image) {
-          if (post.image.includes(',')) imgList = post.image.split(',').map(s => s.trim());
-          else imgList = [post.image];
-        }
-
+        let imgList = parseImages(post);
         let mediaHtml = '';
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
@@ -1911,9 +1897,9 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('contactForm');
-      postSubmitBtn = document.getElementById('submitBtn');
-      submitBtnText = document.getElementById('submitBtnText');
-      statusBox = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+      const statusBox = document.getElementById('formStatus');
 
       submitBtn.disabled = true;
       const origText = submitBtnText.innerText;
