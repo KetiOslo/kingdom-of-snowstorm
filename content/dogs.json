@@ -1,11 +1,32 @@
 {
   "dogs": [
     {
-      "name": "Осло",
-      "lineage": "норвешка",
-      "gender": "машки",
-      "image": "/content/images/1789196877479_791130091_122233759796098198_3744474563337709219_n.jpg",
-      "narrative": "Совршен мажјак"
+      "name": "Oslo",
+      "lineage": "Sedmica",
+      "gender": "Mashki",
+      "image": "content/images/1789200134084_791130091_122233759796098198_3744474563337709219_n.jpg",
+      "narrative": "Kje si pishesh sama"
+    },
+    {
+      "name": "Hana",
+      "lineage": "Karposh 4",
+      "gender": "Zenski",
+      "image": "content/images/1789200170204_740741162_122229340130098198_4912040081725436098_n.jpg",
+      "narrative": "Nemam zborovi"
+    },
+    {
+      "name": "Gala",
+      "lineage": "Karposh 4",
+      "gender": "Zenski",
+      "image": "content/images/1789200207626_799145384_122234761184098198_4064456343295620029_n.jpg",
+      "narrative": "Tezok zivot"
+    },
+    {
+      "name": "Darla",
+      "lineage": "Karposh 4",
+      "gender": "Zenski",
+      "image": "content/images/1789200249836_799145384_122234761184098198_4064456343295620029_n.jpg",
+      "narrative": "Utnati se site sliki, znam "
     }
   ]
 }
