@@ -1319,7 +1319,7 @@
         </div>
 
         <div class="blog-cards-stack" id="dynamicBlogContainer">
-          <!-- Динамичките блогови ќе се појават тука -->
+          <!-- Динамичките блогови ќе се појават овде -->
         </div>
       </div>
     </div>
@@ -1481,7 +1481,7 @@
     let cachedLittersList = [];
     let cachedDogsList = [];
 
-    // Прецизно резолвирање на патеката до сликите сместени во фолдерот images/
+    // Прецизно резолвирање на патеката до сликите
     function resolveImagePath(path) {
       if (!path) return '2.png';
       let cleanPath = path.toString().trim();
@@ -1494,10 +1494,10 @@
 
       if (cleanPath.startsWith('content/images/')) return '/' + cleanPath;
       if (cleanPath.startsWith('content/')) return '/' + cleanPath;
-      if (cleanPath.startsWith('images/')) return 'content/' + cleanPath;
+      if (cleanPath.startsWith('images/')) return '/content/' + cleanPath;
 
-      // Бидејќи сликите се во content/images/
-      return 'content/images/' + cleanPath;
+      // Директна патека до сликите во папката content/images/
+      return '/content/images/' + cleanPath;
     }
 
     function selectTab(tabId) {
@@ -1578,7 +1578,7 @@
         }
       } catch(e) {}
 
-      // Правилно вчитување на available.json (исправен правопис)
+      // Вчитување од available.json
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1614,7 +1614,7 @@
         }
       } catch(e) {}
 
-      // Правилно вчитување на blog.json
+      // Вчитување од blog.json за блоговите со слики и текстови
       try {
         const res = await fetch('content/blog.json?t=' + ts);
         if (res.ok) {
