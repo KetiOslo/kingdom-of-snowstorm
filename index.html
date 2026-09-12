@@ -1619,7 +1619,7 @@
         }
       } catch(e) {}
 
-      // Поправено вчитување на available.json / puppies.json
+      // Вчитување за Available / Puppies
       try {
         const res = await fetch('content/available.json?t=' + ts);
         if (res.ok) {
@@ -1637,7 +1637,6 @@
         }
       } catch(e) {}
 
-      // Проверка и за puppies.json ако е зачуван од админ панелот
       try {
         const res2 = await fetch('content/puppies.json?t=' + ts);
         if (res2.ok) {
@@ -1808,6 +1807,7 @@
             <div class="dog-details-body">
               <h3 class="dog-title-name">${nameText}</h3>
               <p class="dog-narrative">${descText}</p>
+              <button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">Inquire About Puppy</button>
             </div>
           </div>
         `;
@@ -1868,7 +1868,7 @@
         let imgList = parseImages(item);
         const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
         return `
-          <div class="gallery-item-card" onclick="openGalleryGalleryLightboxCustom(${index})">
+          <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
             <div class="gallery-img-wrap">
               <img src="${itemImg}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
               <span class="gallery-category-badge">${item.category || 'Shows'}</span>
@@ -1880,17 +1880,6 @@
           </div>
         `;
       }).join('');
-    }
-
-    function openGalleryGalleryLightboxCustom(index) {
-      const item = allGalleryItems[index];
-      if (!item) return;
-      let imgList = parseImages(item);
-      const src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxTitle').innerText = item.title || '';
-      document.getElementById('lightboxCaption').innerText = item.caption || '';
-      document.getElementById('galleryLightbox').classList.add('show');
     }
 
     function filterGalleryPhotos(category, btnElement) {
@@ -1913,7 +1902,8 @@
       const item = allGalleryItems[index];
       if (!item) return;
       let imgList = parseImages(item);
-      document.getElementById('lightboxImg').src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+      const src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+      document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxTitle').innerText = item.title || '';
       document.getElementById('lightboxCaption').innerText = item.caption || '';
       document.getElementById('galleryLightbox').classList.add('show');
