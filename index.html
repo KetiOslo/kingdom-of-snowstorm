@@ -789,7 +789,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(19, 36, 18, 0.92);
+      background: rgba(19, 36, 18, 0.94);
       z-index: 99999;
       justify-content: center;
       align-items: center;
@@ -818,6 +818,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     .lightbox-img-area img {
@@ -826,6 +827,32 @@
       object-fit: contain;
       display: block;
     }
+
+    .lightbox-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30, 51, 28, 0.75);
+      color: var(--white);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .lightbox-nav-arrow:hover {
+      background: var(--gold-primary);
+    }
+
+    .lightbox-prev { left: 15px; }
+    .lightbox-next { right: 15px; }
 
     .lightbox-caption-area {
       padding: 18px 22px;
@@ -1327,11 +1354,15 @@
     </div>
   </section>
 
-  <!-- LIGHTBOX СО ЛИЗГАЧ (СКРОЛ ЗА ЗАТВОРАЊЕ) -->
+  <!-- LIGHTBOX СО СТРЕЛКИ И ЛИЗГАЧ -->
   <div id="galleryLightbox" class="lightbox-modal" onclick="closeGalleryLightbox()">
     <div class="lightbox-content-box" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeGalleryLightbox()"><i class="fa-solid fa-xmark"></i></button>
-      <div class="lightbox-img-area"><img id="lightboxImg" src="" alt="Kennel Photo"></div>
+      <div class="lightbox-img-area">
+        <button class="lightbox-nav-arrow lightbox-prev" onclick="changeLightboxImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="Kennel Photo">
+        <button class="lightbox-nav-arrow lightbox-next" onclick="changeLightboxImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
       <div class="lightbox-caption-area">
         <h3 id="lightboxTitle" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 6px;"></h3>
         <p id="lightboxCaption" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;"></p>
@@ -1539,6 +1570,8 @@
     let allGalleryItems = [];
     let cachedLittersList = [];
     let cachedDogsList = [];
+    let currentLightboxImages = [];
+    let currentLightboxIndex = 0;
 
     function resolveImagePath(path) {
       if (!path) return '2.png';
@@ -1575,7 +1608,7 @@
       if (activeTab) activeTab.classList.add('active');
 
       document.querySelectorAll('.nav-tab-btn').forEach(link => {
-        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(tabId)) {
+        if (link.getAttribute('onclick') && link.getAttribute('onclick'].includes(tabId)) {
           link.classList.add('active');
         }
       });
@@ -1600,16 +1633,33 @@
       }
     });
 
+    // ПОДДРШКА ЗА SWIPE И ЛИЗГАЊЕ НА МОБИЛЕН
+    let touchStartX = 0;
     let touchStartY = 0;
+
     window.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
     }, {passive: true});
 
-    window.addEventListener('touchmove', e => {
+    window.addEventListener('touchend', e => {
       const lightbox = document.getElementById('galleryLightbox');
       if (lightbox && lightbox.classList.contains('show')) {
-        const touchEndY = e.touches[0].clientY;
-        if (Math.abs(touchEndY - touchStartY) > 40) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        // Ако е хоризонтално лизгање (swipe лево/десно)
+        if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) {
+            changeLightboxImage(-1); // лизгање надесно -> претходна слика
+          } else {
+            changeLightboxImage(1);  // лизгање налево -> следна слика
+          }
+        }
+        // Ако е вертикално лизгање нагоре/надолу -> затвори легбоксот
+        else if (Math.abs(diffY) > 50 && Math.abs(diffY) > Math.abs(diffX)) {
           closeGalleryLightbox();
         }
       }
@@ -1708,15 +1758,12 @@
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
-          
           if (l.upcoming && (l.upcoming.title || l.upcoming.description || l.upcoming.image)) {
             renderUpcomingLitter(l.upcoming);
           }
-          
           if (l.current && (l.current.title || l.current.description || l.current.image)) {
             renderCurrentLitter(l.current);
           }
-
           cachedLittersList = l.litters || l.items || [];
           renderLitters(cachedLittersList);
         }
@@ -1735,9 +1782,14 @@
 
       loadDynamicGallery();
 
+      // ЛОГИКА ЗА ПРВО ОТВОРАЊЕ И ЗАЧУВУВАЊЕ НА ТАБ ПРИ РЕФРЕШ
       const hashTab = window.location.hash.replace('#', '');
       const savedTab = localStorage.getItem('active_kennel_tab');
-      if (hashTab && document.getElementById('tab-' + hashTab)) {
+
+      if (!window.location.hash && !savedTab) {
+        // Прво отворање на сајтот -> Секција Home
+        selectTab('home', true);
+      } else if (hashTab && document.getElementById('tab-' + hashTab)) {
         selectTab(hashTab, false);
       } else if (savedTab && document.getElementById('tab-' + savedTab)) {
         selectTab(savedTab, false);
@@ -1766,14 +1818,14 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name}')">
+            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${dog.name}', '')">
               <img src="${mainImgPath}" alt="${dog.name}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
-            const thumbs = imgList.map(img => {
+            const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name}')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${dog.name}', '')"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -1807,14 +1859,14 @@
       if (imgList.length > 0) {
         const mainImgPath = resolveImagePath(imgList[0]);
         mediaHtml += `
-          <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${up.title || 'Upcoming Litter'}')">
+          <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${up.title || 'Upcoming Litter'}', '')">
             <img src="${mainImgPath}" alt="${up.title || 'Upcoming Litter'}" onerror="this.src='2.png'">
           </div>
         `;
         if (imgList.length > 1) {
-          const thumbs = imgList.map(img => {
+          const thumbs = imgList.map((img, idx) => {
             const p = resolveImagePath(img);
-            return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${up.title || ''}')"><img src="${p}" alt="Photo"></div>`;
+            return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${up.title || ''}', '')"><img src="${p}" alt="Photo"></div>`;
           }).join('');
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
@@ -1845,14 +1897,14 @@
       if (imgList.length > 0) {
         const mainImgPath = resolveImagePath(imgList[0]);
         mediaHtml += `
-          <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${curr.title || 'Current Litter'}')">
+          <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${curr.title || 'Current Litter'}', '')">
             <img src="${mainImgPath}" alt="${curr.title || 'Current Litter'}" onerror="this.src='2.png'">
           </div>
         `;
         if (imgList.length > 1) {
-          const thumbs = imgList.map(img => {
+          const thumbs = imgList.map((img, idx) => {
             const p = resolveImagePath(img);
-            return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${curr.title || ''}')"><img src="${p}" alt="Photo"></div>`;
+            return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${curr.title || ''}', '')"><img src="${p}" alt="Photo"></div>`;
           }).join('');
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
@@ -1885,14 +1937,14 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${titleText}')">
+            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${titleText}', '')">
               <img src="${mainImgPath}" alt="${titleText}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
-            const thumbs = imgList.map(img => {
+            const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${titleText}')"><img src="${p}" alt="Litter Photo"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${titleText}', '')"><img src="${p}" alt="Litter Photo"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -1911,13 +1963,6 @@
       }).join('');
     }
 
-    function openGalleryLightboxFromSrc(src, title) {
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxTitle').innerText = title || 'Kennel Photo';
-      document.getElementById('lightboxCaption').innerText = '';
-      document.getElementById('galleryLightbox').classList.add('show');
-    }
-
     function renderAvailableDogs(dogs) {
       const container = document.getElementById('dynamicAvailableContainer');
       if (!container) return;
@@ -1927,14 +1972,14 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${dog.name || ''}')">
+            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${dog.name || ''}', '')">
               <img src="${mainImgPath}" alt="${dog.name || 'Puppy'}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
-            const thumbs = imgList.map(img => {
+            const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${dog.name || ''}')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${dog.name || ''}', '')"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -1966,14 +2011,14 @@
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
-            <div class="dog-portrait-container" style="height: 220px;" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${post.title}')">
+            <div class="dog-portrait-container" style="height: 220px;" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${post.title}', '')">
               <img src="${mainImgPath}" alt="${post.title}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
-            const thumbs = imgList.map(img => {
+            const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${post.title}')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${post.title}', '')"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -2040,15 +2085,42 @@
       }
     }
 
+    // ЛАЈТБОКС ФУНКЦИИ СО СТРЕЛКИ И СВИП
     function openGalleryLightbox(index) {
       const item = allGalleryItems[index];
       if (!item) return;
       let imgList = parseImages(item);
-      const src = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxTitle').innerText = item.title || '';
-      document.getElementById('lightboxCaption').innerText = item.caption || '';
+      currentLightboxImages = imgList.map(img => resolveImagePath(img));
+      currentLightboxIndex = 0;
+
+      updateLightboxContent(item.title || '', item.caption || '');
       document.getElementById('galleryLightbox').classList.add('show');
+    }
+
+    function openLightboxFromList(imgList, startIndex, title, caption) {
+      currentLightboxImages = imgList.map(img => resolveImagePath(img));
+      currentLightboxIndex = startIndex || 0;
+
+      updateLightboxContent(title, caption);
+      document.getElementById('galleryLightbox').classList.add('show');
+    }
+
+    function updateLightboxContent(title, caption) {
+      if (currentLightboxImages.length === 0) return;
+      document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+      document.getElementById('lightboxTitle').innerText = title || 'Kennel Photo';
+      document.getElementById('lightboxCaption').innerText = caption || '';
+    }
+
+    function changeLightboxImage(direction) {
+      if (currentLightboxImages.length <= 1) return;
+      currentLightboxIndex += direction;
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = currentLightboxImages.length - 1;
+      } else if (currentLightboxIndex >= currentLightboxImages.length) {
+        currentLightboxIndex = 0;
+      }
+      document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
     }
 
     function closeGalleryLightbox() {
