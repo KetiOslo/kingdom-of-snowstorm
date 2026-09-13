@@ -19,12 +19,10 @@
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
     
-    /* Додадено textarea за да ги опфати сите нови флексибилни полиња */
     input[type="text"], input[type="password"], input[type="date"], select, textarea { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
     input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
     textarea { resize: vertical; min-height: 42px; line-height: 1.5; }
 
-    /* ВИДЛИВ И ПРОФЕСИОНАЛЕН EDITOR */
     .editor-wrapper { margin-top: 6px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
     .editor-toolbar { background: #e2e8f0; border-bottom: 1px solid var(--border); padding: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
     .editor-toolbar button { background: #ffffff; border: 1px solid #94a3b8; border-radius: 4px; padding: 6px 12px; font-weight: bold; cursor: pointer; color: #1e293b; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
@@ -44,6 +42,15 @@
     .status.error { background: #fee2e2; color: #ef4444; display: block; }
     .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
     .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
+
+    /* НОВИ СТИЛОВИ ЗА ВИЗУЕЛНИ СЛИКИ (Тумбови со X) */
+    .image-preview-area { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .image-chip { position: relative; width: 70px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--border); background: #e2e8f0; }
+    .image-chip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-chip .del-img-btn { position: absolute; top: 2px; right: 2px; background: rgba(239, 68, 68, 0.9); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .image-chip .del-img-btn:hover { background: #dc2626; }
+    /* Го криеме полето со текстот за сликите, бидејќи ќе ги гледаме како сликички */
+    .hidden-image-input { display: none !important; }
   </style>
 </head>
 <body>
@@ -186,10 +193,11 @@
       <label>Наслов:</label>
       <textarea rows="2" id="up_title" placeholder="Пр: Planned Litter: Oslo x Galla"></textarea>
       
-      <label>Фотографии (може повеќе разделени со запирка):</label>
-      <input type="text" id="up_image" />
+      <label>Фотографии:</label>
+      <input type="text" id="up_image" class="hidden-image-input" />
+      <div id="up_image_preview" class="image-preview-area"></div>
       <div class="file-upload-box">
-        <input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'up_image');">
+        <input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'up_image', 'up_image_preview')">
       </div>
       
       <label>Опис:</label>
@@ -209,10 +217,11 @@
       <label>Наслов:</label>
       <textarea rows="2" id="cur_title" placeholder="Пр: Current Litter 'A'"></textarea>
       
-      <label>Фотографии (може повеќе разделени со запирка):</label>
-      <input type="text" id="cur_image" />
+      <label>Фотографии:</label>
+      <input type="text" id="cur_image" class="hidden-image-input" />
+      <div id="cur_image_preview" class="image-preview-area"></div>
       <div class="file-upload-box">
-        <input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'cur_image');">
+        <input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'cur_image', 'cur_image_preview')">
       </div>
       
       <label>Опис:</label>
@@ -262,11 +271,9 @@
   let galleryData = [], dogsData = [], littersData = [], puppiesData = [], blogData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
 
-  // Помошни функции за конвертирање на Newlines во <br>
   function nl2br(str) { return str ? str.toString().replace(/\n/g, '<br>') : ''; }
   function br2nl(str) { return str ? str.toString().replace(/<br\s*\/?>/gi, '\n') : ''; }
 
-  // Скрипта за чист Enter во едиторите за текст
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && e.target.classList.contains('editor-content')) {
       e.preventDefault();
@@ -284,6 +291,59 @@
     if(el) {
       el.focus();
       document.execCommand(command, false, null);
+    }
+  }
+
+  // --- НОВА ФУНКЦИЈА ЗА ВИЗУЕЛНИ СЛИКИЧКИ И БРИШЕЊЕ ---
+  function resolveImagePath(path) {
+    let cleanPath = path.toString().trim();
+    if (!cleanPath) return '';
+    if (cleanPath.startsWith('http')) return cleanPath;
+    if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
+    if (cleanPath.startsWith('content/images/')) return '../' + cleanPath;
+    if (cleanPath.startsWith('content/')) return '../' + cleanPath;
+    if (cleanPath.startsWith('images/')) return '../content/' + cleanPath;
+    return '../content/images/' + cleanPath;
+  }
+
+  function renderImagePreviews(inputId, previewBoxId) {
+    const inputEl = document.getElementById(inputId);
+    const previewBox = document.getElementById(previewBoxId);
+    if(!inputEl || !previewBox) return;
+
+    const val = inputEl.value.trim();
+    previewBox.innerHTML = '';
+    
+    if(val) {
+      const paths = val.split(',').map(s=>s.trim()).filter(Boolean);
+      paths.forEach((path, idx) => {
+        const fullUrl = resolveImagePath(path);
+        previewBox.innerHTML += `
+          <div class="image-chip">
+            <img src="${fullUrl}" alt="img" onerror="this.style.display='none'">
+            <button class="del-img-btn" onclick="removeImage('${inputId}', '${previewBoxId}', ${idx})" title="Избриши слика">X</button>
+          </div>
+        `;
+      });
+    }
+  }
+
+  function removeImage(inputId, previewBoxId, indexToRemove) {
+    const inputEl = document.getElementById(inputId);
+    const val = inputEl.value.trim();
+    if(val) {
+      let paths = val.split(',').map(s=>s.trim()).filter(Boolean);
+      paths.splice(indexToRemove, 1);
+      inputEl.value = paths.join(', ');
+      
+      // Автоматско ажурирање на дата низите во позадина
+      if (inputId.startsWith('gal_')) galleryData[inputId.split('_')[1]].image = inputEl.value;
+      if (inputId.startsWith('dog_')) dogsData[inputId.split('_')[1]].image = inputEl.value;
+      if (inputId.startsWith('lit_')) littersData[inputId.split('_')[1]].image = inputEl.value;
+      if (inputId.startsWith('pup_')) puppiesData[inputId.split('_')[1]].image = inputEl.value;
+      if (inputId.startsWith('blog_')) blogData[inputId.split('_')[1]].image = inputEl.value;
+
+      renderImagePreviews(inputId, previewBoxId);
     }
   }
 
@@ -330,11 +390,13 @@
           document.getElementById('up_title').value = br2nl(d.upcoming.title || '');
           document.getElementById('up_desc').innerHTML = d.upcoming.description || d.upcoming.text || '';
           document.getElementById('up_image').value = Array.isArray(d.upcoming.images) ? d.upcoming.images.join(', ') : (d.upcoming.image || '');
+          renderImagePreviews('up_image', 'up_image_preview');
         }
         if(d.current) {
           document.getElementById('cur_title').value = br2nl(d.current.title || '');
           document.getElementById('cur_desc').innerHTML = d.current.description || d.current.text || '';
           document.getElementById('cur_image').value = Array.isArray(d.current.images) ? d.current.images.join(', ') : (d.current.image || '');
+          renderImagePreviews('cur_image', 'cur_image_preview');
         }
         littersData = d.litters || d.items || [];
         renderLitters();
@@ -354,7 +416,7 @@
     if(event) event.currentTarget.classList.add('active');
   }
 
-  async function uploadMultipleImagesToGithub(fileInput, targetInputId, onComplete) {
+  async function uploadMultipleImagesToGithub(fileInput, targetInputId, previewBoxId) {
     const files = fileInput.files;
     if(!files || files.length === 0) return;
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
@@ -399,8 +461,18 @@
 
       const finalString = uploadedPaths.join(', ');
       document.getElementById(targetInputId).value = finalString;
-      statusInfo.innerText = '✓ Сите слики се успешно поставени!';
-      if(onComplete) onComplete(finalString);
+      
+      // Ажурирај ги податоците
+      if (targetInputId.startsWith('gal_')) galleryData[targetInputId.split('_')[1]].image = finalString;
+      if (targetInputId.startsWith('dog_')) dogsData[targetInputId.split('_')[1]].image = finalString;
+      if (targetInputId.startsWith('lit_')) littersData[targetInputId.split('_')[1]].image = finalString;
+      if (targetInputId.startsWith('pup_')) puppiesData[targetInputId.split('_')[1]].image = finalString;
+      if (targetInputId.startsWith('blog_')) blogData[targetInputId.split('_')[1]].image = finalString;
+
+      renderImagePreviews(targetInputId, previewBoxId);
+      statusInfo.innerText = '✓ Успешно прикачени!';
+      setTimeout(() => statusInfo.innerText='', 3000);
+      fileInput.value = ""; // Ресетирај го инпутот
     } catch(err) {
       statusInfo.innerText = '✕ Грешка при прикачување.';
       alert('✕ Грешка при прикачување на сликите.');
@@ -429,8 +501,12 @@
           <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
           <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
         </select>
-        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="gal_${i}" value="${item.image || ''}" onchange="galleryData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'gal_${i}', (val) => { galleryData[${i}].image = val; });"></div>
+        
+        <label>Фотографии:</label>
+        <input type="text" id="gal_${i}" value="${item.image || ''}" class="hidden-image-input" onchange="galleryData[${i}].image = this.value; renderImagePreviews('gal_${i}', 'gal_preview_${i}')">
+        <div id="gal_preview_${i}" class="image-preview-area"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'gal_${i}', 'gal_preview_${i}')"></div>
+        
         <label>Опис:</label>
         <div class="editor-wrapper">
           <div class="editor-toolbar">
@@ -440,6 +516,7 @@
           <div id="gal_desc_${i}" class="editor-content" contenteditable="true" oninput="galleryData[${i}].caption = this.innerHTML">${item.caption || ''}</div>
         </div>
       </div>`;
+      renderImagePreviews(`gal_${i}`, `gal_preview_${i}`);
     });
   }
   function addGalleryItem() { galleryData.push({ title: "", category: "Shows", image: "", caption: "" }); renderGallery(); }
@@ -452,9 +529,13 @@
         <label>Име:</label><textarea rows="1" onchange="dogsData[${i}].name = nl2br(this.value)">${br2nl(dog.name)}</textarea>
         <label>Линија:</label><textarea rows="1" onchange="dogsData[${i}].lineage = nl2br(this.value)">${br2nl(dog.lineage)}</textarea>
         <label>Пол:</label><textarea rows="1" onchange="dogsData[${i}].gender = nl2br(this.value)">${br2nl(dog.gender)}</textarea>
-        <label>Датум на раѓање / Детали (дозволено повеќе редови):</label><textarea rows="2" onchange="dogsData[${i}].birth = nl2br(this.value)">${br2nl(dog.birth || dog.details)}</textarea>
-        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', (val) => { dogsData[${i}].image = val; });"></div>
+        <label>Детали (дозволено повеќе редови):</label><textarea rows="2" onchange="dogsData[${i}].details = nl2br(this.value)">${br2nl(dog.birth || dog.details)}</textarea>
+        
+        <label>Фотографии:</label>
+        <input type="text" id="dog_${i}" value="${dog.image || ''}" class="hidden-image-input" onchange="dogsData[${i}].image = this.value; renderImagePreviews('dog_${i}', 'dog_preview_${i}')">
+        <div id="dog_preview_${i}" class="image-preview-area"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', 'dog_preview_${i}')"></div>
+        
         <label>Опис:</label>
         <div class="editor-wrapper">
           <div class="editor-toolbar">
@@ -464,9 +545,10 @@
           <div id="dog_desc_${i}" class="editor-content" contenteditable="true" oninput="dogsData[${i}].narrative = this.innerHTML">${dog.narrative || ''}</div>
         </div>
       </div>`;
+      renderImagePreviews(`dog_${i}`, `dog_preview_${i}`);
     });
   }
-  function addDogItem() { dogsData.push({ name: "", lineage: "", gender: "", birth: "", image: "", narrative: "" }); renderDogs(); }
+  function addDogItem() { dogsData.push({ name: "", lineage: "", gender: "", details: "", image: "", narrative: "" }); renderDogs(); }
 
   function renderLitters() {
     const c = document.getElementById('litters-container'); c.innerHTML = '';
@@ -474,8 +556,12 @@
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
         <label>Име на леглото (Архива):</label><textarea rows="1" onchange="littersData[${i}].title = nl2br(this.value)">${br2nl(litter.title)}</textarea>
-        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', (val) => { littersData[${i}].image = val; });"></div>
+        
+        <label>Фотографии:</label>
+        <input type="text" id="lit_${i}" value="${litter.image || ''}" class="hidden-image-input" onchange="littersData[${i}].image = this.value; renderImagePreviews('lit_${i}', 'lit_preview_${i}')">
+        <div id="lit_preview_${i}" class="image-preview-area"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', 'lit_preview_${i}')"></div>
+        
         <label>Опис:</label>
         <div class="editor-wrapper">
           <div class="editor-toolbar">
@@ -485,6 +571,7 @@
           <div id="lit_desc_${i}" class="editor-content" contenteditable="true" oninput="littersData[${i}].description = this.innerHTML">${litter.description || ''}</div>
         </div>
       </div>`;
+      renderImagePreviews(`lit_${i}`, `lit_preview_${i}`);
     });
   }
   function addLitterItem() { littersData.push({ title: "", image: "", description: "" }); renderLitters(); }
@@ -496,8 +583,12 @@
         <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
         <label>Име на кученцето:</label><textarea rows="1" onchange="puppiesData[${i}].name = nl2br(this.value)">${br2nl(pup.name)}</textarea>
         <label>Статус:</label><textarea rows="1" onchange="puppiesData[${i}].status = nl2br(this.value)">${br2nl(pup.status)}</textarea>
-        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', (val) => { puppiesData[${i}].image = val; });"></div>
+        
+        <label>Фотографии:</label>
+        <input type="text" id="pup_${i}" value="${pup.image || ''}" class="hidden-image-input" onchange="puppiesData[${i}].image = this.value; renderImagePreviews('pup_${i}', 'pup_preview_${i}')">
+        <div id="pup_preview_${i}" class="image-preview-area"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', 'pup_preview_${i}')"></div>
+        
         <label>Детали:</label>
         <div class="editor-wrapper">
           <div class="editor-toolbar">
@@ -507,6 +598,7 @@
           <div id="pup_desc_${i}" class="editor-content" contenteditable="true" oninput="puppiesData[${i}].details = this.innerHTML">${pup.details || ''}</div>
         </div>
       </div>`;
+      renderImagePreviews(`pup_${i}`, `pup_preview_${i}`);
     });
   }
   function addPuppyItem() { puppiesData.push({ name: "", status: "Достапно / Available", image: "", details: "" }); renderPuppies(); }
@@ -518,8 +610,12 @@
         <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши</button>
         <label>Наслов:</label><textarea rows="2" onchange="blogData[${i}].title = nl2br(this.value)">${br2nl(post.title)}</textarea>
         <label>Датум:</label><input type="date" value="${post.date || ''}" onchange="blogData[${i}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
-        <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', (val) => { blogData[${i}].image = val; });"></div>
+        
+        <label>Фотографии:</label>
+        <input type="text" id="blog_${i}" value="${post.image || ''}" class="hidden-image-input" onchange="blogData[${i}].image = this.value; renderImagePreviews('blog_${i}', 'blog_preview_${i}')">
+        <div id="blog_preview_${i}" class="image-preview-area"></div>
+        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', 'blog_preview_${i}')"></div>
+        
         <label>Краток опис:</label>
         <div class="editor-wrapper">
           <div class="editor-toolbar">
@@ -538,6 +634,7 @@
           <div id="blog_cont_${i}" class="editor-content" contenteditable="true" oninput="blogData[${i}].content = this.innerHTML">${post.content || ''}</div>
         </div>
       </div>`;
+      renderImagePreviews(`blog_${i}`, `blog_preview_${i}`);
     });
   }
   function addBlogPost() {
@@ -546,7 +643,6 @@
     renderBlog();
   }
 
-  // --- GET DATA FUNCTIONS ---
   function getHomeData() {
     return {
       hero_title: nl2br(document.getElementById('h_title').value),
@@ -594,7 +690,6 @@
     const statusEl = document.getElementById(msgId);
     if(!token) { alert('Внесете токен најгоре!'); return; }
 
-    // ОВОЈ РЕД ГО РЕШАВА ПРОБЛЕМОТ: Гарантира дека пораката ќе биде видлива при секое кликање
     statusEl.style.display = 'block';
     
     statusEl.className = 'status loading';
