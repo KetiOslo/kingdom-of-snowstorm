@@ -1608,7 +1608,6 @@
 
   <!-- SCRIPT -->
   <script>
-    // Поставено англиски (en) како почетен јазик по дефолт
     let currentLang = localStorage.getItem('site_lang') || 'en';
     let allGalleryItems = [];
     let cachedHomeData = {};
@@ -2466,6 +2465,18 @@
       }).join('');
     }
 
+    function getLocalizedCategory(cat) {
+      if (!cat) return 'Shows';
+      const cleanCat = cat.toString().trim().toLowerCase();
+      if (currentLang === 'mk') {
+        if (cleanCat === 'shows') return 'Изложби';
+        if (cleanCat === 'home life') return 'Домашен живот';
+        if (cleanCat === 'puppies') return 'Кутриња';
+        if (cleanCat === 'grooming') return 'Груминг';
+      }
+      return cat;
+    }
+
     function renderGalleryCards(items) {
       const container = document.getElementById('dynamicGalleryContainer');
       if (!container || !items || items.length === 0) return;
@@ -2474,7 +2485,10 @@
         const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
         const titleText = getLocalizedField(item, 'title');
         const captionText = getLocalizedField(item, 'caption');
-        const catText = getLocalizedField(item, 'category') || 'Shows';
+        
+        const rawCat = getLocalizedField(item, 'category') || item.category || 'Shows';
+        const catText = getLocalizedCategory(rawCat);
+
         const safeTitle = getSafeString(titleText);
         const imgData = getSafeString(imgList.join(','));
         const safeCaption = getSafeString(captionText);
