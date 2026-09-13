@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
-  <!-- БРАУЗЕР ИКОНИ (Favicon) & APPLE TOUCH (Клучно за iMessage, WhatsApp, Viber fallback) -->
-  <link rel="icon" type="image/png" href="https://kingdomofsnowstorm.com/2.png">
-  <link rel="apple-touch-icon" href="https://kingdomofsnowstorm.com/2.png">
+  <!-- БРАУЗЕР ИКОНИ ЗА МОБИЛЕН CHROME И SAFARI -->
+  <link rel="icon" type="image/png" sizes="192x192" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kingdomofsnowstorm.com/2.png">
 
   <!-- Open Graph / Social Share Meta Tags ЗА МОБИЛНИ (Viber, WhatsApp, Facebook) -->
   <meta property="og:type" content="website">
@@ -16,20 +18,27 @@
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
   <meta property="og:url" content="https://kingdomofsnowstorm.com/">
-  <meta property="og:image" content="https://kingdomofsnowstorm.com/2.png">
-  <meta property="og:image:secure_url" content="https://kingdomofsnowstorm.com/2.png">
+  
+  <!-- Директни линкови до логото со параметар за пробивање кеш -->
+  <meta property="og:image" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
+  <meta property="og:image:secure_url" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
   <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Резервен таг за постари верзии на Viber -->
+  <link rel="image_src" href="https://kingdomofsnowstorm.com/2.png?v=2026">
   
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta name="twitter:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png">
+  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
 
-  <!-- WhatsApp / Google Meta Tags -->
+  <!-- WhatsApp Meta Tags -->
   <meta itemprop="name" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta itemprop="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta itemprop="image" content="https://kingdomofsnowstorm.com/2.png">
+  <meta itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1483,6 +1492,7 @@
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
+            <!-- Скриено поле за клучот -->
             <input type="hidden" name="access_key" id="w3f_key" value="">
             <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
