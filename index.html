@@ -6,7 +6,7 @@
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
-  <!-- Open Graph / Social Share Meta Tags (Со ?v=2 за ресетирање на Viber кеш) -->
+  <!-- Open Graph / Social Share Meta Tags -->
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
   <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=2">
@@ -1131,7 +1131,7 @@
     </div>
   </div>
 
-  <!-- HEADER (додадени data-tab атрибути за 100% сигурно работење на менито) -->
+  <!-- HEADER -->
   <header>
     <div class="container header-inner">
       <a href="javascript:void(0)" onclick="selectTab('home')" class="brand-logo-wrapper">
@@ -1275,7 +1275,7 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS -->
+  <!-- TAB 4: LITTERS (ОСВЕЖЕН ДИЗАЈН СО ПОСЕБНО ПОЛЕ) -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1283,24 +1283,24 @@
         <h2 class="section-maintitle">Litters & Planned Matings</h2>
       </div>
 
-      <!-- 1. Очекувано легло -->
-      <div id="upcomingLitterWrapper" style="margin-bottom: 50px; display: none;">
+      <!-- 1. Очекувано легло (Специјално поле со златна рамка и копчиња) -->
+      <div id="upcomingLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Upcoming Planned Litter
         </h3>
         <div id="dynamicUpcomingLitter"></div>
       </div>
 
-      <!-- 2. Моментално легло -->
-      <div id="currentLitterWrapper" style="margin-bottom: 50px; display: none;">
+      <!-- 2. Моментално легло (Специјално поле со златна рамка и копчиња) -->
+      <div id="currentLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> Current Active Litter
         </h3>
         <div id="dynamicCurrentLitter"></div>
       </div>
 
-      <!-- 3. Архива -->
-      <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
+      <!-- 3. Архива (Само информации, БЕЗ КОПЧИЊА) -->
+      <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center; border-top: 1px dashed var(--pistachio-border); padding-top: 40px;">
         Previous Litters Archive
       </h3>
       <div id="dynamicLittersContainer" class="dogs-luxury-grid"></div>
@@ -1811,7 +1811,9 @@
       const hashTab = window.location.hash.replace('#', '');
       const sessionTab = sessionStorage.getItem('active_kennel_tab');
 
-      if (hashTab && document.getElementById('tab-' + hashTab)) {
+      if (!window.location.hash && !sessionTab) {
+        selectTab('home', true);
+      } else if (hashTab && document.getElementById('tab-' + hashTab)) {
         selectTab(hashTab, false);
       } else if (sessionTab && document.getElementById('tab-' + sessionTab)) {
         selectTab(sessionTab, false);
@@ -1896,14 +1898,21 @@
       }
 
       container.innerHTML = `
-        <div class="dog-feature-card" style="max-width: 700px; margin: 0 auto;">
+        <div class="dog-feature-card" style="max-width: 750px; margin: 0 auto; border: 2px solid var(--gold-primary); box-shadow: 0 10px 35px rgba(197, 160, 89, 0.15);">
           ${mediaHtml}
           <div class="dog-details-body">
             <h3 class="dog-title-name" style="margin-bottom: 10px;">${up.title || 'Planned Upcoming Litter'}</h3>
             <p class="dog-narrative" style="margin-bottom: 24px;">${up.description || up.text || ''}</p>
-            <button class="btn-lux btn-lux-gold" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">
-              <i class="fa-solid fa-heart"></i> Reserve Puppy from Planned Litter
-            </button>
+            
+            <!-- Двете копчиња една до друго -->
+            <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
+              <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')">
+                <i class="fa-solid fa-pen-to-square"></i> Reservation
+              </button>
+              <button class="btn-lux btn-lux-primary" style="flex: 1; min-width: 200px;" onclick="selectTab('available')">
+                <i class="fa-solid fa-paw"></i> Available Dogs
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -1937,14 +1946,21 @@
       }
 
       container.innerHTML = `
-        <div class="dog-feature-card" style="max-width: 700px; margin: 0 auto;">
+        <div class="dog-feature-card" style="max-width: 750px; margin: 0 auto; border: 2px solid var(--gold-primary); box-shadow: 0 10px 35px rgba(197, 160, 89, 0.15);">
           ${mediaHtml}
           <div class="dog-details-body">
             <h3 class="dog-title-name" style="margin-bottom: 10px;">${curr.title || 'Current Active Litter'}</h3>
             <p class="dog-narrative" style="margin-bottom: 24px;">${curr.description || curr.text || ''}</p>
-            <button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">
-              <i class="fa-solid fa-paw"></i> Inquire About Current Puppies
-            </button>
+            
+            <!-- Двете копчиња една до друго -->
+            <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
+              <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')">
+                <i class="fa-solid fa-pen-to-square"></i> Reservation
+              </button>
+              <button class="btn-lux btn-lux-primary" style="flex: 1; min-width: 200px;" onclick="selectTab('available')">
+                <i class="fa-solid fa-paw"></i> Available Dogs
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -1984,8 +2000,8 @@
             ${mediaHtml}
             <div class="dog-details-body">
               <h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3>
-              <p class="dog-narrative" style="margin-bottom: 20px;">${descText}</p>
-              <button class="btn-lux btn-lux-gold" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">Apply for Puppy Reservation</button>
+              <p class="dog-narrative">${descText}</p>
+              <!-- Отстранети копчињата за архива -->
             </div>
           </div>
         `;
