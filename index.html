@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns#">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
+
+  <!-- БРАУЗЕР ИКОНИ (Favicon) & APPLE TOUCH (Клучно за iMessage, WhatsApp, Viber fallback) -->
+  <link rel="icon" type="image/png" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="apple-touch-icon" href="https://kingdomofsnowstorm.com/2.png">
 
   <!-- Open Graph / Social Share Meta Tags ЗА МОБИЛНИ (Viber, WhatsApp, Facebook) -->
   <meta property="og:type" content="website">
@@ -12,27 +16,20 @@
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
   <meta property="og:url" content="https://kingdomofsnowstorm.com/">
-  
-  <!-- Директни линкови до логото преку стабилниот GitHub сервер (со точни димензии) -->
-  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
-  <meta property="og:image:secure_url" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta property="og:image" content="https://kingdomofsnowstorm.com/2.png">
+  <meta property="og:image:secure_url" content="https://kingdomofsnowstorm.com/2.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-
-  <!-- Резервен таг за постари верзии на Viber и WhatsApp -->
-  <link rel="image_src" href="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
   
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta name="twitter:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png">
 
   <!-- WhatsApp / Google Meta Tags -->
   <meta itemprop="name" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta itemprop="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta itemprop="image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta itemprop="image" content="https://kingdomofsnowstorm.com/2.png">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1486,7 +1483,6 @@
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <!-- Скриено поле за клучот -->
             <input type="hidden" name="access_key" id="w3f_key" value="">
             <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
@@ -2139,12 +2135,26 @@
       container.innerHTML = items.map((item, index) => {
         let imgList = parseImages(item);
         const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+        const safeTitle = getSafeString(item.title);
+        const imgData = getSafeString(imgList.join(','));
+        const safeCaption = getSafeString(item.caption);
+
+        let thumbsHtml = '';
+        if (imgList.length > 1) {
+            const thumbs = imgList.map((img, idx) => {
+              const p = resolveImagePath(img);
+              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Thumb"></div>`;
+            }).join('');
+            thumbsHtml = `<div class="thumb-strip">${thumbs}</div>`;
+        }
+
         return `
-          <div class="gallery-item-card" onclick="openGalleryLightbox(${index})">
+          <div class="gallery-item-card" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="openLightboxFromElement(this, 0)">
             <div class="gallery-img-wrap">
               <img src="${itemImg}" alt="${item.title || 'Photo'}" onerror="this.src='2.png'">
               <span class="gallery-category-badge">${item.category || 'Shows'}</span>
             </div>
+            ${thumbsHtml}
             <div class="gallery-item-info">
               <h4 class="gallery-item-title">${item.title || ''}</h4>
               <p class="gallery-item-caption">${item.caption || ''}</p>
@@ -2173,24 +2183,14 @@
     function openLightboxFromElement(el, startIndex) {
       const imgData = el.getAttribute('data-images');
       const title = el.getAttribute('data-title');
+      const caption = el.getAttribute('data-caption') || '';
       if (!imgData) return;
       
       const imgList = imgData.split(',');
       currentLightboxImages = imgList.map(img => resolveImagePath(img));
       currentLightboxIndex = startIndex || 0;
 
-      updateLightboxContent(title, '');
-      document.getElementById('galleryLightbox').classList.add('show');
-    }
-
-    function openGalleryLightbox(index) {
-      const item = allGalleryItems[index];
-      if (!item) return;
-      let imgList = parseImages(item);
-      currentLightboxImages = imgList.map(img => resolveImagePath(img));
-      currentLightboxIndex = 0;
-
-      updateLightboxContent(item.title || '', item.caption || '');
+      updateLightboxContent(title, caption);
       document.getElementById('galleryLightbox').classList.add('show');
     }
 
