@@ -1798,7 +1798,7 @@
         opt_2: "Show / Breeding Potential",
         opt_3: "Stud Service Inquiry (Oslo)",
         opt_4: "General Breed Consultation",
-        lbl_msg: "Your Message *",
+        lbl_msg: "Вашата порака *",
         btn_send: "Send Inquiry to Katerina",
         footer_desc: "Kingdom of Snowstorm • Official FCI Kennel No. 11/23 • National MKD No. 268. Where champions are raised with heart, ethical standards, and genuine family love.",
         footer_nav_title: "Navigation",
@@ -1856,20 +1856,27 @@
       renderGalleryCards(allGalleryItems);
     }
 
+    // Полна заштита: ако фајлот нема специфично поле за јазик, автоматски се враќа основното поле за да нема исчезнување на текст
     function getLocalizedField(item, field) {
       if (!item) return '';
       const langField = field + '_' + currentLang;
-      if (item[langField]) return item[langField];
+      if (item[langField] !== undefined && item[langField] !== '') {
+        return item[langField];
+      }
       
-      // Fallback доколку фајлот е зачуван со стариот формат без наставка
-      if (item[field]) {
+      if (item[field] !== undefined && item[field] !== '') {
         if (typeof item[field] === 'object') {
           return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
         }
-        if (currentLang === 'mk') {
-          return item[field];
-        }
+        return item[field];
       }
+
+      const oppositeLang = currentLang === 'mk' ? 'en' : 'mk';
+      const oppositeField = field + '_' + oppositeLang;
+      if (item[oppositeField] !== undefined && item[oppositeField] !== '') {
+        return item[oppositeField];
+      }
+
       return '';
     }
 
