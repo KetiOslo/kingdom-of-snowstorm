@@ -21,7 +21,7 @@
     input[type="text"], input[type="password"], input[type="date"], select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
     input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
     
-    /* ВИДЛИВ И ПРОФЕСИОНАЛЕН RICH TEXT EDITOR */
+    /* ВИДЛИВ И ПРОФЕСИОНАЛЕН EDITOR */
     .editor-wrapper { margin-top: 6px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
     .editor-toolbar { background: #e2e8f0; border-bottom: 1px solid var(--border); padding: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
     .editor-toolbar button { background: #ffffff; border: 1px solid #94a3b8; border-radius: 4px; padding: 6px 12px; font-weight: bold; cursor: pointer; color: #1e293b; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
@@ -48,7 +48,7 @@
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Professional Admin</span>
-    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Алатка за уредување текст</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Уредувач на текст</span>
   </h1>
   
   <div class="auth-box">
@@ -66,7 +66,7 @@
     <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
     <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
     <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
-    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија (Мулти)</button>
+    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
     <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
     <button class="tab-btn" onclick="switchTab('litters', event)">🍼 Легла (Litters)</button>
     <button class="tab-btn" onclick="switchTab('puppies', event)">🐾 Достапни</button>
@@ -77,6 +77,7 @@
   <div id="home" class="tab-content active">
     <h3>Уредување на Почетна страница</h3>
     <label>Главен наслов:</label><input type="text" id="h_title" />
+    
     <label>Воведен текст:</label>
     <div class="editor-wrapper">
       <div class="editor-toolbar">
@@ -89,6 +90,7 @@
     </div>
 
     <label>Наслов на кутија:</label><input type="text" id="h_box_title" />
+    
     <label>Опис на кутија:</label>
     <div class="editor-wrapper">
       <div class="editor-toolbar">
@@ -252,11 +254,11 @@
         document.getElementById('s_fb').value = d.facebook_url || '';
       }
 
-      loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
-      loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
-      loadJSON('content/litters.json', d => littersData = d.litters || d.items || [], renderLitters);
-      loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
-      loadJSON('content/blog.json', d => blogData = d.posts || d.items || [], renderBlog);
+      await loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
+      await loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
+      await loadJSON('content/litters.json', d => littersData = d.litters || d.items || [], renderLitters);
+      await loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
+      await loadJSON('content/blog.json', d => blogData = d.posts || d.items || [], renderBlog);
     } catch(e) { console.log("Init OK"); }
   });
 
