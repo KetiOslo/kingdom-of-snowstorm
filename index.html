@@ -1856,25 +1856,31 @@
       renderGalleryCards(allGalleryItems);
     }
 
-    // Полна заштита: ако фајлот нема специфично поле за јазик, автоматски се враќа основното поле за да нема исчезнување на текст
+    // Подобрена функција со приоритетно барање на _en / _mk полиња со повеќестепени проверки
     function getLocalizedField(item, field) {
       if (!item) return '';
-      const langField = field + '_' + currentLang;
-      if (item[langField] !== undefined && item[langField] !== '') {
-        return item[langField];
+      
+      // 1. Провери дали постои специфично поле за тековниот јазик со наставка (на пр. lineage_en, details_en, narrative_en)
+      const exactLangField = field + '_' + currentLang;
+      if (item[exactLangField] !== undefined && item[exactLangField] !== '' && item[exactLangField] !== null) {
+        return item[exactLangField];
       }
       
-      if (item[field] !== undefined && item[field] !== '') {
-        if (typeof item[field] === 'object') {
-          return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
-        }
+      // 2. Провери дали полето е објект со јазици
+      if (item[field] && typeof item[field] === 'object') {
+        return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
+      }
+
+      // 3. Провери дали постои основното поле во објектот
+      if (item[field] !== undefined && item[field] !== '' && item[field] !== null) {
         return item[field];
       }
 
-      const oppositeLang = currentLang === 'mk' ? 'en' : 'mk';
-      const oppositeField = field + '_' + oppositeLang;
-      if (item[oppositeField] !== undefined && item[oppositeField] !== '') {
-        return item[oppositeField];
+      // 4. Доколку ништо од горенаведеното нема, провери го другиот јазик како замена за да не биде празно
+      const alternateLang = currentLang === 'mk' ? 'en' : 'mk';
+      const alternateField = field + '_' + alternateLang;
+      if (item[alternateField] !== undefined && item[alternateField] !== '' && item[alternateField] !== null) {
+        return item[alternateField];
       }
 
       return '';
@@ -2188,7 +2194,8 @@
         }
 
         let detailsHtml = '';
-        let info = getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'details') || getLocalizedField(dog, 'role');
+        // Проверка со приоритет кон локализираните детали за кучето
+        let info = getLocalizedField(dog, 'details') || getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'role');
         
         if (info && info.trim() !== 'Show Dog') {
           detailsHtml = `
