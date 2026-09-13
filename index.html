@@ -6,7 +6,7 @@
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
-  <!-- Open Graph / Social Share Meta Tags (Kingdom Logo preview) -->
+  <!-- Open Graph / Social Share Meta Tags -->
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
   <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
@@ -1196,7 +1196,7 @@
         <div class="card-luxury">
           <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
           <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title">Excellence in Show Rings</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc">Proudly representing our kennel at World Dog Shows, European Dog Shows, and FCI International competitions with C.I.B. titles.</p>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc">Proudly representing our kennel at World and European Dog Shows, and FCI national and International competitions with C.I.B. titles.</p>
         </div>
       </div>
     </div>
@@ -1248,14 +1248,34 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS -->
+  <!-- TAB 4: LITTERS (НОВ СТРУКТУРИРАН ДЕЛ) -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle">Ethical Breeding</span>
-        <h2 class="section-maintitle">Planned Litters & Reservations</h2>
+        <h2 class="section-maintitle">Litters & Planned Matings</h2>
       </div>
 
+      <!-- 1. Очекувано легло (Upcoming Planned Litter) -->
+      <div id="upcomingLitterWrapper" style="margin-bottom: 50px; display: none;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
+          <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Upcoming Planned Litter
+        </h3>
+        <div id="dynamicUpcomingLitter"></div>
+      </div>
+
+      <!-- 2. Моментално легло (Current Active Litter) -->
+      <div id="currentLitterWrapper" style="margin-bottom: 50px; display: none;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
+          <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> Current Active Litter
+        </h3>
+        <div id="dynamicCurrentLitter"></div>
+      </div>
+
+      <!-- 3. Архива / Минати легла -->
+      <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
+        Previous Litters Archive
+      </h3>
       <div id="dynamicLittersContainer" class="dogs-luxury-grid"></div>
     </div>
   </section>
@@ -1307,7 +1327,7 @@
     </div>
   </section>
 
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX СО ЛИЗГАЧ (СКРОЛ ЗА ЗАТВОРАЊЕ) -->
   <div id="galleryLightbox" class="lightbox-modal" onclick="closeGalleryLightbox()">
     <div class="lightbox-content-box" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeGalleryLightbox()"><i class="fa-solid fa-xmark"></i></button>
@@ -1549,7 +1569,8 @@
       return imgList.filter(Boolean);
     }
 
-    function selectTab(tabId) {
+    // ИНТЕЛИГЕНТНО ИЗБОР НА ТАБ И ЗАЧУВУВАЊЕ ПРИ РЕФРЕШ
+    function selectTab(tabId, saveState = true) {
       document.querySelectorAll('.site-tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.nav-tab-btn').forEach(link => link.classList.remove('active'));
 
@@ -1562,7 +1583,11 @@
         }
       });
 
-      // Автоматско затворање на мобилното мени при клик на таб
+      if (saveState) {
+        localStorage.setItem('active_kennel_tab', tabId);
+        window.history.replaceState(null, '', '#' + tabId);
+      }
+
       document.getElementById('kennel-main-nav').classList.remove('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1571,13 +1596,29 @@
       document.getElementById('kennel-main-nav').classList.toggle('show');
     }
 
-    // Автоматско затворање на мобилното мени при скролање надолу
+    // Затварање на мени при скролање на мобилен
     window.addEventListener('scroll', () => {
       const navMenu = document.getElementById('kennel-main-nav');
       if (navMenu && navMenu.classList.contains('show')) {
         navMenu.classList.remove('show');
       }
     });
+
+    // ЗАТВОРАЊЕ НА LIGHTBOX СО СКРОЛАЊЕ (ЛИЗГАЊЕ) НА МОБИЛЕН
+    let touchStartY = 0;
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    }, {passive: true});
+
+    window.addEventListener('touchmove', e => {
+      const lightbox = document.getElementById('galleryLightbox');
+      if (lightbox && lightbox.classList.contains('show')) {
+        const touchEndY = e.touches[0].clientY;
+        if (Math.abs(touchEndY - touchStartY) > 40) {
+          closeGalleryLightbox();
+        }
+      }
+    }, {passive: true});
 
     async function loadAllCmsContent() {
       const ts = new Date().getTime();
@@ -1674,10 +1715,23 @@
         }
       } catch(e) {}
 
+      // ЗАСЕБНО ВЧИТУВАЊЕ НА ЛЕГЛА (УПОМИНИ, МОМЕНТАЛНИ И АРХИВА)
       try {
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
+          
+          // 1. Очекувано легло
+          if (l.upcoming && (l.upcoming.title || l.upcoming.description || l.upcoming.image)) {
+            renderUpcomingLitter(l.upcoming);
+          }
+          
+          // 2. Моментално легло
+          if (l.current && (l.current.title || l.current.description || l.current.image)) {
+            renderCurrentLitter(l.current);
+          }
+
+          // 3. Архивирани легла
           cachedLittersList = l.litters || l.items || [];
           renderLitters(cachedLittersList);
         }
@@ -1695,6 +1749,17 @@
       } catch(e) {}
 
       loadDynamicGallery();
+
+      // ПРОВЕРКА НА АКТИВЕН ТАБ ПРИ РЕФРЕШ
+      const hashTab = window.location.hash.replace('#', '');
+      const savedTab = localStorage.getItem('active_kennel_tab');
+      if (hashTab && document.getElementById('tab-' + hashTab)) {
+        selectTab(hashTab, false);
+      } else if (savedTab && document.getElementById('tab-' + savedTab)) {
+        selectTab(savedTab, false);
+      } else {
+        selectTab('home', false);
+      }
     }
 
     function renderDogs(dogs) {
@@ -1745,6 +1810,82 @@
           </div>
         `;
       }).join('');
+    }
+
+    function renderUpcomingLitter(up) {
+      const wrapper = document.getElementById('upcomingLitterWrapper');
+      const container = document.getElementById('dynamicUpcomingLitter');
+      if (!wrapper || !container) return;
+      wrapper.style.display = 'block';
+
+      let imgList = parseImages(up);
+      let mediaHtml = '';
+      if (imgList.length > 0) {
+        const mainImgPath = resolveImagePath(imgList[0]);
+        mediaHtml += `
+          <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${up.title || 'Upcoming Litter'}')">
+            <img src="${mainImgPath}" alt="${up.title || 'Upcoming Litter'}" onerror="this.src='2.png'">
+          </div>
+        `;
+        if (imgList.length > 1) {
+          const thumbs = imgList.map(img => {
+            const p = resolveImagePath(img);
+            return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${up.title || ''}')"><img src="${p}" alt="Photo"></div>`;
+          }).join('');
+          mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="dog-feature-card" style="max-width: 700px; margin: 0 auto;">
+          ${mediaHtml}
+          <div class="dog-details-body">
+            <h3 class="dog-title-name" style="margin-bottom: 10px;">${up.title || 'Planned Upcoming Litter'}</h3>
+            <p class="dog-narrative" style="margin-bottom: 24px;">${up.description || up.text || ''}</p>
+            <button class="btn-lux btn-lux-gold" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">
+              <i class="fa-solid fa-heart"></i> Reserve Puppy from Planned Litter
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCurrentLitter(curr) {
+      const wrapper = document.getElementById('currentLitterWrapper');
+      const container = document.getElementById('dynamicCurrentLitter');
+      if (!wrapper || !container) return;
+      wrapper.style.display = 'block';
+
+      let imgList = parseImages(curr);
+      let mediaHtml = '';
+      if (imgList.length > 0) {
+        const mainImgPath = resolveImagePath(imgList[0]);
+        mediaHtml += `
+          <div class="dog-portrait-container" onclick="openGalleryLightboxFromSrc('${mainImgPath}', '${curr.title || 'Current Litter'}')">
+            <img src="${mainImgPath}" alt="${curr.title || 'Current Litter'}" onerror="this.src='2.png'">
+          </div>
+        `;
+        if (imgList.length > 1) {
+          const thumbs = imgList.map(img => {
+            const p = resolveImagePath(img);
+            return `<div class="mini-thumb" onclick="event.stopPropagation(); openGalleryLightboxFromSrc('${p}', '${curr.title || ''}')"><img src="${p}" alt="Photo"></div>`;
+          }).join('');
+          mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="dog-feature-card" style="max-width: 700px; margin: 0 auto;">
+          ${mediaHtml}
+          <div class="dog-details-body">
+            <h3 class="dog-title-name" style="margin-bottom: 10px;">${curr.title || 'Current Active Litter'}</h3>
+            <p class="dog-narrative" style="margin-bottom: 24px;">${curr.description || curr.text || ''}</p>
+            <button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">
+              <i class="fa-solid fa-paw"></i> Inquire About Current Puppies
+            </button>
+          </div>
+        </div>
+      `;
     }
 
     function renderLitters(litters) {
