@@ -64,7 +64,7 @@
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Professional Admin</span>
-    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Со универзален преведувач за сите табови</span>
+    <span style="font-size: 13px; font-weight: normal; color: #64748b;">Со проширена API квота (Без лимит)</span>
   </h1>
   
   <div class="auth-box">
@@ -890,7 +890,7 @@
 
       let translatedChunks = [];
       for (let chunk of chunks) {
-        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${fromLang}|${toLang}`);
+        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${fromLang}|${toLang}&de=kingdomofsnowstorm@gmail.com`);
         const data = await res.json();
         if(data && data.responseData && data.responseData.translatedText) {
           translatedChunks.push(data.responseData.translatedText);
