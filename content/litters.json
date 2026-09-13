@@ -1,19 +1,19 @@
 {
   "upcoming": {
     "title_mk": "Oslo X Galla",
-    "title_en": "",
-    "description_mk": "Planned",
-    "description_en": "",
+    "title_en": "Oslo X Galla",
+    "description_mk": "Планиран",
+    "description_en": "Planned",
     "images": [
       "content/images/1789297628214_0_Picsart_26-08-30_10-27-35-669_(1).jpg",
       "content/images/1789297684437_0_Picsart_24-09-23_11-56-44-312.jpg"
     ]
   },
   "current": {
-    "title_mk": "Current litter \"E\"",
-    "title_en": "",
-    "description_mk": "Planned",
-    "description_en": "",
+    "title_mk": "Тековно легло „Е“",
+    "title_en": "Current litter \"E\"",
+    "description_mk": "Планиран",
+    "description_en": "Planned",
     "images": []
   },
   "litters": [
@@ -25,7 +25,7 @@
       "description": "A very special chapter in our journey, the birth of our very first litter.\nSix beautiful puppies, three boys and three girls, were born and brought our dream of the next generation to life. This first litter will always hold a special place in our hearts and in the story of our kennel.",
       "description_en": "A very special chapter in our journey, the birth of our very first litter. Six beautiful puppies, three boys and three girls, were born and brought our dream of the next generation to life. This first litter will always hold a special place in our hearts and in the story of our kennel.",
       "title_mk": "Litter JUST (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
-      "title_en": "",
+      "title_en": "Litter JUST (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
       "description_mk": "Многу посебно поглавје во нашето патување, раѓањето на нашето прво легло. Шест прекрасни кученца, три момчиња и три девојчиња, се родија и го оживеаја нашиот сон за следната генерација. Ова прво легло секогаш ќе има посебно место во нашите срца и во приказната за нашиот кучкарник."
     },
     {
@@ -36,7 +36,7 @@
       "description": "Second litter brought four puppies into the world, two boys and two girls. Another step forward in our breeding journey, and another generation of our Bichons growing within our kennel.",
       "description_en": "Second litter brought four puppies into the world, two boys and two girls. Another step forward in our breeding journey, and another generation of our Bichons growing within our kennel.",
       "title_mk": "Litter B (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
-      "title_en": "",
+      "title_en": "Litter B (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
       "description_mk": "Второто легло донесе четири кученца на свет, две момчиња и две девојчиња. Уште еден чекор напред во нашето патување за размножување и уште една генерација на нашите Бихони кои растат во рамките на нашиот одгледувачница."
     },
     {
@@ -47,7 +47,7 @@
       "description": "Our third litter brought five puppies into the world, two boys and three girls. Another generation born in our kennel, continuing the path we have built with our Bichons.",
       "description_en": "Our third litter brought five puppies into the world, two boys and three girls. Another generation born in our kennel, continuing the path we have built with our Bichons.",
       "title_mk": "Litter C (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
-      "title_en": "",
+      "title_en": "Litter C (Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
       "description_mk": "Нашето трето легло донесе пет кученца на свет, две момчиња и три девојчиња. Уште една генерација родена во нашиот кучкарник, продолжувајќи го патот што сме го изградиле со нашите бихони."
     },
     {
@@ -56,7 +56,7 @@
       "description": "Our fourth litter was a very special one, just one little girl was born. We decided to keep her with us, and that little girl became Darla, an important part of the next generation of our kennel.",
       "description_en": "Our fourth litter was a very special one, just one little girl was born. We decided to keep her with us, and that little girl became Darla, an important part of the next generation of our kennel.",
       "title_mk": "Litter D (C.I.B. Mlt.Ch. Just Galla Кралство на снежна бура <br>x <br>C.I.B. Mlt.Ch. Lancelot Haščiková)",
-      "title_en": "",
+      "title_en": "Litter D (C.I.B. Mlt.Ch. Just Galla Snowstorm Kingdom <br>x <br>C.I.B. Mlt.Ch. Lancelot Haščiková)",
       "description_mk": "Нашето четврто легло беше многу посебно, се роди само едно мало девојче. Решивме да ја задржиме со нас, а тоа мало девојче стана Дарла, важен дел од следната генерација на нашата колиба."
     }
   ]
