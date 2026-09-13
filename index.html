@@ -1589,7 +1589,7 @@
 
   <!-- SCRIPT -->
   <script>
-    // === ЛУКСУЗЕН РЕЧНИК СО ВКЛУЧЕНИ ДИНАМИЧНИ И СТАТИЧНИ ТЕКСТОВИ ===
+    // === РЕЧНИК СО ВКЛУЧЕНИ ЦЕЛОСНИ ТЕКСТОВИ ЗА ПРЕВОД ===
     const dictionary = {
       en: {
         "Skopje, North Macedonia": "Skopje, North Macedonia",
@@ -2008,10 +2008,10 @@
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
-          if (l.upcoming) {
+          if (l.upcoming && (l.upcoming.title || l.upcoming.description || l.upcoming.images || l.upcoming.image)) {
             renderUpcomingLitter(l.upcoming);
           }
-          if (l.current && (l.current.title || l.current.description || l.current.image)) {
+          if (l.current && (l.current.title || l.current.description || l.current.images || l.current.image)) {
             renderCurrentLitter(l.current);
           }
           cachedLittersList = l.litters || l.items || [];
