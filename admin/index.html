@@ -420,14 +420,13 @@
     }
   }
 
-  // --- Автоматски превод ---
+  // --- Автоматски превод со поддршка за долги текстови преку делење на делови ---
   async function autoTranslate(sourceId, targetId, fromLang, toLang) {
     const sourceEl = document.getElementById(sourceId);
     const targetEl = document.getElementById(targetId);
     if(!sourceEl || !targetEl) return;
 
     let text = sourceEl.tagName === 'TEXTAREA' ? sourceEl.value : sourceEl.innerHTML;
-    // Исчисти HTML тагови при превод доколку се богати содржини
     let cleanText = text.replace(/<[^>]*>?/gm, '').trim();
     if(!cleanText) {
       alert('Нема текст за преведување!');
@@ -440,17 +439,29 @@
     btn.disabled = true;
 
     try {
-      const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanText)}&langpair=${fromLang}|${toLang}`);
-      const data = await res.json();
-      if(data && data.responseData && data.responseData.translatedText) {
-        let translated = data.responseData.translatedText;
-        if(targetEl.tagName === 'TEXTAREA') {
-          targetEl.value = translated;
+      const chunkSize = 450;
+      let chunks = [];
+      for (let i = 0; i < cleanText.length; i += chunkSize) {
+        chunks.push(cleanText.substring(i, i + chunkSize));
+      }
+
+      let translatedChunks = [];
+      for (let chunk of chunks) {
+        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${fromLang}|${toLang}`);
+        const data = await res.json();
+        if(data && data.responseData && data.responseData.translatedText) {
+          translatedChunks.push(data.responseData.translatedText);
         } else {
-          targetEl.innerHTML = translated;
+          translatedChunks.push(chunk);
         }
+        await new Promise(r => setTimeout(r, 200));
+      }
+
+      let finalTranslated = translatedChunks.join(' ');
+      if(targetEl.tagName === 'TEXTAREA') {
+        targetEl.value = finalTranslated;
       } else {
-        alert('Неуспешен превод.');
+        targetEl.innerHTML = finalTranslated;
       }
     } catch(err) {
       alert('Грешка при комуникација со преведувачот.');
