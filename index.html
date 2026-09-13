@@ -1251,7 +1251,7 @@
         <div class="card-luxury">
           <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
           <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title" data-i18n="val3_title">Извонредност во изложбените рингови</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc" data-i18n="val3_desc">Гордо ја претставуваме нашата одгледувачница на светски и европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.</p>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc" data-i18n="val3_desc">Гордо ја претставуваме нашата одгледувачница на светски, европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.</p>
         </div>
       </div>
     </div>
@@ -1632,11 +1632,11 @@
         val2_title: "Стандарди за здравство и педигре",
         val2_desc: "Внимателно планирани парења според FCI стандардот, заштитувајќи ја беспрекорната генетска здравствена состојба, слаткиот темперамент и густите бели влакна.",
         val3_title: "Извонредност во изложбените рингови",
-        val3_desc: "Гордо ја претставуваме нашата одгледувачница на светски и европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.",
+        val3_desc: "Гордо ја претставуваме нашата одгледувачница на светски, европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.",
         about_pretitle: "Нашето наследство",
         about_maintitle: "Приказната зад Kingdom of Snowstorm",
         about_p1: "Јас сум <strong>Катерина Герасимовска</strong>, основач и сопственик на Kingdom of Snowstorm, FCI регистрирана одгледувачница за Бишон Фризе со седиште во Скопје, Северна Македонија.",
-        about_p2: "Приказната за Kingdom of Snowstorm започна во 2016 година, со едно мало бело куче Бишон Фризе по име <strong>Хана</strong>, кое влезе во мојот живот и го промени на начин што никогаш не би го замислил.",
+        about_p2: "Приказната за Kingdom of Snowstorm започна во 2016 година, со едно мало бело куче Бишон Фризе по име <strong>Хана</strong>, кое влезе во мојот живот и го промени на начин што никогаш не би го замислил. Таа не беше само мојот прв Бишон – таа беше почеток на прекрасна врска со оваа прекрасна раса.",
         about_p3: "Денес, на 10-годишна возраст, Хана сè уште зазема посебно место во моето срце. Таа е првата страница од приказната што продолжувам да ја пишувам.",
         about_p4: "Со тек на време, приказната на Хана продолжува низ нејзината ќерка <strong>Гала</strong>, а подоцна и преку внуката <strong>Дарла</strong>. Преку нив, љубовта се пренесува од една генерација на друга.",
         about_p5: "Како што Kingdom of Snowstorm растеше, оваа година ново поглавје донесе нов член во нашето семејство – <strong>Осло</strong> (<em>Petit Ami’s Take on Me</em>), од ценетата одгледувачница Petit Ami во Осло, Норвешка.",
@@ -1725,7 +1725,7 @@
         val2_title: "Health & Pedigree Standards",
         val2_desc: "Carefully planned matings following the FCI standard, safeguarding impeccable genetic health, sweet temperament, and dense white coats.",
         val3_title: "Excellence in Show Rings",
-        val3_desc: "Proudly representing our kennel at World and European Dog Shows, and FCI national and International competitions with C.I.B. titles.",
+        val3_desc: "Proudly representing our kennel at World, European Dog Shows, and FCI national and International competitions with C.I.B. titles.",
         about_pretitle: "Our Heritage",
         about_maintitle: "The Story Behind Kingdom of Snowstorm",
         about_p1: "I am <strong>Katerina Gerasimovska</strong>, founder and owner of Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.",
@@ -1828,15 +1828,18 @@
 
     function getLocalizedField(item, field) {
       if (!item) return '';
-      // Проверка за полиња специфични за јазик од админ панел (на пр. name_mk / name_en)
+      // Поддршка за полиња со наставки _mk и _en од админ панелот
       const langField = field + '_' + currentLang;
       if (item[langField]) return item[langField];
       
-      // Ако е објект со јазици { mk: '...', en: '...' }
-      if (item[field] && typeof item[field] === 'object') {
-        return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
+      // Fallback на обичното поле доколку нема наставка
+      if (item[field]) {
+        if (typeof item[field] === 'object') {
+          return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
+        }
+        return item[field];
       }
-      return item[field] || '';
+      return '';
     }
 
     function getSafeString(str) {
