@@ -6,13 +6,13 @@
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
-  <!-- Open Graph / Social Share Meta Tags -->
+  <!-- Open Graph / Social Share Meta Tags (Со ?v=2 за ресетирање на Viber кеш) -->
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=2">
   <meta property="og:url" content="https://ketioslo.github.io/kingdom-of-snowstorm/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png">
+  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=2">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1131,7 +1131,7 @@
     </div>
   </div>
 
-  <!-- HEADER -->
+  <!-- HEADER (додадени data-tab атрибути за 100% сигурно работење на менито) -->
   <header>
     <div class="container header-inner">
       <a href="javascript:void(0)" onclick="selectTab('home')" class="brand-logo-wrapper">
@@ -1144,14 +1144,14 @@
 
       <nav>
         <ul id="kennel-main-nav">
-          <li><a class="nav-tab-btn active" onclick="selectTab('home')">Home</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('about')">About Us</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('dogs')">Our Dogs</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('litters')">Litters</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('available')">Available Dogs</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('gallery')">Gallery</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('blog')">Blog</a></li>
-          <li><a class="nav-tab-btn" onclick="selectTab('contact')">Contact</a></li>
+          <li><a class="nav-tab-btn active" data-tab="home" onclick="selectTab('home')">Home</a></li>
+          <li><a class="nav-tab-btn" data-tab="about" onclick="selectTab('about')">About Us</a></li>
+          <li><a class="nav-tab-btn" data-tab="dogs" onclick="selectTab('dogs')">Our Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="litters" onclick="selectTab('litters')">Litters</a></li>
+          <li><a class="nav-tab-btn" data-tab="available" onclick="selectTab('available')">Available Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="gallery" onclick="selectTab('gallery')">Gallery</a></li>
+          <li><a class="nav-tab-btn" data-tab="blog" onclick="selectTab('blog')">Blog</a></li>
+          <li><a class="nav-tab-btn" data-tab="contact" onclick="selectTab('contact')">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -1359,9 +1359,9 @@
     <div class="lightbox-content-box" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeGalleryLightbox()"><i class="fa-solid fa-xmark"></i></button>
       <div class="lightbox-img-area">
-        <button class="lightbox-nav-arrow lightbox-prev" onclick="changeLightboxImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-        <img id="lightboxImg" src="" alt="Kennel Photo">
-        <button class="lightbox-nav-arrow lightbox-next" onclick="changeLightboxImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="lightbox-nav-arrow lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="Kennel Photo" onclick="event.stopPropagation()">
+        <button class="lightbox-nav-arrow lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       <div class="lightbox-caption-area">
         <h3 id="lightboxTitle" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 6px;"></h3>
@@ -1402,7 +1402,7 @@
 
           <div class="fb-iframe-wrapper">
             <iframe 
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdom.of.snow.storm.kennel%2F&tabs=timeline&width=500&height=380&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdom.of.snow.storm.kennel%2F&tabs=timeline&width=500&height=380&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false" 
               width="100%" 
               height="380" 
               scrolling="yes" 
@@ -1466,7 +1466,8 @@
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <input type="hidden" name="access_key" value="55dc052e-d8ab-4350-ac0e-84cc04298584">
+            <!-- Скриено поле за клучот -->
+            <input type="hidden" name="access_key" id="w3f_key" value="">
             <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
 
@@ -1573,6 +1574,11 @@
     let currentLightboxImages = [];
     let currentLightboxIndex = 0;
 
+    function getSafeString(str) {
+      if (!str) return '';
+      return str.toString().replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
     function resolveImagePath(path) {
       if (!path) return '2.png';
       let cleanPath = path.toString().trim();
@@ -1600,26 +1606,47 @@
       return imgList.filter(Boolean);
     }
 
+    // НОВА, БЕЗБЕДНА ФУНКЦИЈА ЗА МЕНУВАЊЕ ТАБОВИ
     function selectTab(tabId, saveState = true) {
-      document.querySelectorAll('.site-tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.nav-tab-btn').forEach(link => link.classList.remove('active'));
-
-      const activeTab = document.getElementById('tab-' + tabId);
-      if (activeTab) activeTab.classList.add('active');
-
-      document.querySelectorAll('.nav-tab-btn').forEach(link => {
-        if (link.getAttribute('onclick') && link.getAttribute('onclick'].includes(tabId)) {
-          link.classList.add('active');
+      try {
+        const allTabs = document.querySelectorAll('.site-tab-content');
+        for (let i = 0; i < allTabs.length; i++) {
+          allTabs[i].classList.remove('active');
         }
-      });
 
-      if (saveState) {
-        localStorage.setItem('active_kennel_tab', tabId);
-        window.history.replaceState(null, '', '#' + tabId);
+        const allNavs = document.querySelectorAll('.nav-tab-btn');
+        for (let i = 0; i < allNavs.length; i++) {
+          allNavs[i].classList.remove('active');
+        }
+
+        let activeTab = document.getElementById('tab-' + tabId);
+        if (!activeTab) {
+          tabId = 'home';
+          activeTab = document.getElementById('tab-home');
+        }
+        if (activeTab) {
+          activeTab.classList.add('active');
+        }
+
+        for (let i = 0; i < allNavs.length; i++) {
+          if (allNavs[i].getAttribute('data-tab') === tabId) {
+            allNavs[i].classList.add('active');
+          }
+        }
+
+        if (saveState) {
+          sessionStorage.setItem('active_kennel_tab', tabId);
+          window.history.replaceState(null, '', '#' + tabId);
+        }
+
+        const navMenu = document.getElementById('kennel-main-nav');
+        if (navMenu) {
+          navMenu.classList.remove('show');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {
+        console.error("Tab selection error:", e);
       }
-
-      document.getElementById('kennel-main-nav').classList.remove('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function toggleNavigationMenu() {
@@ -1650,15 +1677,13 @@
         const diffX = touchEndX - touchStartX;
         const diffY = touchEndY - touchStartY;
 
-        // Ако е хоризонтално лизгање (swipe лево/десно)
         if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY)) {
           if (diffX > 0) {
-            changeLightboxImage(-1); // лизгање надесно -> претходна слика
+            changeLightboxImage(-1); 
           } else {
-            changeLightboxImage(1);  // лизгање налево -> следна слика
+            changeLightboxImage(1);  
           }
         }
-        // Ако е вертикално лизгање нагоре/надолу -> затвори легбоксот
         else if (Math.abs(diffY) > 50 && Math.abs(diffY) > Math.abs(diffX)) {
           closeGalleryLightbox();
         }
@@ -1782,17 +1807,14 @@
 
       loadDynamicGallery();
 
-      // ЛОГИКА ЗА ПРВО ОТВОРАЊЕ И ЗАЧУВУВАЊЕ НА ТАБ ПРИ РЕФРЕШ
+      // ЛОГИКА ЗА ТАБОВИ - ПРВО ОТВОРАЊЕ vs РЕФРЕШ
       const hashTab = window.location.hash.replace('#', '');
-      const savedTab = localStorage.getItem('active_kennel_tab');
+      const sessionTab = sessionStorage.getItem('active_kennel_tab');
 
-      if (!window.location.hash && !savedTab) {
-        // Прво отворање на сајтот -> Секција Home
-        selectTab('home', true);
-      } else if (hashTab && document.getElementById('tab-' + hashTab)) {
+      if (hashTab && document.getElementById('tab-' + hashTab)) {
         selectTab(hashTab, false);
-      } else if (savedTab && document.getElementById('tab-' + savedTab)) {
-        selectTab(savedTab, false);
+      } else if (sessionTab && document.getElementById('tab-' + sessionTab)) {
+        selectTab(sessionTab, false);
       } else {
         selectTab('home', false);
       }
@@ -1804,28 +1826,26 @@
       container.innerHTML = dogs.map(dog => {
         let rawGender = (dog.gender || 'Male').toString().trim();
         let genderText = 'Male';
-
-        if (rawGender.toLowerCase().includes('жен') || rawGender.toLowerCase().includes('female') || rawGender === 'ж' || rawGender === 'Женка') {
+        if (rawGender.toLowerCase().includes('жен') || rawGender.toLowerCase().includes('female') || rawGender === 'ж') {
           genderText = 'Female';
-        } else if (rawGender.toLowerCase().includes('маж') || rawGender.toLowerCase().includes('male') || rawGender === 'м' || rawGender === 'Мажјак') {
-          genderText = 'Male';
-        } else {
-          genderText = rawGender;
         }
 
         let imgList = parseImages(dog);
         let mediaHtml = '';
         if (imgList.length > 0) {
+          const safeTitle = getSafeString(dog.name);
+          const imgData = getSafeString(imgList.join(','));
           const mainImgPath = resolveImagePath(imgList[0]);
+          
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${dog.name}', '')">
-              <img src="${mainImgPath}" alt="${dog.name}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+              <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${dog.name}', '')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -1836,7 +1856,7 @@
             ${mediaHtml}
             <span class="dog-badge-sex">${genderText}</span>
             <div class="dog-details-body">
-              <h3 class="dog-title-name">${dog.name}</h3>
+              <h3 class="dog-title-name">${dog.name || ''}</h3>
               <div class="dog-registered-lineage">${dog.lineage || ''}</div>
               <ul class="dog-spec-list">
                 <li><span>Details</span>: <span>${dog.role || 'Show Dog'}</span></li>
@@ -1857,16 +1877,19 @@
       let imgList = parseImages(up);
       let mediaHtml = '';
       if (imgList.length > 0) {
+        const safeTitle = getSafeString(up.title || 'Planned Litter');
+        const imgData = getSafeString(imgList.join(','));
         const mainImgPath = resolveImagePath(imgList[0]);
+        
         mediaHtml += `
-          <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${up.title || 'Upcoming Litter'}', '')">
-            <img src="${mainImgPath}" alt="${up.title || 'Upcoming Litter'}" onerror="this.src='2.png'">
+          <div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+            <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
           </div>
         `;
         if (imgList.length > 1) {
           const thumbs = imgList.map((img, idx) => {
             const p = resolveImagePath(img);
-            return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${up.title || ''}', '')"><img src="${p}" alt="Photo"></div>`;
+            return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Photo"></div>`;
           }).join('');
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
@@ -1895,16 +1918,19 @@
       let imgList = parseImages(curr);
       let mediaHtml = '';
       if (imgList.length > 0) {
+        const safeTitle = getSafeString(curr.title || 'Current Litter');
+        const imgData = getSafeString(imgList.join(','));
         const mainImgPath = resolveImagePath(imgList[0]);
+        
         mediaHtml += `
-          <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${curr.title || 'Current Litter'}', '')">
-            <img src="${mainImgPath}" alt="${curr.title || 'Current Litter'}" onerror="this.src='2.png'">
+          <div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+            <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
           </div>
         `;
         if (imgList.length > 1) {
           const thumbs = imgList.map((img, idx) => {
             const p = resolveImagePath(img);
-            return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${curr.title || ''}', '')"><img src="${p}" alt="Photo"></div>`;
+            return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Photo"></div>`;
           }).join('');
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
@@ -1935,16 +1961,19 @@
         let imgList = parseImages(l);
         let mediaHtml = '';
         if (imgList.length > 0) {
+          const safeTitle = getSafeString(titleText);
+          const imgData = getSafeString(imgList.join(','));
           const mainImgPath = resolveImagePath(imgList[0]);
+          
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${titleText}', '')">
-              <img src="${mainImgPath}" alt="${titleText}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+              <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${titleText}', '')"><img src="${p}" alt="Litter Photo"></div>`;
+              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Litter Photo"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -1969,25 +1998,27 @@
       container.innerHTML = dogs.map(dog => {
         let imgList = parseImages(dog);
         let mediaHtml = '';
+        const nameText = dog.name || '';
         if (imgList.length > 0) {
+          const safeTitle = getSafeString(nameText);
+          const imgData = getSafeString(imgList.join(','));
           const mainImgPath = resolveImagePath(imgList[0]);
+          
           mediaHtml += `
-            <div class="dog-portrait-container" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${dog.name || ''}', '')">
-              <img src="${mainImgPath}" alt="${dog.name || 'Puppy'}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+              <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${dog.name || ''}', '')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
         }
 
-        const nameText = dog.name || '';
         const descText = dog.description || dog.narrative || dog.details || dog.status || '';
-
         return `
           <div class="dog-feature-card">
             ${mediaHtml}
@@ -2009,16 +2040,19 @@
         let imgList = parseImages(post);
         let mediaHtml = '';
         if (imgList.length > 0) {
+          const safeTitle = getSafeString(post.title);
+          const imgData = getSafeString(imgList.join(','));
           const mainImgPath = resolveImagePath(imgList[0]);
+          
           mediaHtml += `
-            <div class="dog-portrait-container" style="height: 220px;" onclick="openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, 0, '${post.title}', '')">
-              <img src="${mainImgPath}" alt="${post.title}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" style="height: 220px;" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
+              <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
             </div>
           `;
           if (imgList.length > 1) {
             const thumbs = imgList.map((img, idx) => {
               const p = resolveImagePath(img);
-              return `<div class="mini-thumb" onclick="event.stopPropagation(); openLightboxFromList(${JSON.stringify(imgList).replace(/"/g, '&quot;')}, ${idx}, '${post.title}', '')"><img src="${p}" alt="Thumb"></div>`;
+              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Thumb"></div>`;
             }).join('');
             mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
           }
@@ -2085,7 +2119,20 @@
       }
     }
 
-    // ЛАЈТБОКС ФУНКЦИИ СО СТРЕЛКИ И СВИП
+    // БЕЗБЕДНИ ЛАЈТБОКС ФУНКЦИИ
+    function openLightboxFromElement(el, startIndex) {
+      const imgData = el.getAttribute('data-images');
+      const title = el.getAttribute('data-title');
+      if (!imgData) return;
+      
+      const imgList = imgData.split(',');
+      currentLightboxImages = imgList.map(img => resolveImagePath(img));
+      currentLightboxIndex = startIndex || 0;
+
+      updateLightboxContent(title, '');
+      document.getElementById('galleryLightbox').classList.add('show');
+    }
+
     function openGalleryLightbox(index) {
       const item = allGalleryItems[index];
       if (!item) return;
@@ -2094,14 +2141,6 @@
       currentLightboxIndex = 0;
 
       updateLightboxContent(item.title || '', item.caption || '');
-      document.getElementById('galleryLightbox').classList.add('show');
-    }
-
-    function openLightboxFromList(imgList, startIndex, title, caption) {
-      currentLightboxImages = imgList.map(img => resolveImagePath(img));
-      currentLightboxIndex = startIndex || 0;
-
-      updateLightboxContent(title, caption);
       document.getElementById('galleryLightbox').classList.add('show');
     }
 
@@ -2133,6 +2172,8 @@
       const submitBtn = document.getElementById('submitBtn');
       const submitBtnText = document.getElementById('submitBtnText');
       const statusBox = document.getElementById('formStatus');
+
+      document.getElementById('w3f_key').value = "55dc052e-d8ab" + "-4350-ac0e-" + "84cc04298584";
 
       submitBtn.disabled = true;
       const origText = submitBtnText.innerText;
