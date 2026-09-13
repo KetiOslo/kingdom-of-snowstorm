@@ -393,10 +393,7 @@
       } else {
         targetEl.innerHTML = finalTranslated;
       }
-      
-      // Автоматско ажурирање на соодветните податоци за листата во позадина
       triggerFieldUpdates();
-
     } catch(err) {
       alert('Грешка при комуникација со преведувачот.');
     } finally {
@@ -647,8 +644,13 @@
     dogsData.forEach((dog, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="dogsData.splice(${i},1); renderDogs();">Избриши</button>
-        <label>Име:</label><textarea rows="1" onchange="dogsData[${i}].name = nl2br(this.value)">${br2nl(dog.name)}</textarea>
         
+        <label>Име (МК / EN):</label>
+        <div class="lang-row">
+          <div class="lang-box"><h4>🇲🇰 МК</h4><textarea id="dog_name_mk_${i}" rows="1" onchange="dogsData[${i}].name_mk = nl2br(this.value)">${br2nl(dog.name_mk || dog.name || '')}</textarea></div>
+          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('dog_name_mk_${i}', 'dog_name_en_${i}', 'mk', 'en')">Преведи од MK 🤖</button></h4><textarea id="dog_name_en_${i}" rows="1" onchange="dogsData[${i}].name_en = nl2br(this.value)">${br2nl(dog.name_en || '')}</textarea></div>
+        </div>
+
         <label>Линија (МК / EN):</label>
         <div class="lang-row">
           <div class="lang-box"><h4>🇲🇰 МК</h4><textarea id="dog_l_mk_${i}" rows="1" onchange="dogsData[${i}].lineage_mk = nl2br(this.value)">${br2nl(dog.lineage_mk || dog.lineage || '')}</textarea></div>
@@ -681,7 +683,7 @@
       renderImagePreviews(`dog_${i}`, `dog_preview_${i}`);
     });
   }
-  function addDogItem() { dogsData.push({ name: "", lineage_mk: "", lineage_en: "", gender: "", details_mk: "", details_en: "", image: "", narrative_mk: "", narrative_en: "" }); renderDogs(); }
+  function addDogItem() { dogsData.push({ name_mk: "", name_en: "", lineage_mk: "", lineage_en: "", gender: "", details_mk: "", details_en: "", image: "", narrative_mk: "", narrative_en: "" }); renderDogs(); }
 
   function renderLitters() {
     const c = document.getElementById('litters-container'); c.innerHTML = '';
@@ -720,7 +722,11 @@
     puppiesData.forEach((pup, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
-        <label>Име на кученцето:</label><textarea rows="1" onchange="puppiesData[${i}].name = nl2br(this.value)">${br2nl(pup.name)}</textarea>
+        <label>Име на кученцето (МК / EN):</label>
+        <div class="lang-row">
+          <div class="lang-box"><h4>🇲🇰 МК</h4><textarea id="pup_name_mk_${i}" rows="1" onchange="puppiesData[${i}].name_mk = nl2br(this.value)">${br2nl(pup.name_mk || pup.name || '')}</textarea></div>
+          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('pup_name_mk_${i}', 'pup_name_en_${i}', 'mk', 'en')">Преведи од MK 🤖</button></h4><textarea id="pup_name_en_${i}" rows="1" onchange="puppiesData[${i}].name_en = nl2br(this.value)">${br2nl(pup.name_en || '')}</textarea></div>
+        </div>
         
         <label>Статус (МК / EN):</label>
         <div class="lang-row">
@@ -746,7 +752,7 @@
       renderImagePreviews(`pup_${i}`, `pup_preview_${i}`);
     });
   }
-  function addPuppyItem() { puppiesData.push({ name: "", status_mk: "Достапно", status_en: "Available", image: "", details_mk: "", details_en: "" }); renderPuppies(); }
+  function addPuppyItem() { puppiesData.push({ name_mk: "", name_en: "", status_mk: "Достапно", status_en: "Available", image: "", details_mk: "", details_en: "" }); renderPuppies(); }
 
   function renderBlog() {
     const c = document.getElementById('blog-container'); c.innerHTML = '';
@@ -797,12 +803,36 @@
   }
 
   function triggerFieldUpdates() {
-    // Автоматско преземање на внесените вредности во динамичните листи за да се зачуваат правилно
     document.querySelectorAll('#dogs-container .item-card').forEach((card, i) => {
+      if(!dogsData[i]) return;
+      dogsData[i].name_mk = nl2br(card.querySelector(`[id^="dog_name_mk_"]`)?.value || '');
+      dogsData[i].name_en = nl2br(card.querySelector(`[id^="dog_name_en_"]`)?.value || '');
       dogsData[i].lineage_mk = nl2br(card.querySelector(`[id^="dog_l_mk_"]`)?.value || '');
       dogsData[i].lineage_en = nl2br(card.querySelector(`[id^="dog_l_en_"]`)?.value || '');
       dogsData[i].details_mk = nl2br(card.querySelector(`[id^="dog_d_mk_"]`)?.value || '');
       dogsData[i].details_en = nl2br(card.querySelector(`[id^="dog_d_en_"]`)?.value || '');
+      dogsData[i].narrative_mk = card.querySelector(`[id^="dog_desc_mk_"]`)?.innerHTML || '';
+      dogsData[i].narrative_en = card.querySelector(`[id^="dog_desc_en_"]`)?.innerHTML || '';
+    });
+
+    document.querySelectorAll('#puppies-container .item-card').forEach((card, i) => {
+      if(!puppiesData[i]) return;
+      puppiesData[i].name_mk = nl2br(card.querySelector(`[id^="pup_name_mk_"]`)?.value || '');
+      puppiesData[i].name_en = nl2br(card.querySelector(`[id^="pup_name_en_"]`)?.value || '');
+      puppiesData[i].status_mk = nl2br(card.querySelector(`[id^="pup_s_mk_"]`)?.value || '');
+      puppiesData[i].status_en = nl2br(card.querySelector(`[id^="pup_s_en_"]`)?.value || '');
+      puppiesData[i].details_mk = card.querySelector(`[id^="pup_desc_mk_"]`)?.innerHTML || '';
+      puppiesData[i].details_en = card.querySelector(`[id^="pup_desc_en_"]`)?.innerHTML || '';
+    });
+
+    document.querySelectorAll('#blog-container .item-card').forEach((card, i) => {
+      if(!blogData[i]) return;
+      blogData[i].title_mk = nl2br(card.querySelector(`[id^="blog_t_mk_"]`)?.value || '');
+      blogData[i].title_en = nl2br(card.querySelector(`[id^="blog_t_en_"]`)?.value || '');
+      blogData[i].excerpt_mk = card.querySelector(`[id^="blog_exc_mk_"]`)?.innerHTML || '';
+      blogData[i].excerpt_en = card.querySelector(`[id^="blog_exc_en_"]`)?.innerHTML || '';
+      blogData[i].content_mk = card.querySelector(`[id^="blog_cont_mk_"]`)?.innerHTML || '';
+      blogData[i].content_en = card.querySelector(`[id^="blog_cont_en_"]`)?.innerHTML || '';
     });
   }
 
@@ -924,7 +954,6 @@
     const statusEl = document.getElementById(msgId);
     if(!token) { alert('Внесете токен најгоре!'); return; }
 
-    // Ажурирај ги сите динамички полиња пред праќање
     triggerFieldUpdates();
 
     statusEl.style.display = 'block';
