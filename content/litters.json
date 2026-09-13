@@ -1,15 +1,19 @@
 {
   "upcoming": {
-    "title": "Oslo X Galla",
-    "description": "Planned",
+    "title_mk": "Oslo X Galla",
+    "title_en": "",
+    "description_mk": "Planned",
+    "description_en": "",
     "images": [
       "content/images/1789297628214_0_Picsart_26-08-30_10-27-35-669_(1).jpg",
       "content/images/1789297684437_0_Picsart_24-09-23_11-56-44-312.jpg"
     ]
   },
   "current": {
-    "title": "Current litter \"E\"",
-    "description": "Planned",
+    "title_mk": "Current litter \"E\"",
+    "title_en": "",
+    "description_mk": "Planned",
+    "description_en": "",
     "images": []
   },
   "litters": [
