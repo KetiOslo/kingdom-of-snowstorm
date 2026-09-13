@@ -333,8 +333,8 @@
 
     .hero-title em {
       font-style: italic;
-      color: var(--gold-hover);
-      font-weight: 500;
+      color: var(--gold-primary); /* Поставено на златната боја */
+      font-weight: 600;
     }
 
     .hero-description {
@@ -541,21 +541,6 @@
 
     .dog-portrait-container:hover img {
       transform: scale(1.05);
-    }
-
-    .dog-badge-sex {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(30, 51, 28, 0.88);
-      color: var(--white);
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(4px);
-      z-index: 2;
     }
 
     .dog-details-body {
@@ -1275,7 +1260,7 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS (ОСВЕЖЕН ДИЗАЈН СО ПОСЕБНО ПОЛЕ) -->
+  <!-- TAB 4: LITTERS -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1283,7 +1268,7 @@
         <h2 class="section-maintitle">Litters & Planned Matings</h2>
       </div>
 
-      <!-- 1. Очекувано легло (Специјално поле со златна рамка и копчиња) -->
+      <!-- 1. Очекувано легло -->
       <div id="upcomingLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Planned or Current Mating
@@ -1291,7 +1276,7 @@
         <div id="dynamicUpcomingLitter"></div>
       </div>
 
-      <!-- 2. Моментално легло (Специјално поле со златна рамка и копчиња) -->
+      <!-- 2. Моментално легло -->
       <div id="currentLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> Current Active Litter
@@ -1299,7 +1284,7 @@
         <div id="dynamicCurrentLitter"></div>
       </div>
 
-      <!-- 3. Архива (Само информации, БЕЗ КОПЧИЊА) -->
+      <!-- 3. Архива -->
       <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center; border-top: 1px dashed var(--pistachio-border); padding-top: 40px;">
         Previous Litters Archive
       </h3>
@@ -1720,7 +1705,14 @@
         const res = await fetch('content/home.json?t=' + ts);
         if (res.ok) {
           const h = await res.json();
-          if (h.hero_title) document.getElementById('dyn-hero-title').innerText = h.hero_title;
+          if (h.hero_title) {
+            let t = h.hero_title;
+            // Автоматски обои "with love" во златно ако корисникот не ставил HTML ознаки во JSON
+            if (!t.includes('<')) {
+                t = t.replace(/with love/gi, '<em style="color: var(--gold-primary); font-style: italic;">$&</em>');
+            }
+            document.getElementById('dyn-hero-title').innerHTML = t;
+          }
           if (h.hero_desc) document.getElementById('dyn-hero-desc').innerText = h.hero_desc;
           if (h.box_title) document.getElementById('dyn-box-title').innerText = h.box_title;
           if (h.box_desc) document.getElementById('dyn-box-desc').innerText = h.box_desc;
@@ -1782,7 +1774,6 @@
         if (res.ok) {
           const l = await res.json();
           
-          // НОВА ЛОГИКА: Дури и ако е празно, форсирај го прикажувањето на шаблонот за да се гледа на сајтот
           if (l.upcoming || !l.upcoming) {
             renderUpcomingLitter(l.upcoming || {});
           }
@@ -1825,13 +1816,8 @@
     function renderDogs(dogs) {
       const container = document.getElementById('dynamicDogsContainer');
       if (!container || !dogs || dogs.length === 0) return;
+      
       container.innerHTML = dogs.map(dog => {
-        let rawGender = (dog.gender || 'Male').toString().trim();
-        let genderText = 'Male';
-        if (rawGender.toLowerCase().includes('жен') || rawGender.toLowerCase().includes('female') || rawGender === 'ж') {
-          genderText = 'Female';
-        }
-
         let imgList = parseImages(dog);
         let mediaHtml = '';
         if (imgList.length > 0) {
@@ -1856,7 +1842,6 @@
         return `
           <div class="dog-feature-card">
             ${mediaHtml}
-            <span class="dog-badge-sex">${genderText}</span>
             <div class="dog-details-body">
               <h3 class="dog-title-name">${dog.name || ''}</h3>
               <div class="dog-registered-lineage">${dog.lineage || ''}</div>
@@ -1880,7 +1865,6 @@
       let imgList = parseImages(up);
       let mediaHtml = '';
       
-      // Текст што се појавува кога во JSON фајлот е сеуште празно
       const safeTitle = getSafeString(up.title || '🌟 Active Litter / Planned Mating');
       const descText = up.description || up.text || 'This is your special active litter template! It stays at the top. You can edit this text and add images. Use the buttons below to navigate.';
 
@@ -1901,7 +1885,6 @@
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
       } else {
-        // Доколку нема слика, постави го логото полупроѕирно
         mediaHtml += `
           <div class="dog-portrait-container" style="background: var(--pistachio-cream);">
             <img src="2.png" alt="Placeholder" style="object-fit: contain; width: 140px; opacity: 0.5;">
