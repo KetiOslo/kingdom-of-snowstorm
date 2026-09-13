@@ -11,23 +11,18 @@
   <meta property="og:site_name" content="Kingdom of Snowstorm">
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <!-- Сликата ја влечеме директно од стабилниот GitHub сервер за Viber/FB веднаш да ја видат -->
-  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=final">
-  <meta property="og:image:secure_url" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=final">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://kingdomofsnowstorm.com/">
+  
+  <!-- Директни линкови до логото со ознака за формат -->
+  <meta property="og:image" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=live">
+  <meta property="og:image:secure_url" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=live">
+  <meta property="og:image:type" content="image/png">
   
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta name="twitter:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=final">
-
-  <!-- WhatsApp Meta Tags -->
-  <meta itemprop="name" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
-  <meta itemprop="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta itemprop="image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=final">
+  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png?v=live">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -556,21 +551,6 @@
 
     .dog-portrait-container:hover img {
       transform: scale(1.05);
-    }
-
-    .dog-badge-sex {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(30, 51, 28, 0.88);
-      color: var(--white);
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(4px);
-      z-index: 2;
     }
 
     .dog-details-body {
@@ -1481,7 +1461,6 @@
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <!-- Скриено поле за клучот -->
             <input type="hidden" name="access_key" id="w3f_key" value="">
             <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
@@ -1868,10 +1847,9 @@
           }
         }
 
-        // Поле за детали од админ панелот - без зборот Details:
         let detailsHtml = '';
         let info = dog.birth || dog.details || dog.role;
-        // Ги бришеме старите default вредности како "Show Dog" доколку нема вистински датум
+        
         if (info && info.trim() !== 'Show Dog') {
           detailsHtml = `
             <ul class="dog-spec-list">
