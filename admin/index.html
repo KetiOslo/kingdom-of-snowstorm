@@ -18,9 +18,12 @@
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
-    input[type="text"], input[type="password"], input[type="date"], select { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-    input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
     
+    /* Додадено textarea за да ги опфати сите нови флексибилни полиња */
+    input[type="text"], input[type="password"], input[type="date"], select, textarea { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+    textarea { resize: vertical; min-height: 42px; line-height: 1.5; }
+
     /* ВИДЛИВ И ПРОФЕСИОНАЛЕН EDITOR */
     .editor-wrapper { margin-top: 6px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
     .editor-toolbar { background: #e2e8f0; border-bottom: 1px solid var(--border); padding: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -76,7 +79,8 @@
   <!-- 1. ПОЧЕТНА -->
   <div id="home" class="tab-content active">
     <h3>Уредување на Почетна страница</h3>
-    <label>Главен наслов:</label><input type="text" id="h_title" />
+    <label>Главен наслов:</label>
+    <textarea rows="2" id="h_title"></textarea>
     
     <label>Воведен текст:</label>
     <div class="editor-wrapper">
@@ -89,7 +93,8 @@
       <div id="h_desc" class="editor-content" contenteditable="true"></div>
     </div>
 
-    <label>Наслов на кутија:</label><input type="text" id="h_box_title" />
+    <label>Наслов на кутија:</label>
+    <textarea rows="2" id="h_box_title"></textarea>
     
     <label>Опис на кутија:</label>
     <div class="editor-wrapper">
@@ -141,7 +146,8 @@
   <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
     <h3>⚙️ Општи поставки</h3>
-    <label>Локација:</label><input type="text" id="s_location" />
+    <label>Локација (може повеќе редови):</label>
+    <textarea rows="2" id="s_location"></textarea>
     <label>Телефон:</label><input type="text" id="s_phone" />
     <label>Е-пошта:</label><input type="text" id="s_email" />
     <label>Facebook Линк:</label><input type="text" id="s_fb" />
@@ -176,10 +182,9 @@
     <!-- ОЧЕКУВАНО ЛЕГЛО -->
     <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
       <h4 style="margin-top: 0; color: var(--primary);">⏳ Очекувано Легло (Upcoming / Planned Mating)</h4>
-      <p style="font-size: 13px; color: #64748b; margin-top: -10px;">Овој шаблон се појавува најгоре со златна рамка и копчиња за резервација.</p>
       
       <label>Наслов:</label>
-      <input type="text" id="up_title" placeholder="Пр: Planned Litter: Oslo x Galla" />
+      <textarea rows="2" id="up_title" placeholder="Пр: Planned Litter: Oslo x Galla"></textarea>
       
       <label>Фотографии (може повеќе разделени со запирка):</label>
       <input type="text" id="up_image" />
@@ -200,10 +205,9 @@
     <!-- МОМЕНТАЛНО ЛЕГЛО -->
     <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
       <h4 style="margin-top: 0; color: var(--primary);">🐾 Моментално Активно Легло (Current Litter)</h4>
-      <p style="font-size: 13px; color: #64748b; margin-top: -10px;">Овој шаблон се појавува под очекуваното, исто така со копчиња.</p>
       
       <label>Наслов:</label>
-      <input type="text" id="cur_title" placeholder="Пр: Current Litter 'A'" />
+      <textarea rows="2" id="cur_title" placeholder="Пр: Current Litter 'A'"></textarea>
       
       <label>Фотографии (може повеќе разделени со запирка):</label>
       <input type="text" id="cur_image" />
@@ -223,7 +227,6 @@
 
     <!-- АРХИВА НА ЛЕГЛА -->
     <h4 style="margin-top: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">📚 Архива на Легла (Previous Litters)</h4>
-    <p style="font-size: 13px; color: #64748b;">Овие легла се прикажуваат само како чиста архива за разгледување (БЕЗ копчиња).</p>
     
     <div id="litters-container"></div>
     <button class="btn btn-secondary" onclick="addLitterItem()">+ Додај ново легло во архива</button>
@@ -259,6 +262,18 @@
   let galleryData = [], dogsData = [], littersData = [], puppiesData = [], blogData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
 
+  // Помошни функции за конвертирање на Newlines во <br>
+  function nl2br(str) { return str ? str.toString().replace(/\n/g, '<br>') : ''; }
+  function br2nl(str) { return str ? str.toString().replace(/<br\s*\/?>/gi, '\n') : ''; }
+
+  // Скрипта за чист Enter во едиторите за текст
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.classList.contains('editor-content')) {
+      e.preventDefault();
+      document.execCommand('insertLineBreak');
+    }
+  });
+
   function saveToken() {
     const t = document.getElementById('gh-token').value.trim();
     if(t) { localStorage.setItem('gh_token', t); document.getElementById('auth-status').innerText = '✓ Токенот е зачуван!'; }
@@ -285,9 +300,9 @@
       const rH = await fetch('../content/home.json?t=' + new Date().getTime());
       if(rH.ok) {
         const d = await rH.json();
-        document.getElementById('h_title').value = d.hero_title || '';
+        document.getElementById('h_title').value = br2nl(d.hero_title || '');
         document.getElementById('h_desc').innerHTML = d.hero_desc || '';
-        document.getElementById('h_box_title').value = d.box_title || '';
+        document.getElementById('h_box_title').value = br2nl(d.box_title || '');
         document.getElementById('h_box_desc').innerHTML = d.box_desc || '';
       }
 
@@ -302,7 +317,7 @@
       const rS = await fetch('../content/settings.json?t=' + new Date().getTime());
       if(rS.ok) {
         const d = await rS.json();
-        document.getElementById('s_location').value = d.location || '';
+        document.getElementById('s_location').value = br2nl(d.location || '');
         document.getElementById('s_phone').value = d.phone || '';
         document.getElementById('s_email').value = d.email || '';
         document.getElementById('s_fb').value = d.facebook_url || '';
@@ -312,12 +327,12 @@
       if(rL.ok) {
         const d = await rL.json();
         if(d.upcoming) {
-          document.getElementById('up_title').value = d.upcoming.title || '';
+          document.getElementById('up_title').value = br2nl(d.upcoming.title || '');
           document.getElementById('up_desc').innerHTML = d.upcoming.description || d.upcoming.text || '';
           document.getElementById('up_image').value = Array.isArray(d.upcoming.images) ? d.upcoming.images.join(', ') : (d.upcoming.image || '');
         }
         if(d.current) {
-          document.getElementById('cur_title').value = d.current.title || '';
+          document.getElementById('cur_title').value = br2nl(d.current.title || '');
           document.getElementById('cur_desc').innerHTML = d.current.description || d.current.text || '';
           document.getElementById('cur_image').value = Array.isArray(d.current.images) ? d.current.images.join(', ') : (d.current.image || '');
         }
@@ -406,7 +421,7 @@
     galleryData.forEach((item, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="galleryData.splice(${i},1); renderGallery();">Избриши</button>
-        <label>Наслов:</label><input type="text" value="${item.title || ''}" onchange="galleryData[${i}].title = this.value">
+        <label>Наслов:</label><textarea rows="1" onchange="galleryData[${i}].title = nl2br(this.value)">${br2nl(item.title)}</textarea>
         <label>Категорија:</label>
         <select onchange="galleryData[${i}].category = this.value">
           <option value="Shows" ${item.category === 'Shows' ? 'selected' : ''}>Shows</option>
@@ -434,10 +449,10 @@
     dogsData.forEach((dog, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="dogsData.splice(${i},1); renderDogs();">Избриши</button>
-        <label>Име:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
-        <label>Линија:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
-        <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
-        <label>Датум на раѓање / Детали (пр: 12.05.2023):</label><input type="text" value="${dog.birth || dog.details || ''}" onchange="dogsData[${i}].birth = this.value">
+        <label>Име:</label><textarea rows="1" onchange="dogsData[${i}].name = nl2br(this.value)">${br2nl(dog.name)}</textarea>
+        <label>Линија:</label><textarea rows="1" onchange="dogsData[${i}].lineage = nl2br(this.value)">${br2nl(dog.lineage)}</textarea>
+        <label>Пол:</label><textarea rows="1" onchange="dogsData[${i}].gender = nl2br(this.value)">${br2nl(dog.gender)}</textarea>
+        <label>Датум на раѓање / Детали (дозволено повеќе редови):</label><textarea rows="2" onchange="dogsData[${i}].birth = nl2br(this.value)">${br2nl(dog.birth || dog.details)}</textarea>
         <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', (val) => { dogsData[${i}].image = val; });"></div>
         <label>Опис:</label>
@@ -458,7 +473,7 @@
     littersData.forEach((litter, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
-        <label>Име на леглото (Архива):</label><input type="text" value="${litter.title || ''}" onchange="littersData[${i}].title = this.value">
+        <label>Име на леглото (Архива):</label><textarea rows="1" onchange="littersData[${i}].title = nl2br(this.value)">${br2nl(litter.title)}</textarea>
         <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="lit_${i}" value="${litter.image || ''}" onchange="littersData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', (val) => { littersData[${i}].image = val; });"></div>
         <label>Опис:</label>
@@ -479,8 +494,8 @@
     puppiesData.forEach((pup, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
-        <label>Име на кученцето:</label><input type="text" value="${pup.name || ''}" onchange="puppiesData[${i}].name = this.value">
-        <label>Статус:</label><input type="text" value="${pup.status || ''}" onchange="puppiesData[${i}].status = this.value">
+        <label>Име на кученцето:</label><textarea rows="1" onchange="puppiesData[${i}].name = nl2br(this.value)">${br2nl(pup.name)}</textarea>
+        <label>Статус:</label><textarea rows="1" onchange="puppiesData[${i}].status = nl2br(this.value)">${br2nl(pup.status)}</textarea>
         <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="pup_${i}" value="${pup.image || ''}" onchange="puppiesData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', (val) => { puppiesData[${i}].image = val; });"></div>
         <label>Детали:</label>
@@ -501,7 +516,7 @@
     blogData.forEach((post, i) => {
       c.innerHTML += `<div class="item-card">
         <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши</button>
-        <label>Наслов:</label><input type="text" value="${post.title || ''}" onchange="blogData[${i}].title = this.value">
+        <label>Наслов:</label><textarea rows="2" onchange="blogData[${i}].title = nl2br(this.value)">${br2nl(post.title)}</textarea>
         <label>Датум:</label><input type="date" value="${post.date || ''}" onchange="blogData[${i}].date = this.value" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
         <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="blog_${i}" value="${post.image || ''}" onchange="blogData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', (val) => { blogData[${i}].image = val; });"></div>
@@ -531,11 +546,12 @@
     renderBlog();
   }
 
+  // --- GET DATA FUNCTIONS ---
   function getHomeData() {
     return {
-      hero_title: document.getElementById('h_title').value,
+      hero_title: nl2br(document.getElementById('h_title').value),
       hero_desc: document.getElementById('h_desc').innerHTML,
-      box_title: document.getElementById('h_box_title').value,
+      box_title: nl2br(document.getElementById('h_box_title').value),
       box_desc: document.getElementById('h_box_desc').innerHTML
     };
   }
@@ -548,7 +564,7 @@
   }
   function getSettingsData() {
     return {
-      location: document.getElementById('s_location').value,
+      location: nl2br(document.getElementById('s_location').value),
       phone: document.getElementById('s_phone').value,
       email: document.getElementById('s_email').value,
       facebook_url: document.getElementById('s_fb').value,
@@ -560,12 +576,12 @@
     const parseImg = str => str ? str.split(',').map(s=>s.trim()).filter(Boolean) : [];
     return {
       upcoming: {
-        title: document.getElementById('up_title').value,
+        title: nl2br(document.getElementById('up_title').value),
         description: document.getElementById('up_desc').innerHTML,
         images: parseImg(document.getElementById('up_image').value)
       },
       current: {
-        title: document.getElementById('cur_title').value,
+        title: nl2br(document.getElementById('cur_title').value),
         description: document.getElementById('cur_desc').innerHTML,
         images: parseImg(document.getElementById('cur_image').value)
       },
