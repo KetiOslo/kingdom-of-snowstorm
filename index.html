@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mk" prefix="og: http://ogp.me/ns#">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -209,7 +209,7 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
     
-    /* LANGUAGE TOGGLE BUTTONS GROUP (MK & EN) */
+    /* LANGUAGE TOGGLE BUTTONS GROUP (EN & MK) */
     .lang-group {
       display: flex;
       gap: 4px;
@@ -1147,7 +1147,7 @@
           <span class="org-label-text">MKD 268</span>
         </a>
         <div class="fci-status-badge">
-          <span data-i18n="location_top">Скопје, Северна Македонија</span>
+          <span data-i18n="location_top">Skopje, North Macedonia</span>
         </div>
       </div>
 
@@ -1163,10 +1163,10 @@
             <i class="fa-brands fa-facebook-f"></i>
           </a>
         </div>
-        <!-- Засебни видливи копчиња за избор на јазик (MK и EN) веднаш по социјалните мрежи -->
+        <!-- Засебни видливи копчиња за избор на јазик (EN и MK со EN прво) -->
         <div class="lang-group">
-          <button id="btnMk" class="brand-btn btn-lang" onclick="setLanguage('mk')" title="Македонски">MK</button>
           <button id="btnEn" class="brand-btn btn-lang" onclick="setLanguage('en')" title="English">EN</button>
+          <button id="btnMk" class="brand-btn btn-lang" onclick="setLanguage('mk')" title="Македонски">MK</button>
         </div>
       </div>
     </div>
@@ -1185,14 +1185,14 @@
 
       <nav>
         <ul id="kennel-main-nav">
-          <li><a class="nav-tab-btn active" data-tab="home" onclick="selectTab('home')" data-i18n="nav_home">Почетна</a></li>
-          <li><a class="nav-tab-btn" data-tab="about" onclick="selectTab('about')" data-i18n="nav_about">За нас</a></li>
-          <li><a class="nav-tab-btn" data-tab="dogs" onclick="selectTab('dogs')" data-i18n="nav_dogs">Наши кучиња</a></li>
-          <li><a class="nav-tab-btn" data-tab="litters" onclick="selectTab('litters')" data-i18n="nav_litters">Легла</a></li>
-          <li><a class="nav-tab-btn" data-tab="available" onclick="selectTab('available')" data-i18n="nav_available">Слободни кучиња</a></li>
-          <li><a class="nav-tab-btn" data-tab="gallery" onclick="selectTab('gallery')" data-i18n="nav_gallery">Галерија</a></li>
-          <li><a class="nav-tab-btn" data-tab="blog" onclick="selectTab('blog')" data-i18n="nav_blog">Блог</a></li>
-          <li><a class="nav-tab-btn" data-tab="contact" onclick="selectTab('contact')" data-i18n="nav_contact">Контакт</a></li>
+          <li><a class="nav-tab-btn active" data-tab="home" onclick="selectTab('home')" data-i18n="nav_home">Home</a></li>
+          <li><a class="nav-tab-btn" data-tab="about" onclick="selectTab('about')" data-i18n="nav_about">About Us</a></li>
+          <li><a class="nav-tab-btn" data-tab="dogs" onclick="selectTab('dogs')" data-i18n="nav_dogs">Our Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="litters" onclick="selectTab('litters')" data-i18n="nav_litters">Litters</a></li>
+          <li><a class="nav-tab-btn" data-tab="available" onclick="selectTab('available')" data-i18n="nav_available">Available Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="gallery" onclick="selectTab('gallery')" data-i18n="nav_gallery">Gallery</a></li>
+          <li><a class="nav-tab-btn" data-tab="blog" onclick="selectTab('blog')" data-i18n="nav_blog">Blog</a></li>
+          <li><a class="nav-tab-btn" data-tab="contact" onclick="selectTab('contact')" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -1205,20 +1205,20 @@
         <div>
           <div class="royal-tag">
             <i class="fa-solid fa-crown" style="color: var(--gold-primary);"></i>
-            <span data-i18n="hero_tag">FCI Сертифицирано наследство • Скопје</span>
+            <span data-i18n="hero_tag">FCI Certified Heritage • Skopje</span>
           </div>
           <h1 class="hero-title" id="dyn-hero-title" data-i18n="hero_title">
-            Каде што шампионите се одгледуваат <em>со љубов</em>
+            Where Champions Are Raised <em>with Love</em>
           </h1>
           <p class="hero-description" id="dyn-hero-desc" data-i18n="hero_desc">
-            Добредојдовте во Kingdom of Snowstorm, FCI регистриран одгледувач на Бишон Фризе со седиште во Скопје, Северна Македонија. Посветени на одгледување здрави, милени и извонредни кучиња со изложбен квалитет во срцето на нашето семејство.
+            Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia. Dedicated to raising healthy, loving, and extraordinary show-quality companions in the heart of our family.
           </p>
           <div class="btn-cluster">
             <button class="btn-lux btn-lux-primary" onclick="selectTab('dogs')">
-              <i class="fa-solid fa-paw"></i> <span data-i18n="btn_meet_dogs">Запознајте ги нашите кучиња</span>
+              <i class="fa-solid fa-paw"></i> <span data-i18n="btn_meet_dogs">Meet Our Dogs</span>
             </button>
             <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')">
-              <i class="fa-solid fa-envelope"></i> <span data-i18n="btn_contact_us">Контактирајте нè</span>
+              <i class="fa-solid fa-envelope"></i> <span data-i18n="btn_contact_us">Contact Us</span>
             </button>
           </div>
         </div>
@@ -1232,13 +1232,13 @@
               <img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}">
             </a>
           </div>
-          <h3 id="dyn-box-title" data-i18n="box_title">FCI & KSM Официјален стандард</h3>
+          <h3 id="dyn-box-title" data-i18n="box_title">FCI & KSM Official Standard</h3>
           <p id="dyn-box-desc" data-i18n="box_desc">
-            Официјално регистрирани под FCI бр. 11/23 и МКД бр. 268. Посветени на етичко, здраво и шампионско зачувување на чистокрвниот Бишон Фризе.
+            Officially registered under FCI No. 11/23 and MKD No. 268. Devoted to ethical, healthy, and championship preservation of the pure Bichon Frisé.
           </p>
           <div class="fci-pill-row">
             <i class="fa-solid fa-gem" style="color: var(--gold-primary); margin-right: 6px;"></i>
-            <span data-i18n="box_pill">Шампиони и C.I.B. меѓународни крвни линии</span>
+            <span data-i18n="box_pill">Champions & C.I.B. International Bloodlines</span>
           </div>
         </div>
       </div>
@@ -1246,25 +1246,25 @@
 
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="val_pretitle">Нашата посветеност</span>
-        <h2 class="section-maintitle" data-i18n="val_maintitle">Одгледувачница исполнета со љубов</h2>
+        <span class="section-pretitle" data-i18n="val_pretitle">Our Commitment</span>
+        <h2 class="section-maintitle" data-i18n="val_maintitle">A Kennel Filled with Love</h2>
       </div>
 
       <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <div class="card-luxury">
           <i class="fa-solid fa-heart" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
-          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val1-title" data-i18n="val1_title">Одгледани во нашиот дом</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val1-desc" data-i18n="val1_desc">Нашите кучиња се најпрвин сакани семејни членови. Тие напредуваат опкружени со постојан човечки допир, социјализација и бескрајни секојдневни галења.</p>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val1-title" data-i18n="val1_title">Raised in Our Home</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val1-desc" data-i18n="val1_desc">Our dogs are beloved family members first. They thrive surrounded by constant human touch, sound socialization, and endless daily cuddles.</p>
         </div>
         <div class="card-luxury">
           <i class="fa-solid fa-shield-halved" style="font-size: 2.2rem; color: var(--pistachio-dark); margin-bottom: 18px;"></i>
-          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val2-title" data-i18n="val2_title">Стандарди за здравство и педигре</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val2-desc" data-i18n="val2_desc">Внимателно планирани парења според FCI стандардот, заштитувајќи ја беспрекорната генетска здравствена состојба, слаткиот темперамент и густите бели влакна.</p>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val2-title" data-i18n="val2_title">Health & Pedigree Standards</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val2-desc" data-i18n="val2_desc">Carefully planned matings following the FCI standard, safeguarding impeccable genetic health, sweet temperament, and dense white coats.</p>
         </div>
         <div class="card-luxury">
           <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
-          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title" data-i18n="val3_title">Извонредност во изложбените рингови</h3>
-          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc" data-i18n="val3_desc">Гордо ја претставуваме нашата одгледувачница на светски, европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.</p>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title" data-i18n="val3_title">Excellence in Show Rings</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc" data-i18n="val3_desc">Proudly representing our kennel at World, European Dog Shows, and FCI national and International competitions with C.I.B. titles.</p>
         </div>
       </div>
     </div>
@@ -1274,29 +1274,29 @@
   <section id="tab-about" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="about_pretitle">Нашето наследство</span>
-        <h2 class="section-maintitle" data-i18n="about_maintitle">Приказната зад Kingdom of Snowstorm</h2>
+        <span class="section-pretitle" data-i18n="about_pretitle">Our Heritage</span>
+        <h2 class="section-maintitle" data-i18n="about_maintitle">The Story Behind Kingdom of Snowstorm</h2>
       </div>
 
       <div style="max-width: 880px; margin: 0 auto;" class="card-luxury">
         <p style="font-size: 1.12rem; line-height: 1.85; margin-bottom: 20px;" id="dyn-about-p1" data-i18n="about_p1">
-          Јас сум <strong>Катерина Герасимовска</strong>, основач и сопственик на Kingdom of Snowstorm, FCI регистрирана одгледувачница за Бишон Фризе со седиште во Скопје, Северна Македонија.
+          I am <strong>Katerina Gerasimovska</strong>, founder and owner of Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p2" data-i18n="about_p2">
-          Приказната за Kingdom of Snowstorm започна во 2016 година, со едно мало бело куче Бишон Фризе по име <strong>Хана</strong>, кое влезе во мојот живот и го промени на начин што никогаш не би го замислил. Таа не беше само мојот прв Бишон – таа беше почеток на прекрасна врска со оваа прекрасна раса.
+          The story of Kingdom of Snowstorm began in 2016, with a little white Bichon Frisé named <strong>Hannah</strong> who came into my life and changed it in a way I could have never imagined.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p3" data-i18n="about_p3">
-          Денес, на 10-годишна возраст, Хана сè уште зазема посебно место во моето срце. Таа е првата страница од приказната што продолжувам да ја пишувам.
+          Today, at 10 years old, Hannah still holds a very special place in my heart. She is the first page of the story I continue to write.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p4" data-i18n="about_p4">
-          Со тек на време, приказната на Хана продолжува низ нејзината ќерка <strong>Гала</strong>, а подоцна и преку внуката <strong>Дарла</strong>. Преку нив, љубовта се пренесува од една генерација на друга.
+          With time, Hannah’s story continued through her daughter <strong>Galla</strong>, and later through Galla’s daughter <strong>Darla</strong>. Through them, the story that began with one little Bichon became a part of something much bigger.
         </p>
         <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 24px; color: var(--text-muted);" id="dyn-about-p5" data-i18n="about_p5">
-          Како што Kingdom of Snowstorm растеше, оваа година ново поглавје донесе нов член во нашето семејство – <strong>Осло</strong> (<em>Petit Ami’s Take on Me</em>), од ценетата одгледувачница Petit Ami во Осло, Норвешка.
+          As Kingdom of Snowstorm continued to grow, this year brought <strong>Oslo</strong> into our family – <em>Petit Ami’s Take on Me</em>, from the respected Petit Ami kennel in Oslo, Norway.
         </p>
         <div style="padding: 22px 26px; background: var(--pistachio-soft); border-left: 4px solid var(--gold-primary); border-radius: 8px;">
           <p style="font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--pistachio-dark); line-height: 1.7; margin: 0;" id="dyn-about-quote" data-i18n="about_quote">
-            "Името Kingdom of Snowstorm се роди од посебниот свет што го споделувам со моите бишони. Тие се моето мало кралство – оние кои направија ова име да оживее. Како снежна бурија, тие носат движење, енергија и незаборавно чувство секој ден."
+            "The name Kingdom of Snowstorm was born from the special world I share with my Bichons. They are my little kingdom – the ones who made this name come to life. Like a snowstorm, they bring movement, energy, and an unforgettable feeling to every day."
           </p>
         </div>
       </div>
@@ -1307,9 +1307,9 @@
   <section id="tab-dogs" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="dogs_pretitle">Кралиското семејство</span>
-        <h2 class="section-maintitle" data-i18n="dogs_maintitle">Нашите сакани бишони</h2>
-        <p style="color: var(--text-muted);" data-i18n="dogs_subtitle">Одгледани со најголема посветеност: увезен мажјак од Норвешка и повеќе генерации женки.</p>
+        <span class="section-pretitle" data-i18n="dogs_pretitle">The Royal Family</span>
+        <h2 class="section-maintitle" data-i18n="dogs_maintitle">Our Beloved Bichons</h2>
+        <p style="color: var(--text-muted);" data-i18n="dogs_subtitle">Nurtured with highest dedication: imported male from Norway and multiple generations of females.</p>
       </div>
 
       <div id="dynamicDogsContainer" class="dogs-luxury-grid"></div>
@@ -1320,14 +1320,14 @@
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="litters_pretitle">Етичко одгледување</span>
-        <h2 class="section-maintitle" data-i18n="litters_maintitle">Легла и планирани парења</h2>
+        <span class="section-pretitle" data-i18n="litters_pretitle">Ethical Breeding</span>
+        <h2 class="section-maintitle" data-i18n="litters_maintitle">Litters & Planned Matings</h2>
       </div>
 
       <!-- 1. Очекувано легло -->
       <div id="upcomingLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
-          <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> <span data-i18n="upcoming_litter_title">Планирано или актуелно парење</span>
+          <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> <span data-i18n="upcoming_litter_title">Planned or Current Mating</span>
         </h3>
         <div id="dynamicUpcomingLitter"></div>
       </div>
@@ -1335,14 +1335,14 @@
       <!-- 2. Моментално легло -->
       <div id="currentLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
-          <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> <span data-i18n="current_litter_title">Тековно активно легло</span>
+          <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> <span data-i18n="current_litter_title">Current Active Litter</span>
         </h3>
         <div id="dynamicCurrentLitter"></div>
       </div>
 
       <!-- 3. Архива -->
       <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center; border-top: 1px dashed var(--pistachio-border); padding-top: 40px;" data-i18n="archive_litters_title">
-        Архива на претходни легла
+        Previous Litters Archive
       </h3>
       <div id="dynamicLittersContainer" class="dogs-luxury-grid"></div>
     </div>
@@ -1352,24 +1352,24 @@
   <section id="tab-available" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="avail_pretitle">Семејни придружници</span>
-        <h2 class="section-maintitle" data-i18n="avail_maintitle">Слободни кучиња и кутриња</h2>
+        <span class="section-pretitle" data-i18n="avail_pretitle">Family Companions</span>
+        <h2 class="section-maintitle" data-i18n="avail_maintitle">Available Dogs & Puppies</h2>
       </div>
 
       <div id="dynamicAvailableContainer" class="dogs-luxury-grid" style="margin-bottom: 30px;"></div>
 
       <div class="card-luxury" style="max-width: 860px; margin: 0 auto;">
         <h3 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 16px; color: var(--pistachio-dark);" id="dyn-avail-title" data-i18n="avail_box_title">
-          Што е вклучено со секое Snowstorm кутре?
+          What Is Included with Every Snowstorm Puppy?
         </h3>
         <ul id="dyn-avail-list" style="list-style: none; line-height: 2.1; margin-bottom: 24px; font-size: 0.94rem;">
-          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_1">Официјално FCI извозно / национално педигре</span></li>
-          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_2">Меѓународен ЕУ/МК пасош за миленичиња со микрочип</span></li>
-          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_3">Целосни вакцини соодветни за возраста и третмани против паразити</span></li>
-          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_4">Рана невролошка стимулација и домашна социјализација</span></li>
-          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_5">Доживотно менторство од одгледувачот, совет за исхрана и нега на влакната</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_1">Official FCI Export / National Pedigree</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_2">International EU/MK Pet Passport with Microchip</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_3">Full age-appropriate vaccinations and parasite treatments</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_4">Early Neurological Stimulation and Household Socialization</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_5">Lifetime breeder mentorship, dietary and coat care advice</span></li>
         </ul>
-        <button class="btn-lux btn-lux-primary" onclick="selectTab('contact')" data-i18n="btn_inquire_avail">Контактирајте за достапност</button>
+        <button class="btn-lux btn-lux-primary" onclick="selectTab('contact')" data-i18n="btn_inquire_avail">Contact for Availability</button>
       </div>
     </div>
   </section>
@@ -1378,17 +1378,17 @@
   <section id="tab-gallery" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="gallery_pretitle">Моменти и спомени</span>
-        <h2 class="section-maintitle" data-i18n="gallery_maintitle">Галерија на одгледувачницата</h2>
-        <p style="color: var(--text-muted);" data-i18n="gallery_subtitle">Моменти од европските изложбени рингови, секојдневна семејна радост и отсечоци од расадникот.</p>
+        <span class="section-pretitle" data-i18n="gallery_pretitle">Moments & Memories</span>
+        <h2 class="section-maintitle" data-i18n="gallery_maintitle">Kennel Gallery</h2>
+        <p style="color: var(--text-muted);" data-i18n="gallery_subtitle">Moments from European show rings, daily family joy, dog nursery and grooming moments.</p>
       </div>
 
       <div class="gallery-filter-bar">
-        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="filter_all">Сите фотографии</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Shows', this)" data-i18n="filter_shows">Изложби</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Home Life', this)" data-i18n="filter_home">Домашен живот</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Puppies', this)" data-i18n="filter_puppies">Кутриња</button>
-        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Grooming', this)" data-i18n="filter_grooming">Груминг</button>
+        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="filter_all">All Photos</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Shows', this)" data-i18n="filter_shows">Shows</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Home Life', this)" data-i18n="filter_home">Home Life</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Puppies', this)" data-i18n="filter_puppies">Puppies</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Grooming', this)" data-i18n="filter_grooming">Grooming</button>
       </div>
 
       <div id="dynamicGalleryContainer" class="gallery-masonry-grid"></div>
@@ -1415,10 +1415,10 @@
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="blog_pretitle">Ажурирања и согледувања во живо</span>
-        <h2 class="section-maintitle" data-i18n="blog_maintitle">Новости и фејсбук објави</h2>
+        <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
+        <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Facebook Feed</h2>
         <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
-          Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни синхронизирани директно од нашата официјална Фејсбук страница.
+          Follow our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.
         </p>
       </div>
 
@@ -1429,15 +1429,15 @@
               <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 2.2rem;"></i>
               <div>
                 <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); line-height: 1.1;" data-i18n="fb_timeline_title">
-                  Фејсбук хронологија
+                  Facebook Timeline
                 </h3>
                 <span style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="fb_timeline_sub">
-                  Ажурирања во живо директно од @kingdom.of.snow.storm.kennel
+                  Live updates directly from @kingdom.of.snow.storm.kennel
                 </span>
               </div>
             </div>
             <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.8rem;">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="open_fb">Отворете го Фејсбук</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="open_fb">Open Facebook</span>
             </a>
           </div>
 
@@ -1461,36 +1461,36 @@
   <section id="tab-contact" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
-        <span class="section-pretitle" data-i18n="contact_pretitle">Стапете во контакт</span>
-        <h2 class="section-maintitle" data-i18n="contact_maintitle">Контактирајте го Kingdom of Snowstorm</h2>
-        <p style="color: var(--text-muted);" data-i18n="contact_subtitle">Со задоволство одговараме на прашања во врска со нашите кучиња, легла или расата Бишон Фризе.</p>
+        <span class="section-pretitle" data-i18n="contact_pretitle">Get In Touch</span>
+        <h2 class="section-maintitle" data-i18n="contact_maintitle">Contact Kingdom of Snowstorm</h2>
+        <p style="color: var(--text-muted);" data-i18n="contact_subtitle">We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.</p>
       </div>
 
       <div class="contact-columns">
         <div class="card-luxury">
           <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="kennel_contacts_title">
-            Контакти на одгледувачницата
+            Kennel Contacts
           </h3>
 
           <div style="margin-bottom: 20px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="owner_label">Основач и сопственик</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="owner_label">Founder & Owner</p>
             <p style="font-size: 1.05rem; font-weight: 600; color: var(--pistachio-dark);">Katerina Gerasimovska</p>
           </div>
 
           <div style="margin-bottom: 20px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="location_label">Локација</p>
-            <p style="font-size: 1.02rem; color: var(--text-muted);" id="dyn-contact-location" data-i18n="location_val">Скопје, Северна Македонија</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="location_label">Location</p>
+            <p style="font-size: 1.02rem; color: var(--text-muted);" id="dyn-contact-location" data-i18n="location_val">Skopje, North Macedonia</p>
           </div>
 
           <div style="margin-bottom: 26px;">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="email_label">Директна е-пошта</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="email_label">Direct Email</p>
             <a id="dyn-contact-email" href="mailto:kingdomofsnowstorm@gmail.com" style="font-size: 1.02rem; font-weight: 600; color: var(--pistachio-dark) !important; word-break: break-word;">
               kingdomofsnowstorm@gmail.com
             </a>
           </div>
 
           <div style="padding-top: 20px; border-top: 1px solid var(--pistachio-border);">
-            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; color: var(--pistachio-dark);" data-i18n="instant_chat_label">Комуникација во живо:</p>
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; color: var(--pistachio-dark);" data-i18n="instant_chat_label">Instant Chat Communication:</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
               <a id="dyn-btn-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="btn-lux" style="background: var(--whatsapp-color); color: var(--white) !important; flex: 1;">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp
@@ -1504,7 +1504,7 @@
 
         <div class="card-luxury">
           <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="send_inquiry_title">
-            Испратете прашање
+            Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
             <input type="hidden" name="access_key" id="w3f_key" value="">
@@ -1512,28 +1512,28 @@
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
 
             <div class="input-field-group">
-              <label for="fname" data-i18n="lbl_name">Вашето име и презиме *</label>
-              <input type="text" id="fname" name="name" class="form-control-lux" required placeholder="на пр. Марија Смит">
+              <label for="fname" data-i18n="lbl_name">Your Full Name *</label>
+              <input type="text" id="fname" name="name" class="form-control-lux" required placeholder="e.g. Maria Smith">
             </div>
             <div class="input-field-group">
-              <label for="femail" data-i18n="lbl_email">Е-пошта адреса *</label>
-              <input type="email" id="femail" name="email" class="form-control-lux" required placeholder="на пр. maria@example.com">
+              <label for="femail" data-i18n="lbl_email">Email Address *</label>
+              <input type="email" id="femail" name="email" class="form-control-lux" required placeholder="e.g. maria@example.com">
             </div>
             <div class="input-field-group">
-              <label for="fsubject" data-i18n="lbl_subject">Заинтересиран/а сум за:</label>
+              <label for="fsubject" data-i18n="lbl_subject">I am interested in:</label>
               <select id="fsubject" name="interest" class="form-control-lux">
-                <option data-i18n="opt_1">Резервација на кутре (Идно легло)</option>
-                <option data-i18n="opt_2">Изложба / Одгледувачки потенцијал</option>
-                <option data-i18n="opt_3">Услуга за парење (Осло)</option>
-                <option data-i18n="opt_4">Општа консултација за расата</option>
+                <option data-i18n="opt_1">Puppy Reservation (Future Litter)</option>
+                <option data-i18n="opt_2">Show / Breeding Potential</option>
+                <option data-i18n="opt_3">Stud Service Inquiry (Oslo)</option>
+                <option data-i18n="opt_4">General Breed Consultation</option>
               </select>
             </div>
             <div class="input-field-group">
-              <label for="fmsg" data-i18n="lbl_msg">Вашата порака *</label>
-              <textarea id="fmsg" name="message" class="form-control-lux" rows="4" required placeholder="Кажете ни за вас, вашиот дом и искуство со кучиња..."></textarea>
+              <label for="fmsg" data-i18n="lbl_msg">Your Message *</label>
+              <textarea id="fmsg" name="message" class="form-control-lux" rows="4" required placeholder="Tell us about yourself, your home and experience with dogs..."></textarea>
             </div>
             <button type="submit" id="submitBtn" class="btn-lux btn-lux-gold" style="width: 100%;">
-              <i class="fa-solid fa-paper-plane"></i> <span id="submitBtnText" data-i18n="btn_send">Испратете порака до Катерина</span>
+              <i class="fa-solid fa-paper-plane"></i> <span id="submitBtnText" data-i18n="btn_send">Send Inquiry to Katerina</span>
             </button>
             <div id="formStatus" class="form-status-box"></div>
           </form>
@@ -1560,7 +1560,7 @@
           <img src="2.png" alt="Kingdom of Snowstorm">
         </div>
         <p style="font-size: 0.92rem; line-height: 1.8; color: #A4BFA2;" id="dyn-footer-desc" data-i18n="footer_desc">
-          Kingdom of Snowstorm • Официјална FCI одгледувачница бр. 11/23 • Национална МКД бр. 268. Каде што шампионите се одгледуваат со срце, етички стандарди и вистинска семејна љубов.
+          Kingdom of Snowstorm • Official FCI Kennel No. 11/23 • National MKD No. 268. Where champions are raised with heart, ethical standards, and genuine family love.
         </p>
         <div class="footer-affiliate-logos">
           <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer" title="FCI Worldwide">
@@ -1573,20 +1573,20 @@
       </div>
 
       <div>
-        <h4 class="footer-header-label" data-i18n="footer_nav_title">Навигација</h4>
+        <h4 class="footer-header-label" data-i18n="footer_nav_title">Navigation</h4>
         <ul class="footer-clean-nav">
-          <li><a onclick="selectTab('home')" data-i18n="nav_home">Почетна</a></li>
-          <li><a onclick="selectTab('about')" data-i18n="nav_about">За нас</a></li>
-          <li><a onclick="selectTab('dogs')" data-i18n="nav_dogs">Наши кучиња</a></li>
-          <li><a onclick="selectTab('litters')" data-i18n="nav_litters">Легла</a></li>
-          <li><a onclick="selectTab('available')" data-i18n="nav_available">Слободни кучиња</a></li>
-          <li><a onclick="selectTab('gallery')" data-i18n="nav_gallery">Галерија</a></li>
-          <li><a onclick="selectTab('contact')" data-i18n="nav_contact">Контакт</a></li>
+          <li><a onclick="selectTab('home')" data-i18n="nav_home">Home</a></li>
+          <li><a onclick="selectTab('about')" data-i18n="nav_about">About Us</a></li>
+          <li><a onclick="selectTab('dogs')" data-i18n="nav_dogs">Our Dogs</a></li>
+          <li><a onclick="selectTab('litters')" data-i18n="nav_litters">Litters</a></li>
+          <li><a onclick="selectTab('available')" data-i18n="nav_available">Available Dogs</a></li>
+          <li><a onclick="selectTab('gallery')" data-i18n="nav_gallery">Gallery</a></li>
+          <li><a onclick="selectTab('contact')" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-header-label" data-i18n="footer_social_title">Социјални мрежи</h4>
+        <h4 class="footer-header-label" data-i18n="footer_social_title">Social & Connect</h4>
         <div style="display: flex; gap: 10px; margin-top: 14px;">
           <a id="dyn-footer-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb">
             <i class="fa-brands fa-facebook-f"></i>
@@ -1602,13 +1602,14 @@
     </div>
 
     <div class="container footer-copyright">
-      <p data-i18n="footer_copy">© 2026 Kingdom of Snowstorm. FCI одгледувачница 11/23 & МКД 268. Дизајнирано со чиста љубов.</p>
+      <p data-i18n="footer_copy">© 2026 Kingdom of Snowstorm. FCI Kennel 11/23 & MKD 268. Designed with pure love.</p>
     </div>
   </footer>
 
   <!-- SCRIPT -->
   <script>
-    let currentLang = localStorage.getItem('site_lang') || 'mk';
+    // Поставено англиски (en) како почетен јазик по дефолт
+    let currentLang = localStorage.getItem('site_lang') || 'en';
     let allGalleryItems = [];
     let cachedHomeData = {};
     let cachedAboutData = {};
@@ -1676,7 +1677,7 @@
         btn_inquire_avail: "Контактирајте за достапност",
         gallery_pretitle: "Моменти и спомени",
         gallery_maintitle: "Галерија на одгледувачницата",
-        gallery_subtitle: "Моменти од европските изложбени рингови, секојдневна семејна радост и отсечоци од расадникот.",
+        gallery_subtitle: "Моменти од европските изложбени рингови, секојдневна семејна радост, моменти во расадникот за кучиња и груминг.",
         filter_all: "Сите фотографии",
         filter_shows: "Изложби",
         filter_home: "Домашен живот",
@@ -1769,7 +1770,7 @@
         btn_inquire_avail: "Contact for Availability",
         gallery_pretitle: "Moments & Memories",
         gallery_maintitle: "Kennel Gallery",
-        gallery_subtitle: "Moments from European show rings, daily family joy, and nursery milestones.",
+        gallery_subtitle: "Moments from European show rings, daily family joy, dog nursery and grooming moments.",
         filter_all: "All Photos",
         filter_shows: "Shows",
         filter_home: "Home Life",
@@ -1798,7 +1799,7 @@
         opt_2: "Show / Breeding Potential",
         opt_3: "Stud Service Inquiry (Oslo)",
         opt_4: "General Breed Consultation",
-        lbl_msg: "Вашата порака *",
+        lbl_msg: "Your Message *",
         btn_send: "Send Inquiry to Katerina",
         footer_desc: "Kingdom of Snowstorm • Official FCI Kennel No. 11/23 • National MKD No. 268. Where champions are raised with heart, ethical standards, and genuine family love.",
         footer_nav_title: "Navigation",
@@ -1856,27 +1857,22 @@
       renderGalleryCards(allGalleryItems);
     }
 
-    // Подобрена функција со приоритетно барање на _en / _mk полиња со повеќестепени проверки
     function getLocalizedField(item, field) {
       if (!item) return '';
       
-      // 1. Провери дали постои специфично поле за тековниот јазик со наставка (на пр. lineage_en, details_en, narrative_en)
       const exactLangField = field + '_' + currentLang;
       if (item[exactLangField] !== undefined && item[exactLangField] !== '' && item[exactLangField] !== null) {
         return item[exactLangField];
       }
       
-      // 2. Провери дали полето е објект со јазици
       if (item[field] && typeof item[field] === 'object') {
-        return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
+        return item[field][currentLang] || item[field]['en'] || item[field]['mk'] || '';
       }
 
-      // 3. Провери дали постои основното поле во објектот
       if (item[field] !== undefined && item[field] !== '' && item[field] !== null) {
         return item[field];
       }
 
-      // 4. Доколку ништо од горенаведеното нема, провери го другиот јазик како замена за да не биде празно
       const alternateLang = currentLang === 'mk' ? 'en' : 'mk';
       const alternateField = field + '_' + alternateLang;
       if (item[alternateField] !== undefined && item[alternateField] !== '' && item[alternateField] !== null) {
@@ -2034,7 +2030,7 @@
           const avTitle = getLocalizedField(av, 'title');
           if (avTitle) document.getElementById('dyn-avail-title').innerText = avTitle;
           
-          const incs = av.inclusions || av.inclusions_mk || av.inclusions_en;
+          const incs = av.inclusions || av.inclusions_en || av.inclusions_mk;
           if (incs && Array.isArray(incs) && incs.length > 0) {
             document.getElementById('dyn-avail-list').innerHTML = incs.map(inc => `
               <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span>${typeof inc === 'object' ? getLocalizedField(inc, 'text') : inc}</span></li>
@@ -2194,7 +2190,6 @@
         }
 
         let detailsHtml = '';
-        // Проверка со приоритет кон локализираните детали за кучето
         let info = getLocalizedField(dog, 'details') || getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'role');
         
         if (info && info.trim() !== 'Show Dog') {
