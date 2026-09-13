@@ -209,12 +209,24 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
     
-    /* LANGUAGE TOGGLE BUTTON (Placed after FB, Viber, WA) */
+    /* LANGUAGE TOGGLE BUTTONS GROUP (MK & EN) */
+    .lang-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
     .btn-lang {
       background-color: var(--pistachio-dark);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.5px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    .btn-lang.active {
+      background-color: var(--gold-primary);
+      box-shadow: 0 0 10px rgba(197, 160, 89, 0.6);
     }
     .btn-lang:hover {
       background-color: var(--gold-hover);
@@ -1151,10 +1163,11 @@
             <i class="fa-brands fa-facebook-f"></i>
           </a>
         </div>
-        <!-- Копче за промена на јазик (поставено директно по Viber, WhatsApp и FB) -->
-        <button id="langToggleBtn" class="brand-btn btn-lang" onclick="toggleLanguage()" title="Switch Language">
-          <span id="langText">EN</span>
-        </button>
+        <!-- Засебни видливи копчиња за избор на јазик (MK и EN) веднаш по социјалните мрежи -->
+        <div class="lang-group">
+          <button id="btnMk" class="brand-btn btn-lang" onclick="setLanguage('mk')" title="Македонски">MK</button>
+          <button id="btnEn" class="brand-btn btn-lang" onclick="setLanguage('en')" title="English">EN</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1597,6 +1610,9 @@
   <script>
     let currentLang = localStorage.getItem('site_lang') || 'mk';
     let allGalleryItems = [];
+    let cachedHomeData = {};
+    let cachedAboutData = {};
+    let cachedSettingsData = {};
     let cachedLittersList = [];
     let cachedDogsList = [];
     let cachedUpcomingLitter = {};
@@ -1795,14 +1811,26 @@
       }
     };
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'mk' ? 'en' : 'mk';
+    function setLanguage(lang) {
+      currentLang = lang;
       localStorage.setItem('site_lang', currentLang);
       applyLanguageTranslations();
     }
 
     function applyLanguageTranslations() {
-      document.getElementById('langText').innerText = currentLang === 'mk' ? 'EN' : 'MK';
+      // Ажурирај активна состојба на посебните MK и EN копчиња
+      const btnMk = document.getElementById('btnMk');
+      const btnEn = document.getElementById('btnEn');
+      if (btnMk && btnEn) {
+        if (currentLang === 'mk') {
+          btnMk.classList.add('active');
+          btnEn.classList.remove('active');
+        } else {
+          btnEn.classList.add('active');
+          btnMk.classList.remove('active');
+        }
+      }
+
       document.documentElement.setAttribute('lang', currentLang);
 
       const elements = document.querySelectorAll('[data-i18n]');
@@ -1817,22 +1845,24 @@
         }
       });
 
-      // Re-render dynamic components so their texts match the chosen language
+      // Автоматско ре-рендерирање на целата динамична содржина во секој таб при промена на јазик
+      renderHome(cachedHomeData);
+      renderAbout(cachedAboutData);
+      renderSettings(cachedSettingsData);
       renderDogs(cachedDogsList);
       renderUpcomingLitter(cachedUpcomingLitter);
       renderCurrentLitter(cachedCurrentLitter);
       renderLitters(cachedLittersList);
       renderAvailableDogs(cachedAvailableDogs);
       renderBlogPosts(cachedBlogPosts);
+      renderGalleryCards(allGalleryItems);
     }
 
     function getLocalizedField(item, field) {
       if (!item) return '';
-      // Поддршка за полиња со наставки _mk и _en од админ панелот
       const langField = field + '_' + currentLang;
       if (item[langField]) return item[langField];
       
-      // Fallback на обичното поле доколку нема наставка
       if (item[field]) {
         if (typeof item[field] === 'object') {
           return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
@@ -1962,62 +1992,24 @@
       try {
         const res = await fetch('content/settings.json?t=' + ts);
         if (res.ok) {
-          const s = await res.json();
-          const loc = getLocalizedField(s, 'location');
-          if (loc) document.getElementById('dyn-contact-location').innerText = loc;
-          if (s.email) {
-            const emEl = document.getElementById('dyn-contact-email');
-            emEl.innerText = s.email;
-            emEl.href = 'mailto:' + s.email;
-          }
-          if (s.phone) {
-            const cleanPhone = s.phone.replace(/[^0-9]/g, '');
-            const waUrl = 'https://wa.me/' + cleanPhone;
-            const viUrl = 'viber://chat?number=%2B' + cleanPhone;
-            ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waUrl; });
-            ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => { const el = document.getElementById(id); if (el) el.href = viUrl; });
-          }
-          if (s.facebook_url) {
-            const fbEl = document.getElementById('dyn-footer-fb');
-            if (fbEl) fbEl.href = s.facebook_url;
-          }
-          const fDesc = getLocalizedField(s, 'footer_desc');
-          if (fDesc) document.getElementById('dyn-footer-desc').innerText = fDesc;
+          cachedSettingsData = await res.json();
+          renderSettings(cachedSettingsData);
         }
       } catch(e) {}
 
       try {
         const res = await fetch('content/home.json?t=' + ts);
         if (res.ok) {
-          const h = await res.json();
-          let title = getLocalizedField(h, 'hero_title');
-          if (title) {
-            if (!title.includes('<')) {
-              title = title.replace(/with love|со љубов/gi, '<em style="color: var(--gold-primary); font-style: italic;">$&</em>');
-            }
-            document.getElementById('dyn-hero-title').innerHTML = title;
-          }
-          const desc = getLocalizedField(h, 'hero_desc');
-          if (desc) document.getElementById('dyn-hero-desc').innerText = desc;
-          
-          const boxTitle = getLocalizedField(h, 'box_title');
-          if (boxTitle) document.getElementById('dyn-box-title').innerText = boxTitle;
-          const boxDesc = getLocalizedField(h, 'box_desc');
-          if (boxDesc) document.getElementById('dyn-box-desc').innerText = boxDesc;
+          cachedHomeData = await res.json();
+          renderHome(cachedHomeData);
         }
       } catch(e) {}
 
       try {
         const res = await fetch('content/about.json?t=' + ts);
         if (res.ok) {
-          const a = await res.json();
-          if (getLocalizedField(a, 'p1')) document.getElementById('dyn-about-p1').innerHTML = getLocalizedField(a, 'p1');
-          if (getLocalizedField(a, 'p2')) document.getElementById('dyn-about-p2').innerHTML = getLocalizedField(a, 'p2');
-          if (getLocalizedField(a, 'p3')) document.getElementById('dyn-about-p3').innerHTML = getLocalizedField(a, 'p3');
-          if (getLocalizedField(a, 'p4')) document.getElementById('dyn-about-p4').innerHTML = getLocalizedField(a, 'p4');
-          if (getLocalizedField(a, 'p5')) document.getElementById('dyn-about-p5').innerHTML = getLocalizedField(a, 'p5');
-          const q = getLocalizedField(a, 'quote');
-          if (q) document.getElementById('dyn-about-quote').innerText = '"' + q + '"';
+          cachedAboutData = await res.json();
+          renderAbout(cachedAboutData);
         }
       } catch(e) {}
 
@@ -2065,13 +2057,10 @@
         if (res.ok) {
           const l = await res.json();
           cachedUpcomingLitter = l.upcoming || {};
-          renderUpcomingLitter(cachedUpcomingLitter);
-          
           cachedCurrentLitter = l.current || {};
-          if (cachedCurrentLitter.title || cachedCurrentLitter.description || cachedCurrentLitter.image) {
-            renderCurrentLitter(cachedCurrentLitter);
-          }
           cachedLittersList = l.litters || l.items || [];
+          renderUpcomingLitter(cachedUpcomingLitter);
+          renderCurrentLitter(cachedCurrentLitter);
           renderLitters(cachedLittersList);
         }
       } catch(e) {}
@@ -2081,13 +2070,19 @@
         if (res.ok) {
           const b = await res.json();
           cachedBlogPosts = b.items || b.posts || [];
-          if (cachedBlogPosts.length > 0) {
-            renderBlogPosts(cachedBlogPosts);
-          }
+          renderBlogPosts(cachedBlogPosts);
         }
       } catch(e) {}
 
-      loadDynamicGallery();
+      try {
+        const res = await fetch('content/gallery.json?t=' + ts);
+        if (res.ok) {
+          const data = await res.json();
+          allGalleryItems = data.items || [];
+          renderGalleryCards(allGalleryItems);
+        }
+      } catch(e) {}
+
       applyLanguageTranslations();
 
       const hashTab = window.location.hash.replace('#', '');
@@ -2102,6 +2097,59 @@
       } else {
         selectTab('home', false);
       }
+    }
+
+    function renderSettings(s) {
+      if (!s) return;
+      const loc = getLocalizedField(s, 'location');
+      if (loc) document.getElementById('dyn-contact-location').innerText = loc;
+      if (s.email) {
+        const emEl = document.getElementById('dyn-contact-email');
+        emEl.innerText = s.email;
+        emEl.href = 'mailto:' + s.email;
+      }
+      if (s.phone) {
+        const cleanPhone = s.phone.replace(/[^0-9]/g, '');
+        const waUrl = 'https://wa.me/' + cleanPhone;
+        const viUrl = 'viber://chat?number=%2B' + cleanPhone;
+        ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waUrl; });
+        ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => { const el = document.getElementById(id); if (el) el.href = viUrl; });
+      }
+      if (s.facebook_url) {
+        const fbEl = document.getElementById('dyn-footer-fb');
+        if (fbEl) fbEl.href = s.facebook_url;
+      }
+      const fDesc = getLocalizedField(s, 'footer_desc');
+      if (fDesc) document.getElementById('dyn-footer-desc').innerText = fDesc;
+    }
+
+    function renderHome(h) {
+      if (!h) return;
+      let title = getLocalizedField(h, 'hero_title');
+      if (title) {
+        if (!title.includes('<')) {
+          title = title.replace(/with love|со љубов/gi, '<em style="color: var(--gold-primary); font-style: italic;">$&</em>');
+        }
+        document.getElementById('dyn-hero-title').innerHTML = title;
+      }
+      const desc = getLocalizedField(h, 'hero_desc');
+      if (desc) document.getElementById('dyn-hero-desc').innerText = desc;
+      
+      const boxTitle = getLocalizedField(h, 'box_title');
+      if (boxTitle) document.getElementById('dyn-box-title').innerText = boxTitle;
+      const boxDesc = getLocalizedField(h, 'box_desc');
+      if (boxDesc) document.getElementById('dyn-box-desc').innerText = boxDesc;
+    }
+
+    function renderAbout(a) {
+      if (!a) return;
+      if (getLocalizedField(a, 'p1')) document.getElementById('dyn-about-p1').innerHTML = getLocalizedField(a, 'p1');
+      if (getLocalizedField(a, 'p2')) document.getElementById('dyn-about-p2').innerHTML = getLocalizedField(a, 'p2');
+      if (getLocalizedField(a, 'p3')) document.getElementById('dyn-about-p3').innerHTML = getLocalizedField(a, 'p3');
+      if (getLocalizedField(a, 'p4')) document.getElementById('dyn-about-p4').innerHTML = getLocalizedField(a, 'p4');
+      if (getLocalizedField(a, 'p5')) document.getElementById('dyn-about-p5').innerHTML = getLocalizedField(a, 'p5');
+      const q = getLocalizedField(a, 'quote');
+      if (q) document.getElementById('dyn-about-quote').innerText = '"' + q + '"';
     }
 
     function renderDogs(dogs) {
@@ -2164,13 +2212,17 @@
       const container = document.getElementById('dynamicUpcomingLitter');
       if (!wrapper || !container) return;
       
+      if (!up || (!up.title && !up.title_mk && !up.title_en && !up.description && !up.description_mk && !up.description_en && !up.image)) {
+        wrapper.style.display = 'none';
+        return;
+      }
       wrapper.style.display = 'block';
 
       let imgList = parseImages(up);
       let mediaHtml = '';
       
       const titleText = getLocalizedField(up, 'title') || (currentLang === 'mk' ? '🌟 Активно легло / Планирано парење' : '🌟 Active Litter / Planned Mating');
-      const descText = getLocalizedField(up, 'description') || getLocalizedField(up, 'text') || (currentLang === 'mk' ? 'Специјален шаблон за активно легло. Можете да го уредите овој текст и да додадете слики.' : 'Active litter template. You can edit this text and add images.');
+      const descText = getLocalizedField(up, 'description') || getLocalizedField(up, 'text') || '';
       const safeTitle = getSafeString(titleText);
 
       if (imgList.length > 0) {
@@ -2224,6 +2276,11 @@
       const wrapper = document.getElementById('currentLitterWrapper');
       const container = document.getElementById('dynamicCurrentLitter');
       if (!wrapper || !container) return;
+
+      if (!curr || (!curr.title && !curr.title_mk && !curr.title_en && !curr.description && !curr.description_mk && !curr.description_en && !curr.image)) {
+        wrapper.style.display = 'none';
+        return;
+      }
       wrapper.style.display = 'block';
 
       let imgList = parseImages(curr);
@@ -2397,17 +2454,6 @@
           </div>
         `;
       }).join('');
-    }
-
-    async function loadDynamicGallery() {
-      try {
-        const res = await fetch('content/gallery.json?t=' + new Date().getTime());
-        if (res.ok) {
-          const data = await res.json();
-          allGalleryItems = data.items || [];
-          renderGalleryCards(allGalleryItems);
-        }
-      } catch(e) {}
     }
 
     function renderGalleryCards(items) {
