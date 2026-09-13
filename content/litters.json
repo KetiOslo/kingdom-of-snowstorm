@@ -1,4 +1,14 @@
 {
+  "upcoming": {
+    "title": "",
+    "image": "",
+    "description": ""
+  },
+  "current": {
+    "title": "",
+    "image": "",
+    "description": ""
+  },
   "litters": [
     {
       "title": "Litter Just ( Mlt.Ch. Giota di Vivere x Just Perfect Leo)",
