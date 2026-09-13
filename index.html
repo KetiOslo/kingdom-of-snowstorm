@@ -1286,7 +1286,7 @@
       <!-- 1. Очекувано легло (Специјално поле со златна рамка и копчиња) -->
       <div id="upcomingLitterWrapper" style="margin-bottom: 60px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
-          <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Upcoming Planned Litter
+          <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Planned or Current Mating
         </h3>
         <div id="dynamicUpcomingLitter"></div>
       </div>
@@ -1606,7 +1606,6 @@
       return imgList.filter(Boolean);
     }
 
-    // НОВА, БЕЗБЕДНА ФУНКЦИЈА ЗА МЕНУВАЊЕ ТАБОВИ
     function selectTab(tabId, saveState = true) {
       try {
         const allTabs = document.querySelectorAll('.site-tab-content');
@@ -1660,7 +1659,6 @@
       }
     });
 
-    // ПОДДРШКА ЗА SWIPE И ЛИЗГАЊЕ НА МОБИЛЕН
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -1783,9 +1781,12 @@
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
-          if (l.upcoming && (l.upcoming.title || l.upcoming.description || l.upcoming.image)) {
-            renderUpcomingLitter(l.upcoming);
+          
+          // НОВА ЛОГИКА: Дури и ако е празно, форсирај го прикажувањето на шаблонот за да се гледа на сајтот
+          if (l.upcoming || !l.upcoming) {
+            renderUpcomingLitter(l.upcoming || {});
           }
+          
           if (l.current && (l.current.title || l.current.description || l.current.image)) {
             renderCurrentLitter(l.current);
           }
@@ -1807,7 +1808,6 @@
 
       loadDynamicGallery();
 
-      // ЛОГИКА ЗА ТАБОВИ - ПРВО ОТВОРАЊЕ vs РЕФРЕШ
       const hashTab = window.location.hash.replace('#', '');
       const sessionTab = sessionStorage.getItem('active_kennel_tab');
 
@@ -1874,12 +1874,17 @@
       const wrapper = document.getElementById('upcomingLitterWrapper');
       const container = document.getElementById('dynamicUpcomingLitter');
       if (!wrapper || !container) return;
+      
       wrapper.style.display = 'block';
 
       let imgList = parseImages(up);
       let mediaHtml = '';
+      
+      // Текст што се појавува кога во JSON фајлот е сеуште празно
+      const safeTitle = getSafeString(up.title || '🌟 Active Litter / Planned Mating');
+      const descText = up.description || up.text || 'This is your special active litter template! It stays at the top. You can edit this text and add images. Use the buttons below to navigate.';
+
       if (imgList.length > 0) {
-        const safeTitle = getSafeString(up.title || 'Planned Litter');
         const imgData = getSafeString(imgList.join(','));
         const mainImgPath = resolveImagePath(imgList[0]);
         
@@ -1895,16 +1900,22 @@
           }).join('');
           mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
         }
+      } else {
+        // Доколку нема слика, постави го логото полупроѕирно
+        mediaHtml += `
+          <div class="dog-portrait-container" style="background: var(--pistachio-cream);">
+            <img src="2.png" alt="Placeholder" style="object-fit: contain; width: 140px; opacity: 0.5;">
+          </div>
+        `;
       }
 
       container.innerHTML = `
         <div class="dog-feature-card" style="max-width: 750px; margin: 0 auto; border: 2px solid var(--gold-primary); box-shadow: 0 10px 35px rgba(197, 160, 89, 0.15);">
           ${mediaHtml}
           <div class="dog-details-body">
-            <h3 class="dog-title-name" style="margin-bottom: 10px;">${up.title || 'Planned Upcoming Litter'}</h3>
-            <p class="dog-narrative" style="margin-bottom: 24px;">${up.description || up.text || ''}</p>
+            <h3 class="dog-title-name" style="margin-bottom: 10px;">${safeTitle}</h3>
+            <p class="dog-narrative" style="margin-bottom: 24px;">${descText}</p>
             
-            <!-- Двете копчиња една до друго -->
             <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
               <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')">
                 <i class="fa-solid fa-pen-to-square"></i> Reservation
@@ -1952,7 +1963,6 @@
             <h3 class="dog-title-name" style="margin-bottom: 10px;">${curr.title || 'Current Active Litter'}</h3>
             <p class="dog-narrative" style="margin-bottom: 24px;">${curr.description || curr.text || ''}</p>
             
-            <!-- Двете копчиња една до друго -->
             <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
               <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')">
                 <i class="fa-solid fa-pen-to-square"></i> Reservation
@@ -2001,7 +2011,6 @@
             <div class="dog-details-body">
               <h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3>
               <p class="dog-narrative">${descText}</p>
-              <!-- Отстранети копчињата за архива -->
             </div>
           </div>
         `;
@@ -2135,7 +2144,6 @@
       }
     }
 
-    // БЕЗБЕДНИ ЛАЈТБОКС ФУНКЦИИ
     function openLightboxFromElement(el, startIndex) {
       const imgData = el.getAttribute('data-images');
       const title = el.getAttribute('data-title');
