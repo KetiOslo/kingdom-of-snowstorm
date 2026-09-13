@@ -1868,14 +1868,14 @@
           }
         }
 
-        // Поле за детали од админ панелот
+        // Поле за детали од админ панелот - без зборот Details:
         let detailsHtml = '';
         let info = dog.birth || dog.details || dog.role;
         // Ги бришеме старите default вредности како "Show Dog" доколку нема вистински датум
         if (info && info.trim() !== 'Show Dog') {
           detailsHtml = `
             <ul class="dog-spec-list">
-              <li><span>Details</span>: <span>${info}</span></li>
+              <li><span>${info}</span></li>
             </ul>
           `;
         }
