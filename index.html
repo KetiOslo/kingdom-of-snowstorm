@@ -1818,7 +1818,6 @@
     }
 
     function applyLanguageTranslations() {
-      // Ажурирај активна состојба на посебните MK и EN копчиња
       const btnMk = document.getElementById('btnMk');
       const btnEn = document.getElementById('btnEn');
       if (btnMk && btnEn) {
@@ -1845,7 +1844,6 @@
         }
       });
 
-      // Автоматско ре-рендерирање на целата динамична содржина во секој таб при промена на јазик
       renderHome(cachedHomeData);
       renderAbout(cachedAboutData);
       renderSettings(cachedSettingsData);
@@ -1863,11 +1861,14 @@
       const langField = field + '_' + currentLang;
       if (item[langField]) return item[langField];
       
+      // Fallback доколку фајлот е зачуван со стариот формат без наставка
       if (item[field]) {
         if (typeof item[field] === 'object') {
           return item[field][currentLang] || item[field]['mk'] || item[field]['en'] || '';
         }
-        return item[field];
+        if (currentLang === 'mk') {
+          return item[field];
+        }
       }
       return '';
     }
