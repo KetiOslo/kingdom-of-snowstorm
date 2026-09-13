@@ -6,13 +6,25 @@
   <title>Kingdom of Snowstorm | FCI Bichon Frisé Kennel</title>
   <meta name="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia. FCI 11/23, MKD 268.">
 
-  <!-- Open Graph / Social Share Meta Tags -->
+  <!-- Open Graph / Social Share Meta Tags ЗА МОБИЛНИ (Viber, WhatsApp, Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kingdom of Snowstorm">
   <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
   <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
-  <meta property="og:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=2">
-  <meta property="og:url" content="https://ketioslo.github.io/kingdom-of-snowstorm/">
+  <meta property="og:image" content="https://kingdomofsnowstorm.com/2.png?v=3">
+  <meta property="og:image:secure_url" content="https://kingdomofsnowstorm.com/2.png?v=3">
+  <meta property="og:url" content="https://kingdomofsnowstorm.com/">
+  
+  <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://ketioslo.github.io/kingdom-of-snowstorm/2.png?v=2">
+  <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
+  <meta name="twitter:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
+  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png?v=3">
+
+  <!-- WhatsApp Meta Tags -->
+  <meta itemprop="name" content="Kingdom of Snowstorm | FCI Bichon Frisé Kennel">
+  <meta itemprop="description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frisé kennel in Skopje, North Macedonia.">
+  <meta itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=3">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -333,7 +345,7 @@
 
     .hero-title em {
       font-style: italic;
-      color: var(--gold-primary); /* Поставено на златната боја */
+      color: var(--gold-primary); 
       font-weight: 600;
     }
 
@@ -1451,7 +1463,6 @@
             Send an Inquiry
           </h3>
           <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <!-- Скриено поле за клучот -->
             <input type="hidden" name="access_key" id="w3f_key" value="">
             <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
             <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
@@ -1707,7 +1718,6 @@
           const h = await res.json();
           if (h.hero_title) {
             let t = h.hero_title;
-            // Автоматски обои "with love" во златно ако корисникот не ставил HTML ознаки во JSON
             if (!t.includes('<')) {
                 t = t.replace(/with love/gi, '<em style="color: var(--gold-primary); font-style: italic;">$&</em>');
             }
@@ -1839,15 +1849,25 @@
           }
         }
 
+        // Поле за детали од админ панелот
+        let detailsHtml = '';
+        let info = dog.birth || dog.details || dog.role;
+        // Ги бришеме старите default вредности како "Show Dog" доколку нема вистински датум
+        if (info && info.trim() !== 'Show Dog') {
+          detailsHtml = `
+            <ul class="dog-spec-list">
+              <li><span>Details</span>: <span>${info}</span></li>
+            </ul>
+          `;
+        }
+
         return `
           <div class="dog-feature-card">
             ${mediaHtml}
             <div class="dog-details-body">
               <h3 class="dog-title-name">${dog.name || ''}</h3>
               <div class="dog-registered-lineage">${dog.lineage || ''}</div>
-              <ul class="dog-spec-list">
-                <li><span>Details</span>: <span>${dog.role || 'Show Dog'}</span></li>
-              </ul>
+              ${detailsHtml}
               <p class="dog-narrative">${dog.narrative || ''}</p>
             </div>
           </div>
