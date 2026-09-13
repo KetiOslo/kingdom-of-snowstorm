@@ -594,6 +594,9 @@
     const statusEl = document.getElementById(msgId);
     if(!token) { alert('Внесете токен најгоре!'); return; }
 
+    // ОВОЈ РЕД ГО РЕШАВА ПРОБЛЕМОТ: Гарантира дека пораката ќе биде видлива при секое кликање
+    statusEl.style.display = 'block';
+    
     statusEl.className = 'status loading';
     statusEl.innerText = '⏳ Се синхронизира со GitHub...';
 
