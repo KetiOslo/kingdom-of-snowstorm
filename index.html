@@ -1248,7 +1248,7 @@
     </div>
   </section>
 
-  <!-- TAB 4: LITTERS (НОВ СТРУКТУРИРАН ДЕЛ) -->
+  <!-- TAB 4: LITTERS -->
   <section id="tab-litters" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1256,7 +1256,7 @@
         <h2 class="section-maintitle">Litters & Planned Matings</h2>
       </div>
 
-      <!-- 1. Очекувано легло (Upcoming Planned Litter) -->
+      <!-- 1. Очекувано легло -->
       <div id="upcomingLitterWrapper" style="margin-bottom: 50px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> Upcoming Planned Litter
@@ -1264,7 +1264,7 @@
         <div id="dynamicUpcomingLitter"></div>
       </div>
 
-      <!-- 2. Моментално легло (Current Active Litter) -->
+      <!-- 2. Моментално легло -->
       <div id="currentLitterWrapper" style="margin-bottom: 50px; display: none;">
         <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
           <i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> Current Active Litter
@@ -1272,7 +1272,7 @@
         <div id="dynamicCurrentLitter"></div>
       </div>
 
-      <!-- 3. Архива / Минати легла -->
+      <!-- 3. Архива -->
       <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;">
         Previous Litters Archive
       </h3>
@@ -1380,9 +1380,7 @@
           </div>
         </div>
 
-        <div class="blog-cards-stack" id="dynamicBlogContainer">
-          <!-- Динамички блогови -->
-        </div>
+        <div class="blog-cards-stack" id="dynamicBlogContainer"></div>
       </div>
     </div>
   </section>
@@ -1569,7 +1567,6 @@
       return imgList.filter(Boolean);
     }
 
-    // ИНТЕЛИГЕНТНО ИЗБОР НА ТАБ И ЗАЧУВУВАЊЕ ПРИ РЕФРЕШ
     function selectTab(tabId, saveState = true) {
       document.querySelectorAll('.site-tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.nav-tab-btn').forEach(link => link.classList.remove('active'));
@@ -1596,7 +1593,6 @@
       document.getElementById('kennel-main-nav').classList.toggle('show');
     }
 
-    // Затварање на мени при скролање на мобилен
     window.addEventListener('scroll', () => {
       const navMenu = document.getElementById('kennel-main-nav');
       if (navMenu && navMenu.classList.contains('show')) {
@@ -1604,7 +1600,6 @@
       }
     });
 
-    // ЗАТВОРАЊЕ НА LIGHTBOX СО СКРОЛАЊЕ (ЛИЗГАЊЕ) НА МОБИЛЕН
     let touchStartY = 0;
     window.addEventListener('touchstart', e => {
       touchStartY = e.touches[0].clientY;
@@ -1656,12 +1651,6 @@
           if (h.hero_desc) document.getElementById('dyn-hero-desc').innerText = h.hero_desc;
           if (h.box_title) document.getElementById('dyn-box-title').innerText = h.box_title;
           if (h.box_desc) document.getElementById('dyn-box-desc').innerText = h.box_desc;
-          if (h.val1_title) document.getElementById('dyn-val1-title').innerText = h.val1_title;
-          if (h.val1_desc) document.getElementById('dyn-val1-desc').innerText = h.val1_desc;
-          if (h.val2_title) document.getElementById('dyn-val2-title').innerText = h.val2_title;
-          if (h.val2_desc) document.getElementById('dyn-val2-desc').innerText = h.val2_desc;
-          if (h.val3_title) document.getElementById('dyn-val3-title').innerText = h.val3_title;
-          if (h.val3_desc) document.getElementById('dyn-val3-desc').innerText = h.val3_desc;
         }
       } catch(e) {}
 
@@ -1715,23 +1704,19 @@
         }
       } catch(e) {}
 
-      // ЗАСЕБНО ВЧИТУВАЊЕ НА ЛЕГЛА (УПОМИНИ, МОМЕНТАЛНИ И АРХИВА)
       try {
         const res = await fetch('content/litters.json?t=' + ts);
         if (res.ok) {
           const l = await res.json();
           
-          // 1. Очекувано легло
           if (l.upcoming && (l.upcoming.title || l.upcoming.description || l.upcoming.image)) {
             renderUpcomingLitter(l.upcoming);
           }
           
-          // 2. Моментално легло
           if (l.current && (l.current.title || l.current.description || l.current.image)) {
             renderCurrentLitter(l.current);
           }
 
-          // 3. Архивирани легла
           cachedLittersList = l.litters || l.items || [];
           renderLitters(cachedLittersList);
         }
@@ -1750,7 +1735,6 @@
 
       loadDynamicGallery();
 
-      // ПРОВЕРКА НА АКТИВЕН ТАБ ПРИ РЕФРЕШ
       const hashTab = window.location.hash.replace('#', '');
       const savedTab = localStorage.getItem('active_kennel_tab');
       if (hashTab && document.getElementById('tab-' + hashTab)) {
