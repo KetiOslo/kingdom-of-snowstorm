@@ -1,4 +1,17 @@
 {
+  "upcoming": {
+    "title": "Oslo X Galla",
+    "description": "",
+    "images": [
+      "content/images/1789297628214_0_Picsart_26-08-30_10-27-35-669_(1).jpg",
+      "content/images/1789297684437_0_Picsart_24-09-23_11-56-44-312.jpg"
+    ]
+  },
+  "current": {
+    "title": "Current litter \"E\"",
+    "description": "",
+    "images": []
+  },
   "litters": [
     {
       "title": "Litter A Just (Giota di Vivere x Just Perfect Leo)",
