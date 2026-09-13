@@ -308,7 +308,6 @@
         document.getElementById('s_fb').value = d.facebook_url || '';
       }
 
-      // Специјално вчитување за Леглата (да ги опфати upcoming, current и litters)
       const rL = await fetch('../content/litters.json?t=' + new Date().getTime());
       if(rL.ok) {
         const d = await rL.json();
@@ -438,6 +437,7 @@
         <label>Име:</label><input type="text" value="${dog.name || ''}" onchange="dogsData[${i}].name = this.value">
         <label>Линија:</label><input type="text" value="${dog.lineage || ''}" onchange="dogsData[${i}].lineage = this.value">
         <label>Пол:</label><input type="text" value="${dog.gender || ''}" onchange="dogsData[${i}].gender = this.value">
+        <label>Датум на раѓање / Детали (пр: 12.05.2023):</label><input type="text" value="${dog.birth || dog.details || ''}" onchange="dogsData[${i}].birth = this.value">
         <label>Фотографии (може повеќе разделени со запирка):</label><input type="text" id="dog_${i}" value="${dog.image || ''}" onchange="dogsData[${i}].image = this.value">
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', (val) => { dogsData[${i}].image = val; });"></div>
         <label>Опис:</label>
@@ -451,7 +451,7 @@
       </div>`;
     });
   }
-  function addDogItem() { dogsData.push({ name: "", lineage: "", gender: "", image: "", narrative: "" }); renderDogs(); }
+  function addDogItem() { dogsData.push({ name: "", lineage: "", gender: "", birth: "", image: "", narrative: "" }); renderDogs(); }
 
   function renderLitters() {
     const c = document.getElementById('litters-container'); c.innerHTML = '';
@@ -531,7 +531,6 @@
     renderBlog();
   }
 
-  // --- GET DATA FUNCTIONS ---
   function getHomeData() {
     return {
       hero_title: document.getElementById('h_title').value,
@@ -557,7 +556,6 @@
     };
   }
   
-  // Функција за собирање на податоците од Легла
   function getLittersData() {
     const parseImg = str => str ? str.split(',').map(s=>s.trim()).filter(Boolean) : [];
     return {
