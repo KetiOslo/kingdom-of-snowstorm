@@ -6,7 +6,9 @@
       "caption": "Proud moments representing Kingdom of Snowstorm at prestigious FCI international shows.",
       "category": "Shows",
       "caption_en": "Proud moments representing Kingdom of Snowstorm at prestigious FCI international shows.",
-      "title_en": "World & European Show Rings"
+      "title_en": "World & European Show Rings",
+      "title_mk": "Светски и европски прстени",
+      "caption_mk": "Горди моменти кои го претставуваат Кралство на снежна бура на престижни меѓународни ревии на FCI."
     },
     {
       "title": "Home Life & Daily Cuddles",
@@ -14,7 +16,9 @@
       "caption": "Our Bichons are raised in our home, surrounded by endless love and care.",
       "category": "Home Life",
       "caption_en": "Our Bichons are raised in our home, surrounded by endless love and care.",
-      "title_en": "Home Life & Daily Cuddles"
+      "title_en": "Home Life & Daily Cuddles",
+      "title_mk": "Домашен живот и секојдневни гушки",
+      "caption_mk": "Нашите бишони се израснати во нашиот дом, опкружени со бескрајна љубов и грижа."
     },
     {
       "title": "Puppy Nursery & First Steps",
@@ -22,7 +26,9 @@
       "caption": "From their very first days, our puppies are raised with care, attention and gentle socialisation, giving each one a warm and loving start before beginning their journey with their new family.",
       "category": "Puppies",
       "caption_en": "From their very first days, our puppies are raised with care, attention and gentle socialisation, giving each one a warm and loving start before beginning their journey with their new family.",
-      "title_en": "Puppy Nursery & First Steps"
+      "title_en": "Puppy Nursery & First Steps",
+      "title_mk": "Расадник за кученца и први чекори",
+      "caption_mk": "Уште од првите денови, нашите кученца се одгледуваат со грижа, внимание и нежна социјализација, давајќи му на секое од нив топол и љубовен почеток пред да го започнат своето патување со своето ново семејство."
     },
     {
       "title": "Grooming & Care",
@@ -30,7 +36,9 @@
       "image": "content/images/1789253977452_0_Picsart_26-06-17_07-48-55-058.jpg",
       "caption": "Regular grooming is an important part of life with our Bichons. Maintaining the coat between shows is essential for keeping it healthy, clean and in beautiful condition, so each dog is always ready to look its best in the ring.",
       "caption_en": "Regular grooming is an important part of life with our Bichons. Maintaining the coat between shows is essential for keeping it healthy, clean and in beautiful condition, so each dog is always ready to look its best in the ring.",
-      "title_en": "Grooming & Care"
+      "title_en": "Grooming & Care",
+      "title_mk": "Средување и нега",
+      "caption_mk": "Редовното средување е важен дел од животот со нашите Bichons. Одржувањето на капутот помеѓу претставите е од суштинско значење за да биде здрав, чист и во убава состојба, така што секое куче е секогаш подготвено да изгледа најдобро во рингот."
     }
   ]
 }
