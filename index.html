@@ -225,7 +225,7 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
     
-    /* LANGUAGE TOGGLE BUTTONS (EN & MK) - ПОПРАВЕНИ ЗА ЦРНИ БУКВИ И ЦЕЛОСНО ФАЌАЊЕ НА MK */
+    /* LANGUAGE TOGGLE BUTTONS (EN & MK) - ЦРНИ БУКВИ И ЦЕЛОСНО ФАЌАЊЕ НА MK */
     .lang-group {
       display: flex;
       gap: 5px;
@@ -721,6 +721,21 @@
       margin-bottom: 16px;
       border-bottom: 1px solid var(--pistachio-border);
       flex-wrap: wrap;
+    }
+
+    .fb-iframe-wrapper {
+      width: 100%;
+      height: 380px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--pistachio-border);
+      background: var(--pistachio-soft);
+    }
+
+    .fb-iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .blog-cards-stack {
@@ -1461,7 +1476,7 @@
     </div>
   </div>
 
-  <!-- TAB 7: BLOG & FACEBOOK (ИНТЕГРИРАН ELFSIGHT ВИЏЕТ) -->
+  <!-- TAB 7: BLOG & FACEBOOK (ОФИЦИЈАЛЕН META FACEBOOK PAGE PLUGIN) -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1491,10 +1506,18 @@
             </a>
           </div>
 
-          <!-- ELFSIGHT FACEBOOK WIDGET INTEGRATION -->
-          <div style="width: 100%; border-radius: 12px; overflow: hidden; background: var(--white);">
-            <script src="https://elfsightcdn.com/platform.js" async></script>
-            <div class="elfsight-app-f8f5012f-2000-44d3-9505-39dcd63e8b51" data-elfsight-app-lazy></div>
+          <!-- ОФИЦИЈАЛЕН FACEBOOK PAGE PLUGIN IFRAME (БЕЗ РЕКЛАМИ И БЕЗ ВИДЖЕТ ТЕКСТОВИ) -->
+          <div class="fb-iframe-wrapper">
+            <iframe 
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdom.of.snow.storm.kennel%2F&tabs=timeline&width=500&height=380&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true" 
+              width="100%" 
+              height="380" 
+              style="border:none;overflow:hidden" 
+              scrolling="no" 
+              frameborder="0" 
+              allowfullscreen="true" 
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+            </iframe>
           </div>
         </div>
 
