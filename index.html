@@ -225,7 +225,7 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
     
-    /* LANGUAGE TOGGLE BUTTONS (EN & MK) - ЦРНИ БУКВИ И ЦЕЛОСНО ФАЌАЊЕ НА MK */
+    /* LANGUAGE TOGGLE BUTTONS (EN & MK) - СТАТИЧКИ ЦРНИ БУКВИ, ЗЛАТНИ КОГА СЕ АКТИВНИ */
     .lang-group {
       display: flex;
       gap: 5px;
@@ -249,11 +249,12 @@
       align-items: center;
       justify-content: center;
       box-shadow: none !important;
+      transition: var(--transition);
     }
     
     .btn-lang.active {
-      background-color: var(--gold-primary) !important;
-      color: var(--white) !important;
+      background: var(--gold-gradient) !important;
+      color: #FFFFFF !important;
       border-color: var(--gold-primary);
       box-shadow: 0 2px 6px rgba(197, 160, 89, 0.4) !important;
     }
@@ -261,6 +262,7 @@
     .btn-lang:hover {
       border-color: var(--gold-hover);
       background-color: var(--pistachio-soft) !important;
+      color: #000000 !important;
     }
 
     /* HEADER */
@@ -694,54 +696,6 @@
     .mini-thumb:hover {
       border-color: var(--gold-primary);
       transform: translateY(-2px);
-    }
-
-    /* BLOG & FACEBOOK */
-    .blog-feed-container {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 25px;
-      align-items: start;
-    }
-
-    .fb-live-card {
-      padding: 18px;
-      background: var(--white);
-      border-radius: 14px;
-      border: 1px solid var(--pistachio-border);
-      box-shadow: var(--shadow-card);
-    }
-
-    .fb-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 14px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--pistachio-border);
-      flex-wrap: wrap;
-    }
-
-    .fb-iframe-wrapper {
-      width: 100%;
-      height: 380px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--pistachio-border);
-      background: var(--pistachio-soft);
-    }
-
-    .fb-iframe-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .blog-cards-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
     }
 
     /* GALLERY */
@@ -1191,7 +1145,7 @@
         font-size: 0.8rem;
       }
 
-      .hero-grid, .contact-columns, .footer-grid-container, .blog-feed-container {
+      .hero-grid, .contact-columns, .footer-grid-container {
         grid-template-columns: 1fr;
         gap: 20px;
       }
@@ -1476,53 +1430,33 @@
     </div>
   </div>
 
-  <!-- TAB 7: BLOG & FACEBOOK (ОФИЦИЈАЛЕН META FACEBOOK PAGE PLUGIN) -->
+  <!-- TAB 7: BLOG & FACEBOOK BUTTON -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
         <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Facebook Feed</h2>
         <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
-          Follow our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.
+          Follow our latest dog show achievements, puppy announcements, and daily stories on our official Facebook page.
         </p>
       </div>
 
-      <div class="blog-feed-container">
-        <div class="fb-live-card">
-          <div class="fb-card-header">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 2.2rem;"></i>
-              <div>
-                <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); line-height: 1.1;" data-i18n="fb_timeline_title">
-                  Facebook Timeline
-                </h3>
-                <span style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="fb_timeline_sub">
-                  Live updates directly from @kingdom.of.snow.storm.kennel
-                </span>
-              </div>
-            </div>
-            <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel/" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 16px; font-size: 0.8rem;">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="open_fb">Open Facebook</span>
-            </a>
-          </div>
-
-          <!-- ОФИЦИЈАЛЕН FACEBOOK PAGE PLUGIN IFRAME (БЕЗ РЕКЛАМИ И БЕЗ ВИДЖЕТ ТЕКСТОВИ) -->
-          <div class="fb-iframe-wrapper">
-            <iframe 
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdom.of.snow.storm.kennel%2F&tabs=timeline&width=500&height=380&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true" 
-              width="100%" 
-              height="380" 
-              style="border:none;overflow:hidden" 
-              scrolling="no" 
-              frameborder="0" 
-              allowfullscreen="true" 
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-            </iframe>
-          </div>
-        </div>
-
-        <div class="blog-cards-stack" id="dynamicBlogContainer"></div>
+      <!-- ЕЛЕГАНТНА КАРТИЧКА СО ФЕЈСБУК КОПЧЕ ЗА ДА СЕ ОСЛОБОДИ ПРОСТОР -->
+      <div class="card-luxury" style="text-align: center; padding: 35px 20px; margin-bottom: 40px; border: 2px solid var(--gold-border);">
+        <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 2.8rem; margin-bottom: 14px;"></i>
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 10px;" data-i18n="fb_card_title">
+          Official Facebook Page
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 22px;" data-i18n="fb_card_desc">
+          Follow our daily stories, show ring results, and puppy updates directly on our official page.
+        </p>
+        <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="open_fb">Open Facebook</span>
+        </a>
       </div>
+
+      <!-- CMS BLOG POSTS -->
+      <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
     </div>
   </section>
 
@@ -1753,9 +1687,9 @@
         filter_grooming: "Груминг",
         blog_pretitle: "Ажурирања и согледувања во живо",
         blog_maintitle: "Новости и фејсбук објави",
-        blog_subtitle: "Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни синхронизирани директно од нашата официјална Фејсбук страница.",
-        fb_timeline_title: "Фејсбук хронологија",
-        fb_timeline_sub: "Ажурирања во живо директно од @kingdom.of.snow.storm.kennel",
+        blog_subtitle: "Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни на нашата официјална Фејсбук страница.",
+        fb_card_title: "Официјална Фејсбук страница",
+        fb_card_desc: "Следете ги нашите секојдневни приказни, резултати од изложби и ажурирања за кутриња директно на нашата официјална страница.",
         open_fb: "Отворете го Фејсбук",
         contact_pretitle: "Стапете во контакт",
         contact_maintitle: "Контактирајте го Kingdom of Snowstorm",
@@ -1846,9 +1780,9 @@
         filter_grooming: "Grooming",
         blog_pretitle: "Live Updates & Insights",
         blog_maintitle: "Kennel News & Facebook Feed",
-        blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories synced directly from our official Facebook page.",
-        fb_timeline_title: "Facebook Timeline",
-        fb_timeline_sub: "Live updates directly from @kingdom.of.snow.storm.kennel",
+        blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories on our official Facebook page.",
+        fb_card_title: "Official Facebook Page",
+        fb_card_desc: "Follow our daily stories, show ring results, and puppy updates directly on our official page.",
         open_fb: "Open Facebook",
         contact_pretitle: "Get In Touch",
         contact_maintitle: "Contact Kingdom of Snowstorm",
