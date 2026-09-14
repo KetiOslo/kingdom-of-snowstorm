@@ -1179,9 +1179,6 @@
           <a id="link-vi" href="viber://chat?number=%2B38970300013" class="brand-btn btn-vi" title="Viber Chat">
             <i class="fa-brands fa-viber"></i>
           </a>
-          <a id="link-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb" title="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-          </a>
         </div>
         <div class="lang-group">
           <button id="btnEn" class="brand-btn btn-lang" onclick="setLanguage('en')" title="English">EN</button>
@@ -1430,29 +1427,18 @@
     </div>
   </div>
 
-  <!-- TAB 7: BLOG & MINIMALIST FB FOOTER -->
+  <!-- TAB 7: BLOG -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
         <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
-        <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Facebook Feed</h2>
+        <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Updates</h2>
         <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
-          Follow our latest dog show achievements, puppy announcements, and daily stories on our official Facebook page.
+          Follow our latest dog show achievements, puppy announcements, and daily stories.
         </p>
       </div>
 
-      <!-- МИНИМАЛИСТИЧКО ФУТЕРЧЕ ЗА ФЕЈСБУК -->
-      <div style="background: var(--white); border: 1px solid var(--pistachio-border); border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; box-shadow: var(--shadow-card);">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 1.5rem;"></i>
-          <span style="font-size: 0.9rem; font-weight: 600; color: var(--pistachio-dark);" data-i18n="fb_card_desc">Follow our daily stories and show results on Facebook.</span>
-        </div>
-        <a href="https://www.facebook.com/kingdom.of.snow.storm.kennel" target="_blank" rel="noopener noreferrer" class="btn-lux btn-lux-gold" style="padding: 8px 18px; font-size: 0.78rem; min-height: 36px;">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="open_fb">Open Facebook</span>
-        </a>
-      </div>
-
-      <!-- CMS BLOG POSTS -->
+      <!-- CMS BLOG POST्स -->
       <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
     </div>
   </section>
@@ -1588,9 +1574,6 @@
       <div>
         <h4 class="footer-header-label" data-i18n="footer_social_title">Social & Connect</h4>
         <div style="display: flex; gap: 10px; margin-top: 14px;">
-          <a id="dyn-footer-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb">
-            <i class="fa-brands fa-facebook-f"></i>
-          </a>
           <a id="dyn-footer-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="brand-btn btn-wa">
             <i class="fa-brands fa-whatsapp"></i>
           </a>
@@ -1683,10 +1666,8 @@
         filter_puppies: "Кутриња",
         filter_grooming: "Груминг",
         blog_pretitle: "Ажурирања и согледувања во живо",
-        blog_maintitle: "Новости и фејсбук објави",
-        blog_subtitle: "Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни на нашата официјална Фејсбук страница.",
-        fb_card_desc: "Следете ги нашите секојдневни приказни, резултати од изложби и ажурирања директно на Фејсбук.",
-        open_fb: "Отворете го Фејсбук",
+        blog_maintitle: "Новости и објави",
+        blog_subtitle: "Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни.",
         contact_pretitle: "Стапете во контакт",
         contact_maintitle: "Контактирајте го Kingdom of Snowstorm",
         contact_subtitle: "Со задоволство одговараме на прашања во врска со нашите кучиња, легла или расата Бишон Фризе.",
@@ -1775,10 +1756,8 @@
         filter_puppies: "Puppies",
         filter_grooming: "Grooming",
         blog_pretitle: "Live Updates & Insights",
-        blog_maintitle: "Kennel News & Facebook Feed",
-        blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories on our official Facebook page.",
-        fb_card_desc: "Follow our daily stories and show results on Facebook.",
-        open_fb: "Open Facebook",
+        blog_maintitle: "Kennel News & Updates",
+        blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories.",
         contact_pretitle: "Get In Touch",
         contact_maintitle: "Contact Kingdom of Snowstorm",
         contact_subtitle: "We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.",
@@ -2121,10 +2100,6 @@
         const viUrl = 'viber://chat?number=%2B' + cleanPhone;
         ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waUrl; });
         ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => { const el = document.getElementById(id); if (el) el.href = viUrl; });
-      }
-      if (s.facebook_url) {
-        const fbEl = document.getElementById('dyn-footer-fb');
-        if (fbEl) fbEl.href = s.facebook_url;
       }
       const fDesc = getLocalizedField(s, 'footer_desc');
       if (fDesc) document.getElementById('dyn-footer-desc').innerText = fDesc;
