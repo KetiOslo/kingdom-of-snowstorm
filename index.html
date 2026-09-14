@@ -225,26 +225,29 @@
     .btn-vi { background-color: var(--viber-color); }
     .btn-fb { background-color: var(--facebook-color); }
     
-    /* LANGUAGE TOGGLE BUTTONS (EN & MK) */
+    /* LANGUAGE TOGGLE BUTTONS (EN & MK) - ПОПРАВЕНИ ЗА ЦРНИ БУКВИ И ЦЕЛОСНО ФАЌАЊЕ НА MK */
     .lang-group {
       display: flex;
-      gap: 4px;
+      gap: 5px;
       align-items: center;
-      margin-left: 12px;
+      margin-left: 10px;
       padding-left: 10px;
       border-left: 1px solid var(--pistachio-border);
     }
     
     .btn-lang {
       background-color: transparent !important;
-      color: var(--pistachio-dark);
+      color: #000000 !important;
       border: 1.5px solid var(--gold-primary);
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      width: 23px;
-      height: 23px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       box-shadow: none !important;
     }
     
@@ -257,7 +260,6 @@
     
     .btn-lang:hover {
       border-color: var(--gold-hover);
-      color: var(--gold-hover);
       background-color: var(--pistachio-soft) !important;
     }
 
@@ -721,21 +723,6 @@
       flex-wrap: wrap;
     }
 
-    .fb-iframe-wrapper {
-      width: 100%;
-      height: 360px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--pistachio-border);
-      background: var(--pistachio-soft);
-    }
-
-    .fb-iframe-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
     .blog-cards-stack {
       display: flex;
       flex-direction: column;
@@ -1147,9 +1134,9 @@
       }
 
       .btn-lang {
-        width: 21px;
-        height: 21px;
-        font-size: 0.55rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.6rem;
       }
 
       .kennel-master-logo {
@@ -1192,10 +1179,6 @@
       .hero-grid, .contact-columns, .footer-grid-container, .blog-feed-container {
         grid-template-columns: 1fr;
         gap: 20px;
-      }
-
-      .fb-iframe-wrapper {
-        height: 320px;
       }
     }
   </style>
@@ -1478,7 +1461,7 @@
     </div>
   </div>
 
-  <!-- TAB 7: BLOG & FACEBOOK -->
+  <!-- TAB 7: BLOG & FACEBOOK (ИНТЕГРИРАН ELFSIGHT ВИЏЕТ) -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       <div class="section-head">
@@ -1508,14 +1491,10 @@
             </a>
           </div>
 
-          <div class="fb-iframe-wrapper">
-            <iframe 
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdom.of.snow.storm.kennel%2F&tabs=timeline&width=500&height=380&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false" 
-              width="100%" 
-              height="380" 
-              scrolling="yes" 
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-            </iframe>
+          <!-- ELFSIGHT FACEBOOK WIDGET INTEGRATION -->
+          <div style="width: 100%; border-radius: 12px; overflow: hidden; background: var(--white);">
+            <script src="https://elfsightcdn.com/platform.js" async></script>
+            <div class="elfsight-app-f8f5012f-2000-44d3-9505-39dcd63e8b51" data-elfsight-app-lazy></div>
           </div>
         </div>
 
@@ -2288,7 +2267,7 @@
       const container = document.getElementById('dynamicUpcomingLitter');
       if (!wrapper || !container) return;
       
-      if (!up || (!up.title && !up.title_mk && !up.title_en && !up.description && !up.description_mk && !up.description_en && !up.image)) {
+      if (!up || (!up.title && !up.title_mk && !up.title_en && !up.description && !up.description_mk && !up.description_en && !up.image && !up.images)) {
         wrapper.style.display = 'none';
         return;
       }
@@ -2353,7 +2332,7 @@
       const container = document.getElementById('dynamicCurrentLitter');
       if (!wrapper || !container) return;
 
-      if (!curr || (!curr.title && !curr.title_mk && !curr.title_en && !curr.description && !curr.description_mk && !curr.description_en && !curr.image)) {
+      if (!curr || (!curr.title && !curr.title_mk && !curr.title_en && !curr.description && !curr.description_mk && !curr.description_en && !curr.image && !curr.images)) {
         wrapper.style.display = 'none';
         return;
       }
@@ -2497,7 +2476,7 @@
         let imgList = parseImages(post);
         let mediaHtml = '';
         const titleText = getLocalizedField(post, 'title');
-        const catText = getLocalizedField(post, 'category') || (currentLang === 'mk' ? 'НОВОСТИ' : 'NEWS');
+        const catText = getLocalizedField(post, 'category') || translations[currentLang].news_label || 'NEWS';
         const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || getLocalizedField(post, 'excerpt') || '';
 
         if (imgList.length > 0) {
