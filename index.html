@@ -2530,8 +2530,9 @@
     function updateLightboxContent(title, caption) {
       if (currentLightboxImages.length === 0) return;
       document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
-      document.getElementById('lightboxTitle').innerText = title || 'Kennel Photo';
-      document.getElementById('lightboxCaption').innerText = caption || '';
+      // Поправено: користење на innerHTML наместо innerText за правилно прикажување на <br>
+      document.getElementById('lightboxTitle').innerHTML = title || 'Kennel Photo';
+      document.getElementById('lightboxCaption').innerHTML = caption || '';
     }
 
     function changeLightboxImage(direction) {
