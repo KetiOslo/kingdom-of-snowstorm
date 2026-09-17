@@ -12,13 +12,19 @@ async function autoTranslate(sourceId, targetId, fromLang, toLang) {
       return;
     }
 
-    const btn = event.currentTarget;
-    const origText = btn.innerText;
-    btn.innerText = 'Преведувам...';
-    btn.disabled = true;
+    // Безбедно селектирање на копчето преку глобалниот window.event
+    const e = window.event;
+    const btn = e ? (e.currentTarget || e.target) : null;
+    let origText = '';
+    
+    if (btn) {
+        origText = btn.innerText;
+        btn.innerText = 'Преведувам...';
+        btn.disabled = true;
+    }
 
     try {
-      // Користиме POST барање за да овозможиме превод на долги текстови (пр. цели блог постови)
+      // Користиме POST барање за да овозможиме превод на долги текстови
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLang}&tl=${toLang}&dt=t`;
       
       const res = await fetch(url, {
@@ -39,7 +45,7 @@ async function autoTranslate(sourceId, targetId, fromLang, toLang) {
         });
       }
 
-      // Ги поправаме таговите доколку Google вметнал празни места (пр. < b > станува <b>)
+      // Ги поправаме таговите доколку Google вметнал празни места
       translatedText = translatedText.replace(/<\s*\/\s*/g, '</').replace(/<\s+/g, '<').replace(/\s+>/g, '>');
 
       // Го внесуваме преводот во целното поле
@@ -49,12 +55,17 @@ async function autoTranslate(sourceId, targetId, fromLang, toLang) {
         targetEl.innerHTML = translatedText;
       }
       
-      triggerFieldUpdates();
+      // Осигуруваме дека функцијата постои пред да ја повикаме
+      if (typeof triggerFieldUpdates === 'function') {
+          triggerFieldUpdates();
+      }
     } catch(err) {
       alert('Грешка при комуникација со преведувачот.');
       console.error(err);
     } finally {
-      btn.innerText = origText;
-      btn.disabled = false;
+      if (btn) {
+          btn.innerText = origText || 'Преведи';
+          btn.disabled = false;
+      }
     }
-  }
+}
