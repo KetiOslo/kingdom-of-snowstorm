@@ -1433,16 +1433,24 @@
   <!-- TAB 7: BLOG -->
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
-      <div class="section-head">
-        <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
-        <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Updates</h2>
-        <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
-          Follow our latest dog show achievements, puppy announcements, and daily stories.
-        </p>
+      <div id="blogListView">
+        <div class="section-head">
+          <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
+          <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Updates</h2>
+          <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
+            Follow our latest dog show achievements, puppy announcements, and daily stories.
+          </p>
+        </div>
+        <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
       </div>
 
-      <!-- CMS BLOG POSTS -->
-      <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
+      <!-- Single Blog Post Detail View -->
+      <div id="blogDetailView" style="display: none; max-width: 900px; margin: 0 auto;">
+        <button class="btn-lux btn-lux-primary" onclick="closeBlogPost()" style="margin-bottom: 25px;">
+          <i class="fa-solid fa-arrow-left"></i> <span data-i18n="back_to_blog">Back to Blog</span>
+        </button>
+        <div class="card-luxury" id="blogDetailContent" style="padding: 35px;"></div>
+      </div>
     </div>
   </section>
 
@@ -1674,6 +1682,7 @@
         blog_pretitle: "Ажурирања и согледувања во живо",
         blog_maintitle: "Новости и објави",
         blog_subtitle: "Следете ги нашите најнови успеси на изложбите на кучиња, најави за кутриња и секојдневни приказни.",
+        back_to_blog: "Назад кон блог",
         contact_pretitle: "Стапете во контакт",
         contact_maintitle: "Контактирајте го Kingdom of Snowstorm",
         contact_subtitle: "Со задоволство одговараме на прашања во врска со нашите кучиња, легла или расата Бишон Фризе.",
@@ -1764,6 +1773,7 @@
         blog_pretitle: "Live Updates & Insights",
         blog_maintitle: "Kennel News & Updates",
         blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories.",
+        back_to_blog: "Back to Blog",
         contact_pretitle: "Get In Touch",
         contact_maintitle: "Contact Kingdom of Snowstorm",
         contact_subtitle: "We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.",
@@ -2405,43 +2415,96 @@
       const container = document.getElementById('dynamicBlogContainer');
       if (!container) return;
       
-      container.innerHTML = posts.map(post => {
+      container.innerHTML = posts.map((post, index) => {
         let imgList = parseImages(post);
         let mediaHtml = '';
         const titleText = getLocalizedField(post, 'title');
         const catText = getLocalizedField(post, 'category') || translations[currentLang].news_label || 'NEWS';
-        const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || getLocalizedField(post, 'excerpt') || '';
+        const excerptText = getLocalizedField(post, 'excerpt') || getLocalizedField(post, 'description') || '';
 
         if (imgList.length > 0) {
-          const safeTitle = getSafeString(titleText);
-          const imgData = getSafeString(imgList.join(','));
           const mainImgPath = resolveImagePath(imgList[0]);
-          
           mediaHtml += `
-            <div class="dog-portrait-container" style="height: 220px;" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)">
-              <img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'">
+            <div class="dog-portrait-container" style="height: 220px;" onclick="openBlogPost(${index})">
+              <img src="${mainImgPath}" alt="${getSafeString(titleText)}" onerror="this.src='2.png'">
             </div>
           `;
-          if (imgList.length > 1) {
-            const thumbs = imgList.map((img, idx) => {
-              const p = resolveImagePath(img);
-              return `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${p}" alt="Thumb"></div>`;
-            }).join('');
-            mediaHtml += `<div class="thumb-strip">${thumbs}</div>`;
-          }
         }
 
         return `
-          <div class="card-luxury" style="padding: 0; overflow: hidden;">
+          <div class="card-luxury" style="padding: 0; overflow: hidden; cursor: pointer;" onclick="openBlogPost(${index})">
             ${mediaHtml}
             <div style="padding: 24px;">
-              <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${catText}</span>
+              <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${catText} • ${post.date || ''}</span>
               <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${titleText}</h3>
-              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${contentText}</p>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${excerptText}</p>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    function openBlogPost(index) {
+      const post = cachedBlogPosts[index];
+      if (!post) return;
+
+      const titleText = getLocalizedField(post, 'title');
+      const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || getLocalizedField(post, 'excerpt') || '';
+      const dateText = post.date || '';
+      
+      let imgList = parseImages(post);
+      let galleryHtml = '';
+      if (imgList.length > 0) {
+        galleryHtml = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 25px;">`;
+        imgList.forEach((img, idx) => {
+          const p = resolveImagePath(img);
+          galleryHtml += `<div class="dog-portrait-container" style="height: 200px; border-radius: 8px;" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}"><img src="${p}" alt="Blog photo"></div>`;
+        });
+        galleryHtml += `</div>`;
+      }
+
+      // Поддршка за дополнителни редови/полиња ако се креирани
+      let customRowsHtml = '';
+      if (post.rows && Array.isArray(post.rows)) {
+        post.rows.forEach(row => {
+          const rowTitle = getLocalizedField(row, 'title');
+          const rowText = getLocalizedField(row, 'text');
+          let rowImgs = parseImages(row);
+          let rowImgHtml = '';
+          if (rowImgs.length > 0) {
+            rowImgHtml = `<div style="margin: 15px 0; display:flex; gap:10px; flex-wrap:wrap;">`;
+            rowImgs.forEach(ri => {
+              rowImgHtml += `<img src="${resolveImagePath(ri)}" style="max-height:200px; border-radius:8px; object-fit:cover;" alt="Row image">`;
+            });
+            rowImgHtml += `</div>`;
+          }
+          customRowsHtml += `
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--pistachio-border);">
+              ${rowTitle ? `<h4 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--pistachio-dark); margin-bottom: 8px;">${rowTitle}</h4>` : ''}
+              ${rowImgHtml}
+              <div style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8;">${rowText}</div>
+            </div>
+          `;
+        });
+      }
+
+      document.getElementById('blogDetailContent').innerHTML = `
+        <span style="font-size: 0.78rem; font-weight: 700; color: var(--gold-hover);">${dateText}</span>
+        <h1 style="font-family: var(--font-serif); font-size: 2.2rem; margin: 12px 0 20px; color: var(--pistachio-dark);">${titleText}</h1>
+        ${galleryHtml}
+        <div style="font-size: 1.02rem; color: var(--text-muted); line-height: 1.85;">${contentText}</div>
+        ${customRowsHtml}
+      `;
+
+      document.getElementById('blogListView').style.display = 'none';
+      document.getElementById('blogDetailView').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeBlogPost() {
+      document.getElementById('blogDetailView').style.display = 'none';
+      document.getElementById('blogListView').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function getLocalizedCategory(cat) {
@@ -2530,7 +2593,6 @@
     function updateLightboxContent(title, caption) {
       if (currentLightboxImages.length === 0) return;
       document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
-      // Поправено: користење на innerHTML наместо innerText за правилно прикажување на <br>
       document.getElementById('lightboxTitle').innerHTML = title || 'Kennel Photo';
       document.getElementById('lightboxCaption').innerHTML = caption || '';
     }
