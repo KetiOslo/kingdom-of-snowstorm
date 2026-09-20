@@ -787,6 +787,7 @@
       if(!blogData[i]) return;
       blogData[i].title_mk = nl2br(card.querySelector(`[id^="blog_t_mk_"]`)?.value || '');
       blogData[i].title_en = nl2br(card.querySelector(`[id^="blog_t_en_"]`)?.value || '');
+      blogData[i].image = card.querySelector(`[id^="blog_"]`)?.value || blogData[i].image || '';
       blogData[i].excerpt_mk = card.querySelector(`[id^="blog_exc_mk_"]`)?.innerHTML || '';
       blogData[i].excerpt_en = card.querySelector(`[id^="blog_exc_en_"]`)?.innerHTML || '';
       blogData[i].content_mk = card.querySelector(`[id^="blog_cont_mk_"]`)?.innerHTML || '';
