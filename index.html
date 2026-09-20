@@ -147,15 +147,11 @@
     .card-luxury { background: var(--white); border-radius: 14px; padding: clamp(18px, 3.5vw, 30px); border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); transition: var(--transition); }
     .card-luxury:hover { box-shadow: var(--shadow-hover); border-color: var(--gold-border); }
 
-    /* STANDARD GRID (Адаптивен) */
+    /* STANDARD GRID */
     .dogs-luxury-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
     
-    /* СТРИКТНА 4-КОЛОНСКА МРЕЖА ЗА БЛОГ (да не се развлекува сликата) */
-    .blog-luxury-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
+    /* 4-COLUMN STRICT GRID FOR BLOG */
+    .blog-luxury-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
     .dog-feature-card { background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); display: flex; flex-direction: column; transition: var(--transition); }
     .dog-feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold-primary); }
@@ -201,7 +197,7 @@
     .lightbox-caption-area { padding: 16px 20px; background: var(--white); }
     .lightbox-close-btn { position: absolute; top: 10px; right: 12px; background: var(--white); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; color: var(--pistachio-dark); display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 10; }
 
-    /* КОНТАКТ ФОРМА */
+    /* CONTACT FORM */
     .contact-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
     .input-field-group { margin-bottom: 16px; }
     .input-field-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--pistachio-dark); }
@@ -228,7 +224,7 @@
     .float-chat-bubble { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white) !important; font-size: 1.35rem; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: var(--transition); }
     .float-chat-bubble:hover { transform: scale(1.1); }
 
-    /* RESPONSIVE МРЕЖА ЗА БЛОГОТ - Го спречува развлекувањето на мобилен/таблет */
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .blog-luxury-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -267,7 +263,7 @@
           <span class="org-label-text">FCI 11/23</span>
         </a>
         <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer" class="org-badge-link" title="KSM">
-          <img src="ksm.jpg" alt="KSM Logo" class="org-icon-img" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}">
+          <img src="ksm.jpg" alt="KSM Logo" class="org-icon-img" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}else if(this.dataset.t=='3'){this.dataset.t=4;this.src='KSM.jpg';}else if(this.dataset.t=='4'){this.dataset.t=5;this.src='KSM.png';}else{this.onerror=null;}">
           <span class="org-label-text">MKD 268</span>
         </a>
         <div class="fci-status-badge">
@@ -328,7 +324,7 @@
         <div class="prestige-box">
           <div class="prestige-org-logos">
             <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer"><img src="fci.png" alt="FCI"></a>
-            <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM"></a>
+            <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}else if(this.dataset.t=='3'){this.dataset.t=4;this.src='KSM.jpg';}else if(this.dataset.t=='4'){this.dataset.t=5;this.src='KSM.png';}else{this.onerror=null;}"></a>
           </div>
           <h3 id="dyn-box-title" data-i18n="box_title">FCI & KSM Official Standard</h3>
           <p id="dyn-box-desc" data-i18n="box_desc">Officially registered under FCI No. 11/23 and MKD No. 268.</p>
@@ -483,7 +479,6 @@
             Follow our latest dog show achievements, puppy announcements, and daily stories.
           </p>
         </div>
-        <!-- Променето во .blog-luxury-grid за да не се развлекува! -->
         <div class="blog-luxury-grid" id="dynamicBlogContainer"></div>
       </div>
 
@@ -578,7 +573,7 @@
         <p style="font-size: 0.92rem; line-height: 1.8; color: #A4BFA2;" id="dyn-footer-desc" data-i18n="footer_desc"></p>
         <div class="footer-affiliate-logos">
           <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer"><img src="fci.png" alt="FCI"></a>
-          <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM"></a>
+          <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}else if(this.dataset.t=='3'){this.dataset.t=4;this.src='KSM.jpg';}else if(this.dataset.t=='4'){this.dataset.t=5;this.src='KSM.png';}else{this.onerror=null;}"></a>
         </div>
       </div>
       <div>
@@ -833,7 +828,17 @@
         }
         let info = getLocalizedField(dog, 'details') || getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'role');
         let detailsHtml = (info && info.trim() !== 'Show Dog') ? `<ul class="dog-spec-list"><li><span>${info}</span></li></ul>` : '';
-        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><div class="dog-registered-lineage">${getLocalizedField(dog, 'lineage')}</div>${detailsHtml}<p class="dog-narrative">${getLocalizedField(dog, 'narrative')}</p></div></div>`;
+        return `
+          <div class="dog-feature-card">
+            ${mediaHtml}
+            <div class="dog-details-body">
+              <h3 class="dog-title-name">${nameText}</h3>
+              <div class="dog-registered-lineage">${getLocalizedField(dog, 'lineage')}</div>
+              ${detailsHtml}
+              <p class="dog-narrative">${getLocalizedField(dog, 'narrative')}</p>
+            </div>
+          </div>
+        `;
       }).join('');
     }
 
@@ -902,7 +907,15 @@
           const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
         }
-        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3><p class="dog-narrative">${descText}</p></div></div>`;
+        return `
+          <div class="dog-feature-card">
+            ${mediaHtml}
+            <div class="dog-details-body">
+              <h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3>
+              <p class="dog-narrative">${descText}</p>
+            </div>
+          </div>
+        `;
       }).join('');
     }
 
@@ -916,7 +929,16 @@
           mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
         }
         const descText = getLocalizedField(dog, 'description') || getLocalizedField(dog, 'narrative') || getLocalizedField(dog, 'details') || getLocalizedField(dog, 'status') || '';
-        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><p class="dog-narrative">${descText}</p><button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">${translations[currentLang].inquire_puppy}</button></div></div>`;
+        return `
+          <div class="dog-feature-card">
+            ${mediaHtml}
+            <div class="dog-details-body">
+              <h3 class="dog-title-name">${nameText}</h3>
+              <p class="dog-narrative">${descText}</p>
+              <button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">${translations[currentLang].inquire_puppy}</button>
+            </div>
+          </div>
+        `;
       }).join('');
     }
 
