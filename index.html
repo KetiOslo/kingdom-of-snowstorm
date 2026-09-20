@@ -37,12 +37,9 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
-  <!-- Twitter & WhatsApp Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frise Kennel Skopje Macedonia">
   <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
-  <meta itemprop="name" content="Kingdom of Snowstorm | FCI Bichon Frise Kennel Skopje Macedonia">
-  <meta itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
 
   <!-- Fonts & Brand Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -150,7 +147,16 @@
     .card-luxury { background: var(--white); border-radius: 14px; padding: clamp(18px, 3.5vw, 30px); border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); transition: var(--transition); }
     .card-luxury:hover { box-shadow: var(--shadow-hover); border-color: var(--gold-border); }
 
+    /* STANDARD GRID (Адаптивен) */
     .dogs-luxury-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    
+    /* СТРИКТНА 4-КОЛОНСКА МРЕЖА ЗА БЛОГ (да не се развлекува сликата) */
+    .blog-luxury-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
     .dog-feature-card { background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); display: flex; flex-direction: column; transition: var(--transition); }
     .dog-feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold-primary); }
     .dog-portrait-container { height: 240px; background: var(--pistachio-soft); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--pistachio-border); cursor: pointer; }
@@ -222,6 +228,10 @@
     .float-chat-bubble { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white) !important; font-size: 1.35rem; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: var(--transition); }
     .float-chat-bubble:hover { transform: scale(1.1); }
 
+    /* RESPONSIVE МРЕЖА ЗА БЛОГОТ - Го спречува развлекувањето на мобилен/таблет */
+    @media (max-width: 1024px) {
+      .blog-luxury-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 900px) {
       .container { padding: 0 12px; }
       .top-bar { padding: 5px 0; }
@@ -240,6 +250,9 @@
       nav ul.show { display: flex; }
       .nav-tab-btn { padding: 10px 8px; border-bottom: 1px solid var(--pistachio-cream); font-size: 0.8rem; }
       .hero-grid, .contact-columns, .footer-grid-container { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 650px) {
+      .blog-luxury-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -461,7 +474,7 @@
   <section id="tab-blog" class="site-tab-content">
     <div class="section-spacing container">
       
-      <!-- Листа со сите објави -->
+      <!-- Листа со сите објави (со нова СТРИКТНА 4-колонска мрежа) -->
       <div id="blogListView">
         <div class="section-head">
           <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
@@ -470,15 +483,16 @@
             Follow our latest dog show achievements, puppy announcements, and daily stories.
           </p>
         </div>
-        <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
+        <!-- Променето во .blog-luxury-grid за да не се развлекува! -->
+        <div class="blog-luxury-grid" id="dynamicBlogContainer"></div>
       </div>
 
-      <!-- Детален приказ на една објава (Се отвора при клик на било кој дел од картичката) -->
+      <!-- Детален приказ на една објава -->
       <div id="blogDetailView" style="display: none; max-width: 900px; margin: 0 auto;">
         <button class="btn-lux btn-lux-primary" onclick="closeBlogPost()" style="margin-bottom: 25px;">
           <i class="fa-solid fa-arrow-left"></i> <span data-i18n="back_to_blog">Back to Blog</span>
         </button>
-        <div class="card-luxury" id="blogDetailContent" style="padding: 35px;"></div>
+        <div class="card-luxury" id="blogDetailContent" style="padding: clamp(20px, 4vw, 35px);"></div>
       </div>
 
     </div>
@@ -611,62 +625,48 @@
 
     const translations = {
       mk: {
-        location_top: "Скопје, Северна Македонија",
-        nav_home: "Почетна", nav_about: "За нас", nav_dogs: "Наши кучиња", nav_litters: "Легла",
+        location_top: "Скопје, Северна Македонија", nav_home: "Почетна", nav_about: "За нас", nav_dogs: "Наши кучиња", nav_litters: "Легла",
         nav_available: "Слободни кучиња", nav_gallery: "Галерија", nav_blog: "Блог", nav_contact: "Контакт",
         hero_tag: "FCI Сертифицирано наследство • Скопје", hero_title: "Каде што шампионите се одгледуваат <em>со љубов</em>",
-        hero_desc: "Добредојдовте во Kingdom of Snowstorm, FCI регистриран одгледувач на Бишон Фризе со седиште во Скопје, Северна Македонија. Посветени на одгледување здрави, милени и извонредни кучиња со изложбен квалитет во срцето на нашето семејство.",
+        hero_desc: "Добредојдовте во Kingdom of Snowstorm, FCI регистриран одгледувач на Бишон Фризе со седиште во Скопје, Северна Македонија.",
         btn_meet_dogs: "Запознајте ги нашите кучиња", btn_contact_us: "Контактирајте нè",
-        box_title: "FCI & KSM Официјален стандард", box_desc: "Официјално регистрирани под FCI бр. 11/23 и МКД бр. 268. Посветени на етичко, здраво и шампионско зачувување на чистокрвниот Бишон Фризе.",
+        box_title: "FCI & KSM Официјален стандард", box_desc: "Официјално регистрирани под FCI бр. 11/23 и МКД бр. 268.",
         box_pill: "Шампиони и C.I.B. меѓународни крвни линии", val_pretitle: "Нашата посветеност", val_maintitle: "Одгледувачница исполнета со љубов",
-        val1_title: "Одгледани во нашиот дом", val1_desc: "Нашите кучиња се најпрвин сакани семејни членови. Тие напредуваат опкружени со постојан човечки допир, социјализација и бескрајни секојдневни галења.",
-        val2_title: "Стандарди за здравство и педигре", val2_desc: "Внимателно планирани парења според FCI стандардот, заштитувајќи ја беспрекорната генетска здравствена состојба, слаткиот темперамент и густите бели влакна.",
-        val3_title: "Извонредност во изложбените рингови", val3_desc: "Гордо ја претставуваме нашата одгледувачница на светски, европски изложби на кучиња, како и FCI национални и меѓународни натпревари со C.I.B. титули.",
+        val1_title: "Одгледани во нашиот дом", val1_desc: "Нашите кучиња се најпрвин сакани семејни членови.",
+        val2_title: "Стандарди за здравство и педигре", val2_desc: "Внимателно планирани парења според FCI стандардот.",
+        val3_title: "Извонредност во изложбените рингови", val3_desc: "Гордо ја претставуваме нашата одгледувачница на светски, европски изложби.",
         about_pretitle: "Нашето наследство", about_maintitle: "Приказната зад Kingdom of Snowstorm",
-        about_p1: "Јас сум <strong>Катерина Герасимовска</strong>, основач и сопственик на Kingdom of Snowstorm, FCI регистрирана одгледувачница за Бишон Фризе со седиште во Скопје, Северна Македонија.",
-        about_p2: "Приказната за Kingdom of Snowstorm започна во 2016 година, со едно мало бело куче Бишон Фризе по име <strong>Хана</strong>...",
-        about_p3: "Денес, на 10-годишна возраст, Хана сè уште зазема посебно место во моето срце.",
-        about_p4: "Со тек на време, приказната на Хана продолжува низ нејзината ќерка...",
-        about_p5: "Како што Kingdom of Snowstorm растеше...",
-        about_quote: "\"Името Kingdom of Snowstorm се роди од посебниот свет што го споделувам со моите бишони...\"",
-        dogs_pretitle: "Кралиското семејство", dogs_maintitle: "Нашите сакани бишони", dogs_subtitle: "Одгледани со најголема посветеност: увезен мажјак од Норвешка и повеќе генерации женки.",
+        dogs_pretitle: "Кралиското семејство", dogs_maintitle: "Нашите сакани бишони", dogs_subtitle: "Одгледани со најголема посветеност.",
         litters_pretitle: "Етичко одгледување", litters_maintitle: "Легла и планирани парења", upcoming_litter_title: "Планирано или актуелно парење", current_litter_title: "Тековно активно легло", archive_litters_title: "Архива на претходни легла",
         avail_pretitle: "Семејни придружници", avail_maintitle: "Слободни кучиња и кутриња", avail_box_title: "Што е вклучено со секое Snowstorm кутре?",
-        inc_1: "Официјално FCI извозно / национално педигре", inc_2: "Меѓународен ЕУ/МК пасош за миленичиња со микрочип", inc_3: "Целосни вакцини соодветни за возраста и третмани против паразити", inc_4: "Рана невролошка стимулација и домашна социјализација", inc_5: "Доживотно менторство од одгледувачот, совет за исхрана и нега на влакната",
-        btn_inquire_avail: "Контактирајте за достапност", gallery_pretitle: "Моменти и спомени", gallery_maintitle: "Галерија на одгледувачницата", gallery_subtitle: "Моменти од европски изложбени рингови, секојдневна семејна радост, нега и груминг.",
+        inc_1: "Официјално FCI извозно / национално педигре", inc_2: "Меѓународен ЕУ/МК пасош за миленичиња со микрочип", inc_3: "Целосни вакцини соодветни за возраста и третмани против паразити", inc_4: "Рана невролошка стимулација и домашна социјализација", inc_5: "Доживотно менторство од одгледувачот",
+        btn_inquire_avail: "Контактирајте за достапност", gallery_pretitle: "Моменти и спомени", gallery_maintitle: "Галерија на одгледувачницата", gallery_subtitle: "Моменти од европски изложбени рингови, секојдневна семејна радост.",
         filter_all: "Сите фотографии", filter_shows: "Изложби", filter_home: "Домашен живот", filter_puppies: "Кутриња", filter_grooming: "Груминг",
         blog_pretitle: "Ажурирања во живо", blog_maintitle: "Новости и објави", blog_subtitle: "Следете ги нашите најнови успеси на изложбите, најави за кутриња и приказни.",
-        back_to_blog: "Назад кон блоговите", contact_pretitle: "Стапете во контакт", contact_maintitle: "Контактирајте го Kingdom of Snowstorm", contact_subtitle: "Со задоволство одговараме на прашања во врска со нашите кучиња, легла или расата Бишон Фризе.",
+        back_to_blog: "Назад кон блоговите", contact_pretitle: "Стапете во контакт", contact_maintitle: "Контактирајте го Kingdom of Snowstorm", contact_subtitle: "Со задоволство одговараме на прашања во врска со нашите кучиња.",
         kennel_contacts_title: "Контакти на одгледувачницата", owner_label: "Основач и сопственик", location_label: "Локација", location_val: "Скопје, Северна Македонија", email_label: "Директна е-пошта", instant_chat_label: "Комуникација во живо:",
-        send_inquiry_title: "Испратете прашање", lbl_name: "Вашето име и презиме *", lbl_email: "Е-пошта адреса *", lbl_subject: "Заинтересиран/а сум за:", opt_1: "Резервација на кутре (Идно легло)", opt_2: "Изложба / Одгледувачки потенцијал", opt_3: "Услуга за парење (Осло)", opt_4: "Општа консултација за расата", lbl_msg: "Вашата порака *", btn_send: "Испратете порака до Катерина",
+        send_inquiry_title: "Испратете прашање", lbl_name: "Вашето име и презиме *", lbl_email: "Е-пошта адреса *", lbl_subject: "Заинтересиран/а сум за:", opt_1: "Резервација на кутре", opt_2: "Изложба / Одгледувачки потенцијал", opt_3: "Услуга за парење (Осло)", opt_4: "Општа консултација за расата", lbl_msg: "Вашата порака *", btn_send: "Испратете порака до Катерина",
         footer_desc: "Kingdom of Snowstorm • Официјална FCI одгледувачница бр. 11/23 • Национална МКД бр. 268. Каде што шампионите се одгледуваат со срце, етички стандарди и вистинска семејна љубов.",
         footer_nav_title: "Навигација", footer_social_title: "Социјални мрежи", footer_copy: "© 2026 Kingdom of Snowstorm. FCI одгледувачница 11/23 & МКД 268.", btn_reservation: "Резервација", btn_available_dogs: "Слободни кучиња", inquire_puppy: "Информирајте се за кутре", news_label: "НОВОСТИ"
       },
       en: {
-        location_top: "Skopje, North Macedonia",
-        nav_home: "Home", nav_about: "About Us", nav_dogs: "Our Dogs", nav_litters: "Litters", nav_available: "Available Dogs", nav_gallery: "Gallery", nav_blog: "Blog", nav_contact: "Contact",
+        location_top: "Skopje, North Macedonia", nav_home: "Home", nav_about: "About Us", nav_dogs: "Our Dogs", nav_litters: "Litters", nav_available: "Available Dogs", nav_gallery: "Gallery", nav_blog: "Blog", nav_contact: "Contact",
         hero_tag: "FCI Certified Heritage • Skopje", hero_title: "Where Champions Are Raised <em>with Love</em>",
-        hero_desc: "Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia. Dedicated to raising healthy, loving, and extraordinary show-quality companions in the heart of our family.",
-        btn_meet_dogs: "Meet Our Dogs", btn_contact_us: "Contact Us", box_title: "FCI & KSM Official Standard", box_desc: "Officially registered under FCI No. 11/23 and MKD No. 268. Devoted to ethical, healthy, and championship preservation of the pure Bichon Frisé.",
+        hero_desc: "Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.",
+        btn_meet_dogs: "Meet Our Dogs", btn_contact_us: "Contact Us", box_title: "FCI & KSM Official Standard", box_desc: "Officially registered under FCI No. 11/23 and MKD No. 268.",
         box_pill: "Champions & C.I.B. International Bloodlines", val_pretitle: "Our Commitment", val_maintitle: "A Kennel Filled with Love",
-        val1_title: "Raised in Our Home", val1_desc: "Our dogs are beloved family members first. They thrive surrounded by constant human touch, sound socialization, and endless daily cuddles.",
-        val2_title: "Health & Pedigree Standards", val2_desc: "Carefully planned matings following the FCI standard, safeguarding impeccable genetic health, sweet temperament, and dense white coats.",
-        val3_title: "Excellence in Show Rings", val3_desc: "Proudly representing our kennel at World, European Dog Shows, and FCI national and International competitions with C.I.B. titles.",
+        val1_title: "Raised in Our Home", val1_desc: "Our dogs are beloved family members first.",
+        val2_title: "Health & Pedigree Standards", val2_desc: "Carefully planned matings following the FCI standard.",
+        val3_title: "Excellence in Show Rings", val3_desc: "Proudly representing our kennel at World, European Dog Shows.",
         about_pretitle: "Our Heritage", about_maintitle: "The Story Behind Kingdom of Snowstorm",
-        about_p1: "I am <strong>Katerina Gerasimovska</strong>, founder and owner of Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.",
-        about_p2: "The story of Kingdom of Snowstorm began in 2016, with a little white Bichon Frisé named <strong>Hannah</strong>...",
-        about_p3: "Today, at 10 years old, Hannah still holds a very special place in my heart.",
-        about_p4: "With time, Hannah’s story continued through her daughter...",
-        about_p5: "As Kingdom of Snowstorm continued to grow...",
-        about_quote: "\"The name Kingdom of Snowstorm was born from the special world I share with my Bichons...\"",
         dogs_pretitle: "The Royal Family", dogs_maintitle: "Our Beloved Bichons", dogs_subtitle: "Nurtured with highest dedication: imported male from Norway and multiple generations of females.",
         litters_pretitle: "Ethical Breeding", litters_maintitle: "Litters & Planned Matings", upcoming_litter_title: "Planned or Current Mating", current_litter_title: "Current Active Litter", archive_litters_title: "Previous Litters Archive",
         avail_pretitle: "Family Companions", avail_maintitle: "Available Dogs & Puppies", avail_box_title: "What Is Included with Every Snowstorm Puppy?",
-        inc_1: "Official FCI Export / National Pedigree", inc_2: "International EU/MK Pet Passport with Microchip", inc_3: "Full age-appropriate vaccinations and parasite treatments", inc_4: "Early Neurological Stimulation and Household Socialization", inc_5: "Lifetime breeder mentorship, dietary and coat care advice",
-        btn_inquire_avail: "Contact for Availability", gallery_pretitle: "Moments & Memories", gallery_maintitle: "Kennel Gallery", gallery_subtitle: "Moments from European show rings, daily family joy, dog nursery and grooming moments.",
+        inc_1: "Official FCI Export / National Pedigree", inc_2: "International EU/MK Pet Passport with Microchip", inc_3: "Full age-appropriate vaccinations and parasite treatments", inc_4: "Early Neurological Stimulation and Household Socialization", inc_5: "Lifetime breeder mentorship",
+        btn_inquire_avail: "Contact for Availability", gallery_pretitle: "Moments & Memories", gallery_maintitle: "Kennel Gallery", gallery_subtitle: "Moments from European show rings, daily family joy.",
         filter_all: "All Photos", filter_shows: "Shows", filter_home: "Home Life", filter_puppies: "Puppies", filter_grooming: "Grooming",
         blog_pretitle: "Live Updates & Insights", blog_maintitle: "Kennel News & Updates", blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories.",
-        back_to_blog: "Back to Blog", contact_pretitle: "Get In Touch", contact_maintitle: "Contact Kingdom of Snowstorm", contact_subtitle: "We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.",
+        back_to_blog: "Back to Blog", contact_pretitle: "Get In Touch", contact_maintitle: "Contact Kingdom of Snowstorm", contact_subtitle: "We are pleased to answer inquiries regarding our dogs.",
         kennel_contacts_title: "Kennel Contacts", owner_label: "Founder & Owner", location_label: "Location", location_val: "Skopje, North Macedonia", email_label: "Direct Email", instant_chat_label: "Instant Chat Communication:",
         send_inquiry_title: "Send an Inquiry", lbl_name: "Your Full Name *", lbl_email: "Email Address *", lbl_subject: "I am interested in:", opt_1: "Puppy Reservation (Future Litter)", opt_2: "Show / Breeding Potential", opt_3: "Stud Service Inquiry (Oslo)", opt_4: "General Breed Consultation", lbl_msg: "Your Message *", btn_send: "Send Inquiry to Katerina",
         footer_desc: "Kingdom of Snowstorm • Official FCI Kennel No. 11/23 • National MKD No. 268. Where champions are raised with heart, ethical standards, and genuine family love.",
@@ -681,13 +681,11 @@
     }
 
     function applyLanguageTranslations() {
-      const btnMk = document.getElementById('btnMk');
-      const btnEn = document.getElementById('btnEn');
+      const btnMk = document.getElementById('btnMk'); const btnEn = document.getElementById('btnEn');
       if (btnMk && btnEn) {
         if (currentLang === 'mk') { btnMk.classList.add('active'); btnEn.classList.remove('active'); } 
         else { btnEn.classList.add('active'); btnMk.classList.remove('active'); }
       }
-
       document.documentElement.setAttribute('lang', currentLang);
       const elements = document.querySelectorAll('[data-i18n]');
       elements.forEach(el => {
@@ -697,7 +695,6 @@
           else { el.innerHTML = translations[currentLang][key]; }
         }
       });
-
       renderHome(cachedHomeData); renderAbout(cachedAboutData); renderSettings(cachedSettingsData);
       renderDogs(cachedDogsList); renderUpcomingLitter(cachedUpcomingLitter); renderCurrentLitter(cachedCurrentLitter);
       renderLitters(cachedLittersList); renderAvailableDogs(cachedAvailableDogs); renderBlogPosts(cachedBlogPosts);
@@ -836,17 +833,7 @@
         }
         let info = getLocalizedField(dog, 'details') || getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'role');
         let detailsHtml = (info && info.trim() !== 'Show Dog') ? `<ul class="dog-spec-list"><li><span>${info}</span></li></ul>` : '';
-        return `
-          <div class="dog-feature-card">
-            ${mediaHtml}
-            <div class="dog-details-body">
-              <h3 class="dog-title-name">${nameText}</h3>
-              <div class="dog-registered-lineage">${getLocalizedField(dog, 'lineage')}</div>
-              ${detailsHtml}
-              <p class="dog-narrative">${getLocalizedField(dog, 'narrative')}</p>
-            </div>
-          </div>
-        `;
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><div class="dog-registered-lineage">${getLocalizedField(dog, 'lineage')}</div>${detailsHtml}<p class="dog-narrative">${getLocalizedField(dog, 'narrative')}</p></div></div>`;
       }).join('');
     }
 
@@ -915,15 +902,7 @@
           const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
         }
-        return `
-          <div class="dog-feature-card">
-            ${mediaHtml}
-            <div class="dog-details-body">
-              <h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3>
-              <p class="dog-narrative">${descText}</p>
-            </div>
-          </div>
-        `;
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3><p class="dog-narrative">${descText}</p></div></div>`;
       }).join('');
     }
 
@@ -937,20 +916,11 @@
           mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
         }
         const descText = getLocalizedField(dog, 'description') || getLocalizedField(dog, 'narrative') || getLocalizedField(dog, 'details') || getLocalizedField(dog, 'status') || '';
-        return `
-          <div class="dog-feature-card">
-            ${mediaHtml}
-            <div class="dog-details-body">
-              <h3 class="dog-title-name">${nameText}</h3>
-              <p class="dog-narrative">${descText}</p>
-              <button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">${translations[currentLang].inquire_puppy}</button>
-            </div>
-          </div>
-        `;
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><p class="dog-narrative">${descText}</p><button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">${translations[currentLang].inquire_puppy}</button></div></div>`;
       }).join('');
     }
 
-    /* === БЛОГ РЕНДЕРИРАЊЕ И ОТВОРАЊЕ НА ДЕТАЛНА СТРАНИЦА === */
+    /* === БЛОГ РЕНДЕРИРАЊЕ СО СПРЕЧЕНО РАЗВЛЕКУВАЊЕ НА СЛИКИ === */
     function renderBlogPosts(posts) {
       const container = document.getElementById('dynamicBlogContainer');
       if (!container) return;
@@ -962,6 +932,7 @@
         const catText = getLocalizedField(post, 'category') || translations[currentLang].news_label || 'NEWS';
         const excerptText = getLocalizedField(post, 'excerpt') || getLocalizedField(post, 'description') || '';
 
+        // Ова е картичката во ЛИСТАТА (Каде што 4 се во еден ред)
         if (imgList.length > 0) {
           const mainImgPath = resolveImagePath(imgList[0]);
           mediaHtml += `
@@ -971,13 +942,12 @@
           `;
         }
 
-        // Кликнување било каде на картичката (на сликата или текстот) отвора цела статија!
         return `
           <div class="card-luxury" style="padding: 0; overflow: hidden; cursor: pointer;" onclick="openBlogPost(${index})">
             ${mediaHtml}
             <div style="padding: 24px;">
               <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${catText} • ${post.date || ''}</span>
-              <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${titleText}</h3>
+              <h3 style="font-family: var(--font-serif); font-size: 1.45rem; margin: 10px 0;">${titleText}</h3>
               <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${excerptText}</p>
             </div>
           </div>
@@ -990,21 +960,28 @@
       if (!post) return;
 
       const titleText = getLocalizedField(post, 'title');
-      const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || getLocalizedField(post, 'excerpt') || '';
+      const contentText = getLocalizedField(post, 'content') || '';
       const dateText = post.date || '';
       
       let imgList = parseImages(post);
-      let galleryHtml = '';
-      if (imgList.length > 0) {
-        galleryHtml = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 25px;">`;
+      
+      // ГЛАВНА СЛИКА (Основна маска) - Центрирана и НЕ РАЗВЛЕЧЕНА
+      let mainGalleryHtml = '';
+      if (imgList.length === 1) {
+        mainGalleryHtml = `
+          <div style="text-align: center; margin: 25px 0;">
+            <img src="${resolveImagePath(imgList[0])}" style="max-width: 100%; max-height: 550px; border-radius: 12px; object-fit: contain; cursor: pointer;" onclick="openLightboxFromElement(this, 0)" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}" />
+          </div>
+        `;
+      } else if (imgList.length > 1) {
+        mainGalleryHtml = `<div style="display: flex; flex-wrap: wrap; gap: 15px; margin: 25px 0; justify-content: center;">`;
         imgList.forEach((img, idx) => {
-          const p = resolveImagePath(img);
-          // Во детален приказ сликата може да се зголеми со клик
-          galleryHtml += `<div class="dog-portrait-container" style="height: 200px; border-radius: 8px;" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}"><img src="${p}" alt="Blog photo"></div>`;
+          mainGalleryHtml += `<img src="${resolveImagePath(img)}" style="height: 220px; width: auto; max-width: 100%; border-radius: 8px; object-fit: cover; cursor: pointer; border: 1px solid var(--pistachio-border);" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}" />`;
         });
-        galleryHtml += `</div>`;
+        mainGalleryHtml += `</div>`;
       }
 
+      // ДОПОЛНИТЕЛНИ ПОЛИЊА (СЛИКА ПА ТЕКСТ)
       let customRowsHtml = '';
       if (post.rows && Array.isArray(post.rows)) {
         post.rows.forEach(row => {
@@ -1013,30 +990,35 @@
           let rowImgs = parseImages(row);
           let rowImgHtml = '';
           
-          if (rowImgs.length > 0) {
-            rowImgHtml = `<div style="margin: 15px 0; display:flex; gap:10px; flex-wrap:wrap;">`;
-            rowImgs.forEach(ri => {
-              rowImgHtml += `<img src="${resolveImagePath(ri)}" style="max-height:300px; border-radius:8px; object-fit:cover; cursor:pointer;" onclick="openLightboxFromElement(this, 0)" data-images="${getSafeString(rowImgs.join(','))}" alt="Row image">`;
+          if (rowImgs.length === 1) {
+            rowImgHtml = `
+              <div style="margin: 20px 0; text-align: left;">
+                <img src="${resolveImagePath(rowImgs[0])}" style="max-width: 100%; max-height: 450px; border-radius: 8px; object-fit: contain; cursor: pointer;" onclick="openLightboxFromElement(this, 0)" data-images="${getSafeString(rowImgs.join(','))}" alt="Row image">
+              </div>
+            `;
+          } else if (rowImgs.length > 1) {
+            rowImgHtml = `<div style="margin: 20px 0; display: flex; flex-wrap: wrap; gap: 12px;">`;
+            rowImgs.forEach((ri, idx) => {
+              rowImgHtml += `<img src="${resolveImagePath(ri)}" style="height: 200px; width: auto; max-width: 100%; border-radius: 8px; object-fit: cover; cursor: pointer;" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(rowImgs.join(','))}" />`;
             });
             rowImgHtml += `</div>`;
           }
 
-          // Редослед: Наслов -> Слика над текст -> Текст
           customRowsHtml += `
-            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--pistachio-border);">
-              ${rowTitle ? `<h4 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--pistachio-dark); margin-bottom: 8px;">${rowTitle}</h4>` : ''}
+            <div style="margin-top: 35px; padding-top: 25px; border-top: 1px dashed var(--pistachio-border);">
+              ${rowTitle ? `<h4 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 12px;">${rowTitle}</h4>` : ''}
               ${rowImgHtml}
-              <div style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.8;">${rowText}</div>
+              <div style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.85;">${rowText}</div>
             </div>
           `;
         });
       }
 
       document.getElementById('blogDetailContent').innerHTML = `
-        <span style="font-size: 0.78rem; font-weight: 700; color: var(--gold-hover);">${dateText}</span>
-        <h1 style="font-family: var(--font-serif); font-size: 2.2rem; margin: 12px 0 20px; color: var(--pistachio-dark);">${titleText}</h1>
-        ${galleryHtml}
-        <div style="font-size: 1.02rem; color: var(--text-muted); line-height: 1.85;">${contentText}</div>
+        <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-hover);">${dateText}</span>
+        <h1 style="font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem); margin: 12px 0 10px; color: var(--pistachio-dark); line-height: 1.2;">${titleText}</h1>
+        ${mainGalleryHtml}
+        <div style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.85;">${contentText}</div>
         ${customRowsHtml}
       `;
 
@@ -1061,19 +1043,10 @@
         const titleText = getLocalizedField(item, 'title'); const captionText = getLocalizedField(item, 'caption');
         const rawCat = getLocalizedField(item, 'category') || item.category || 'Shows';
         const catText = currentLang === 'mk' ? (rawCat.toLowerCase() === 'shows' ? 'Изложби' : rawCat.toLowerCase() === 'home life' ? 'Домашен живот' : rawCat.toLowerCase() === 'puppies' ? 'Кутриња' : rawCat.toLowerCase() === 'grooming' ? 'Груминг' : rawCat) : rawCat;
-        
         const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const safeCaption = getSafeString(captionText);
         let thumbsHtml = '';
-        if (imgList.length > 1) {
-            thumbsHtml = `<div class="thumb-strip">` + imgList.map((img, idx) => `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${resolveImagePath(img)}" alt="Thumb"></div>`).join('') + `</div>`;
-        }
-        return `
-          <div class="gallery-item-card" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="openLightboxFromElement(this, 0)">
-            <div class="gallery-img-wrap"><img src="${itemImg}" alt="${titleText || 'Photo'}" onerror="this.src='2.png'"><span class="gallery-category-badge">${catText}</span></div>
-            ${thumbsHtml}
-            <div class="gallery-item-info"><h4 class="gallery-item-title">${titleText}</h4><p class="gallery-item-caption">${captionText}</p></div>
-          </div>
-        `;
+        if (imgList.length > 1) { thumbsHtml = `<div class="thumb-strip">` + imgList.map((img, idx) => `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${resolveImagePath(img)}" alt="Thumb"></div>`).join('') + `</div>`; }
+        return `<div class="gallery-item-card" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="openLightboxFromElement(this, 0)"><div class="gallery-img-wrap"><img src="${itemImg}" alt="${titleText || 'Photo'}" onerror="this.src='2.png'"><span class="gallery-category-badge">${catText}</span></div>${thumbsHtml}<div class="gallery-item-info"><h4 class="gallery-item-title">${titleText}</h4><p class="gallery-item-caption">${captionText}</p></div></div>`;
       }).join('');
     }
 
