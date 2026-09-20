@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdom of Snowstorm - Admin Panel</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { color: #1e331c; }
-        textarea, input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
-        button { background: #c5a059; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #aa8539; }
-    </style>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kingdom of Snowstorm | Professional Admin with Auto-Translate</title>
@@ -71,15 +60,7 @@
   </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Админ панел - Преведувач</h2>
-        <p>Внеси текст за преведувачот:</p>
-        
-        <label for="sourceText">Изворно поле:</label>
-        <textarea id="sourceText" rows="4">Hello world</textarea>
 
-        <label for="targetText">Целно поле:</label>
-        <textarea id="targetText" rows="4"></textarea>
 <div class="wrapper">
   <h1>
     <span>👑 Kingdom of Snowstorm - Professional Admin</span>
@@ -232,7 +213,6 @@
     <div id="about.msg" class="status"></div>
   </div>
 
-        <button onclick="autoTranslate('sourceText', 'targetText', 'en', 'mk')">Преведи (EN -> MK)</button>
   <!-- 3. ПОСТАВКИ -->
   <div id="settings" class="tab-content">
     <h3>⚙️ Општи поставки</h3>
@@ -490,71 +470,6 @@
         if(res.ok) { const d = await res.json(); setter(d); if(renderFn) renderFn(); }
       };
 
-    <script>
-        async function autoTranslate(sourceId, targetId, fromLang, toLang) {
-            const sourceEl = document.getElementById(sourceId);
-            const targetEl = document.getElementById(targetId);
-            if(!sourceEl || !targetEl) return;
-
-            let text = sourceEl.tagName === 'TEXTAREA' ? sourceEl.value : sourceEl.innerHTML;
-            text = text.trim();
-            
-            if(!text) {
-              alert('Нема текст за преведување!');
-              return;
-            }
-
-            const e = window.event;
-            const btn = e ? (e.currentTarget || e.target) : null;
-            let origText = '';
-            
-            if (btn) {
-                origText = btn.innerText;
-                btn.innerText = 'Преведувам...';
-                btn.disabled = true;
-            }
-
-            try {
-              const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLang}&tl=${toLang}&dt=t`;
-              
-              const res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `q=${encodeURIComponent(text)}`
-              });
-              
-              const data = await res.json();
-              
-              let translatedText = '';
-              if (data && data[0]) {
-                data[0].forEach(item => {
-                  if (item[0]) translatedText += item[0];
-                });
-              }
-
-              // Поправен регуларен израз
-              translatedText = translatedText.replace(/<\s*\/\s*/g, '</').replace(/<\s+/g, '<').replace(/\s+>/g, '>');
-
-              if(targetEl.tagName === 'TEXTAREA') {
-                targetEl.value = translatedText;
-              } else {
-                targetEl.innerHTML = translatedText;
-              }
-              
-              if (typeof triggerFieldUpdates === 'function') {
-                  triggerFieldUpdates();
-            }
-            } catch(err) {
-              alert('Грешка при комуникација со преведувачот.');
-              console.error(err);
-            } finally {
-              if (btn) {
-                  btn.innerText = origText || 'Преведи';
-                  btn.disabled = false;
-              }
-            }
       await loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
       await loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
       await loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
@@ -609,7 +524,6 @@
         if(res.ok) {
           uploadedPaths.push(`content/images/${fileName}`);
         }
-    </script>
         await new Promise(r => setTimeout(r, 400));
       }
 
