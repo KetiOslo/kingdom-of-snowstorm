@@ -1,21 +1,21 @@
 {
   "posts": [
     {
-      "title_mk": "мрки",
-      "title_en": "merchandise",
+      "title_mk": "",
+      "title_en": "",
       "date": "2026-09-20",
-      "image": "content/images/1789936940031_0_viber_image_2026-09-16_08-11-03-443.jpg, content/images/1789936960822_0_DSC_0281.JPG",
-      "excerpt_mk": "мрсни",
-      "excerpt_en": "greasy",
-      "content_mk": "и така",
-      "content_en": "and so on",
+      "image": "",
+      "excerpt_mk": "",
+      "excerpt_en": "",
+      "content_mk": "",
+      "content_en": "",
       "rows": [
         {
-          "title_mk": "мара",
-          "title_en": "Mara",
-          "text_mk": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
-          "text_en": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
-          "image": "content/images/1789933893484_0_DSC_0281.JPG, content/images/1789933929094_0_logo.png"
+          "title_mk": "Кифла",
+          "title_en": "Кифла",
+          "text_mk": "со сирење",
+          "text_en": "with cheese",
+          "image": "content/images/1789937152838_0_DSC_0281.JPG"
         }
       ]
     }
