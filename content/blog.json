@@ -1,15 +1,23 @@
 {
   "posts": [
     {
-      "title_mk": "Мара меси мафини, ги еба, ги прави нафори.",
-      "title_en": "Mara kneads muffins, fucks them, makes them wafers.",
+      "title_mk": "",
+      "title_en": "",
       "date": "2026-09-20",
-      "image": "content/images/1789933802343_0_DSC_0281.JPG",
-      "excerpt_mk": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
-      "excerpt_en": "Mara kneads muffins, fucks them, makes them wafers.",
-      "content_mk": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
-      "content_en": "Mara kneads muffins, fucks them, makes them wafers.",
-      "rows": []
+      "image": "",
+      "excerpt_mk": "",
+      "excerpt_en": "",
+      "content_mk": "",
+      "content_en": "",
+      "rows": [
+        {
+          "title_mk": "мара",
+          "title_en": "Mara",
+          "text_mk": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
+          "text_en": "Мара меси кифлиња, ги еба ги загоре, ги напрај нафора.",
+          "image": "content/images/1789933893484_0_DSC_0281.JPG, content/images/1789933929094_0_logo.png"
+        }
+      ]
     }
   ]
 }
