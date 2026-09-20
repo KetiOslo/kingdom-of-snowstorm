@@ -1,3 +1,15 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "title_mk": "Миле бандаж",
+      "title_en": "Mile rim",
+      "date": "2026-09-20",
+      "image": "content/images/1789937365117_0_DSC_0281.JPG",
+      "excerpt_mk": "се е како треба",
+      "excerpt_en": "everything is as it should be",
+      "content_mk": "а овде се гледа",
+      "content_en": "and here you can see",
+      "rows": []
+    }
+  ]
 }
