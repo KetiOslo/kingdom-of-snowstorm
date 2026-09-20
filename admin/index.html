@@ -1,1010 +1,1097 @@
 <!DOCTYPE html>
-<html lang="mk">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kingdom of Snowstorm | Professional Admin with Auto-Translate</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YXMDE2MFMB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YXMDE2MFMB');
+  </script>
+
+  <!-- SEO Optimization Meta Tags -->
+  <title>Kingdom of Snowstorm | FCI Bichon Frise Kennel Skopje Macedonia</title>
+  <meta name="description" content="Kingdom of Snowstorm is an official FCI-registered Bichon Frise kennel (FCI 11/23, MKD 268) based in Skopje, North Macedonia. Discover our champions, litters, and puppies.">
+  <meta name="keywords" content="Kingdom of Snowstorm, Bichon Frise kennel Skopje, Bichon Frise Macedonia, FCI registered kennel, Bichon puppies Skopje, Katerina Gerasimovska">
+  <link rel="canonical" href="https://kingdomofsnowstorm.com/">
+
+  <!-- БРАУЗЕР ИКОНИ ЗА МОБИЛЕН CHROME И SAFARI -->
+  <link rel="icon" type="image/png" sizes="192x192" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kingdomofsnowstorm.com/2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kingdomofsnowstorm.com/2.png">
+
+  <!-- Open Graph / Social Share Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kingdom of Snowstorm">
+  <meta property="og:title" content="Kingdom of Snowstorm | FCI Bichon Frise Kennel Skopje Macedonia">
+  <meta property="og:description" content="Official website of Kingdom of Snowstorm - FCI registered Bichon Frise kennel in Skopje, North Macedonia.">
+  <meta property="og:url" content="https://kingdomofsnowstorm.com/">
+  <meta property="og:image" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
+  <meta property="og:image:secure_url" itemprop="image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kingdom of Snowstorm | FCI Bichon Frise Kennel Skopje Macedonia">
+  <meta name="twitter:image" content="https://kingdomofsnowstorm.com/2.png?v=2026">
+
+  <!-- Fonts & Brand Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    :root { --primary: #0284c7; --primary-dark: #0369a1; --success: #16a34a; --bg: #f1f5f9; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-    .wrapper { max-width: 1100px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-    h1 { color: var(--primary); font-size: 24px; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .auth-box { background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .auth-box input { flex: 1; min-width: 250px; margin: 0; }
-    .tabs { display: flex; gap: 6px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
-    .tab-btn { background: #e2e8f0; border: none; padding: 9px 14px; font-weight: 600; border-radius: 6px; cursor: pointer; color: #475569; transition: all 0.2s; font-size: 13px; }
-    .tab-btn.active { background: var(--primary); color: white; }
-    .tab-content { display: none; animation: fadeIn 0.3s ease; }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    label { font-weight: 600; display: block; margin-top: 15px; font-size: 14px; color: #475569; }
+    :root {
+      --pistachio-cream: #EAF2E8;
+      --pistachio-soft: #DCE9DA;
+      --pistachio-surface: #CFE2CD;
+      --pistachio-border: #BED8BC;
+      --pistachio-accent: #9EC69B;
+      --pistachio-dark: #1E331C;
+      --pistachio-deep: #132412;
+      --gold-primary: #C5A059;
+      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #E6C875 50%, #B88E35 100%);
+      --gold-hover: #AA8539;
+      --gold-light: #FBF6EC;
+      --gold-border: rgba(197, 160, 89, 0.4);
+      --viber-color: #7360F2;
+      --whatsapp-color: #25D366;
+      --facebook-color: #1877F2;
+      --white: #FFFFFF;
+      --text-muted: #4B634A;
+      --shadow-luxury: 0 16px 40px rgba(19, 36, 18, 0.08);
+      --shadow-card: 0 10px 30px rgba(30, 51, 28, 0.06);
+      --shadow-hover: 0 20px 45px rgba(30, 51, 28, 0.14);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+    a { color: inherit !important; text-decoration: none !important; }
+    body { font-family: var(--font-sans); background-color: var(--pistachio-cream); color: var(--pistachio-dark); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     
-    input[type="text"], input[type="password"], input[type="date"], select, textarea { width: 100%; padding: 10px 12px; margin-top: 6px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
-    textarea { resize: vertical; min-height: 42px; line-height: 1.5; }
+    /* TOP BAR */
+    .top-bar { background: var(--pistachio-soft); border-bottom: 1px solid var(--pistachio-border); padding: 6px 0; font-size: 0.78rem; }
+    .top-bar-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: nowrap; }
+    .accreditation-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .org-badge-link { display: inline-flex; align-items: center; gap: 5px; background: var(--white); padding: 2px 7px; border-radius: 50px; border: 1px solid var(--pistachio-border); transition: var(--transition); box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .org-badge-link:hover { transform: translateY(-2px); border-color: var(--gold-primary); }
+    .org-icon-img { height: 20px; width: 20px; object-fit: contain; border-radius: 50%; display: block; }
+    .org-label-text { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: var(--pistachio-dark); }
+    .fci-status-badge { display: flex; align-items: center; gap: 6px; font-weight: 600; color: var(--pistachio-dark); white-space: nowrap; font-size: 0.76rem; }
+    .top-bar-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+    .chat-icons-group { display: flex; align-items: center; gap: 5px; }
+    .brand-btn { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--white) !important; font-size: 0.85rem; transition: var(--transition); box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: none; cursor: pointer; }
+    .brand-btn:hover { transform: translateY(-2px); }
+    .btn-wa { background-color: var(--whatsapp-color); }
+    .btn-vi { background-color: var(--viber-color); }
+    .btn-fb { background-color: var(--facebook-color); }
+    .lang-group { display: flex; gap: 5px; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid var(--pistachio-border); }
+    .btn-lang { background-color: transparent !important; color: #000000 !important; border: 1.5px solid var(--gold-primary); font-size: 0.68rem; font-weight: 700; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: var(--transition); }
+    .btn-lang.active { background: var(--gold-primary) !important; border-color: var(--gold-primary); box-shadow: 0 2px 6px rgba(197, 160, 89, 0.4) !important; }
+    .btn-lang:hover { border-color: var(--gold-hover); background-color: var(--pistachio-soft) !important; }
 
-    .lang-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px; position: relative; }
-    .lang-box h4 { margin: 0 0 8px 0; font-size: 13px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px; }
+    /* HEADER */
+    header { background: var(--white); border-bottom: 1px solid var(--pistachio-border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(19, 36, 18, 0.05); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; gap: 15px; }
+    .brand-logo-wrapper { display: flex; align-items: center; text-decoration: none; line-height: 0; flex-shrink: 0; }
+    .kennel-master-logo { height: 150px; width: auto; max-width: 500px; object-fit: contain; display: block; transition: var(--transition); }
+    nav { display: flex; align-items: center; }
+    nav ul { display: flex; list-style: none; gap: 2px; flex-wrap: nowrap; }
+    .nav-tab-btn { color: var(--pistachio-dark); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; padding: 10px 12px; border-radius: 6px; cursor: pointer; transition: var(--transition); position: relative; white-space: nowrap; }
+    .nav-tab-btn:hover, .nav-tab-btn.active { color: var(--gold-hover); background: var(--pistachio-soft); }
+    .nav-tab-btn.active { font-weight: 700; }
+    .nav-tab-btn.active::after { content: ''; position: absolute; bottom: 0; left: 10px; right: 10px; height: 3px; background: var(--gold-primary); border-radius: 2px; }
+    .mobile-menu-toggle { display: none; background: var(--pistachio-soft); border: 1px solid var(--pistachio-border); width: 40px; height: 40px; border-radius: 8px; font-size: 1.1rem; color: var(--pistachio-dark); cursor: pointer; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
     
-    .translate-btn { background: #10b981; color: white; border: none; padding: 3px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .translate-btn:hover { background: #059669; }
-    .translate-btn-alt { background: #0284c7; }
-    .translate-btn-alt:hover { background: #0369a1; }
+    .site-tab-content { display: none; animation: fadeInSmooth 0.35s ease forwards; }
+    .site-tab-content.active { display: block; }
+    @keyframes fadeInSmooth { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .editor-wrapper { margin-top: 6px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
-    .editor-toolbar { background: #e2e8f0; border-bottom: 1px solid var(--border); padding: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
-    .editor-toolbar button { background: #ffffff; border: 1px solid #94a3b8; border-radius: 4px; padding: 6px 12px; font-weight: bold; cursor: pointer; color: #1e293b; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .editor-toolbar button:hover { background: var(--primary); color: white; border-color: var(--primary); }
-    .editor-content { min-height: 110px; max-height: 250px; overflow-y: auto; padding: 12px; outline: none; font-size: 14px; line-height: 1.6; background: #ffffff; color: #0f172a; }
-    .editor-content:focus { background: #f8fafc; }
+    /* HERO & SECTIONS */
+    .hero-banner { padding: clamp(35px, 7vw, 80px) 0; background: radial-gradient(circle at 80% 20%, rgba(207, 226, 205, 0.7) 0%, var(--pistachio-cream) 70%); border-bottom: 1px solid var(--pistachio-border); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(25px, 4vw, 50px); align-items: center; }
+    .royal-tag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; background: var(--white); border: 1px solid var(--gold-border); border-radius: 50px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; color: var(--gold-hover); margin-bottom: 16px; box-shadow: 0 3px 10px rgba(197, 160, 89, 0.1); }
+    .hero-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; color: var(--pistachio-dark); margin-bottom: 16px; font-weight: 600; }
+    .hero-title em { font-style: italic; color: var(--gold-primary); font-weight: 600; }
+    .hero-description { font-size: clamp(0.92rem, 2vw, 1.08rem); line-height: 1.75; color: var(--text-muted); margin-bottom: 25px; max-width: 600px; }
+    .btn-cluster { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-lux { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; transition: var(--transition); border: none; min-height: 44px; }
+    .btn-lux-primary { background: var(--pistachio-dark); color: var(--white) !important; box-shadow: 0 6px 20px rgba(19, 36, 18, 0.2); }
+    .btn-lux-primary:hover { background: var(--pistachio-deep); transform: translateY(-2px); }
+    .btn-lux-gold { background: var(--gold-gradient); color: var(--white) !important; box-shadow: 0 6px 20px rgba(197, 160, 89, 0.25); }
+    .btn-lux-gold:hover { background: var(--gold-hover); transform: translateY(-2px); }
+    
+    .prestige-box { background: var(--white); border-radius: 16px; padding: clamp(20px, 4vw, 35px); border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-luxury); text-align: center; position: relative; }
+    .prestige-box::before { content: ''; position: absolute; top: 0; left: 15%; right: 15%; height: 3px; background: var(--gold-gradient); }
+    .prestige-org-logos { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 16px; }
+    .prestige-org-logos img { height: 55px; width: 55px; object-fit: contain; border-radius: 50%; border: 2px solid var(--pistachio-border); padding: 2px; background: var(--pistachio-soft); transition: var(--transition); }
+    .prestige-box h3 { font-family: var(--font-serif); font-size: clamp(1.4rem, 2.5vw, 1.75rem); margin-bottom: 6px; color: var(--pistachio-dark); }
+    .prestige-box p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.6; }
+    .fci-pill-row { background: var(--pistachio-soft); padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; color: var(--pistachio-dark); border: 1px solid var(--pistachio-border); line-height: 1.4; }
 
-    .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; transition: background 0.2s; }
-    .btn:hover { background: var(--primary-dark); }
-    .btn-secondary { background: #10b981; }
-    .btn-secondary:hover { background: #059669; }
-    .item-card { background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 20px; position: relative; }
-    .remove-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; position: absolute; top: 20px; right: 20px; font-size: 12px; font-weight: bold; }
-    .remove-btn:hover { background: #dc2626; }
-    .status { margin-top: 15px; font-weight: 600; font-size: 14px; padding: 10px; border-radius: 6px; display: none; }
-    .status.success { background: #dcfce7; color: var(--success); display: block; }
-    .status.error { background: #fee2e2; color: #ef4444; display: block; }
-    .status.loading { background: #e0f2fe; color: var(--primary); display: block; }
-    .file-upload-box { margin-top: 6px; background: #fff; padding: 10px; border: 1px dashed var(--border); border-radius: 6px; }
+    .section-spacing { padding: clamp(40px, 6vw, 80px) 0; }
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto clamp(25px, 5vw, 45px); }
+    .section-pretitle { font-size: 0.74rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-hover); margin-bottom: 8px; display: block; }
+    .section-maintitle { font-family: var(--font-serif); font-size: clamp(1.7rem, 4vw, 2.6rem); color: var(--pistachio-dark); margin-bottom: 12px; line-height: 1.2; }
+    
+    .card-luxury { background: var(--white); border-radius: 14px; padding: clamp(18px, 3.5vw, 30px); border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); transition: var(--transition); }
+    .card-luxury:hover { box-shadow: var(--shadow-hover); border-color: var(--gold-border); }
 
-    .image-preview-area { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-    .image-chip { position: relative; width: 70px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--border); background: #e2e8f0; }
-    .image-chip img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .image-chip .del-img-btn { position: absolute; top: 2px; right: 2px; background: rgba(239, 68, 68, 0.9); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .image-chip .del-img-btn:hover { background: #dc2626; }
-    .hidden-image-input { display: none !important; }
+    /* STANDARD GRID (Адаптивен) */
+    .dogs-luxury-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    
+    /* СТРИКТНА 4-КОЛОНСКА МРЕЖА ЗА БЛОГ (да не се развлекува сликата) */
+    .blog-luxury-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .dog-feature-card { background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); display: flex; flex-direction: column; transition: var(--transition); }
+    .dog-feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold-primary); }
+    .dog-portrait-container { height: 240px; background: var(--pistachio-soft); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--pistachio-border); cursor: pointer; }
+    .dog-portrait-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .dog-portrait-container:hover img { transform: scale(1.05); }
+    .dog-details-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .dog-title-name { font-family: var(--font-serif); font-size: 1.75rem; color: var(--pistachio-dark); margin-bottom: 3px; }
+    .dog-registered-lineage { font-size: 0.78rem; color: var(--gold-hover); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .dog-spec-list { list-style: none; margin-bottom: 14px; font-size: 0.82rem; }
+    .dog-spec-list li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed var(--pistachio-surface); }
+    .dog-narrative { font-size: 0.86rem; line-height: 1.6; color: var(--text-muted); margin-top: auto; }
+    
+    .thumb-strip { display: flex; gap: 6px; overflow-x: auto; padding: 8px 10px; background: var(--pistachio-soft); border-top: 1px solid var(--pistachio-border); }
+    .mini-thumb { width: 50px; height: 50px; border-radius: 6px; overflow: hidden; flex-shrink: 0; cursor: pointer; border: 1px solid var(--pistachio-border); transition: var(--transition); }
+    .mini-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .mini-thumb:hover { border-color: var(--gold-primary); transform: translateY(-2px); }
+
+    /* GALLERY */
+    .gallery-filter-bar { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 25px; }
+    .gallery-filter-btn { background: var(--white); border: 1px solid var(--pistachio-border); padding: 7px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; color: var(--pistachio-dark); cursor: pointer; transition: var(--transition); }
+    .gallery-filter-btn:hover, .gallery-filter-btn.active { background: var(--pistachio-dark); color: var(--white); border-color: var(--pistachio-dark); transform: translateY(-2px); }
+    .gallery-masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+    .gallery-item-card { background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--pistachio-border); box-shadow: var(--shadow-card); transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
+    .gallery-item-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold-primary); }
+    .gallery-img-wrap { width: 100%; height: 220px; background: var(--pistachio-soft); overflow: hidden; position: relative; }
+    .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-item-card:hover .gallery-img-wrap img { transform: scale(1.06); }
+    .gallery-category-badge { position: absolute; top: 10px; right: 10px; background: rgba(30, 51, 28, 0.88); color: var(--white); padding: 3px 10px; border-radius: 50px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; backdrop-filter: blur(4px); }
+    .gallery-item-info { padding: 14px 16px; flex-grow: 1; display: flex; flex-direction: column; }
+    .gallery-item-title { font-family: var(--font-serif); font-size: 1.2rem; color: var(--pistachio-dark); margin-bottom: 4px; }
+    .gallery-item-caption { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
+
+    .lightbox-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 36, 18, 0.94); z-index: 99999; justify-content: center; align-items: center; padding: 12px; backdrop-filter: blur(8px); }
+    .lightbox-modal.show { display: flex; animation: fadeInSmooth 0.3s ease; }
+    .lightbox-content-box { max-width: 850px; width: 100%; background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; }
+    .lightbox-img-area { max-height: 60vh; background: #000; display: flex; justify-content: center; align-items: center; position: relative; }
+    .lightbox-img-area img { max-width: 100%; max-height: 60vh; object-fit: contain; display: block; }
+    .lightbox-nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(30, 51, 28, 0.75); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); z-index: 10; }
+    .lightbox-nav-arrow:hover { background: var(--gold-primary); }
+    .lightbox-prev { left: 12px; }
+    .lightbox-next { right: 12px; }
+    .lightbox-caption-area { padding: 16px 20px; background: var(--white); }
+    .lightbox-close-btn { position: absolute; top: 10px; right: 12px; background: var(--white); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; color: var(--pistachio-dark); display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 10; }
+
+    /* КОНТАКТ ФОРМА */
+    .contact-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+    .input-field-group { margin-bottom: 16px; }
+    .input-field-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--pistachio-dark); }
+    .form-control-lux { width: 100%; padding: 12px 14px; border: 1px solid var(--pistachio-border); border-radius: 8px; font-family: var(--font-sans); font-size: 0.88rem; background: var(--white); color: var(--pistachio-dark); transition: var(--transition); }
+    .form-control-lux:focus { outline: none; border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15); }
+    .form-status-box { display: none; padding: 12px 16px; border-radius: 8px; margin-top: 14px; font-size: 0.88rem; font-weight: 600; text-align: center; }
+    .form-status-box.success { display: block; background-color: #D4EDDA; color: #155724; border: 1px solid #C3E6CB; }
+    .form-status-box.error { display: block; background-color: #F8D7DA; color: #721C24; border: 1px solid #F5C6CB; }
+
+    /* FOOTER */
+    footer { background: var(--pistachio-deep); color: #B9CDB7; padding: clamp(40px, 6vw, 70px) 0 20px; border-top: 3px solid var(--gold-primary); }
+    .footer-grid-container { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(25px, 4vw, 45px); margin-bottom: 35px; }
+    .footer-brand-plate { background: var(--white); padding: 12px 18px; border-radius: 12px; display: inline-block; margin-bottom: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+    .footer-brand-plate img { height: 100px; width: auto; max-width: 100%; display: block; }
+    .footer-header-label { font-family: var(--font-serif); color: var(--white); font-size: 1.25rem; margin-bottom: 12px; }
+    .footer-clean-nav { list-style: none; }
+    .footer-clean-nav li { margin-bottom: 8px; }
+    .footer-clean-nav a { color: #B9CDB7 !important; font-size: 0.85rem; transition: var(--transition); cursor: pointer; }
+    .footer-clean-nav a:hover { color: var(--gold-primary) !important; padding-left: 5px; }
+    .footer-affiliate-logos { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+    .footer-affiliate-logos a img { height: 36px; width: 36px; object-fit: contain; border-radius: 50%; background: var(--white); padding: 3px; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .footer-copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(185, 205, 183, 0.15); font-size: 0.78rem; color: #849E82; }
+    .floating-instant-actions { position: fixed; bottom: 18px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 9999; }
+    .float-chat-bubble { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white) !important; font-size: 1.35rem; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: var(--transition); }
+    .float-chat-bubble:hover { transform: scale(1.1); }
+
+    /* RESPONSIVE МРЕЖА ЗА БЛОГОТ - Го спречува развлекувањето на мобилен/таблет */
+    @media (max-width: 1024px) {
+      .blog-luxury-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .container { padding: 0 12px; }
+      .top-bar { padding: 5px 0; }
+      .top-bar-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 6px; }
+      .accreditation-group { gap: 6px; }
+      .org-badge-link { padding: 2px 5px; }
+      .org-icon-img { height: 18px; width: 18px; }
+      .org-label-text { font-size: 0.65rem; }
+      .fci-status-badge { font-size: 0.7rem; }
+      .top-bar-actions { gap: 8px; margin-left: auto; }
+      .brand-btn { width: 26px; height: 26px; font-size: 0.75rem; }
+      .btn-lang { width: 26px; height: 26px; font-size: 0.6rem; }
+      .kennel-master-logo { height: 85px; max-width: 180px; }
+      .mobile-menu-toggle { display: flex; width: 38px; height: 38px; font-size: 1rem; margin-left: auto; }
+      nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 10px 14px 18px; box-shadow: 0 15px 30px rgba(19, 36, 18, 0.15); border-bottom: 3px solid var(--gold-primary); z-index: 1001; }
+      nav ul.show { display: flex; }
+      .nav-tab-btn { padding: 10px 8px; border-bottom: 1px solid var(--pistachio-cream); font-size: 0.8rem; }
+      .hero-grid, .contact-columns, .footer-grid-container { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 650px) {
+      .blog-luxury-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-<div class="wrapper">
-  <h1>
-    <span>👑 Kingdom of Snowstorm - Professional Admin</span>
-  </h1>
-  
-  <div class="auth-box">
-    <div style="flex: 1; min-width: 250px;">
-      <label style="margin-top: 0;">GitHub Personal Access Token:</label>
-      <input type="password" id="gh-token" placeholder="ghp_..." onchange="saveToken()" />
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="accreditation-group">
+        <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer" class="org-badge-link" title="FCI">
+          <img src="fci.png" alt="FCI Logo" class="org-icon-img" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='fci.jpg';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='fci.jpeg';}">
+          <span class="org-label-text">FCI 11/23</span>
+        </a>
+        <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer" class="org-badge-link" title="KSM">
+          <img src="ksm.jpg" alt="KSM Logo" class="org-icon-img" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='ksm.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='ksm.jpeg';}else if(this.dataset.t=='2'){this.dataset.t=3;this.src='ksm.JPG';}">
+          <span class="org-label-text">MKD 268</span>
+        </a>
+        <div class="fci-status-badge">
+          <span data-i18n="location_top">Skopje, North Macedonia</span>
+        </div>
+      </div>
+      <div class="top-bar-actions">
+        <div class="chat-icons-group">
+          <a id="link-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="brand-btn btn-wa" title="WhatsApp Chat"><i class="fa-brands fa-whatsapp"></i></a>
+          <a id="link-vi" href="viber://chat?number=%2B38970300013" class="brand-btn btn-vi" title="Viber Chat"><i class="fa-brands fa-viber"></i></a>
+          <a id="link-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <div class="lang-group">
+          <button id="btnEn" class="brand-btn btn-lang" onclick="setLanguage('en')" title="English">EN</button>
+          <button id="btnMk" class="brand-btn btn-lang" onclick="setLanguage('mk')" title="Македонски">MK</button>
+        </div>
+      </div>
     </div>
-    <div style="margin-top: 20px;">
-      <button class="btn" style="margin-top: 0; padding: 10px 15px;" onclick="saveToken()">Запомни токен</button>
-    </div>
-    <div id="auth-status" style="width: 100%; font-size: 13px; font-weight: 600; color: var(--success);"></div>
   </div>
 
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('home', event)">🏠 Почетна</button>
-    <button class="tab-btn" onclick="switchTab('about', event)">📖 За нас</button>
-    <button class="tab-btn" onclick="switchTab('settings', event)">⚙️ Поставки</button>
-    <button class="tab-btn" onclick="switchTab('gallery', event)">📸 Галерија</button>
-    <button class="tab-btn" onclick="switchTab('dogs', event)">🐶 Кучиња</button>
-    <button class="tab-btn" onclick="switchTab('litters', event)">🍼 Легла (Litters)</button>
-    <button class="tab-btn" onclick="switchTab('puppies', event)">🐾 Достапни</button>
-    <button class="tab-btn" onclick="switchTab('blog', event)">📝 Блог</button>
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      <a href="javascript:void(0)" onclick="selectTab('home')" class="brand-logo-wrapper">
+        <img src="2.png" alt="Kingdom of Snowstorm FCI 11/23 MKD 268" class="kennel-master-logo">
+      </a>
+      <button class="mobile-menu-toggle" onclick="toggleNavigationMenu()" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="kennel-main-nav">
+          <li><a class="nav-tab-btn active" data-tab="home" onclick="selectTab('home')" data-i18n="nav_home">Home</a></li>
+          <li><a class="nav-tab-btn" data-tab="about" onclick="selectTab('about')" data-i18n="nav_about">About Us</a></li>
+          <li><a class="nav-tab-btn" data-tab="dogs" onclick="selectTab('dogs')" data-i18n="nav_dogs">Our Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="litters" onclick="selectTab('litters')" data-i18n="nav_litters">Litters</a></li>
+          <li><a class="nav-tab-btn" data-tab="available" onclick="selectTab('available')" data-i18n="nav_available">Available Dogs</a></li>
+          <li><a class="nav-tab-btn" data-tab="gallery" onclick="selectTab('gallery')" data-i18n="nav_gallery">Gallery</a></li>
+          <li><a class="nav-tab-btn" data-tab="blog" onclick="selectTab('blog')" data-i18n="nav_blog">Blog</a></li>
+          <li><a class="nav-tab-btn" data-tab="contact" onclick="selectTab('contact')" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- TAB 1: HOME -->
+  <section id="tab-home" class="site-tab-content active">
+    <div class="hero-banner">
+      <div class="container hero-grid">
+        <div>
+          <div class="royal-tag"><i class="fa-solid fa-crown" style="color: var(--gold-primary);"></i> <span data-i18n="hero_tag">FCI Certified Heritage • Skopje</span></div>
+          <h1 class="hero-title" id="dyn-hero-title" data-i18n="hero_title">Where Champions Are Raised <em>with Love</em></h1>
+          <p class="hero-description" id="dyn-hero-desc" data-i18n="hero_desc">Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.</p>
+          <div class="btn-cluster">
+            <button class="btn-lux btn-lux-primary" onclick="selectTab('dogs')"><i class="fa-solid fa-paw"></i> <span data-i18n="btn_meet_dogs">Meet Our Dogs</span></button>
+            <button class="btn-lux btn-lux-gold" onclick="selectTab('contact')"><i class="fa-solid fa-envelope"></i> <span data-i18n="btn_contact_us">Contact Us</span></button>
+          </div>
+        </div>
+        <div class="prestige-box">
+          <div class="prestige-org-logos">
+            <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer"><img src="fci.png" alt="FCI"></a>
+            <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM"></a>
+          </div>
+          <h3 id="dyn-box-title" data-i18n="box_title">FCI & KSM Official Standard</h3>
+          <p id="dyn-box-desc" data-i18n="box_desc">Officially registered under FCI No. 11/23 and MKD No. 268.</p>
+          <div class="fci-pill-row"><i class="fa-solid fa-gem" style="color: var(--gold-primary); margin-right: 6px;"></i> <span data-i18n="box_pill">Champions & C.I.B. International Bloodlines</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="val_pretitle">Our Commitment</span>
+        <h2 class="section-maintitle" data-i18n="val_maintitle">A Kennel Filled with Love</h2>
+      </div>
+      <div class="dogs-luxury-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <div class="card-luxury">
+          <i class="fa-solid fa-heart" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val1-title" data-i18n="val1_title">Raised in Our Home</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val1-desc" data-i18n="val1_desc">Our dogs are beloved family members first.</p>
+        </div>
+        <div class="card-luxury">
+          <i class="fa-solid fa-shield-halved" style="font-size: 2.2rem; color: var(--pistachio-dark); margin-bottom: 18px;"></i>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val2-title" data-i18n="val2_title">Health & Pedigree Standards</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val2-desc" data-i18n="val2_desc">Carefully planned matings following the FCI standard.</p>
+        </div>
+        <div class="card-luxury">
+          <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px;"></i>
+          <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px;" id="dyn-val3-title" data-i18n="val3_title">Excellence in Show Rings</h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted);" id="dyn-val3-desc" data-i18n="val3_desc">Proudly representing our kennel at World, European Dog Shows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: ABOUT US -->
+  <section id="tab-about" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="about_pretitle">Our Heritage</span>
+        <h2 class="section-maintitle" data-i18n="about_maintitle">The Story Behind Kingdom of Snowstorm</h2>
+      </div>
+      <div style="max-width: 880px; margin: 0 auto;" class="card-luxury">
+        <p style="font-size: 1.12rem; line-height: 1.85; margin-bottom: 20px;" id="dyn-about-p1" data-i18n="about_p1"></p>
+        <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p2" data-i18n="about_p2"></p>
+        <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p3" data-i18n="about_p3"></p>
+        <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-muted);" id="dyn-about-p4" data-i18n="about_p4"></p>
+        <p style="font-size: 1.02rem; line-height: 1.85; margin-bottom: 24px; color: var(--text-muted);" id="dyn-about-p5" data-i18n="about_p5"></p>
+        <div style="padding: 22px 26px; background: var(--pistachio-soft); border-left: 4px solid var(--gold-primary); border-radius: 8px;">
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--pistachio-dark); line-height: 1.7; margin: 0;" id="dyn-about-quote" data-i18n="about_quote"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: OUR DOGS -->
+  <section id="tab-dogs" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="dogs_pretitle">The Royal Family</span>
+        <h2 class="section-maintitle" data-i18n="dogs_maintitle">Our Beloved Bichons</h2>
+        <p style="color: var(--text-muted);" data-i18n="dogs_subtitle">Nurtured with highest dedication: imported male from Norway and multiple generations of females.</p>
+      </div>
+      <div id="dynamicDogsContainer" class="dogs-luxury-grid"></div>
+    </div>
+  </section>
+
+  <!-- TAB 4: LITTERS -->
+  <section id="tab-litters" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="litters_pretitle">Ethical Breeding</span>
+        <h2 class="section-maintitle" data-i18n="litters_maintitle">Litters & Planned Matings</h2>
+      </div>
+      <div id="upcomingLitterWrapper" style="margin-bottom: 60px; display: none;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;"><i class="fa-solid fa-hourglass-half" style="color: var(--gold-primary);"></i> <span data-i18n="upcoming_litter_title">Planned or Current Mating</span></h3>
+        <div id="dynamicUpcomingLitter"></div>
+      </div>
+      <div id="currentLitterWrapper" style="margin-bottom: 60px; display: none;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center;"><i class="fa-solid fa-baby" style="color: var(--gold-primary);"></i> <span data-i18n="current_litter_title">Current Active Litter</span></h3>
+        <div id="dynamicCurrentLitter"></div>
+      </div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--pistachio-dark); margin-bottom: 20px; text-align: center; border-top: 1px dashed var(--pistachio-border); padding-top: 40px;" data-i18n="archive_litters_title">Previous Litters Archive</h3>
+      <div id="dynamicLittersContainer" class="dogs-luxury-grid"></div>
+    </div>
+  </section>
+
+  <!-- TAB 5: AVAILABLE DOGS -->
+  <section id="tab-available" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="avail_pretitle">Family Companions</span>
+        <h2 class="section-maintitle" data-i18n="avail_maintitle">Available Dogs & Puppies</h2>
+      </div>
+      <div id="dynamicAvailableContainer" class="dogs-luxury-grid" style="margin-bottom: 30px;"></div>
+      <div class="card-luxury" style="max-width: 860px; margin: 0 auto;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 16px; color: var(--pistachio-dark);" id="dyn-avail-title" data-i18n="avail_box_title">What Is Included with Every Snowstorm Puppy?</h3>
+        <ul id="dyn-avail-list" style="list-style: none; line-height: 2.1; margin-bottom: 24px; font-size: 0.94rem;">
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_1">Official FCI Export / National Pedigree</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_2">International EU/MK Pet Passport with Microchip</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_3">Full age-appropriate vaccinations and parasite treatments</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_4">Early Neurological Stimulation and Household Socialization</span></li>
+          <li><i class="fa-solid fa-check" style="color: var(--gold-primary); margin-right: 10px;"></i> <span data-i18n="inc_5">Lifetime breeder mentorship, dietary and coat care advice</span></li>
+        </ul>
+        <button class="btn-lux btn-lux-primary" onclick="selectTab('contact')" data-i18n="btn_inquire_avail">Contact for Availability</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 6: GALLERY -->
+  <section id="tab-gallery" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="gallery_pretitle">Moments & Memories</span>
+        <h2 class="section-maintitle" data-i18n="gallery_maintitle">Kennel Gallery</h2>
+        <p style="color: var(--text-muted);" data-i18n="gallery_subtitle">Moments from European show rings, daily family joy, dog nursery and grooming moments.</p>
+      </div>
+      <div class="gallery-filter-bar">
+        <button class="gallery-filter-btn active" onclick="filterGalleryPhotos('all', this)" data-i18n="filter_all">All Photos</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Shows', this)" data-i18n="filter_shows">Shows</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Home Life', this)" data-i18n="filter_home">Home Life</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Puppies', this)" data-i18n="filter_puppies">Puppies</button>
+        <button class="gallery-filter-btn" onclick="filterGalleryPhotos('Grooming', this)" data-i18n="filter_grooming">Grooming</button>
+      </div>
+      <div id="dynamicGalleryContainer" class="gallery-masonry-grid"></div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="galleryLightbox" class="lightbox-modal" onclick="closeGalleryLightbox()">
+    <div class="lightbox-content-box" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeGalleryLightbox()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="lightbox-img-area">
+        <button class="lightbox-nav-arrow lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="Kennel Photo" onclick="event.stopPropagation()">
+        <button class="lightbox-nav-arrow lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="lightbox-caption-area">
+        <h3 id="lightboxTitle" style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 6px;"></h3>
+        <p id="lightboxCaption" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;"></p>
+      </div>
+    </div>
   </div>
 
-  <!-- 1. ПОЧЕТНА -->
-  <div id="home" class="tab-content active">
-    <h3>Уредување на Почетна страница</h3>
-    
-    <label>Главен наслов:</label>
-    <div class="lang-row">
-      <div class="lang-box">
-        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_title_en', 'h_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
-        <textarea rows="2" id="h_title_mk"></textarea>
-      </div>
-      <div class="lang-box">
-        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_title_mk', 'h_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
-        <textarea rows="2" id="h_title_en"></textarea>
-      </div>
-    </div>
-    
-    <label>Воведен текст:</label>
-    <div class="lang-row">
-      <div class="lang-box">
-        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_desc_en', 'h_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
-        <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_desc_mk', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_desc_mk', 'italic')"><i>I</i></button></div>
-        <div id="h_desc_mk" class="editor-content" contenteditable="true"></div></div>
-      </div>
-      <div class="lang-box">
-        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_desc_mk', 'h_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
-        <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_desc_en', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_desc_en', 'italic')"><i>I</i></button></div>
-        <div id="h_desc_en" class="editor-content" contenteditable="true"></div></div>
-      </div>
-    </div>
-
-    <label>Наслов на кутија:</label>
-    <div class="lang-row">
-      <div class="lang-box">
-        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_title_en', 'h_box_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
-        <textarea rows="2" id="h_box_title_mk"></textarea>
-      </div>
-      <div class="lang-box">
-        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_title_mk', 'h_box_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
-        <textarea rows="2" id="h_box_title_en"></textarea>
-      </div>
-    </div>
-    
-    <label>Опис на кутија:</label>
-    <div class="lang-row">
-      <div class="lang-box">
-        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_desc_en', 'h_box_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
-        <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_box_desc_mk', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_box_desc_mk', 'italic')"><i>I</i></button></div>
-        <div id="h_box_desc_mk" class="editor-content" contenteditable="true"></div></div>
-      </div>
-      <div class="lang-box">
-        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_desc_mk', 'h_box_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
-        <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_box_desc_en', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_box_desc_en', 'italic')"><i>I</i></button></div>
-        <div id="h_box_desc_en" class="editor-content" contenteditable="true"></div></div>
-      </div>
-    </div>
-
-    <button class="btn" onclick="saveFile('content/home.json', getHomeData(), 'home.msg')">Зачувај на GitHub</button>
-    <div id="home.msg" class="status"></div>
-  </div>
-
-  <!-- 2. ЗА НАС -->
-  <div id="about" class="tab-content">
-    <h3>Уредување на За нас страница</h3>
-    <label>Пасус 1:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p1_en', 'a_p1_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_mk', 'bold')"><b>B</b></button></div><div id="a_p1_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p1_mk', 'a_p1_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_en', 'bold')"><b>B</b></button></div><div id="a_p1_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <label>Пасус 2:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p2_en', 'a_p2_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_mk', 'bold')"><b>B</b></button></div><div id="a_p2_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p2_mk', 'a_p2_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_en', 'bold')"><b>B</b></button></div><div id="a_p2_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <label>Пасус 3:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p3_en', 'a_p3_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_mk', 'bold')"><b>B</b></button></div><div id="a_p3_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p3_mk', 'a_p3_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_en', 'bold')"><b>B</b></button></div><div id="a_p3_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <label>Пасус 4:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p4_en', 'a_p4_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_mk', 'bold')"><b>B</b></button></div><div id="a_p4_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p4_mk', 'a_p4_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_en', 'bold')"><b>B</b></button></div><div id="a_p4_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <label>Пасус 5:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p5_en', 'a_p5_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_mk', 'bold')"><b>B</b></button></div><div id="a_p5_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p5_mk', 'a_p5_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_en', 'bold')"><b>B</b></button></div><div id="a_p5_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <label>Цитат:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_quote_en', 'a_quote_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_mk', 'bold')"><b>B</b></button></div><div id="a_quote_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_quote_mk', 'a_quote_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_en', 'bold')"><b>B</b></button></div><div id="a_quote_en" class="editor-content" contenteditable="true"></div></div></div>
-    </div>
-
-    <button class="btn" onclick="saveFile('content/about.json', getAboutData(), 'about.msg')">Зачувај на GitHub</button>
-    <div id="about.msg" class="status"></div>
-  </div>
-
-  <!-- 3. ПОСТАВКИ -->
-  <div id="settings" class="tab-content">
-    <h3>⚙️ Општи поставки</h3>
-    <label>Локација:</label>
-    <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('s_location_en', 's_location_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="s_location_mk"></textarea></div>
-      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('s_location_mk', 's_location_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="s_location_en"></textarea></div>
-    </div>
-    <label>Телефон:</label><input type="text" id="s_phone" />
-    <label>Е-пошта:</label><input type="text" id="s_email" />
-    <label>Facebook Линк:</label><input type="text" id="s_fb" />
-    <button class="btn" onclick="saveFile('content/settings.json', getSettingsData(), 'settings.msg')">Зачувај на GitHub</button>
-    <div id="settings.msg" class="status"></div>
-  </div>
-
-  <!-- 4. ГАЛЕРИЈА -->
-  <div id="gallery" class="tab-content">
-    <h3>📸 Уредување на Галерија</h3>
-    <div id="gallery-container"></div>
-    <button class="btn btn-secondary" onclick="addGalleryItem()">+ Додај галерија ставка</button>
-    <br><br>
-    <button class="btn" onclick="saveFile('content/gallery.json', { items: galleryData }, 'gallery.msg')">Зачувај на GitHub</button>
-    <div id="gallery.msg" class="status"></div>
-  </div>
-
-  <!-- 5. КУЧИЊА -->
-  <div id="dogs" class="tab-content">
-    <h3>🐶 Уредување на Кучиња</h3>
-    <div id="dogs-container"></div>
-    <button class="btn btn-secondary" onclick="addDogItem()">+ Додај ново куче</button>
-    <br><br>
-    <button class="btn" onclick="saveFile('content/dogs.json', { dogs: dogsData }, 'dogs.msg')">Зачувај на GitHub</button>
-    <div id="dogs.msg" class="status"></div>
-  </div>
-
-  <!-- 6. ЛЕГЛА -->
-  <div id="litters" class="tab-content">
-    <h3>🍼 Уредување на Легла (Litters)</h3>
-    
-    <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
-      <h4 style="margin-top: 0; color: var(--primary);">⏳ Очекувано Легло (Upcoming / Planned Mating)</h4>
-      <label>Наслов:</label>
-      <div class="lang-row">
-        <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('up_title_en', 'up_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="up_title_mk"></textarea></div>
-        <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('up_title_mk', 'up_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="up_title_en"></textarea></div>
-      </div>
-      <label>Фотографии:</label>
-      <input type="text" id="up_image" class="hidden-image-input" />
-      <div id="up_image_preview" class="image-preview-area"></div>
-      <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'up_image', 'up_image_preview')"></div>
-      <label>Опис:</label>
-      <div class="lang-row">
-        <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('up_desc_en', 'up_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('up_desc_mk', 'bold')"><b>B</b></button></div><div id="up_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
-        <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('up_desc_mk', 'up_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('up_desc_en', 'bold')"><b>B</b></button></div><div id="up_desc_en" class="editor-content" contenteditable="true"></div></div></div>
-      </div>
-    </div>
-
-    <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
-      <h4 style="margin-top: 0; color: var(--primary);">🐾 Моментално Активно Легло (Current Litter)</h4>
-      <label>Наслов:</label>
-      <div class="lang-row">
-        <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('cur_title_en', 'cur_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="cur_title_mk"></textarea></div>
-        <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('cur_title_mk', 'cur_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="cur_title_en"></textarea></div>
-      </div>
-      <label>Фотографии:</label>
-      <input type="text" id="cur_image" class="hidden-image-input" />
-      <div id="cur_image_preview" class="image-preview-area"></div>
-      <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'cur_image', 'cur_image_preview')"></div>
-      <label>Опис:</label>
-      <div class="lang-row">
-        <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('cur_desc_en', 'cur_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('cur_desc_mk', 'bold')"><b>B</b></button></div><div id="cur_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
-        <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('cur_desc_mk', 'cur_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('cur_desc_en', 'bold')"><b>B</b></button></div><div id="cur_desc_en" class="editor-content" contenteditable="true"></div></div></div>
-      </div>
-    </div>
-
-    <h4 style="margin-top: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">📚 Архива на Легла (Previous Litters)</h4>
-    <div id="litters-container"></div>
-    <button class="btn btn-secondary" onclick="addLitterItem()">+ Додај ново легло во архива</button>
-    <br><br>
-    <button class="btn" style="width: 100%; justify-content: center; font-size: 16px;" onclick="saveFile('content/litters.json', getLittersData(), 'litters.msg')">Зачувај сите промени за Легла на GitHub</button>
-    <div id="litters.msg" class="status"></div>
-  </div>
-
-  <!-- 7. ДОСТАПНИ -->
-  <div id="puppies" class="tab-content">
-    <h3>🐾 Достапни кученца</h3>
-    <div id="puppies-container"></div>
-    <button class="btn btn-secondary" onclick="addPuppyItem()">+ Додај кученце</button>
-    <br><br>
-    <button class="btn" onclick="saveFile('content/puppies.json', { puppies: puppiesData }, 'puppies.msg')">Зачувај на GitHub</button>
-    <div id="puppies.msg" class="status"></div>
-  </div>
-
-  <!-- 8. БЛОГ -->
-  <div id="blog" class="tab-content">
-    <h3 style="margin-top:0;">📝 Блог објави со напредно додавање на слики над текст</h3>
-    <div id="blog-container"></div>
-    <button class="btn btn-secondary" onclick="addBlogPost()">+ Креирај нов блог пост</button>
-    <br><br>
-    <button class="btn" style="width:100%; justify-content:center; font-size:16px;" onclick="saveFile('content/blog.json', { posts: blogData }, 'blog.msg')">Зачувај ги сите објави на GitHub</button>
-    <div id="blog.msg" class="status"></div>
-  </div>
-
-</div>
-
-<script>
-  let galleryData = [], dogsData = [], littersData = [], puppiesData = [], blogData = [];
-  const repo = 'KetiOslo/kingdom-of-snowstorm';
-
-  function nl2br(str) { return str ? str.toString().replace(/\n/g, '<br>') : ''; }
-  function br2nl(str) { return str ? str.toString().replace(/<br\s*\/?>/gi, '\n') : ''; }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && e.target.classList.contains('editor-content')) {
-      e.preventDefault();
-      document.execCommand('insertLineBreak');
-    }
-  });
-
-  function saveToken() {
-    const t = document.getElementById('gh-token').value.trim();
-    if(t) { localStorage.setItem('gh_token', t); document.getElementById('auth-status').innerText = '✓ Токенот е зачуван!'; }
-  }
-
-  function formatText(containerId, command) {
-    const el = document.getElementById(containerId);
-    if(el) {
-      el.focus();
-      document.execCommand(command, false, null);
-    }
-  }
-
-  function resolveImagePath(path) {
-    let cleanPath = path.toString().trim();
-    if (!cleanPath) return '';
-    if (cleanPath.startsWith('http')) return cleanPath;
-    if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
-    if (cleanPath.startsWith('content/images/')) return '../' + cleanPath;
-    if (cleanPath.startsWith('content/')) return '../' + cleanPath;
-    if (cleanPath.startsWith('images/')) return '../content/' + cleanPath;
-    return '../content/images/' + cleanPath;
-  }
-
-  function renderImagePreviews(inputId, previewBoxId) {
-    const inputEl = document.getElementById(inputId);
-    const previewBox = document.getElementById(previewBoxId);
-    if(!inputEl || !previewBox) return;
-
-    const val = inputEl.value.trim();
-    previewBox.innerHTML = '';
-    
-    if(val) {
-      const paths = val.split(',').map(s=>s.trim()).filter(Boolean);
-      paths.forEach((path, idx) => {
-        const fullUrl = resolveImagePath(path);
-        previewBox.innerHTML += `
-          <div class="image-chip">
-            <img src="${fullUrl}" alt="img" onerror="this.style.display='none'">
-            <button class="del-img-btn" onclick="removeImage('${inputId}', '${previewBoxId}', ${idx})" title="Избриши слика">X</button>
-          </div>
-        `;
-      });
-    }
-  }
-
-  function removeImage(inputId, previewBoxId, indexToRemove) {
-    const inputEl = document.getElementById(inputId);
-    const val = inputEl.value.trim();
-    if(val) {
-      let paths = val.split(',').map(s=>s.trim()).filter(Boolean);
-      paths.splice(indexToRemove, 1);
-      inputEl.value = paths.join(', ');
-      triggerFieldUpdates();
-      renderImagePreviews(inputId, previewBoxId);
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded', async () => {
-    const savedT = localStorage.getItem('gh_token');
-    if(savedT) { document.getElementById('gh-token').value = savedT; document.getElementById('auth-status').innerText = '✓ Поврзано со GitHub.'; }
-
-    try {
-      const rH = await fetch('../content/home.json?t=' + new Date().getTime());
-      if(rH.ok) {
-        const d = await rH.json();
-        document.getElementById('h_title_mk').value = br2nl(d.hero_title_mk || d.hero_title || '');
-        document.getElementById('h_title_en').value = br2nl(d.hero_title_en || '');
-        document.getElementById('h_desc_mk').innerHTML = d.hero_desc_mk || d.hero_desc || '';
-        document.getElementById('h_desc_en').innerHTML = d.hero_desc_en || '';
-        document.getElementById('h_box_title_mk').value = br2nl(d.box_title_mk || d.box_title || '');
-        document.getElementById('h_box_title_en').value = br2nl(d.box_title_en || '');
-        document.getElementById('h_box_desc_mk').innerHTML = d.box_desc_mk || d.box_desc || '';
-        document.getElementById('h_box_desc_en').innerHTML = d.box_desc_en || '';
-      }
-
-      const rA = await fetch('../content/about.json?t=' + new Date().getTime());
-      if(rA.ok) {
-        const d = await rA.json();
-        document.getElementById('a_p1_mk').innerHTML = d.p1_mk || d.p1 || '';
-        document.getElementById('a_p1_en').innerHTML = d.p1_en || '';
-        document.getElementById('a_p2_mk').innerHTML = d.p2_mk || d.p2 || '';
-        document.getElementById('a_p2_en').innerHTML = d.p2_en || '';
-        document.getElementById('a_p3_mk').innerHTML = d.p3_mk || d.p3 || '';
-        document.getElementById('a_p3_en').innerHTML = d.p3_en || '';
-        document.getElementById('a_p4_mk').innerHTML = d.p4_mk || d.p4 || '';
-        document.getElementById('a_p4_en').innerHTML = d.p4_en || '';
-        document.getElementById('a_p5_mk').innerHTML = d.p5_mk || d.p5 || '';
-        document.getElementById('a_p5_en').innerHTML = d.p5_en || '';
-        document.getElementById('a_quote_mk').innerHTML = d.quote_mk || d.quote || '';
-        document.getElementById('a_quote_en').innerHTML = d.quote_en || '';
-      }
-
-      const rS = await fetch('../content/settings.json?t=' + new Date().getTime());
-      if(rS.ok) {
-        const d = await rS.json();
-        document.getElementById('s_location_mk').value = br2nl(typeof d.location === 'object' ? d.location.mk : (d.location_mk || d.location || ''));
-        document.getElementById('s_location_en').value = br2nl(typeof d.location === 'object' ? d.location.en : (d.location_en || ''));
-        document.getElementById('s_phone').value = d.phone || '';
-        document.getElementById('s_email').value = d.email || '';
-        document.getElementById('s_fb').value = d.facebook_url || '';
-      }
-
-      const rL = await fetch('../content/litters.json?t=' + new Date().getTime());
-      if(rL.ok) {
-        const d = await rL.json();
-        if(d.upcoming) {
-          document.getElementById('up_title_mk').value = br2nl(d.upcoming.title_mk || d.upcoming.title || '');
-          document.getElementById('up_title_en').value = br2nl(d.upcoming.title_en || '');
-          document.getElementById('up_desc_mk').innerHTML = d.upcoming.description_mk || d.upcoming.description || d.upcoming.text || '';
-          document.getElementById('up_desc_en').innerHTML = d.upcoming.description_en || '';
-          document.getElementById('up_image').value = Array.isArray(d.upcoming.images) ? d.upcoming.images.join(', ') : (d.upcoming.image || '');
-          renderImagePreviews('up_image', 'up_image_preview');
-        }
-        if(d.current) {
-          document.getElementById('cur_title_mk').value = br2nl(d.current.title_mk || d.current.title || '');
-          document.getElementById('cur_title_en').value = br2nl(d.current.title_en || '');
-          document.getElementById('cur_desc_mk').innerHTML = d.current.description_mk || d.current.description || d.current.text || '';
-          document.getElementById('cur_desc_en').innerHTML = d.current.description_en || '';
-          document.getElementById('cur_image').value = Array.isArray(d.current.images) ? d.current.images.join(', ') : (d.current.image || '');
-          renderImagePreviews('cur_image', 'cur_image_preview');
-        }
-        littersData = d.litters || d.items || [];
-        renderLitters();
-      }
-
-      const loadJSON = async (path, setter, renderFn) => {
-        const res = await fetch(`../${path}?t=` + new Date().getTime());
-        if(res.ok) { const d = await res.json(); setter(d); if(renderFn) renderFn(); }
-      };
-
-      await loadJSON('content/gallery.json', d => galleryData = d.items || [], renderGallery);
-      await loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
-      await loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
-      await loadJSON('content/blog.json', d => blogData = d.posts || d.items || [], renderBlog);
-    } catch(e) { console.log("Init OK"); }
-  });
-
-  function switchTab(tabId, event) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    if(event) event.currentTarget.classList.add('active');
-  }
-
-  async function uploadMultipleImagesToGithub(fileInput, targetInputId, previewBoxId) {
-    const files = fileInput.files;
-    if(!files || files.length === 0) return;
-    const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
-    if(!token) { alert('Внесете токен најгоре!'); return; }
-
-    const box = fileInput.closest('.file-upload-box');
-    let statusInfo = box.querySelector('.upload-status');
-    if(!statusInfo) {
-      statusInfo = document.createElement('div');
-      statusInfo.className = 'upload-status';
-      statusInfo.style.fontSize = '12px';
-      statusInfo.style.color = '#0284c7';
-      statusInfo.style.marginTop = '5px';
-      box.appendChild(statusInfo);
-    }
-    statusInfo.innerText = `⏳ Се прикачуваат ${files.length} слика(и)...`;
-
-    let uploadedPaths = [];
-    const currentInputValue = document.getElementById(targetInputId).value.trim();
-    if(currentInputValue) {
-      uploadedPaths = currentInputValue.split(',').map(s => s.trim()).filter(Boolean);
-    }
-
-    try {
-      for(let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const base64Content = await toBase64(file);
-        const fileName = Date.now() + '_' + i + '_' + file.name.replace(/\s+/g, '_');
-        const filePath = `content/images/${fileName}`;
-
-        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-          method: 'PUT',
-          headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: `Upload ${fileName}`, content: base64Content })
-        });
-
-        if(res.ok) {
-          uploadedPaths.push(`content/images/${fileName}`);
-        }
-        await new Promise(r => setTimeout(r, 400));
-      }
-
-      const finalString = uploadedPaths.join(', ');
-      document.getElementById(targetInputId).value = finalString;
-      triggerFieldUpdates();
-      renderImagePreviews(targetInputId, previewBoxId);
-      statusInfo.innerText = '✓ Успешно прикачени!';
-      setTimeout(() => statusInfo.innerText='', 3000);
-      fileInput.value = "";
-    } catch(err) {
-      statusInfo.innerText = '✕ Грешка при прикачување.';
-      alert('✕ Грешка при прикачување на сликите.');
-    }
-  }
-
-  function toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  /* РЕНДЕРИРАЊЕ НА ГАЛЕРИЈА */
-  function renderGallery() {
-    const c = document.getElementById('gallery-container'); c.innerHTML = '';
-    galleryData.forEach((item, i) => {
-      c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="galleryData.splice(${i},1); renderGallery();">Избриши</button>
-        
-        <label>Наслов (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('gal_t_en_${i}', 'gal_t_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="gal_t_mk_${i}" rows="1" onchange="galleryData[${i}].title_mk = nl2br(this.value)">${br2nl(item.title_mk || item.title || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('gal_t_mk_${i}', 'gal_t_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="gal_t_en_${i}" rows="1" onchange="galleryData[${i}].title_en = nl2br(this.value)">${br2nl(item.title_en || '')}</textarea></div>
-        </div>
-
-        <label>Категорија:</label>
-        <select onchange="galleryData[${i}].category = this.value">
-          <option value="Shows" ${item.category === 'Shows' ? 'selected' : ''}>Shows</option>
-          <option value="Home Life" ${item.category === 'Home Life' ? 'selected' : ''}>Home Life</option>
-          <option value="Puppies" ${item.category === 'Puppies' ? 'selected' : ''}>Puppies</option>
-          <option value="Grooming" ${item.category === 'Grooming' ? 'selected' : ''}>Grooming</option>
-        </select>
-        
-        <label>Фотографии:</label>
-        <input type="text" id="gal_${i}" value="${item.image || ''}" class="hidden-image-input" onchange="galleryData[${i}].image = this.value; renderImagePreviews('gal_${i}', 'gal_preview_${i}')">
-        <div id="gal_preview_${i}" class="image-preview-area"></div>
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'gal_${i}', 'gal_preview_${i}')"></div>
-        
-        <label>Опис (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('gal_cap_en_${i}', 'gal_cap_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('gal_cap_mk_${i}', 'bold')"><b>B</b></button></div><div id="gal_cap_mk_${i}" class="editor-content" contenteditable="true" oninput="galleryData[${i}].caption_mk = this.innerHTML">${item.caption_mk || item.caption || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('gal_cap_mk_${i}', 'gal_cap_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('gal_cap_en_${i}', 'bold')"><b>B</b></button></div><div id="gal_cap_en_${i}" class="editor-content" contenteditable="true" oninput="galleryData[${i}].caption_en = this.innerHTML">${item.caption_en || ''}</div></div>
-          </div>
-        </div>
-      </div>`;
-      renderImagePreviews(`gal_${i}`, `gal_preview_${i}`);
-    });
-  }
-  function addGalleryItem() { galleryData.push({ title_mk: "", title_en: "", category: "Shows", image: "", caption_mk: "", caption_en: "" }); renderGallery(); }
-
-  /* РЕНДЕРИРАЊЕ НА КУЧИЊА */
-  function renderDogs() {
-    const c = document.getElementById('dogs-container'); c.innerHTML = '';
-    dogsData.forEach((dog, i) => {
-      c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="dogsData.splice(${i},1); renderDogs();">Избриши</button>
-        
-        <label>Име (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('dog_name_en_${i}', 'dog_name_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="dog_name_mk_${i}" rows="1" onchange="dogsData[${i}].name_mk = nl2br(this.value)">${br2nl(dog.name_mk || dog.name || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('dog_name_mk_${i}', 'dog_name_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="dog_name_en_${i}" rows="1" onchange="dogsData[${i}].name_en = nl2br(this.value)">${br2nl(dog.name_en || '')}</textarea></div>
-        </div>
-
-        <label>Линија (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('dog_l_en_${i}', 'dog_l_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="dog_l_mk_${i}" rows="1" onchange="dogsData[${i}].lineage_mk = nl2br(this.value)">${br2nl(dog.lineage_mk || dog.lineage || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('dog_l_mk_${i}', 'dog_l_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="dog_l_en_${i}" rows="1" onchange="dogsData[${i}].lineage_en = nl2br(this.value)">${br2nl(dog.lineage_en || '')}</textarea></div>
-        </div>
-
-        <label>Пол:</label><textarea rows="1" onchange="dogsData[${i}].gender = nl2br(this.value)">${br2nl(dog.gender)}</textarea>
-        
-        <label>Детали (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('dog_d_en_${i}', 'dog_d_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="dog_d_mk_${i}" rows="2" onchange="dogsData[${i}].details_mk = nl2br(this.value)">${br2nl(dog.details_mk || dog.birth || dog.details || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('dog_d_mk_${i}', 'dog_d_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="dog_d_en_${i}" rows="2" onchange="dogsData[${i}].details_en = nl2br(this.value)">${br2nl(dog.details_en || '')}</textarea></div>
-        </div>
-        
-        <label>Фотографии:</label>
-        <input type="text" id="dog_${i}" value="${dog.image || ''}" class="hidden-image-input" onchange="dogsData[${i}].image = this.value; renderImagePreviews('dog_${i}', 'dog_preview_${i}')">
-        <div id="dog_preview_${i}" class="image-preview-area"></div>
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', 'dog_preview_${i}')"></div>
-        
-        <label>Опис (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('dog_desc_en_${i}', 'dog_desc_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('dog_desc_mk_${i}', 'bold')"><b>B</b></button></div><div id="dog_desc_mk_${i}" class="editor-content" contenteditable="true" oninput="dogsData[${i}].narrative_mk = this.innerHTML">${dog.narrative_mk || dog.narrative || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('dog_desc_mk_${i}', 'dog_desc_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('dog_desc_en_${i}', 'bold')"><b>B</b></button></div><div id="dog_desc_en_${i}" class="editor-content" contenteditable="true" oninput="dogsData[${i}].narrative_en = this.innerHTML">${dog.narrative_en || ''}</div></div>
-          </div>
-        </div>
-      </div>`;
-      renderImagePreviews(`dog_${i}`, `dog_preview_${i}`);
-    });
-  }
-  function addDogItem() { dogsData.push({ name_mk: "", name_en: "", lineage_mk: "", lineage_en: "", gender: "", details_mk: "", details_en: "", image: "", narrative_mk: "", narrative_en: "" }); renderDogs(); }
-
-  /* РЕНДЕРИРАЊЕ НА ЛЕГЛА АРХИВА */
-  function renderLitters() {
-    const c = document.getElementById('litters-container'); c.innerHTML = '';
-    littersData.forEach((litter, i) => {
-      c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="littersData.splice(${i},1); renderLitters();">Избриши</button>
-        
-        <label>Име на леглото (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('lit_t_en_${i}', 'lit_t_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="lit_t_mk_${i}" rows="1" onchange="littersData[${i}].title_mk = nl2br(this.value)">${br2nl(litter.title_mk || litter.title || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('lit_t_mk_${i}', 'lit_t_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="lit_t_en_${i}" rows="1" onchange="littersData[${i}].title_en = nl2br(this.value)">${br2nl(litter.title_en || '')}</textarea></div>
-        </div>
-        
-        <label>Фотографии:</label>
-        <input type="text" id="lit_${i}" value="${litter.image || ''}" class="hidden-image-input" onchange="littersData[${i}].image = this.value; renderImagePreviews('lit_${i}', 'lit_preview_${i}')">
-        <div id="lit_preview_${i}" class="image-preview-area"></div>
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', 'lit_preview_${i}')"></div>
-        
-        <label>Опис (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('lit_desc_en_${i}', 'lit_desc_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('lit_desc_mk_${i}', 'bold')"><b>B</b></button></div><div id="lit_desc_mk_${i}" class="editor-content" contenteditable="true" oninput="littersData[${i}].description_mk = this.innerHTML">${litter.description_mk || litter.description || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('lit_desc_mk_${i}', 'lit_desc_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('lit_desc_en_${i}', 'bold')"><b>B</b></button></div><div id="lit_desc_en_${i}" class="editor-content" contenteditable="true" oninput="littersData[${i}].description_en = this.innerHTML">${litter.description_en || ''}</div></div>
-          </div>
-        </div>
-      </div>`;
-      renderImagePreviews(`lit_${i}`, `lit_preview_${i}`);
-    });
-  }
-  function addLitterItem() { littersData.push({ title_mk: "", title_en: "", image: "", description_mk: "", description_en: "" }); renderLitters(); }
-
-  /* РЕНДЕРИРАЊЕ НА КУЧЕНЦА */
-  function renderPuppies() {
-    const c = document.getElementById('puppies-container'); c.innerHTML = '';
-    puppiesData.forEach((pup, i) => {
-      c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="puppiesData.splice(${i},1); renderPuppies();">Избриши</button>
-        <label>Име на кученцето (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('pup_name_en_${i}', 'pup_name_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="pup_name_mk_${i}" rows="1" onchange="puppiesData[${i}].name_mk = nl2br(this.value)">${br2nl(pup.name_mk || pup.name || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('pup_name_mk_${i}', 'pup_name_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="pup_name_en_${i}" rows="1" onchange="puppiesData[${i}].name_en = nl2br(this.value)">${br2nl(pup.name_en || '')}</textarea></div>
-        </div>
-        
-        <label>Статус (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('pup_s_en_${i}', 'pup_s_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="pup_s_mk_${i}" rows="1" onchange="puppiesData[${i}].status_mk = nl2br(this.value)">${br2nl(pup.status_mk || pup.status || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('pup_s_mk_${i}', 'pup_s_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="pup_s_en_${i}" rows="1" onchange="puppiesData[${i}].status_en = nl2br(this.value)">${br2nl(pup.status_en || '')}</textarea></div>
-        </div>
-        
-        <label>Фотографии:</label>
-        <input type="text" id="pup_${i}" value="${pup.image || ''}" class="hidden-image-input" onchange="puppiesData[${i}].image = this.value; renderImagePreviews('pup_${i}', 'pup_preview_${i}')">
-        <div id="pup_preview_${i}" class="image-preview-area"></div>
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', 'pup_preview_${i}')"></div>
-        
-        <label>Детали (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('pup_desc_en_${i}', 'pup_desc_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('pup_desc_mk_${i}', 'bold')"><b>B</b></button></div><div id="pup_desc_mk_${i}" class="editor-content" contenteditable="true" oninput="puppiesData[${i}].details_mk = this.innerHTML">${pup.details_mk || pup.details || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('pup_desc_mk_${i}', 'pup_desc_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('pup_desc_en_${i}', 'bold')"><b>B</b></button></div><div id="pup_desc_en_${i}" class="editor-content" contenteditable="true" oninput="puppiesData[${i}].details_en = this.innerHTML">${pup.details_en || ''}</div></div>
-          </div>
-        </div>
-      </div>`;
-      renderImagePreviews(`pup_${i}`, `pup_preview_${i}`);
-    });
-  }
-  function addPuppyItem() { puppiesData.push({ name_mk: "", name_en: "", status_mk: "Достапно", status_en: "Available", image: "", details_mk: "", details_en: "" }); renderPuppies(); }
-
-  /* РЕНДЕРИРАЊЕ НА БЛОГ СО РЕДОВИ ЗА СЛИКИ И ТЕКСТ */
-  function renderBlog() {
-    const c = document.getElementById('blog-container'); 
-    c.innerHTML = '';
-    
-    blogData.forEach((post, i) => {
-      if(!post.rows) post.rows = [];
-
-      let rowsHtml = '';
-      post.rows.forEach((row, rIdx) => {
-        rowsHtml += `
-          <div style="background: #ffffff; border: 1px dashed var(--border); padding: 12px; border-radius: 6px; margin-top: 10px;" id="blog_row_${i}_${rIdx}">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong>Дополнително поле / ред #${rIdx + 1}</strong>
-              <button type="button" class="remove-btn" style="position:static;" onclick="removeBlogRow(${i}, ${rIdx})">Избриши ред</button>
-            </div>
-            
-            <label>Поднаслов (опционално):</label>
-            <div class="lang-row" style="margin-top:5px;">
-              <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_row_t_en_${i}_${rIdx}', 'blog_row_t_mk_${i}_${rIdx}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="1" id="blog_row_t_mk_${i}_${rIdx}">${br2nl(row.title_mk || '')}</textarea></div>
-              <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('blog_row_t_mk_${i}_${rIdx}', 'blog_row_t_en_${i}_${rIdx}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="1" id="blog_row_t_en_${i}_${rIdx}">${br2nl(row.title_en || '')}</textarea></div>
-            </div>
-
-            <label>Слика(и) за овој ред (ќе се појават НАД текстот):</label>
-            <input type="text" id="blog_row_img_${i}_${rIdx}" value="${row.image || ''}" class="hidden-image-input">
-            <div id="blog_row_prev_${i}_${rIdx}" class="image-preview-area"></div>
-            <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_row_img_${i}_${rIdx}', 'blog_row_prev_${i}_${rIdx}')"></div>
-
-            <label>Текст на ред (МК / EN):</label>
-            <div class="lang-row" style="margin-top:5px;">
-              <div class="lang-box">
-                <h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_row_txt_en_${i}_${rIdx}', 'blog_row_txt_mk_${i}_${rIdx}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-                <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_row_txt_mk_${i}_${rIdx}', 'bold')"><b>B</b></button><button type="button" onclick="formatText('blog_row_txt_mk_${i}_${rIdx}', 'italic')"><i>I</i></button></div>
-                <div id="blog_row_txt_mk_${i}_${rIdx}" class="editor-content" contenteditable="true">${row.text_mk || ''}</div></div>
-              </div>
-              <div class="lang-box">
-                <h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('blog_row_txt_mk_${i}_${rIdx}', 'blog_row_txt_en_${i}_${rIdx}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-                <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_row_txt_en_${i}_${rIdx}', 'bold')"><b>B</b></button><button type="button" onclick="formatText('blog_row_txt_en_${i}_${rIdx}', 'italic')"><i>I</i></button></div>
-                <div id="blog_row_txt_en_${i}_${rIdx}" class="editor-content" contenteditable="true">${row.text_en || ''}</div></div>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши ја цела објава</button>
-        
-        <label>Главен наслов на статија (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_t_en_${i}', 'blog_t_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea id="blog_t_mk_${i}" rows="2">${br2nl(post.title_mk || post.title || '')}</textarea></div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('blog_t_mk_${i}', 'blog_t_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea id="blog_t_en_${i}" rows="2">${br2nl(post.title_en || '')}</textarea></div>
-        </div>
-
-        <label>Датум:</label>
-        <input type="date" id="blog_date_${i}" value="${post.date || ''}" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
-        
-        <label>Главна слика (Се покажува во листата на блогови на почетната):</label>
-        <input type="text" id="blog_${i}" value="${post.image || ''}" class="hidden-image-input">
-        <div id="blog_preview_${i}" class="image-preview-area"></div>
-        <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', 'blog_preview_${i}')"></div>
-        
-        <label>Краток опис (Само за во листата - МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_exc_en_${i}', 'blog_exc_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_exc_mk_${i}', 'bold')"><b>B</b></button></div><div id="blog_exc_mk_${i}" class="editor-content" contenteditable="true">${post.excerpt_mk || post.excerpt || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('blog_exc_mk_${i}', 'blog_exc_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_exc_en_${i}', 'bold')"><b>B</b></button></div><div id="blog_exc_en_${i}" class="editor-content" contenteditable="true">${post.excerpt_en || ''}</div></div>
-          </div>
-        </div>
-
-        <label>Главен воведен текст (МК / EN):</label>
-        <div class="lang-row">
-          <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_cont_en_${i}', 'blog_cont_mk_${i}', 'en', 'mk')">EN➔MK 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_cont_mk_${i}', 'bold')"><b>B</b></button></div><div id="blog_cont_mk_${i}" class="editor-content" contenteditable="true">${post.content_mk || post.content || ''}</div></div>
-          </div>
-          <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('blog_cont_mk_${i}', 'blog_cont_en_${i}', 'mk', 'en')">MK➔EN 🤖</button></h4>
-            <div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('blog_cont_en_${i}', 'bold')"><b>B</b></button></div><div id="blog_cont_en_${i}" class="editor-content" contenteditable="true">${post.content_en || ''}</div></div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px; padding:15px; background:#f0f9ff; border-radius:8px; border:1px solid #bae6fd;">
-          <h4 style="margin:0 0 10px 0; color:var(--primary);">Дополнителни секции: СЛИКА НАД ТЕКСТ</h4>
-          <p style="font-size:13px; color:#475569; margin:0 0 15px 0;">Тука додаваш слики кои ќе стојат директно над специфичен параграф во статијата.</p>
-          <div id="blog_rows_box_${i}">${rowsHtml}</div>
-          <button type="button" class="btn btn-secondary" style="margin-top:10px;" onclick="addBlogRow(${i})">+ Додај ново поле (Слика + Текст)</button>
-        </div>
-      </div>`;
+  <!-- TAB 7: BLOG -->
+  <section id="tab-blog" class="site-tab-content">
+    <div class="section-spacing container">
       
-      setTimeout(() => {
-        renderImagePreviews(`blog_${i}`, `blog_preview_${i}`);
-        if(post.rows) {
-          post.rows.forEach((row, rIdx) => {
-            renderImagePreviews(`blog_row_img_${i}_${rIdx}`, `blog_row_prev_${i}_${rIdx}`);
-          });
+      <!-- Листа со сите објави (со нова СТРИКТНА 4-колонска мрежа) -->
+      <div id="blogListView">
+        <div class="section-head">
+          <span class="section-pretitle" data-i18n="blog_pretitle">Live Updates & Insights</span>
+          <h2 class="section-maintitle" data-i18n="blog_maintitle">Kennel News & Updates</h2>
+          <p style="color: var(--text-muted);" data-i18n="blog_subtitle">
+            Follow our latest dog show achievements, puppy announcements, and daily stories.
+          </p>
+        </div>
+        <!-- Променето во .blog-luxury-grid за да не се развлекува! -->
+        <div class="blog-luxury-grid" id="dynamicBlogContainer"></div>
+      </div>
+
+      <!-- Детален приказ на една објава -->
+      <div id="blogDetailView" style="display: none; max-width: 900px; margin: 0 auto;">
+        <button class="btn-lux btn-lux-primary" onclick="closeBlogPost()" style="margin-bottom: 25px;">
+          <i class="fa-solid fa-arrow-left"></i> <span data-i18n="back_to_blog">Back to Blog</span>
+        </button>
+        <div class="card-luxury" id="blogDetailContent" style="padding: clamp(20px, 4vw, 35px);"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TAB 8: CONTACT -->
+  <section id="tab-contact" class="site-tab-content">
+    <div class="section-spacing container">
+      <div class="section-head">
+        <span class="section-pretitle" data-i18n="contact_pretitle">Get In Touch</span>
+        <h2 class="section-maintitle" data-i18n="contact_maintitle">Contact Kingdom of Snowstorm</h2>
+        <p style="color: var(--text-muted);" data-i18n="contact_subtitle">We are pleased to answer inquiries regarding our dogs, litters, or the Bichon Frisé breed.</p>
+      </div>
+      <div class="contact-columns">
+        <div class="card-luxury">
+          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="kennel_contacts_title">Kennel Contacts</h3>
+          <div style="margin-bottom: 20px;">
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="owner_label">Founder & Owner</p>
+            <p style="font-size: 1.05rem; font-weight: 600; color: var(--pistachio-dark);">Katerina Gerasimovska</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="location_label">Location</p>
+            <p style="font-size: 1.02rem; color: var(--text-muted);" id="dyn-contact-location" data-i18n="location_val">Skopje, North Macedonia</p>
+          </div>
+          <div style="margin-bottom: 26px;">
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gold-hover);" data-i18n="email_label">Direct Email</p>
+            <a id="dyn-contact-email" href="mailto:kingdomofsnowstorm@gmail.com" style="font-size: 1.02rem; font-weight: 600; color: var(--pistachio-dark) !important; word-break: break-word;">kingdomofsnowstorm@gmail.com</a>
+          </div>
+          <div style="padding-top: 20px; border-top: 1px solid var(--pistachio-border);">
+            <p style="font-weight: 700; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; color: var(--pistachio-dark);" data-i18n="instant_chat_label">Instant Chat Communication:</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a id="dyn-btn-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="btn-lux" style="background: var(--whatsapp-color); color: var(--white) !important; flex: 1;"><i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp</a>
+              <a id="dyn-btn-vi" href="viber://chat?number=%2B38970300013" class="btn-lux" style="background: var(--viber-color); color: var(--white) !important; flex: 1;"><i class="fa-brands fa-viber" style="font-size: 1.2rem;"></i> Viber</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-luxury">
+          <h3 style="font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 20px; color: var(--pistachio-dark);" data-i18n="send_inquiry_title">Send an Inquiry</h3>
+          <form id="contactForm" onsubmit="handleFormSubmit(event)">
+            <input type="hidden" name="access_key" id="w3f_key" value="">
+            <input type="hidden" name="subject" value="New Inquiry from Kingdom of Snowstorm Website">
+            <input type="hidden" name="from_name" value="Snowstorm Web Visitor">
+            <div class="input-field-group">
+              <label for="fname" data-i18n="lbl_name">Your Full Name *</label>
+              <input type="text" id="fname" name="name" class="form-control-lux" required placeholder="e.g. Maria Smith">
+            </div>
+            <div class="input-field-group">
+              <label for="femail" data-i18n="lbl_email">Email Address *</label>
+              <input type="email" id="femail" name="email" class="form-control-lux" required placeholder="e.g. maria@example.com">
+            </div>
+            <div class="input-field-group">
+              <label for="fsubject" data-i18n="lbl_subject">I am interested in:</label>
+              <select id="fsubject" name="interest" class="form-control-lux">
+                <option data-i18n="opt_1">Puppy Reservation (Future Litter)</option>
+                <option data-i18n="opt_2">Show / Breeding Potential</option>
+                <option data-i18n="opt_3">Stud Service Inquiry (Oslo)</option>
+                <option data-i18n="opt_4">General Breed Consultation</option>
+              </select>
+            </div>
+            <div class="input-field-group">
+              <label for="fmsg" data-i18n="lbl_msg">Your Message *</label>
+              <textarea id="fmsg" name="message" class="form-control-lux" rows="4" required placeholder="Tell us about yourself, your home and experience with dogs..."></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn-lux btn-lux-gold" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> <span id="submitBtnText" data-i18n="btn_send">Send Inquiry to Katerina</span></button>
+            <div id="formStatus" class="form-status-box"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING ICONS -->
+  <div class="floating-instant-actions">
+    <a id="dyn-float-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="float-chat-bubble btn-wa" title="WhatsApp Chat"><i class="fa-brands fa-whatsapp"></i></a>
+    <a id="dyn-float-vi" href="viber://chat?number=%2B38970300013" class="float-chat-bubble btn-vi" title="Viber Chat"><i class="fa-brands fa-viber"></i></a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid-container">
+      <div>
+        <div class="footer-brand-plate"><img src="2.png" alt="Kingdom of Snowstorm"></div>
+        <p style="font-size: 0.92rem; line-height: 1.8; color: #A4BFA2;" id="dyn-footer-desc" data-i18n="footer_desc"></p>
+        <div class="footer-affiliate-logos">
+          <a href="https://fci.be/en/" target="_blank" rel="noopener noreferrer"><img src="fci.png" alt="FCI"></a>
+          <a href="https://ksm.org.mk/" target="_blank" rel="noopener noreferrer"><img src="ksm.jpg" alt="KSM"></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-header-label" data-i18n="footer_nav_title">Navigation</h4>
+        <ul class="footer-clean-nav">
+          <li><a onclick="selectTab('home')" data-i18n="nav_home">Home</a></li>
+          <li><a onclick="selectTab('about')" data-i18n="nav_about">About Us</a></li>
+          <li><a onclick="selectTab('dogs')" data-i18n="nav_dogs">Our Dogs</a></li>
+          <li><a onclick="selectTab('litters')" data-i18n="nav_litters">Litters</a></li>
+          <li><a onclick="selectTab('available')" data-i18n="nav_available">Available Dogs</a></li>
+          <li><a onclick="selectTab('gallery')" data-i18n="nav_gallery">Gallery</a></li>
+          <li><a onclick="selectTab('contact')" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-header-label" data-i18n="footer_social_title">Social & Connect</h4>
+        <div style="display: flex; gap: 10px; margin-top: 14px;">
+          <a id="dyn-footer-fb" href="https://www.facebook.com/kingdom.of.snow.storm.kennel?locale=mk_MK" target="_blank" rel="noopener noreferrer" class="brand-btn btn-fb"><i class="fa-brands fa-facebook-f"></i></a>
+          <a id="dyn-footer-wa" href="https://wa.me/38970300013" target="_blank" rel="noopener noreferrer" class="brand-btn btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
+          <a id="dyn-footer-vi" href="viber://chat?number=%2B38970300013" class="brand-btn btn-vi"><i class="fa-brands fa-viber"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-copyright">
+      <p data-i18n="footer_copy">© 2026 Kingdom of Snowstorm. FCI Kennel 11/23 & MKD 268. Designed with pure love.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    let currentLang = localStorage.getItem('site_lang') || 'en';
+    let allGalleryItems = [];
+    let cachedHomeData = {};
+    let cachedAboutData = {};
+    let cachedSettingsData = {};
+    let cachedLittersList = [];
+    let cachedDogsList = [];
+    let cachedUpcomingLitter = {};
+    let cachedCurrentLitter = {};
+    let cachedAvailableDogs = [];
+    let cachedBlogPosts = [];
+    let currentLightboxImages = [];
+    let currentLightboxIndex = 0;
+
+    const translations = {
+      mk: {
+        location_top: "Скопје, Северна Македонија", nav_home: "Почетна", nav_about: "За нас", nav_dogs: "Наши кучиња", nav_litters: "Легла",
+        nav_available: "Слободни кучиња", nav_gallery: "Галерија", nav_blog: "Блог", nav_contact: "Контакт",
+        hero_tag: "FCI Сертифицирано наследство • Скопје", hero_title: "Каде што шампионите се одгледуваат <em>со љубов</em>",
+        hero_desc: "Добредојдовте во Kingdom of Snowstorm, FCI регистриран одгледувач на Бишон Фризе со седиште во Скопје, Северна Македонија.",
+        btn_meet_dogs: "Запознајте ги нашите кучиња", btn_contact_us: "Контактирајте нè",
+        box_title: "FCI & KSM Официјален стандард", box_desc: "Официјално регистрирани под FCI бр. 11/23 и МКД бр. 268.",
+        box_pill: "Шампиони и C.I.B. меѓународни крвни линии", val_pretitle: "Нашата посветеност", val_maintitle: "Одгледувачница исполнета со љубов",
+        val1_title: "Одгледани во нашиот дом", val1_desc: "Нашите кучиња се најпрвин сакани семејни членови.",
+        val2_title: "Стандарди за здравство и педигре", val2_desc: "Внимателно планирани парења според FCI стандардот.",
+        val3_title: "Извонредност во изложбените рингови", val3_desc: "Гордо ја претставуваме нашата одгледувачница на светски, европски изложби.",
+        about_pretitle: "Нашето наследство", about_maintitle: "Приказната зад Kingdom of Snowstorm",
+        dogs_pretitle: "Кралиското семејство", dogs_maintitle: "Нашите сакани бишони", dogs_subtitle: "Одгледани со најголема посветеност.",
+        litters_pretitle: "Етичко одгледување", litters_maintitle: "Легла и планирани парења", upcoming_litter_title: "Планирано или актуелно парење", current_litter_title: "Тековно активно легло", archive_litters_title: "Архива на претходни легла",
+        avail_pretitle: "Семејни придружници", avail_maintitle: "Слободни кучиња и кутриња", avail_box_title: "Што е вклучено со секое Snowstorm кутре?",
+        inc_1: "Официјално FCI извозно / национално педигре", inc_2: "Меѓународен ЕУ/МК пасош за миленичиња со микрочип", inc_3: "Целосни вакцини соодветни за возраста и третмани против паразити", inc_4: "Рана невролошка стимулација и домашна социјализација", inc_5: "Доживотно менторство од одгледувачот",
+        btn_inquire_avail: "Контактирајте за достапност", gallery_pretitle: "Моменти и спомени", gallery_maintitle: "Галерија на одгледувачницата", gallery_subtitle: "Моменти од европски изложбени рингови, секојдневна семејна радост.",
+        filter_all: "Сите фотографии", filter_shows: "Изложби", filter_home: "Домашен живот", filter_puppies: "Кутриња", filter_grooming: "Груминг",
+        blog_pretitle: "Ажурирања во живо", blog_maintitle: "Новости и објави", blog_subtitle: "Следете ги нашите најнови успеси на изложбите, најави за кутриња и приказни.",
+        back_to_blog: "Назад кон блоговите", contact_pretitle: "Стапете во контакт", contact_maintitle: "Контактирајте го Kingdom of Snowstorm", contact_subtitle: "Со задоволство одговараме на прашања во врска со нашите кучиња.",
+        kennel_contacts_title: "Контакти на одгледувачницата", owner_label: "Основач и сопственик", location_label: "Локација", location_val: "Скопје, Северна Македонија", email_label: "Директна е-пошта", instant_chat_label: "Комуникација во живо:",
+        send_inquiry_title: "Испратете прашање", lbl_name: "Вашето име и презиме *", lbl_email: "Е-пошта адреса *", lbl_subject: "Заинтересиран/а сум за:", opt_1: "Резервација на кутре", opt_2: "Изложба / Одгледувачки потенцијал", opt_3: "Услуга за парење (Осло)", opt_4: "Општа консултација за расата", lbl_msg: "Вашата порака *", btn_send: "Испратете порака до Катерина",
+        footer_desc: "Kingdom of Snowstorm • Официјална FCI одгледувачница бр. 11/23 • Национална МКД бр. 268. Каде што шампионите се одгледуваат со срце, етички стандарди и вистинска семејна љубов.",
+        footer_nav_title: "Навигација", footer_social_title: "Социјални мрежи", footer_copy: "© 2026 Kingdom of Snowstorm. FCI одгледувачница 11/23 & МКД 268.", btn_reservation: "Резервација", btn_available_dogs: "Слободни кучиња", inquire_puppy: "Информирајте се за кутре", news_label: "НОВОСТИ"
+      },
+      en: {
+        location_top: "Skopje, North Macedonia", nav_home: "Home", nav_about: "About Us", nav_dogs: "Our Dogs", nav_litters: "Litters", nav_available: "Available Dogs", nav_gallery: "Gallery", nav_blog: "Blog", nav_contact: "Contact",
+        hero_tag: "FCI Certified Heritage • Skopje", hero_title: "Where Champions Are Raised <em>with Love</em>",
+        hero_desc: "Welcome to Kingdom of Snowstorm, an FCI-registered Bichon Frisé kennel based in Skopje, North Macedonia.",
+        btn_meet_dogs: "Meet Our Dogs", btn_contact_us: "Contact Us", box_title: "FCI & KSM Official Standard", box_desc: "Officially registered under FCI No. 11/23 and MKD No. 268.",
+        box_pill: "Champions & C.I.B. International Bloodlines", val_pretitle: "Our Commitment", val_maintitle: "A Kennel Filled with Love",
+        val1_title: "Raised in Our Home", val1_desc: "Our dogs are beloved family members first.",
+        val2_title: "Health & Pedigree Standards", val2_desc: "Carefully planned matings following the FCI standard.",
+        val3_title: "Excellence in Show Rings", val3_desc: "Proudly representing our kennel at World, European Dog Shows.",
+        about_pretitle: "Our Heritage", about_maintitle: "The Story Behind Kingdom of Snowstorm",
+        dogs_pretitle: "The Royal Family", dogs_maintitle: "Our Beloved Bichons", dogs_subtitle: "Nurtured with highest dedication: imported male from Norway and multiple generations of females.",
+        litters_pretitle: "Ethical Breeding", litters_maintitle: "Litters & Planned Matings", upcoming_litter_title: "Planned or Current Mating", current_litter_title: "Current Active Litter", archive_litters_title: "Previous Litters Archive",
+        avail_pretitle: "Family Companions", avail_maintitle: "Available Dogs & Puppies", avail_box_title: "What Is Included with Every Snowstorm Puppy?",
+        inc_1: "Official FCI Export / National Pedigree", inc_2: "International EU/MK Pet Passport with Microchip", inc_3: "Full age-appropriate vaccinations and parasite treatments", inc_4: "Early Neurological Stimulation and Household Socialization", inc_5: "Lifetime breeder mentorship",
+        btn_inquire_avail: "Contact for Availability", gallery_pretitle: "Moments & Memories", gallery_maintitle: "Kennel Gallery", gallery_subtitle: "Moments from European show rings, daily family joy.",
+        filter_all: "All Photos", filter_shows: "Shows", filter_home: "Home Life", filter_puppies: "Puppies", filter_grooming: "Grooming",
+        blog_pretitle: "Live Updates & Insights", blog_maintitle: "Kennel News & Updates", blog_subtitle: "Follow our latest dog show achievements, puppy announcements, and daily stories.",
+        back_to_blog: "Back to Blog", contact_pretitle: "Get In Touch", contact_maintitle: "Contact Kingdom of Snowstorm", contact_subtitle: "We are pleased to answer inquiries regarding our dogs.",
+        kennel_contacts_title: "Kennel Contacts", owner_label: "Founder & Owner", location_label: "Location", location_val: "Skopje, North Macedonia", email_label: "Direct Email", instant_chat_label: "Instant Chat Communication:",
+        send_inquiry_title: "Send an Inquiry", lbl_name: "Your Full Name *", lbl_email: "Email Address *", lbl_subject: "I am interested in:", opt_1: "Puppy Reservation (Future Litter)", opt_2: "Show / Breeding Potential", opt_3: "Stud Service Inquiry (Oslo)", opt_4: "General Breed Consultation", lbl_msg: "Your Message *", btn_send: "Send Inquiry to Katerina",
+        footer_desc: "Kingdom of Snowstorm • Official FCI Kennel No. 11/23 • National MKD No. 268. Where champions are raised with heart, ethical standards, and genuine family love.",
+        footer_nav_title: "Navigation", footer_social_title: "Social & Connect", footer_copy: "© 2026 Kingdom of Snowstorm. FCI Kennel 11/23 & MKD 268. Designed with pure love.", btn_reservation: "Reservation", btn_available_dogs: "Available Dogs", inquire_puppy: "Inquire About Puppy", news_label: "NEWS"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('site_lang', currentLang);
+      applyLanguageTranslations();
+    }
+
+    function applyLanguageTranslations() {
+      const btnMk = document.getElementById('btnMk'); const btnEn = document.getElementById('btnEn');
+      if (btnMk && btnEn) {
+        if (currentLang === 'mk') { btnMk.classList.add('active'); btnEn.classList.remove('active'); } 
+        else { btnEn.classList.add('active'); btnMk.classList.remove('active'); }
+      }
+      document.documentElement.setAttribute('lang', currentLang);
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang] && translations[currentLang][key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { el.placeholder = translations[currentLang][key]; } 
+          else { el.innerHTML = translations[currentLang][key]; }
         }
-      }, 50);
+      });
+      renderHome(cachedHomeData); renderAbout(cachedAboutData); renderSettings(cachedSettingsData);
+      renderDogs(cachedDogsList); renderUpcomingLitter(cachedUpcomingLitter); renderCurrentLitter(cachedCurrentLitter);
+      renderLitters(cachedLittersList); renderAvailableDogs(cachedAvailableDogs); renderBlogPosts(cachedBlogPosts);
+      renderGalleryCards(allGalleryItems);
+    }
+
+    function getLocalizedField(item, field) {
+      if (!item) return '';
+      const exactLangField = field + '_' + currentLang;
+      if (item[exactLangField] !== undefined && item[exactLangField] !== '' && item[exactLangField] !== null) { return item[exactLangField]; }
+      if (item[field] && typeof item[field] === 'object') { return item[field][currentLang] || item[field]['en'] || item[field]['mk'] || ''; }
+      if (item[field] !== undefined && item[field] !== '' && item[field] !== null) { return item[field]; }
+      const alternateLang = currentLang === 'mk' ? 'en' : 'mk';
+      const alternateField = field + '_' + alternateLang;
+      if (item[alternateField] !== undefined && item[alternateField] !== '' && item[alternateField] !== null) { return item[alternateField]; }
+      return '';
+    }
+
+    function getSafeString(str) { return !str ? '' : str.toString().replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+
+    function resolveImagePath(path) {
+      if (!path) return '2.png';
+      let cleanPath = path.toString().trim();
+      if (cleanPath.startsWith('http://') || cleanPath.startsWith('https://') || cleanPath.startsWith('data:')) { return cleanPath; }
+      if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
+      if (cleanPath.startsWith('content/images/')) return '/' + cleanPath;
+      if (cleanPath.startsWith('content/')) return '/' + cleanPath;
+      if (cleanPath.startsWith('images/')) return '/content/' + cleanPath;
+      return '/content/images/' + cleanPath;
+    }
+
+    function parseImages(item) {
+      let imgList = [];
+      if (Array.isArray(item.images)) { imgList = item.images; } 
+      else if (item.image) {
+        if (item.image.includes(',')) { imgList = item.image.split(',').map(s => s.trim()); } 
+        else { imgList = [item.image]; }
+      }
+      return imgList.filter(Boolean);
+    }
+
+    function selectTab(tabId, saveState = true) {
+      try {
+        const allTabs = document.querySelectorAll('.site-tab-content');
+        for (let i = 0; i < allTabs.length; i++) { allTabs[i].classList.remove('active'); }
+        const allNavs = document.querySelectorAll('.nav-tab-btn');
+        for (let i = 0; i < allNavs.length; i++) { allNavs[i].classList.remove('active'); }
+
+        let activeTab = document.getElementById('tab-' + tabId);
+        if (!activeTab) { tabId = 'home'; activeTab = document.getElementById('tab-home'); }
+        if (activeTab) { activeTab.classList.add('active'); }
+
+        for (let i = 0; i < allNavs.length; i++) {
+          if (allNavs[i].getAttribute('data-tab') === tabId) { allNavs[i].classList.add('active'); }
+        }
+
+        if (saveState) { sessionStorage.setItem('active_kennel_tab', tabId); window.history.replaceState(null, '', '#' + tabId); }
+        const navMenu = document.getElementById('kennel-main-nav');
+        if (navMenu) { navMenu.classList.remove('show'); }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) { console.error("Tab selection error:", e); }
+    }
+
+    function toggleNavigationMenu() { document.getElementById('kennel-main-nav').classList.toggle('show'); }
+    window.addEventListener('scroll', () => {
+      const navMenu = document.getElementById('kennel-main-nav');
+      if (navMenu && navMenu.classList.contains('show')) { navMenu.classList.remove('show'); }
     });
-  }
 
-  function addBlogPost() {
-    const today = new Date().toISOString().split('T')[0];
-    blogData.unshift({ title_mk: "", title_en: "", date: today, image: "", excerpt_mk: "", excerpt_en: "", content_mk: "", content_en: "", rows: [] });
-    renderBlog();
-  }
+    async function loadAllCmsContent() {
+      const ts = new Date().getTime();
+      try { const res = await fetch('content/settings.json?t=' + ts); if (res.ok) { cachedSettingsData = await res.json(); renderSettings(cachedSettingsData); } } catch(e) {}
+      try { const res = await fetch('content/home.json?t=' + ts); if (res.ok) { cachedHomeData = await res.json(); renderHome(cachedHomeData); } } catch(e) {}
+      try { const res = await fetch('content/about.json?t=' + ts); if (res.ok) { cachedAboutData = await res.json(); renderAbout(cachedAboutData); } } catch(e) {}
+      try { const res = await fetch('content/available.json?t=' + ts); if (res.ok) { 
+          const av = await res.json(); const avTitle = getLocalizedField(av, 'title');
+          if (avTitle) document.getElementById('dyn-avail-title').innerText = avTitle;
+          cachedAvailableDogs = av.items || av.dogs || av.puppies || []; renderAvailableDogs(cachedAvailableDogs);
+        } } catch(e) {}
+      try { const res2 = await fetch('content/puppies.json?t=' + ts); if (res2.ok) { 
+          const pData = await res2.json(); const pItems = pData.puppies || pData.items || [];
+          if (pItems.length > 0) { cachedAvailableDogs = pItems; renderAvailableDogs(cachedAvailableDogs); }
+        } } catch(e) {}
+      try { const res = await fetch('content/dogs.json?t=' + ts); if (res.ok) { const d = await res.json(); cachedDogsList = d.items || d.dogs || []; renderDogs(cachedDogsList); } } catch(e) {}
+      try { const res = await fetch('content/litters.json?t=' + ts); if (res.ok) { const l = await res.json(); cachedUpcomingLitter = l.upcoming || {}; cachedCurrentLitter = l.current || {}; cachedLittersList = l.litters || l.items || []; renderUpcomingLitter(cachedUpcomingLitter); renderCurrentLitter(cachedCurrentLitter); renderLitters(cachedLittersList); } } catch(e) {}
+      try { const res = await fetch('content/blog.json?t=' + ts); if (res.ok) { const b = await res.json(); cachedBlogPosts = b.items || b.posts || []; renderBlogPosts(cachedBlogPosts); } } catch(e) {}
+      try { const res = await fetch('content/gallery.json?t=' + ts); if (res.ok) { const data = await res.json(); allGalleryItems = data.items || []; renderGalleryCards(allGalleryItems); } } catch(e) {}
 
-  function addBlogRow(postIndex) {
-    triggerFieldUpdates(); 
-    if(!blogData[postIndex].rows) blogData[postIndex].rows = [];
-    blogData[postIndex].rows.push({ title_mk: "", title_en: "", text_mk: "", text_en: "", image: "" });
-    renderBlog();
-  }
+      applyLanguageTranslations();
+      const hashTab = window.location.hash.replace('#', '');
+      const sessionTab = sessionStorage.getItem('active_kennel_tab');
+      if (!window.location.hash && !sessionTab) { selectTab('home', true); } 
+      else if (hashTab && document.getElementById('tab-' + hashTab)) { selectTab(hashTab, false); } 
+      else if (sessionTab && document.getElementById('tab-' + sessionTab)) { selectTab(sessionTab, false); } 
+      else { selectTab('home', false); }
+    }
 
-  function removeBlogRow(postIndex, rowIndex) {
-    triggerFieldUpdates();
-    blogData[postIndex].rows.splice(rowIndex, 1);
-    renderBlog();
-  }
+    function renderSettings(s) {
+      if (!s) return;
+      const loc = getLocalizedField(s, 'location'); if (loc) document.getElementById('dyn-contact-location').innerText = loc;
+      if (s.email) { const emEl = document.getElementById('dyn-contact-email'); emEl.innerText = s.email; emEl.href = 'mailto:' + s.email; }
+      if (s.phone) {
+        const cleanPhone = s.phone.replace(/[^0-9]/g, ''); const waUrl = 'https://wa.me/' + cleanPhone; const viUrl = 'viber://chat?number=%2B' + cleanPhone;
+        ['dyn-btn-wa', 'dyn-float-wa'].forEach(id => { const el = document.getElementById(id); if (el) el.href = waUrl; });
+        ['dyn-btn-vi', 'dyn-float-vi'].forEach(id => { const el = document.getElementById(id); if (el) el.href = viUrl; });
+      }
+      const fDesc = getLocalizedField(s, 'footer_desc'); if (fDesc) document.getElementById('dyn-footer-desc').innerText = fDesc;
+    }
 
-  /* СОБИРАЊЕ ПОДАТОЦИ ЗА СИТЕ ТАБОВИ */
-  function triggerFieldUpdates() {
-    // Dogs
-    document.querySelectorAll('#dogs-container .item-card').forEach((card, i) => {
-      if(!dogsData[i]) return;
-      dogsData[i].name_mk = nl2br(document.getElementById(`dog_name_mk_${i}`)?.value || '');
-      dogsData[i].name_en = nl2br(document.getElementById(`dog_name_en_${i}`)?.value || '');
-      dogsData[i].lineage_mk = nl2br(document.getElementById(`dog_l_mk_${i}`)?.value || '');
-      dogsData[i].lineage_en = nl2br(document.getElementById(`dog_l_en_${i}`)?.value || '');
-      dogsData[i].details_mk = nl2br(document.getElementById(`dog_d_mk_${i}`)?.value || '');
-      dogsData[i].details_en = nl2br(document.getElementById(`dog_d_en_${i}`)?.value || '');
-      dogsData[i].narrative_mk = document.getElementById(`dog_desc_mk_${i}`)?.innerHTML || '';
-      dogsData[i].narrative_en = document.getElementById(`dog_desc_en_${i}`)?.innerHTML || '';
-    });
+    function renderHome(h) {
+      if (!h) return;
+      let title = getLocalizedField(h, 'hero_title');
+      if (title) {
+        if (!title.includes('<')) { title = title.replace(/with love|со љубов/gi, '<em style="color: var(--gold-primary); font-style: italic;">$&</em>'); }
+        document.getElementById('dyn-hero-title').innerHTML = title;
+      }
+      const desc = getLocalizedField(h, 'hero_desc'); if (desc) document.getElementById('dyn-hero-desc').innerText = desc;
+      const boxTitle = getLocalizedField(h, 'box_title'); if (boxTitle) document.getElementById('dyn-box-title').innerText = boxTitle;
+      const boxDesc = getLocalizedField(h, 'box_desc'); if (boxDesc) document.getElementById('dyn-box-desc').innerText = boxDesc;
+    }
 
-    // Litters (Archive)
-    document.querySelectorAll('#litters-container .item-card').forEach((card, i) => {
-      if(!littersData[i]) return;
-      littersData[i].title_mk = nl2br(document.getElementById(`lit_t_mk_${i}`)?.value || '');
-      littersData[i].title_en = nl2br(document.getElementById(`lit_t_en_${i}`)?.value || '');
-      littersData[i].description_mk = document.getElementById(`lit_desc_mk_${i}`)?.innerHTML || '';
-      littersData[i].description_en = document.getElementById(`lit_desc_en_${i}`)?.innerHTML || '';
-    });
+    function renderAbout(a) {
+      if (!a) return;
+      ['p1','p2','p3','p4','p5'].forEach(p => { if (getLocalizedField(a, p)) document.getElementById('dyn-about-'+p).innerHTML = getLocalizedField(a, p); });
+      const q = getLocalizedField(a, 'quote'); if (q) document.getElementById('dyn-about-quote').innerText = '"' + q + '"';
+    }
 
-    // Puppies
-    document.querySelectorAll('#puppies-container .item-card').forEach((card, i) => {
-      if(!puppiesData[i]) return;
-      puppiesData[i].name_mk = nl2br(document.getElementById(`pup_name_mk_${i}`)?.value || '');
-      puppiesData[i].name_en = nl2br(document.getElementById(`pup_name_en_${i}`)?.value || '');
-      puppiesData[i].status_mk = nl2br(document.getElementById(`pup_s_mk_${i}`)?.value || '');
-      puppiesData[i].status_en = nl2br(document.getElementById(`pup_s_en_${i}`)?.value || '');
-      puppiesData[i].details_mk = document.getElementById(`pup_desc_mk_${i}`)?.innerHTML || '';
-      puppiesData[i].details_en = document.getElementById(`pup_desc_en_${i}`)?.innerHTML || '';
-    });
+    function renderDogs(dogs) {
+      const container = document.getElementById('dynamicDogsContainer');
+      if (!container || !dogs || dogs.length === 0) return;
+      container.innerHTML = dogs.map(dog => {
+        let imgList = parseImages(dog); let mediaHtml = ''; const nameText = getLocalizedField(dog, 'name');
+        if (imgList.length > 0) {
+          const safeTitle = getSafeString(nameText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
+        }
+        let info = getLocalizedField(dog, 'details') || getLocalizedField(dog, 'birth') || getLocalizedField(dog, 'role');
+        let detailsHtml = (info && info.trim() !== 'Show Dog') ? `<ul class="dog-spec-list"><li><span>${info}</span></li></ul>` : '';
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><div class="dog-registered-lineage">${getLocalizedField(dog, 'lineage')}</div>${detailsHtml}<p class="dog-narrative">${getLocalizedField(dog, 'narrative')}</p></div></div>`;
+      }).join('');
+    }
 
-    // Blog
-    document.querySelectorAll('#blog-container .item-card').forEach((card, i) => {
-      if(!blogData[i]) return;
-      blogData[i].title_mk = nl2br(document.getElementById(`blog_t_mk_${i}`)?.value || '');
-      blogData[i].title_en = nl2br(document.getElementById(`blog_t_en_${i}`)?.value || '');
-      blogData[i].date = document.getElementById(`blog_date_${i}`)?.value || blogData[i].date;
-      blogData[i].image = document.getElementById(`blog_${i}`)?.value || '';
-      blogData[i].excerpt_mk = document.getElementById(`blog_exc_mk_${i}`)?.innerHTML || '';
-      blogData[i].excerpt_en = document.getElementById(`blog_exc_en_${i}`)?.innerHTML || '';
-      blogData[i].content_mk = document.getElementById(`blog_cont_mk_${i}`)?.innerHTML || '';
-      blogData[i].content_en = document.getElementById(`blog_cont_en_${i}`)?.innerHTML || '';
+    function renderUpcomingLitter(up) {
+      const wrapper = document.getElementById('upcomingLitterWrapper'); const container = document.getElementById('dynamicUpcomingLitter');
+      if (!wrapper || !container) return;
+      if (!up || (!up.title && !up.title_mk && !up.title_en && !up.description && !up.description_mk && !up.description_en && !up.image && !up.images)) { wrapper.style.display = 'none'; return; }
+      wrapper.style.display = 'block';
+      let imgList = parseImages(up); let mediaHtml = '';
+      const titleText = getLocalizedField(up, 'title') || (currentLang === 'mk' ? '🌟 Активно легло / Планирано парење' : '🌟 Active Litter / Planned Mating');
+      const descText = getLocalizedField(up, 'description') || getLocalizedField(up, 'text') || '';
+      if (imgList.length > 0) {
+        const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
+        mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
+      }
+      container.innerHTML = `
+        <div class="dog-feature-card" style="max-width: 750px; margin: 0 auto; border: 2px solid var(--gold-primary); box-shadow: 0 10px 35px rgba(197, 160, 89, 0.15);">
+          ${mediaHtml}
+          <div class="dog-details-body">
+            <h3 class="dog-title-name" style="margin-bottom: 10px;">${titleText}</h3>
+            <p class="dog-narrative" style="margin-bottom: 24px;">${descText}</p>
+            <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
+              <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')"><i class="fa-solid fa-pen-to-square"></i> ${translations[currentLang].btn_reservation}</button>
+              <button class="btn-lux btn-lux-primary" style="flex: 1; min-width: 200px;" onclick="selectTab('available')"><i class="fa-solid fa-paw"></i> ${translations[currentLang].btn_available_dogs}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
-      if(blogData[i].rows) {
-        blogData[i].rows.forEach((row, rIdx) => {
-          row.title_mk = nl2br(document.getElementById(`blog_row_t_mk_${i}_${rIdx}`)?.value || '');
-          row.title_en = nl2br(document.getElementById(`blog_row_t_en_${i}_${rIdx}`)?.value || '');
-          row.image = document.getElementById(`blog_row_img_${i}_${rIdx}`)?.value || '';
-          row.text_mk = document.getElementById(`blog_row_txt_mk_${i}_${rIdx}`)?.innerHTML || '';
-          row.text_en = document.getElementById(`blog_row_txt_en_${i}_${rIdx}`)?.innerHTML || '';
+    function renderCurrentLitter(curr) {
+      const wrapper = document.getElementById('currentLitterWrapper'); const container = document.getElementById('dynamicCurrentLitter');
+      if (!wrapper || !container) return;
+      if (!curr || (!curr.title && !curr.title_mk && !curr.title_en && !curr.description && !curr.description_mk && !curr.description_en && !curr.image && !curr.images)) { wrapper.style.display = 'none'; return; }
+      wrapper.style.display = 'block';
+      let imgList = parseImages(curr); let mediaHtml = '';
+      const titleText = getLocalizedField(curr, 'title') || (currentLang === 'mk' ? 'Тековно активно легло' : 'Current Active Litter');
+      const descText = getLocalizedField(curr, 'description') || getLocalizedField(curr, 'text') || '';
+      if (imgList.length > 0) {
+        const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
+        mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
+      }
+      container.innerHTML = `
+        <div class="dog-feature-card" style="max-width: 750px; margin: 0 auto; border: 2px solid var(--gold-primary); box-shadow: 0 10px 35px rgba(197, 160, 89, 0.15);">
+          ${mediaHtml}
+          <div class="dog-details-body">
+            <h3 class="dog-title-name" style="margin-bottom: 10px;">${titleText}</h3>
+            <p class="dog-narrative" style="margin-bottom: 24px;">${descText}</p>
+            <div style="display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap;">
+              <button class="btn-lux btn-lux-gold" style="flex: 1; min-width: 200px;" onclick="selectTab('contact')"><i class="fa-solid fa-pen-to-square"></i> ${translations[currentLang].btn_reservation}</button>
+              <button class="btn-lux btn-lux-primary" style="flex: 1; min-width: 200px;" onclick="selectTab('available')"><i class="fa-solid fa-paw"></i> ${translations[currentLang].btn_available_dogs}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderLitters(litters) {
+      const container = document.getElementById('dynamicLittersContainer');
+      if (!container || !litters || litters.length === 0) return;
+      container.innerHTML = litters.map(l => {
+        const titleText = getLocalizedField(l, 'title') || getLocalizedField(l, 'pair') || '';
+        const descText = getLocalizedField(l, 'description') || getLocalizedField(l, 'text') || '';
+        let imgList = parseImages(l); let mediaHtml = '';
+        if (imgList.length > 0) {
+          const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
+        }
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name" style="margin-bottom: 12px;">${titleText}</h3><p class="dog-narrative">${descText}</p></div></div>`;
+      }).join('');
+    }
+
+    function renderAvailableDogs(dogs) {
+      const container = document.getElementById('dynamicAvailableContainer');
+      if (!container || !dogs) return;
+      container.innerHTML = dogs.map(dog => {
+        let imgList = parseImages(dog); let mediaHtml = ''; const nameText = getLocalizedField(dog, 'name');
+        if (imgList.length > 0) {
+          const safeTitle = getSafeString(nameText); const imgData = getSafeString(imgList.join(',')); const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `<div class="dog-portrait-container" data-images="${imgData}" data-title="${safeTitle}" onclick="openLightboxFromElement(this, 0)"><img src="${mainImgPath}" alt="${safeTitle}" onerror="this.src='2.png'"></div>`;
+        }
+        const descText = getLocalizedField(dog, 'description') || getLocalizedField(dog, 'narrative') || getLocalizedField(dog, 'details') || getLocalizedField(dog, 'status') || '';
+        return `<div class="dog-feature-card">${mediaHtml}<div class="dog-details-body"><h3 class="dog-title-name">${nameText}</h3><p class="dog-narrative">${descText}</p><button class="btn-lux btn-lux-primary" style="width: 100%; margin-top: auto;" onclick="selectTab('contact')">${translations[currentLang].inquire_puppy}</button></div></div>`;
+      }).join('');
+    }
+
+    /* === БЛОГ РЕНДЕРИРАЊЕ СО СПРЕЧЕНО РАЗВЛЕКУВАЊЕ НА СЛИКИ === */
+    function renderBlogPosts(posts) {
+      const container = document.getElementById('dynamicBlogContainer');
+      if (!container) return;
+      
+      container.innerHTML = posts.map((post, index) => {
+        let imgList = parseImages(post);
+        let mediaHtml = '';
+        const titleText = getLocalizedField(post, 'title');
+        const catText = getLocalizedField(post, 'category') || translations[currentLang].news_label || 'NEWS';
+        const excerptText = getLocalizedField(post, 'excerpt') || getLocalizedField(post, 'description') || '';
+
+        // Ова е картичката во ЛИСТАТА (Каде што 4 се во еден ред)
+        if (imgList.length > 0) {
+          const mainImgPath = resolveImagePath(imgList[0]);
+          mediaHtml += `
+            <div class="dog-portrait-container" style="height: 220px;">
+              <img src="${mainImgPath}" alt="${getSafeString(titleText)}" onerror="this.src='2.png'">
+            </div>
+          `;
+        }
+
+        return `
+          <div class="card-luxury" style="padding: 0; overflow: hidden; cursor: pointer;" onclick="openBlogPost(${index})">
+            ${mediaHtml}
+            <div style="padding: 24px;">
+              <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${catText} • ${post.date || ''}</span>
+              <h3 style="font-family: var(--font-serif); font-size: 1.45rem; margin: 10px 0;">${titleText}</h3>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${excerptText}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openBlogPost(index) {
+      const post = cachedBlogPosts[index];
+      if (!post) return;
+
+      const titleText = getLocalizedField(post, 'title');
+      const contentText = getLocalizedField(post, 'content') || '';
+      const dateText = post.date || '';
+      
+      let imgList = parseImages(post);
+      
+      // ГЛАВНА СЛИКА (Основна маска) - Центрирана и НЕ РАЗВЛЕЧЕНА
+      let mainGalleryHtml = '';
+      if (imgList.length === 1) {
+        mainGalleryHtml = `
+          <div style="text-align: center; margin: 25px 0;">
+            <img src="${resolveImagePath(imgList[0])}" style="max-width: 100%; max-height: 550px; border-radius: 12px; object-fit: contain; cursor: pointer;" onclick="openLightboxFromElement(this, 0)" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}" />
+          </div>
+        `;
+      } else if (imgList.length > 1) {
+        mainGalleryHtml = `<div style="display: flex; flex-wrap: wrap; gap: 15px; margin: 25px 0; justify-content: center;">`;
+        imgList.forEach((img, idx) => {
+          mainGalleryHtml += `<img src="${resolveImagePath(img)}" style="height: 220px; width: auto; max-width: 100%; border-radius: 8px; object-fit: cover; cursor: pointer; border: 1px solid var(--pistachio-border);" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(imgList.join(','))}" data-title="${getSafeString(titleText)}" />`;
+        });
+        mainGalleryHtml += `</div>`;
+      }
+
+      // ДОПОЛНИТЕЛНИ ПОЛИЊА (СЛИКА ПА ТЕКСТ)
+      let customRowsHtml = '';
+      if (post.rows && Array.isArray(post.rows)) {
+        post.rows.forEach(row => {
+          const rowTitle = getLocalizedField(row, 'title');
+          const rowText = getLocalizedField(row, 'text');
+          let rowImgs = parseImages(row);
+          let rowImgHtml = '';
+          
+          if (rowImgs.length === 1) {
+            rowImgHtml = `
+              <div style="margin: 20px 0; text-align: left;">
+                <img src="${resolveImagePath(rowImgs[0])}" style="max-width: 100%; max-height: 450px; border-radius: 8px; object-fit: contain; cursor: pointer;" onclick="openLightboxFromElement(this, 0)" data-images="${getSafeString(rowImgs.join(','))}" alt="Row image">
+              </div>
+            `;
+          } else if (rowImgs.length > 1) {
+            rowImgHtml = `<div style="margin: 20px 0; display: flex; flex-wrap: wrap; gap: 12px;">`;
+            rowImgs.forEach((ri, idx) => {
+              rowImgHtml += `<img src="${resolveImagePath(ri)}" style="height: 200px; width: auto; max-width: 100%; border-radius: 8px; object-fit: cover; cursor: pointer;" onclick="openLightboxFromElement(this, ${idx})" data-images="${getSafeString(rowImgs.join(','))}" />`;
+            });
+            rowImgHtml += `</div>`;
+          }
+
+          customRowsHtml += `
+            <div style="margin-top: 35px; padding-top: 25px; border-top: 1px dashed var(--pistachio-border);">
+              ${rowTitle ? `<h4 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--pistachio-dark); margin-bottom: 12px;">${rowTitle}</h4>` : ''}
+              ${rowImgHtml}
+              <div style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.85;">${rowText}</div>
+            </div>
+          `;
         });
       }
-    });
 
-    // Gallery
-    document.querySelectorAll('#gallery-container .item-card').forEach((card, i) => {
-      if(!galleryData[i]) return;
-      galleryData[i].title_mk = nl2br(document.getElementById(`gal_t_mk_${i}`)?.value || '');
-      galleryData[i].title_en = nl2br(document.getElementById(`gal_t_en_${i}`)?.value || '');
-      galleryData[i].caption_mk = document.getElementById(`gal_cap_mk_${i}`)?.innerHTML || '';
-      galleryData[i].caption_en = document.getElementById(`gal_cap_en_${i}`)?.innerHTML || '';
-    });
-  }
+      document.getElementById('blogDetailContent').innerHTML = `
+        <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-hover);">${dateText}</span>
+        <h1 style="font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem); margin: 12px 0 10px; color: var(--pistachio-dark); line-height: 1.2;">${titleText}</h1>
+        ${mainGalleryHtml}
+        <div style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.85;">${contentText}</div>
+        ${customRowsHtml}
+      `;
 
-  function getHomeData() {
-    return {
-      hero_title_mk: nl2br(document.getElementById('h_title_mk').value), hero_title_en: nl2br(document.getElementById('h_title_en').value),
-      hero_desc_mk: document.getElementById('h_desc_mk').innerHTML, hero_desc_en: document.getElementById('h_desc_en').innerHTML,
-      box_title_mk: nl2br(document.getElementById('h_box_title_mk').value), box_title_en: nl2br(document.getElementById('h_box_title_en').value),
-      box_desc_mk: document.getElementById('h_box_desc_mk').innerHTML, box_desc_en: document.getElementById('h_box_desc_en').innerHTML
-    };
-  }
-
-  function getAboutData() {
-    return {
-      p1_mk: document.getElementById('a_p1_mk').innerHTML, p1_en: document.getElementById('a_p1_en').innerHTML,
-      p2_mk: document.getElementById('a_p2_mk').innerHTML, p2_en: document.getElementById('a_p2_en').innerHTML,
-      p3_mk: document.getElementById('a_p3_mk').innerHTML, p3_en: document.getElementById('a_p3_en').innerHTML,
-      p4_mk: document.getElementById('a_p4_mk').innerHTML, p4_en: document.getElementById('a_p4_en').innerHTML,
-      p5_mk: document.getElementById('a_p5_mk').innerHTML, p5_en: document.getElementById('a_p5_en').innerHTML,
-      quote_mk: document.getElementById('a_quote_mk').innerHTML, quote_en: document.getElementById('a_quote_en').innerHTML
-    };
-  }
-
-  function getSettingsData() {
-    return {
-      location: { mk: nl2br(document.getElementById('s_location_mk').value), en: nl2br(document.getElementById('s_location_en').value) },
-      phone: document.getElementById('s_phone').value, email: document.getElementById('s_email').value,
-      facebook_url: document.getElementById('s_fb').value, footer_desc: "Kingdom of Snowstorm."
-    };
-  }
-  
-  function getLittersData() {
-    const parseImg = str => str ? str.split(',').map(s=>s.trim()).filter(Boolean) : [];
-    return {
-      upcoming: {
-        title_mk: nl2br(document.getElementById('up_title_mk').value), title_en: nl2br(document.getElementById('up_title_en').value),
-        description_mk: document.getElementById('up_desc_mk').innerHTML, description_en: document.getElementById('up_desc_en').innerHTML,
-        images: parseImg(document.getElementById('up_image').value)
-      },
-      current: {
-        title_mk: nl2br(document.getElementById('cur_title_mk').value), title_en: nl2br(document.getElementById('cur_title_en').value),
-        description_mk: document.getElementById('cur_desc_mk').innerHTML, description_en: document.getElementById('cur_desc_en').innerHTML,
-        images: parseImg(document.getElementById('cur_image').value)
-      },
-      litters: littersData
-    };
-  }
-
-  /* АВТОМАТСКИ ПРЕВОД */
-  async function autoTranslate(sourceId, targetId, fromLang, toLang) {
-    const sourceEl = document.getElementById(sourceId);
-    const targetEl = document.getElementById(targetId);
-    if(!sourceEl || !targetEl) return;
-
-    let text = sourceEl.tagName === 'TEXTAREA' ? sourceEl.value : sourceEl.innerHTML;
-    let cleanText = text.replace(/<[^>]*>?/gm, '').trim();
-    if(!cleanText) {
-      alert('Нема текст за преведување!');
-      return;
+      document.getElementById('blogListView').style.display = 'none';
+      document.getElementById('blogDetailView').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    const btn = event.currentTarget;
-    const origText = btn.innerText;
-    btn.innerText = 'Се преведува...';
-    btn.disabled = true;
-
-    try {
-      const chunkSize = 450;
-      let chunks = [];
-      for (let i = 0; i < cleanText.length; i += chunkSize) {
-        chunks.push(cleanText.substring(i, i + chunkSize));
-      }
-
-      let translatedChunks = [];
-      for (let chunk of chunks) {
-        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${fromLang}|${toLang}&de=kingdomofsnowstorm@gmail.com`);
-        const data = await res.json();
-        if(data && data.responseData && data.responseData.translatedText) {
-          translatedChunks.push(data.responseData.translatedText);
-        } else {
-          translatedChunks.push(chunk);
-        }
-        await new Promise(r => setTimeout(r, 200));
-      }
-
-      let finalTranslated = translatedChunks.join(' ');
-      if(targetEl.tagName === 'TEXTAREA') {
-        targetEl.value = finalTranslated;
-      } else {
-        targetEl.innerHTML = finalTranslated;
-      }
-      triggerFieldUpdates();
-    } catch(err) {
-      alert('Грешка при комуникација со преведувачот.');
-    } finally {
-      btn.innerText = origText;
-      btn.disabled = false;
+    function closeBlogPost() {
+      document.getElementById('blogDetailView').style.display = 'none';
+      document.getElementById('blogListView').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }
 
-  async function saveFile(filePath, jsonData, msgId) {
-    const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
-    const statusEl = document.getElementById(msgId);
-    if(!token) { alert('Внесете токен најгоре!'); return; }
-
-    triggerFieldUpdates();
-
-    statusEl.style.display = 'block';
-    statusEl.className = 'status loading';
-    statusEl.innerText = '⏳ Се синхронизира со GitHub...';
-
-    let payload = jsonData;
-    if(filePath === 'content/blog.json') { payload = { posts: blogData }; }
-
-    try {
-      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      let sha = getRes.ok ? (await getRes.json()).sha : '';
-
-      const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: `Update ${filePath}`, content: contentBase64, sha: sha })
-      });
-
-      if(putRes.ok) {
-        statusEl.className = 'status success';
-        statusEl.innerText = '✓ Успешно зачувано и објавено!';
-        setTimeout(() => statusEl.style.display = 'none', 4000);
-      } else {
-        statusEl.className = 'status error';
-        statusEl.innerText = '✕ Грешка при зачувување.';
-      }
-    } catch(err) {
-      statusEl.className = 'status error';
-      statusEl.innerText = '✕ Мрежна грешка.';
+    /* === ГАЛЕРИЈА === */
+    function renderGalleryCards(items) {
+      const container = document.getElementById('dynamicGalleryContainer');
+      if (!container || !items || items.length === 0) return;
+      container.innerHTML = items.map((item, index) => {
+        let imgList = parseImages(item);
+        const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
+        const titleText = getLocalizedField(item, 'title'); const captionText = getLocalizedField(item, 'caption');
+        const rawCat = getLocalizedField(item, 'category') || item.category || 'Shows';
+        const catText = currentLang === 'mk' ? (rawCat.toLowerCase() === 'shows' ? 'Изложби' : rawCat.toLowerCase() === 'home life' ? 'Домашен живот' : rawCat.toLowerCase() === 'puppies' ? 'Кутриња' : rawCat.toLowerCase() === 'grooming' ? 'Груминг' : rawCat) : rawCat;
+        const safeTitle = getSafeString(titleText); const imgData = getSafeString(imgList.join(',')); const safeCaption = getSafeString(captionText);
+        let thumbsHtml = '';
+        if (imgList.length > 1) { thumbsHtml = `<div class="thumb-strip">` + imgList.map((img, idx) => `<div class="mini-thumb" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="event.stopPropagation(); openLightboxFromElement(this, ${idx})"><img src="${resolveImagePath(img)}" alt="Thumb"></div>`).join('') + `</div>`; }
+        return `<div class="gallery-item-card" data-images="${imgData}" data-title="${safeTitle}" data-caption="${safeCaption}" onclick="openLightboxFromElement(this, 0)"><div class="gallery-img-wrap"><img src="${itemImg}" alt="${titleText || 'Photo'}" onerror="this.src='2.png'"><span class="gallery-category-badge">${catText}</span></div>${thumbsHtml}<div class="gallery-item-info"><h4 class="gallery-item-title">${titleText}</h4><p class="gallery-item-caption">${captionText}</p></div></div>`;
+      }).join('');
     }
-  }
-</script>
 
+    function filterGalleryPhotos(category, btnElement) {
+      document.querySelectorAll('.gallery-filter-btn').forEach(btn => btn.classList.remove('active')); btnElement.classList.add('active');
+      if (category === 'all') { renderGalleryCards(allGalleryItems); } 
+      else { const target = category.toLowerCase(); const filtered = allGalleryItems.filter(item => (item.category || '').toString().toLowerCase().trim().includes(target)); renderGalleryCards(filtered); }
+    }
+
+    function openLightboxFromElement(el, startIndex) {
+      const imgData = el.getAttribute('data-images'); const title = el.getAttribute('data-title'); const caption = el.getAttribute('data-caption') || '';
+      if (!imgData) return;
+      currentLightboxImages = imgData.split(',').map(img => resolveImagePath(img)); currentLightboxIndex = startIndex || 0;
+      updateLightboxContent(title, caption); document.getElementById('galleryLightbox').classList.add('show');
+    }
+    function updateLightboxContent(title, caption) {
+      if (currentLightboxImages.length === 0) return;
+      document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+      document.getElementById('lightboxTitle').innerHTML = title || 'Kennel Photo'; document.getElementById('lightboxCaption').innerHTML = caption || '';
+    }
+    function changeLightboxImage(direction) {
+      if (currentLightboxImages.length <= 1) return;
+      currentLightboxIndex += direction;
+      if (currentLightboxIndex < 0) { currentLightboxIndex = currentLightboxImages.length - 1; } else if (currentLightboxIndex >= currentLightboxImages.length) { currentLightboxIndex = 0; }
+      document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+    }
+    function closeGalleryLightbox() { document.getElementById('galleryLightbox').classList.remove('show'); }
+
+    /* === КОНТАКТ ФОРМА === */
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm'); const submitBtn = document.getElementById('submitBtn'); const submitBtnText = document.getElementById('submitBtnText'); const statusBox = document.getElementById('formStatus');
+      document.getElementById('w3f_key').value = "55dc052e-d8ab-4350-ac0e-84cc04298584";
+      submitBtn.disabled = true; const origText = submitBtnText.innerText; submitBtnText.innerText = currentLang === 'mk' ? 'Се испраќа...' : 'Sending...';
+      statusBox.className = 'form-status-box'; statusBox.innerText = '';
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
+        const result = await response.json();
+        if (result.success) { statusBox.className = 'form-status-box success'; statusBox.innerText = currentLang === 'mk' ? '✓ Ви благодариме! Вашата порака е успешно испратена.' : '✓ Thank you! Your inquiry has been sent successfully.'; form.reset(); } 
+        else { statusBox.className = 'form-status-box error'; statusBox.innerText = currentLang === 'mk' ? 'Грешка при испраќање. Ве молиме контактирајте нè преку Viber или WhatsApp.' : 'Submission error. Please contact us via WhatsApp or Viber.'; }
+      } catch (err) { statusBox.className = 'form-status-box error'; statusBox.innerText = currentLang === 'mk' ? 'Мрежна грешка. Обидете се повторно.' : 'Network error. Please try again.'; } 
+      finally { submitBtn.disabled = false; submitBtnText.innerText = origText; }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { loadAllCmsContent(); });
+  </script>
 </body>
 </html>
