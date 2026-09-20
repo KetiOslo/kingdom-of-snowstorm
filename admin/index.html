@@ -92,26 +92,79 @@
   <!-- 1. ПОЧЕТНА -->
   <div id="home" class="tab-content active">
     <h3>Уредување на Почетна страница</h3>
+    
     <label>Главен наслов:</label>
     <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_title_en', 'h_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="h_title_mk"></textarea></div>
-      <div class="lang-box"><h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_title_mk', 'h_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="h_title_en"></textarea></div>
+      <div class="lang-box">
+        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_title_en', 'h_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
+        <textarea rows="2" id="h_title_mk"></textarea>
+      </div>
+      <div class="lang-box">
+        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_title_mk', 'h_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
+        <textarea rows="2" id="h_title_en"></textarea>
+      </div>
     </div>
+    
     <label>Воведен текст:</label>
     <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_desc_en', 'h_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_desc_mk', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_desc_mk', 'italic')"><i>I</i></button></div><div id="h_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_desc_mk', 'h_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_desc_en', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_desc_en', 'italic')"><i>I</i></button></div><div id="h_desc_en" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box">
+        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_desc_en', 'h_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
+        <div class="editor-wrapper">
+          <div class="editor-toolbar">
+            <button type="button" onclick="formatText('h_desc_mk', 'bold')"><b>B</b></button>
+            <button type="button" onclick="formatText('h_desc_mk', 'italic')"><i>I</i></button>
+          </div>
+          <div id="h_desc_mk" class="editor-content" contenteditable="true"></div>
+        </div>
+      </div>
+      <div class="lang-box">
+        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_desc_mk', 'h_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
+        <div class="editor-wrapper">
+          <div class="editor-toolbar">
+            <button type="button" onclick="formatText('h_desc_en', 'bold')"><b>B</b></button>
+            <button type="button" onclick="formatText('h_desc_en', 'italic')"><i>I</i></button>
+          </div>
+          <div id="h_desc_en" class="editor-content" contenteditable="true"></div>
+        </div>
+      </div>
     </div>
+
     <label>Наслов на кутија:</label>
     <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_title_en', 'h_box_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="h_box_title_mk"></textarea></div>
-      <div class="lang-box"><h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_title_mk', 'h_box_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="h_box_title_en"></textarea></div>
+      <div class="lang-box">
+        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_title_en', 'h_box_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
+        <textarea rows="2" id="h_box_title_mk"></textarea>
+      </div>
+      <div class="lang-box">
+        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_title_mk', 'h_box_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
+        <textarea rows="2" id="h_box_title_en"></textarea>
+      </div>
     </div>
+    
     <label>Опис на кутија:</label>
     <div class="lang-row">
-      <div class="lang-box"><h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_desc_en', 'h_box_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_box_desc_mk', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_box_desc_mk', 'italic')"><i>I</i></button></div><div id="h_box_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
-      <div class="lang-box"><h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_desc_mk', 'h_box_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('h_box_desc_en', 'bold')"><b>B</b></button><button type="button" onclick="formatText('h_box_desc_en', 'italic')"><i>I</i></button></div><div id="h_box_desc_en" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box">
+        <h4>🇲🇰 Македонски <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('h_box_desc_en', 'h_box_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4>
+        <div class="editor-wrapper">
+          <div class="editor-toolbar">
+            <button type="button" onclick="formatText('h_box_desc_mk', 'bold')"><b>B</b></button>
+            <button type="button" onclick="formatText('h_box_desc_mk', 'italic')"><i>I</i></button>
+          </div>
+          <div id="h_box_desc_mk" class="editor-content" contenteditable="true"></div>
+        </div>
+      </div>
+      <div class="lang-box">
+        <h4>🇬🇧 Англиски <button type="button" class="translate-btn" onclick="autoTranslate('h_box_desc_mk', 'h_box_desc_en', 'mk', 'en')">MK➔EN 🤖</button></h4>
+        <div class="editor-wrapper">
+          <div class="editor-toolbar">
+            <button type="button" onclick="formatText('h_box_desc_en', 'bold')"><b>B</b></button>
+            <button type="button" onclick="formatText('h_box_desc_en', 'italic')"><i>I</i></button>
+          </div>
+          <div id="h_box_desc_en" class="editor-content" contenteditable="true"></div>
+        </div>
+      </div>
     </div>
+
     <button class="btn" onclick="saveFile('content/home.json', getHomeData(), 'home.msg')">Зачувај на GitHub</button>
     <div id="home.msg" class="status"></div>
   </div>
@@ -119,12 +172,43 @@
   <!-- 2. ЗА НАС -->
   <div id="about" class="tab-content">
     <h3>Уредување на За нас страница</h3>
-    <label>Пасус 1:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p1_en', 'a_p1_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_mk', 'bold')"><b>B</b></button></div><div id="a_p1_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p1_mk', 'a_p1_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_en', 'bold')"><b>B</b></button></div><div id="a_p1_en" class="editor-content" contenteditable="true"></div></div></div></div>
-    <label>Пасус 2:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p2_en', 'a_p2_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_mk', 'bold')"><b>B</b></button></div><div id="a_p2_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p2_mk', 'a_p2_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_en', 'bold')"><b>B</b></button></div><div id="a_p2_en" class="editor-content" contenteditable="true"></div></div></div></div>
-    <label>Пасус 3:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p3_en', 'a_p3_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_mk', 'bold')"><b>B</b></button></div><div id="a_p3_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p3_mk', 'a_p3_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_en', 'bold')"><b>B</b></button></div><div id="a_p3_en" class="editor-content" contenteditable="true"></div></div></div></div>
-    <label>Пасус 4:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p4_en', 'a_p4_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_mk', 'bold')"><b>B</b></button></div><div id="a_p4_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p4_mk', 'a_p4_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_en', 'bold')"><b>B</b></button></div><div id="a_p4_en" class="editor-content" contenteditable="true"></div></div></div></div>
-    <label>Пасус 5:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p5_en', 'a_p5_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_mk', 'bold')"><b>B</b></button></div><div id="a_p5_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p5_mk', 'a_p5_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_en', 'bold')"><b>B</b></button></div><div id="a_p5_en" class="editor-content" contenteditable="true"></div></div></div></div>
-    <label>Цитат:</label><div class="lang-row"><div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_quote_en', 'a_quote_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_mk', 'bold')"><b>B</b></button></div><div id="a_quote_mk" class="editor-content" contenteditable="true"></div></div></div><div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_quote_mk', 'a_quote_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_en', 'bold')"><b>B</b></button></div><div id="a_quote_en" class="editor-content" contenteditable="true"></div></div></div></div>
+    
+    <label>Пасус 1:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p1_en', 'a_p1_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_mk', 'bold')"><b>B</b></button></div><div id="a_p1_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p1_mk', 'a_p1_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p1_en', 'bold')"><b>B</b></button></div><div id="a_p1_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
+    <label>Пасус 2:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p2_en', 'a_p2_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_mk', 'bold')"><b>B</b></button></div><div id="a_p2_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p2_mk', 'a_p2_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p2_en', 'bold')"><b>B</b></button></div><div id="a_p2_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
+    <label>Пасус 3:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p3_en', 'a_p3_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_mk', 'bold')"><b>B</b></button></div><div id="a_p3_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p3_mk', 'a_p3_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p3_en', 'bold')"><b>B</b></button></div><div id="a_p3_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
+    <label>Пасус 4:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p4_en', 'a_p4_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_mk', 'bold')"><b>B</b></button></div><div id="a_p4_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p4_mk', 'a_p4_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p4_en', 'bold')"><b>B</b></button></div><div id="a_p4_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
+    <label>Пасус 5:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_p5_en', 'a_p5_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_mk', 'bold')"><b>B</b></button></div><div id="a_p5_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_p5_mk', 'a_p5_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_p5_en', 'bold')"><b>B</b></button></div><div id="a_p5_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
+    <label>Цитат:</label>
+    <div class="lang-row">
+      <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('a_quote_en', 'a_quote_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_mk', 'bold')"><b>B</b></button></div><div id="a_quote_mk" class="editor-content" contenteditable="true"></div></div></div>
+      <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('a_quote_mk', 'a_quote_en', 'mk', 'en')">MK➔EN 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('a_quote_en', 'bold')"><b>B</b></button></div><div id="a_quote_en" class="editor-content" contenteditable="true"></div></div></div>
+    </div>
+
     <button class="btn" onclick="saveFile('content/about.json', getAboutData(), 'about.msg')">Зачувај на GitHub</button>
     <div id="about.msg" class="status"></div>
   </div>
@@ -170,15 +254,18 @@
     
     <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
       <h4 style="margin-top: 0; color: var(--primary);">⏳ Очекувано Легло (Upcoming / Planned Mating)</h4>
+      
       <label>Наслов:</label>
       <div class="lang-row">
         <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('up_title_en', 'up_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="up_title_mk"></textarea></div>
         <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('up_title_mk', 'up_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="up_title_en"></textarea></div>
       </div>
+      
       <label>Фотографии:</label>
       <input type="text" id="up_image" class="hidden-image-input" />
       <div id="up_image_preview" class="image-preview-area"></div>
       <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'up_image', 'up_image_preview')"></div>
+      
       <label>Опис:</label>
       <div class="lang-row">
         <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('up_desc_en', 'up_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('up_desc_mk', 'bold')"><b>B</b></button></div><div id="up_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
@@ -188,15 +275,18 @@
 
     <div class="item-card" style="border: 2px solid var(--primary); background: #f0f9ff;">
       <h4 style="margin-top: 0; color: var(--primary);">🐾 Моментално Активно Легло (Current Litter)</h4>
+      
       <label>Наслов:</label>
       <div class="lang-row">
         <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('cur_title_en', 'cur_title_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><textarea rows="2" id="cur_title_mk"></textarea></div>
         <div class="lang-box"><h4>🇬🇧 EN <button type="button" class="translate-btn" onclick="autoTranslate('cur_title_mk', 'cur_title_en', 'mk', 'en')">MK➔EN 🤖</button></h4><textarea rows="2" id="cur_title_en"></textarea></div>
       </div>
+      
       <label>Фотографии:</label>
       <input type="text" id="cur_image" class="hidden-image-input" />
       <div id="cur_image_preview" class="image-preview-area"></div>
       <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'cur_image', 'cur_image_preview')"></div>
+      
       <label>Опис:</label>
       <div class="lang-row">
         <div class="lang-box"><h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('cur_desc_en', 'cur_desc_mk', 'en', 'mk')">EN➔MK 🤖</button></h4><div class="editor-wrapper"><div class="editor-toolbar"><button type="button" onclick="formatText('cur_desc_mk', 'bold')"><b>B</b></button></div><div id="cur_desc_mk" class="editor-content" contenteditable="true"></div></div></div>
@@ -207,7 +297,8 @@
     <h4 style="margin-top: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">📚 Архива на Легла (Previous Litters)</h4>
     <div id="litters-container"></div>
     <button class="btn btn-secondary" onclick="addLitterItem()">+ Додај ново легло во архива</button>
-    <br><br>
+    
+    <br><br><br>
     <button class="btn" style="width: 100%; justify-content: center; font-size: 16px;" onclick="saveFile('content/litters.json', getLittersData(), 'litters.msg')">Зачувај сите промени за Легла на GitHub</button>
     <div id="litters.msg" class="status"></div>
   </div>
@@ -224,7 +315,7 @@
 
   <!-- 8. БЛОГ -->
   <div id="blog" class="tab-content">
-    <h3>📝 Блог објави</h3>
+    <h3>📝 Блог објави со дополнителни полиња</h3>
     <div id="blog-container"></div>
     <button class="btn btn-secondary" onclick="addBlogPost()">+ Креирај нов блог пост</button>
     <br><br>
@@ -613,14 +704,12 @@
   }
   function addPuppyItem() { puppiesData.push({ name_mk: "", name_en: "", status_mk: "Достапно", status_en: "Available", image: "", details_mk: "", details_en: "" }); renderPuppies(); }
 
-  /* =========================================
-     БЛОГ СО ДОДАТОК ЗА РЕДОВИ (СЛИКА ПА ТЕКСТ) 
-     ========================================= */
   function renderBlog() {
-    const c = document.getElementById('blog-container'); c.innerHTML = '';
+    const c = document.getElementById('blog-container'); 
+    c.innerHTML = '';
     
     blogData.forEach((post, i) => {
-      // Иницијализирај ја низата со дополнителни редови ако е празна
+      // Иницијализација на rows за дополнителни полиња
       if(!post.rows) post.rows = [];
 
       let rowsHtml = '';
@@ -632,7 +721,7 @@
               <button type="button" class="remove-btn" style="position:static;" onclick="removeBlogRow(${i}, ${rIdx})">Избриши ред</button>
             </div>
             
-            <label>Наслов на дополнителен ред (МК / EN):</label>
+            <label>Наслов на ред (МК / EN):</label>
             <div class="lang-row" style="margin-top:5px;">
               <div class="lang-box">
                 <h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_row_t_en_${i}_${rIdx}', 'blog_row_t_mk_${i}_${rIdx}', 'en', 'mk')">EN➔MK 🤖</button></h4>
@@ -644,12 +733,12 @@
               </div>
             </div>
 
-            <label>Слика(и) кои ќе стојат НАД текстот:</label>
+            <label>Слика(и) за овој ред (ќе се прикажат над текстот):</label>
             <input type="text" id="blog_row_img_${i}_${rIdx}" value="${row.image || ''}" class="hidden-image-input">
             <div id="blog_row_prev_${i}_${rIdx}" class="image-preview-area"></div>
             <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_row_img_${i}_${rIdx}', 'blog_row_prev_${i}_${rIdx}')"></div>
 
-            <label>Текст на дополнителен ред (МК / EN):</label>
+            <label>Текст на ред (МК / EN):</label>
             <div class="lang-row" style="margin-top:5px;">
               <div class="lang-box">
                 <h4>🇲🇰 МК <button type="button" class="translate-btn translate-btn-alt" onclick="autoTranslate('blog_row_txt_en_${i}_${rIdx}', 'blog_row_txt_mk_${i}_${rIdx}', 'en', 'mk')">EN➔MK 🤖</button></h4>
@@ -667,7 +756,7 @@
       });
 
       c.innerHTML += `<div class="item-card">
-        <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши ја објавата</button>
+        <button class="remove-btn" onclick="blogData.splice(${i},1); renderBlog();">Избриши ја цела објава</button>
         
         <label>Главен наслов (МК / EN):</label>
         <div class="lang-row">
@@ -711,7 +800,7 @@
 
       </div>`;
     });
-
+    
     setTimeout(() => {
       blogData.forEach((post, i) => {
         renderImagePreviews(`blog_${i}`, `blog_preview_${i}`);
@@ -731,7 +820,7 @@
   }
 
   function addBlogRow(postIndex) {
-    triggerFieldUpdates(); // Собери ги моменталните податоци за да не се избришат
+    triggerFieldUpdates(); 
     if(!blogData[postIndex].rows) blogData[postIndex].rows = [];
     blogData[postIndex].rows.push({ title_mk: "", title_en: "", text_mk: "", text_en: "", image: "" });
     renderBlog();
@@ -743,7 +832,6 @@
     renderBlog();
   }
 
-  // --- ПОПРАВКАТА: СОБИРАЊЕ НА ИМЕЏИТЕ И НОВИТЕ ПОЛИЊА ВО БЛОГОТ ---
   function triggerFieldUpdates() {
     document.querySelectorAll('#dogs-container .item-card').forEach((card, i) => {
       if(!dogsData[i]) return;
@@ -775,7 +863,7 @@
       puppiesData[i].details_en = document.getElementById(`pup_desc_en_${i}`)?.innerHTML || '';
     });
 
-    // ТУКА БЕШЕ ГРЕШКАТА ВО ТВОЈОТ ОРИГИНАЛЕН КОД (Немаше зачувување за .image, .date и .rows)
+    // ПОПРАВКАТА Е ТУКА: Сега се зачувуваат и image и сите rows
     document.querySelectorAll('#blog-container .item-card').forEach((card, i) => {
       if(!blogData[i]) return;
       blogData[i].title_mk = nl2br(document.getElementById(`blog_t_mk_${i}`)?.value || '');
@@ -932,7 +1020,7 @@
     statusEl.className = 'status loading';
     statusEl.innerText = '⏳ Се синхронизира со GitHub...';
 
-    // Ако е блог, стави ги податоците во објект { posts: [...] }
+    // Зачувување на блог
     let payload = jsonData;
     if(filePath === 'content/blog.json') {
       payload = { posts: blogData };
