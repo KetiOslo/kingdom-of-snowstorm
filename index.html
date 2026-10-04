@@ -1062,6 +1062,34 @@
       transform: scale(1.1);
     }
 
+    /* BLOG CARD STYLES */
+    .blog-read-more-btn {
+      margin-top: 15px;
+      background: var(--gold-primary);
+      color: var(--white) !important;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      transition: var(--transition);
+    }
+    .blog-read-more-btn:hover {
+      background: var(--gold-hover);
+    }
+    .blog-full-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--pistachio-border);
+    }
+    .blog-excerpt-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
     @media (max-width: 900px) {
       .container { padding: 0 12px; }
 
@@ -1441,8 +1469,8 @@
         </p>
       </div>
 
-      <!-- CMS BLOG POSTS -->
-      <div class="dogs-luxury-grid" id="dynamicBlogContainer"></div>
+      <!-- ВАЖНО: Овде е додадено align-items: start; за картичките да не се развлекуваат -->
+      <div class="dogs-luxury-grid" id="dynamicBlogContainer" style="align-items: start;"></div>
     </div>
   </section>
 
@@ -2401,6 +2429,7 @@
       }).join('');
     }
 
+    // НОВАТА ЛОГИКА ЗА БЛОГОТ
     function renderBlogPosts(posts) {
       const container = document.getElementById('dynamicBlogContainer');
       if (!container) return;
@@ -2410,7 +2439,10 @@
         let mediaHtml = '';
         const titleText = getLocalizedField(post, 'title');
         const catText = getLocalizedField(post, 'category') || translations[currentLang].news_label || 'NEWS';
-        const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || getLocalizedField(post, 'excerpt') || '';
+        
+        // Разделуваме краток извадок и целосен текст
+        const excerptText = getLocalizedField(post, 'excerpt') || '';
+        const contentText = getLocalizedField(post, 'content') || getLocalizedField(post, 'description') || '';
 
         if (imgList.length > 0) {
           const safeTitle = getSafeString(titleText);
@@ -2431,17 +2463,76 @@
           }
         }
 
+        // Креираме HTML за дополнителните редови од админот (повеќе слики/текст)
+        let rowsHtml = '';
+        if (post.rows && post.rows.length > 0) {
+          rowsHtml = post.rows.map(row => {
+            const rTitle = getLocalizedField(row, 'title');
+            const rText = getLocalizedField(row, 'text');
+            const rImg = row.image ? resolveImagePath(row.image) : '';
+            
+            let imgHtml = rImg ? `<img src="${rImg}" style="width:100%; border-radius:8px; margin: 15px 0 10px;" alt="Post Image">` : '';
+            let titleHtml = rTitle ? `<h4 style="font-family: var(--font-serif); color: var(--pistachio-dark); font-size:1.3rem; margin-top:15px; margin-bottom:5px;">${rTitle}</h4>` : '';
+            let textHtml = rText ? `<div style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${rText}</div>` : '';
+            
+            return `<div style="margin-top: 15px;">${titleHtml}${imgHtml}${textHtml}</div>`;
+          }).join('');
+        }
+
+        // Ако нема excerpt, земаме првите 150 карактери од content за да не биде празно
+        let finalExcerptHtml = excerptText ? `<div class="blog-excerpt-text">${excerptText}</div>` : '';
+        if (!excerptText && contentText) {
+            finalExcerptHtml = `<div class="blog-excerpt-text">${contentText.substring(0, 150)}...</div>`;
+        }
+
+        // Ако имаме целосен текст или дополнителни редови, ставаме копче "Прочитај повеќе"
+        let readMoreHtml = '';
+        let fullTextDiv = '';
+        
+        if (contentText || rowsHtml) {
+          const btnText = currentLang === 'mk' ? 'Прочитај повеќе' : 'Read More';
+          readMoreHtml = `<button class="blog-read-more-btn" onclick="toggleBlogContent(this, '${currentLang}')">${btnText}</button>`;
+          
+          fullTextDiv = `
+            <div class="blog-full-content">
+              <div style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${contentText}</div>
+              ${rowsHtml}
+            </div>
+          `;
+        }
+
         return `
-          <div class="card-luxury" style="padding: 0; overflow: hidden;">
+          <div class="card-luxury" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
             ${mediaHtml}
-            <div style="padding: 24px;">
+            <div style="padding: 24px; flex-grow: 1; display: flex; flex-direction: column;">
               <span style="font-size: 0.74rem; font-weight: 700; color: var(--gold-hover); letter-spacing: 1px;">${catText}</span>
               <h3 style="font-family: var(--font-serif); font-size: 1.55rem; margin: 10px 0;">${titleText}</h3>
-              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${contentText}</p>
+              ${finalExcerptHtml}
+              ${fullTextDiv}
+              <div style="margin-top: auto;">
+                ${readMoreHtml}
+              </div>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    // НОВА ФУНКЦИЈА: Го отвора/затвора блогот кога ќе кликнеш на копчето
+    function toggleBlogContent(btn, lang) {
+      const card = btn.closest('.card-luxury');
+      const fullContent = card.querySelector('.blog-full-content');
+      const excerpt = card.querySelector('.blog-excerpt-text');
+      
+      if (fullContent.style.display === 'block') {
+        fullContent.style.display = 'none';
+        if (excerpt) excerpt.style.display = 'block';
+        btn.innerText = lang === 'mk' ? 'Прочитај повеќе' : 'Read More';
+      } else {
+        fullContent.style.display = 'block';
+        if (excerpt) excerpt.style.display = 'none';
+        btn.innerText = lang === 'mk' ? 'Затвори' : 'Close';
+      }
     }
 
     function getLocalizedCategory(cat) {
