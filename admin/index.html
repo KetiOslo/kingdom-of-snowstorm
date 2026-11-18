@@ -328,6 +328,130 @@
 <script>
   let galleryData = [], dogsData = [], littersData = [], puppiesData = [], blogData = [];
   const repo = 'KetiOslo/kingdom-of-snowstorm';
+  const publishBranch = 'main';
+  let activeImageUploads = 0;
+  let activeContentSaves = 0;
+  const publicationChecks = new Map();
+  const sleepMs = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  // Keep the image field compatible with both old comma-separated `image`
+  // and historical JSON records containing an `images` array.
+  function updateImageRecord(record, inputId) {
+    const input = document.getElementById(inputId);
+    if (!record || !input) return;
+    const value = input.value.trim();
+    record.image = value;
+    if (Array.isArray(record.images)) {
+      record.images = value ? value.split(',').map(x => x.trim()).filter(Boolean) : [];
+    }
+  }
+
+  function imageValueForEditor(record) {
+    if (typeof record.image === 'string' && record.image.trim()) return record.image;
+    if (Array.isArray(record.images)) return record.images.join(', ');
+    return typeof record.image === 'string' ? record.image : '';
+  }
+
+  // API failures are surfaced instead of reporting a false success.
+  async function githubJson(path, token, method = 'GET', body = undefined) {
+    const res = await fetch(`https://api.github.com/repos/${repo}${path}`, {
+      method,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        ...(body === undefined ? {} : { 'Content-Type': 'application/json' })
+      },
+      ...(body === undefined ? {} : { body: JSON.stringify(body) })
+    });
+    let data = {};
+    try { data = await res.json(); } catch (_) { /* Some errors have no JSON body. */ }
+    if (!res.ok) {
+      const message = data && data.message ? data.message : res.statusText || 'Unknown error';
+      throw new Error(`GitHub HTTP ${res.status}: ${message}`);
+    }
+    return data;
+  }
+
+  // All images in a selection become ONE Git commit and ONE Pages trigger.
+  // Blobs and trees are prepared before advancing the branch reference.
+  async function commitImageBatch(files, token, onProgress) {
+    const entries = [];
+    const batchId = `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (!file.size) throw new Error(`Празна датотека: ${file.name}`);
+      const safeName = file.name.replace(/[^A-Za-z0-9._-]/g, '_').slice(-90) || `image_${i}.jpg`;
+      const filePath = `content/images/${batchId}_${i}_${safeName}`;
+      onProgress(`⏳ Се префрлаат фотографии во GitHub: ${i + 1}/${files.length}`);
+      const base64 = await toBase64(file);
+      const blob = await githubJson('/git/blobs', token, 'POST', {
+        content: base64,
+        encoding: 'base64'
+      });
+      if (!blob.sha) throw new Error(`GitHub не врати blob SHA за ${file.name}`);
+      entries.push({ path: filePath, mode: '100644', type: 'blob', sha: blob.sha });
+    }
+
+    onProgress('⏳ Се креира еден GitHub commit за сите фотографии...');
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const currentRef = await githubJson(`/git/ref/heads/${encodeURIComponent(publishBranch)}`, token);
+      const headSha = currentRef.object?.sha;
+      if (!headSha) throw new Error('Не може да се прочита GitHub branch HEAD.');
+      const headCommit = await githubJson(`/git/commits/${headSha}`, token);
+      const treeSha = headCommit.tree?.sha;
+      if (!treeSha) throw new Error('Не може да се прочита GitHub tree SHA.');
+      const newTree = await githubJson('/git/trees', token, 'POST', {
+        base_tree: treeSha,
+        tree: entries
+      });
+      const newCommit = await githubJson('/git/commits', token, 'POST', {
+        message: `Upload ${entries.length} image(s) as one batch`,
+        tree: newTree.sha,
+        parents: [headSha]
+      });
+      try {
+        await githubJson(`/git/refs/heads/${encodeURIComponent(publishBranch)}`, token, 'PATCH', {
+          sha: newCommit.sha,
+          force: false
+        });
+        return entries.map(entry => entry.path);
+      } catch (e) {
+        // Another editor may have advanced main since we read its HEAD.
+        if (attempt === 3 || !/HTTP (409|422)/.test(e.message)) throw e;
+        await sleepMs(300 * attempt);
+      }
+    }
+    throw new Error('GitHub upload conflict. Обиди се повторно.');
+  }
+
+  // Never call a Git commit "published" until the public site returns this JSON.
+  async function verifyPublicJson(filePath, payload, statusEl, verificationId) {
+    const expected = JSON.stringify(payload);
+    const url = new URL('../' + filePath, document.baseURI);
+    for (let attempt = 0; attempt < 60; attempt++) {
+      if (publicationChecks.get(filePath) !== verificationId) return;
+      await sleepMs(attempt === 0 ? 2500 : 10000);
+      if (publicationChecks.get(filePath) !== verificationId) return;
+      try {
+        url.searchParams.set('publish_check', String(Date.now()));
+        const res = await fetch(url.toString(), { cache: 'no-store' });
+        if (!res.ok) continue;
+        const live = await res.json();
+        if (JSON.stringify(live) === expected) {
+          statusEl.className = 'status success';
+          statusEl.innerText = '✓ Потврдено: JSON промените се видливи и на јавниот сајт.';
+          return;
+        }
+      } catch (error) {
+        console.warn('[CMS public verification]', filePath, error);
+      }
+    }
+    if (publicationChecks.get(filePath) === verificationId) {
+      statusEl.className = 'status error';
+      statusEl.innerText = '⚠ Зачувано на GitHub, но јавниот JSON не е потврден. Провери GitHub → Actions → Pages.';
+    }
+  }
+
 
   function nl2br(str) { return str ? str.toString().replace(/\n/g, '<br>') : ''; }
   function br2nl(str) { return str ? str.toString().replace(/<br\s*\/?>/gi, '\n') : ''; }
@@ -357,7 +481,7 @@
     if (!cleanPath) return '';
     if (cleanPath.startsWith('http')) return cleanPath;
     if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
-    if (cleanPath.startsWith('content/images/')) return '../' + cleanPath;
+    if (cleanPath.startsWith('content/images/')) return `https://raw.githubusercontent.com/${repo}/${publishBranch}/${cleanPath}`;
     if (cleanPath.startsWith('content/')) return '../' + cleanPath;
     if (cleanPath.startsWith('images/')) return '../content/' + cleanPath;
     return '../content/images/' + cleanPath;
@@ -392,6 +516,7 @@
       let paths = val.split(',').map(s=>s.trim()).filter(Boolean);
       paths.splice(indexToRemove, 1);
       inputEl.value = paths.join(', ');
+      inputEl.dispatchEvent(new Event('change', { bubbles: true }));
       triggerFieldUpdates();
       renderImagePreviews(inputId, previewBoxId);
     }
@@ -474,7 +599,7 @@
       await loadJSON('content/dogs.json', d => dogsData = d.dogs || d.items || [], renderDogs);
       await loadJSON('content/puppies.json', d => puppiesData = d.puppies || d.items || [], renderPuppies);
       await loadJSON('content/blog.json', d => blogData = d.posts || d.items || [], renderBlog);
-    } catch(e) { console.log("Init OK"); }
+    } catch(e) { console.error("Грешка при вчитување на CMS податоците:", e); }
   });
 
   function switchTab(tabId, event) {
@@ -485,14 +610,19 @@
   }
 
   async function uploadMultipleImagesToGithub(fileInput, targetInputId, previewBoxId) {
-    const files = fileInput.files;
-    if(!files || files.length === 0) return;
+    const files = Array.from(fileInput.files || []);
+    if (!files.length) return;
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
-    if(!token) { alert('Внесете токен најгоре!'); return; }
+    if (!token) { alert('Внесете GitHub токен најгоре!'); fileInput.value = ''; return; }
+    if (activeContentSaves > 0) {
+      alert('Во тек е зачувување. Почекајте да заврши пред ново прикачување.');
+      fileInput.value = '';
+      return;
+    }
 
     const box = fileInput.closest('.file-upload-box');
     let statusInfo = box.querySelector('.upload-status');
-    if(!statusInfo) {
+    if (!statusInfo) {
       statusInfo = document.createElement('div');
       statusInfo.className = 'upload-status';
       statusInfo.style.fontSize = '12px';
@@ -500,43 +630,29 @@
       statusInfo.style.marginTop = '5px';
       box.appendChild(statusInfo);
     }
-    statusInfo.innerText = `⏳ Се прикачуваат ${files.length} слика(и)...`;
 
-    let uploadedPaths = [];
-    const currentInputValue = document.getElementById(targetInputId).value.trim();
-    if(currentInputValue) {
-      uploadedPaths = currentInputValue.split(',').map(s => s.trim()).filter(Boolean);
-    }
-
+    activeImageUploads++;
+    fileInput.disabled = true;
+    statusInfo.innerText = `⏳ Се подготвуваат ${files.length} фотографии...`;
     try {
-      for(let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const base64Content = await toBase64(file);
-        const fileName = Date.now() + '_' + i + '_' + file.name.replace(/\s+/g, '_');
-        const filePath = `content/images/${fileName}`;
-
-        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-          method: 'PUT',
-          headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: `Upload ${fileName}`, content: base64Content })
-        });
-
-        if(res.ok) {
-          uploadedPaths.push(`content/images/${fileName}`);
-        }
-        await new Promise(r => setTimeout(r, 400));
-      }
-
-      const finalString = uploadedPaths.join(', ');
-      document.getElementById(targetInputId).value = finalString;
+      const paths = await commitImageBatch(files, token, message => { statusInfo.innerText = message; });
+      const target = document.getElementById(targetInputId);
+      if (!target) throw new Error('Полето за фотографии повеќе не постои. Не освежувај додека трае upload.');
+      const previous = target.value.split(',').map(x => x.trim()).filter(Boolean);
+      target.value = [...previous, ...paths].join(', ');
+      target.dispatchEvent(new Event('change', { bubbles: true }));
       triggerFieldUpdates();
       renderImagePreviews(targetInputId, previewBoxId);
-      statusInfo.innerText = '✓ Успешно прикачени!';
-      setTimeout(() => statusInfo.innerText='', 3000);
-      fileInput.value = "";
-    } catch(err) {
-      statusInfo.innerText = '✕ Грешка при прикачување.';
-      alert('✕ Грешка при прикачување на сликите.');
+      statusInfo.style.color = '#15803d';
+      statusInfo.innerText = `✓ ${paths.length} фотографии зачувани во еден GitHub commit. Кликни „Зачувај на GitHub“ за да се поврзат со содржината.`;
+    } catch (error) {
+      console.error('[CMS image upload]', error);
+      statusInfo.style.color = '#b91c1c';
+      statusInfo.innerText = `✕ Upload не успеа: ${error.message}. Ништо ново не е поврзано со содржината.`;
+    } finally {
+      activeImageUploads--;
+      fileInput.disabled = false;
+      fileInput.value = '';
     }
   }
 
@@ -570,7 +686,7 @@
         </select>
         
         <label>Фотографии:</label>
-        <input type="text" id="gal_${i}" value="${item.image || ''}" class="hidden-image-input" onchange="galleryData[${i}].image = this.value; renderImagePreviews('gal_${i}', 'gal_preview_${i}')">
+        <input type="text" id="gal_${i}" value="${imageValueForEditor(item)}" class="hidden-image-input" onchange="galleryData[${i}].image = this.value; renderImagePreviews('gal_${i}', 'gal_preview_${i}')">
         <div id="gal_preview_${i}" class="image-preview-area"></div>
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'gal_${i}', 'gal_preview_${i}')"></div>
         
@@ -616,7 +732,7 @@
         </div>
         
         <label>Фотографии:</label>
-        <input type="text" id="dog_${i}" value="${dog.image || ''}" class="hidden-image-input" onchange="dogsData[${i}].image = this.value; renderImagePreviews('dog_${i}', 'dog_preview_${i}')">
+        <input type="text" id="dog_${i}" value="${imageValueForEditor(dog)}" class="hidden-image-input" onchange="dogsData[${i}].image = this.value; renderImagePreviews('dog_${i}', 'dog_preview_${i}')">
         <div id="dog_preview_${i}" class="image-preview-area"></div>
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'dog_${i}', 'dog_preview_${i}')"></div>
         
@@ -648,7 +764,7 @@
         </div>
         
         <label>Фотографии:</label>
-        <input type="text" id="lit_${i}" value="${litter.image || ''}" class="hidden-image-input" onchange="littersData[${i}].image = this.value; renderImagePreviews('lit_${i}', 'lit_preview_${i}')">
+        <input type="text" id="lit_${i}" value="${imageValueForEditor(litter)}" class="hidden-image-input" onchange="littersData[${i}].image = this.value; renderImagePreviews('lit_${i}', 'lit_preview_${i}')">
         <div id="lit_preview_${i}" class="image-preview-area"></div>
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'lit_${i}', 'lit_preview_${i}')"></div>
         
@@ -685,7 +801,7 @@
         </div>
         
         <label>Фотографии:</label>
-        <input type="text" id="pup_${i}" value="${pup.image || ''}" class="hidden-image-input" onchange="puppiesData[${i}].image = this.value; renderImagePreviews('pup_${i}', 'pup_preview_${i}')">
+        <input type="text" id="pup_${i}" value="${imageValueForEditor(pup)}" class="hidden-image-input" onchange="puppiesData[${i}].image = this.value; renderImagePreviews('pup_${i}', 'pup_preview_${i}')">
         <div id="pup_preview_${i}" class="image-preview-area"></div>
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'pup_${i}', 'pup_preview_${i}')"></div>
         
@@ -734,7 +850,7 @@
             </div>
 
             <label>Слика(и) за овој ред (ќе се прикажат над текстот):</label>
-            <input type="text" id="blog_row_img_${i}_${rIdx}" value="${row.image || ''}" class="hidden-image-input">
+            <input type="text" id="blog_row_img_${i}_${rIdx}" value="${imageValueForEditor(row)}" class="hidden-image-input">
             <div id="blog_row_prev_${i}_${rIdx}" class="image-preview-area"></div>
             <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_row_img_${i}_${rIdx}', 'blog_row_prev_${i}_${rIdx}')"></div>
 
@@ -767,7 +883,7 @@
         <label>Датум:</label><input type="date" id="blog_date_${i}" value="${post.date || ''}" style="width:100%; padding:10px; margin-top:6px; border:1px solid var(--border); border-radius:6px;">
         
         <label>Главна фотографија (најгоре на почетната страна):</label>
-        <input type="text" id="blog_${i}" value="${post.image || ''}" class="hidden-image-input">
+        <input type="text" id="blog_${i}" value="${imageValueForEditor(post)}" class="hidden-image-input">
         <div id="blog_preview_${i}" class="image-preview-area"></div>
         <div class="file-upload-box"><input type="file" accept="image/*" multiple onchange="uploadMultipleImagesToGithub(this, 'blog_${i}', 'blog_preview_${i}')"></div>
         
@@ -843,6 +959,7 @@
       dogsData[i].details_en = nl2br(document.getElementById(`dog_d_en_${i}`)?.value || '');
       dogsData[i].narrative_mk = document.getElementById(`dog_desc_mk_${i}`)?.innerHTML || '';
       dogsData[i].narrative_en = document.getElementById(`dog_desc_en_${i}`)?.innerHTML || '';
+      updateImageRecord(dogsData[i], `dog_${i}`);
     });
 
     document.querySelectorAll('#litters-container .item-card').forEach((card, i) => {
@@ -851,6 +968,7 @@
       littersData[i].title_en = nl2br(document.getElementById(`lit_t_en_${i}`)?.value || '');
       littersData[i].description_mk = document.getElementById(`lit_desc_mk_${i}`)?.innerHTML || '';
       littersData[i].description_en = document.getElementById(`lit_desc_en_${i}`)?.innerHTML || '';
+      updateImageRecord(littersData[i], `lit_${i}`);
     });
 
     document.querySelectorAll('#puppies-container .item-card').forEach((card, i) => {
@@ -861,6 +979,7 @@
       puppiesData[i].status_en = nl2br(document.getElementById(`pup_s_en_${i}`)?.value || '');
       puppiesData[i].details_mk = document.getElementById(`pup_desc_mk_${i}`)?.innerHTML || '';
       puppiesData[i].details_en = document.getElementById(`pup_desc_en_${i}`)?.innerHTML || '';
+      updateImageRecord(puppiesData[i], `pup_${i}`);
     });
 
     // ПОПРАВКАТА Е ТУКА: Сега се зачувуваат и image и сите rows
@@ -869,7 +988,7 @@
       blogData[i].title_mk = nl2br(document.getElementById(`blog_t_mk_${i}`)?.value || '');
       blogData[i].title_en = nl2br(document.getElementById(`blog_t_en_${i}`)?.value || '');
       blogData[i].date = document.getElementById(`blog_date_${i}`)?.value || blogData[i].date;
-      blogData[i].image = document.getElementById(`blog_${i}`)?.value || '';
+      updateImageRecord(blogData[i], `blog_${i}`);
       
       blogData[i].excerpt_mk = document.getElementById(`blog_exc_mk_${i}`)?.innerHTML || '';
       blogData[i].excerpt_en = document.getElementById(`blog_exc_en_${i}`)?.innerHTML || '';
@@ -880,7 +999,7 @@
         blogData[i].rows.forEach((row, rIdx) => {
           row.title_mk = nl2br(document.getElementById(`blog_row_t_mk_${i}_${rIdx}`)?.value || '');
           row.title_en = nl2br(document.getElementById(`blog_row_t_en_${i}_${rIdx}`)?.value || '');
-          row.image = document.getElementById(`blog_row_img_${i}_${rIdx}`)?.value || '';
+          updateImageRecord(row, `blog_row_img_${i}_${rIdx}`);
           row.text_mk = document.getElementById(`blog_row_txt_mk_${i}_${rIdx}`)?.innerHTML || '';
           row.text_en = document.getElementById(`blog_row_txt_en_${i}_${rIdx}`)?.innerHTML || '';
         });
@@ -893,6 +1012,7 @@
       galleryData[i].title_en = nl2br(document.getElementById(`gal_t_en_${i}`)?.value || '');
       galleryData[i].caption_mk = document.getElementById(`gal_cap_mk_${i}`)?.innerHTML || '';
       galleryData[i].caption_en = document.getElementById(`gal_cap_en_${i}`)?.innerHTML || '';
+      updateImageRecord(galleryData[i], `gal_${i}`);
     });
   }
 
@@ -1012,46 +1132,60 @@
   async function saveFile(filePath, jsonData, msgId) {
     const token = localStorage.getItem('gh_token') || document.getElementById('gh-token').value.trim();
     const statusEl = document.getElementById(msgId);
-    if(!token) { alert('Внесете токен најгоре!'); return; }
+    if (!token) { alert('Внесете GitHub токен најгоре!'); return; }
+    if (activeImageUploads > 0) {
+      statusEl.className = 'status error';
+      statusEl.innerText = `✕ Сè уште се прикачуваат фотографии (${activeImageUploads}). Зачувај по завршувањето на upload.`;
+      return;
+    }
+    if (activeContentSaves > 0) {
+      statusEl.className = 'status error';
+      statusEl.innerText = '✕ Друго зачувување е во тек. Обиди се по неговото завршување.';
+      return;
+    }
 
     triggerFieldUpdates();
+    // Take a snapshot so a later UI change cannot mutate this request mid-flight.
+    const payload = JSON.parse(JSON.stringify(filePath === 'content/blog.json' ? { posts: blogData } : jsonData));
+    activeContentSaves++;
+    publicationChecks.set(filePath, (publicationChecks.get(filePath) || 0) + 1);
+    const verificationId = publicationChecks.get(filePath);
 
     statusEl.style.display = 'block';
     statusEl.className = 'status loading';
-    statusEl.innerText = '⏳ Се синхронизира со GitHub...';
-
-    // Зачувување на блог
-    let payload = jsonData;
-    if(filePath === 'content/blog.json') {
-      payload = { posts: blogData };
-    }
-
+    statusEl.innerText = '⏳ Се зачувува во GitHub...';
     try {
-      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        headers: { 'Authorization': `token ${token}` }
+      const getUrl = `/contents/${filePath}?ref=${encodeURIComponent(publishBranch)}`;
+      const getRes = await fetch(`https://api.github.com/repos/${repo}${getUrl}`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
       });
-      let sha = getRes.ok ? (await getRes.json()).sha : '';
-
-      const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: `Update ${filePath}`, content: contentBase64, sha: sha })
-      });
-
-      if(putRes.ok) {
-        statusEl.className = 'status success';
-        statusEl.innerText = '✓ Успешно зачувано и објавено!';
-        setTimeout(() => statusEl.style.display = 'none', 4000);
-      } else {
-        statusEl.className = 'status error';
-        statusEl.innerText = '✕ Грешка при зачувување.';
+      if (!getRes.ok && getRes.status !== 404) {
+        let info = {};
+        try { info = await getRes.json(); } catch (_) { }
+        throw new Error(`GitHub HTTP ${getRes.status}: ${info.message || 'Read failed'}`);
       }
-    } catch(err) {
+      const sha = getRes.ok ? (await getRes.json()).sha : undefined;
+      const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+      await githubJson(`/contents/${filePath}`, token, 'PUT', {
+        message: `Update ${filePath}`,
+        branch: publishBranch,
+        content: contentBase64,
+        ...(sha ? { sha } : {})
+      });
+
+      statusEl.className = 'status loading';
+      statusEl.innerText = '✓ GitHub го зачува JSON. Се проверува дали GitHub Pages ја објавил новата верзија...';
+      // Poll without blocking the administrator's ability to edit another section.
+      void verifyPublicJson(filePath, payload, statusEl, verificationId);
+    } catch (error) {
+      console.error('[CMS save]', filePath, error);
       statusEl.className = 'status error';
-      statusEl.innerText = '✕ Мрежна грешка.';
+      statusEl.innerText = `✕ Промената НЕ е зачувана: ${error.message}`;
+    } finally {
+      activeContentSaves--;
     }
   }
+
 </script>
 
 </body>
