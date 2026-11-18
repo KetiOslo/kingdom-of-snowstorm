@@ -1911,17 +1911,17 @@
     }
 
     function parseImages(item) {
-      let imgList = [];
-      if (Array.isArray(item.images)) {
-        imgList = item.images;
-      } else if (item.image) {
-        if (item.image.includes(',')) {
-          imgList = item.image.split(',').map(s => s.trim());
-        } else {
-          imgList = [item.image];
-        }
+      if (!item) return [];
+      let list = [];
+      if (Array.isArray(item.images) && item.images.length) {
+        list = item.images;
+      } else if (Array.isArray(item.image)) {
+        list = item.image;
+      } else if (typeof item.image === 'string') {
+        list = item.image.split(',');
       }
-      return imgList.filter(Boolean);
+      return list.flatMap(value => typeof value === 'string' ? value.split(',') : [])
+        .map(value => value.trim()).filter(Boolean);
     }
 
     function selectTab(tabId, saveState = true) {
@@ -2010,31 +2010,35 @@
       const ts = new Date().getTime();
 
       try {
-        const res = await fetch('content/settings.json?t=' + ts);
+        const res = await fetch('content/settings.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for settings.json`);
         if (res.ok) {
           cachedSettingsData = await res.json();
           renderSettings(cachedSettingsData);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load settings.json", e); }
 
       try {
-        const res = await fetch('content/home.json?t=' + ts);
+        const res = await fetch('content/home.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for home.json`);
         if (res.ok) {
           cachedHomeData = await res.json();
           renderHome(cachedHomeData);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load home.json", e); }
 
       try {
-        const res = await fetch('content/about.json?t=' + ts);
+        const res = await fetch('content/about.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for about.json`);
         if (res.ok) {
           cachedAboutData = await res.json();
           renderAbout(cachedAboutData);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load about.json", e); }
 
       try {
-        const res = await fetch('content/available.json?t=' + ts);
+        const res = await fetch('content/available.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for available.json`);
         if (res.ok) {
           const av = await res.json();
           const avTitle = getLocalizedField(av, 'title');
@@ -2049,10 +2053,11 @@
           cachedAvailableDogs = av.items || av.dogs || av.puppies || [];
           renderAvailableDogs(cachedAvailableDogs);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load available.json", e); }
 
       try {
-        const res2 = await fetch('content/puppies.json?t=' + ts);
+        const res2 = await fetch('content/puppies.json?t=' + ts, { cache: 'no-store' });
+        if (!res2.ok) throw new Error(`HTTP ${res2.status} for puppies.json`);
         if (res2.ok) {
           const pData = await res2.json();
           const pItems = pData.puppies || pData.items || [];
@@ -2061,19 +2066,21 @@
             renderAvailableDogs(cachedAvailableDogs);
           }
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load puppies.json", e); }
 
       try {
-        const res = await fetch('content/dogs.json?t=' + ts);
+        const res = await fetch('content/dogs.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for dogs.json`);
         if (res.ok) {
           const d = await res.json();
           cachedDogsList = d.items || d.dogs || [];
           renderDogs(cachedDogsList);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load dogs.json", e); }
 
       try {
-        const res = await fetch('content/litters.json?t=' + ts);
+        const res = await fetch('content/litters.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for litters.json`);
         if (res.ok) {
           const l = await res.json();
           cachedUpcomingLitter = l.upcoming || {};
@@ -2083,25 +2090,27 @@
           renderCurrentLitter(cachedCurrentLitter);
           renderLitters(cachedLittersList);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load litters.json", e); }
 
       try {
-        const res = await fetch('content/blog.json?t=' + ts);
+        const res = await fetch('content/blog.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for blog.json`);
         if (res.ok) {
           const b = await res.json();
           cachedBlogPosts = b.items || b.posts || [];
           renderBlogPosts(cachedBlogPosts);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load blog.json", e); }
 
       try {
-        const res = await fetch('content/gallery.json?t=' + ts);
+        const res = await fetch('content/gallery.json?t=' + ts, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for gallery.json`);
         if (res.ok) {
           const data = await res.json();
           allGalleryItems = data.items || [];
           renderGalleryCards(allGalleryItems);
         }
-      } catch(e) {}
+      } catch(e) { console.warn("[CMS] Could not load gallery.json", e); }
 
       applyLanguageTranslations();
 
@@ -2170,7 +2179,8 @@
 
     function renderDogs(dogs) {
       const container = document.getElementById('dynamicDogsContainer');
-      if (!container || !dogs || dogs.length === 0) return;
+      if (!container) return;
+      if (!dogs || dogs.length === 0) { container.innerHTML = ''; return; }
       
       container.innerHTML = dogs.map(dog => {
         let imgList = parseImages(dog);
@@ -2348,7 +2358,8 @@
 
     function renderLitters(litters) {
       const container = document.getElementById('dynamicLittersContainer');
-      if (!container || !litters || litters.length === 0) return;
+      if (!container) return;
+      if (!litters || litters.length === 0) { container.innerHTML = ''; return; }
       
       container.innerHTML = litters.map(l => {
         const titleText = getLocalizedField(l, 'title') || getLocalizedField(l, 'pair') || '';
@@ -2469,9 +2480,13 @@
           rowsHtml = post.rows.map(row => {
             const rTitle = getLocalizedField(row, 'title');
             const rText = getLocalizedField(row, 'text');
-            const rImg = row.image ? resolveImagePath(row.image) : '';
-            
-            let imgHtml = rImg ? `<img src="${rImg}" style="width:100%; border-radius:8px; margin: 15px 0 10px;" alt="Post Image">` : '';
+            const rowImages = parseImages(row);
+            const safeRowTitle = getSafeString(rTitle);
+            const rowImgList = getSafeString(rowImages.join(','));
+            const imgHtml = rowImages.map((img, idx) => {
+              const url = resolveImagePath(img);
+              return `<img src="${url}" data-images="${rowImgList}" data-title="${safeRowTitle}" onclick="openLightboxFromElement(this, ${idx})" onerror="console.warn('Failed blog row image:', this.src)" style="width:100%; border-radius:8px; margin: 15px 0 10px; cursor:pointer;" alt="Post Image">`;
+            }).join('');
             let titleHtml = rTitle ? `<h4 style="font-family: var(--font-serif); color: var(--pistachio-dark); font-size:1.3rem; margin-top:15px; margin-bottom:5px;">${rTitle}</h4>` : '';
             let textHtml = rText ? `<div style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">${rText}</div>` : '';
             
@@ -2549,7 +2564,8 @@
 
     function renderGalleryCards(items) {
       const container = document.getElementById('dynamicGalleryContainer');
-      if (!container || !items || items.length === 0) return;
+      if (!container) return;
+      if (!items || items.length === 0) { container.innerHTML = ''; return; }
       container.innerHTML = items.map((item, index) => {
         let imgList = parseImages(item);
         const itemImg = imgList.length > 0 ? resolveImagePath(imgList[0]) : '2.png';
